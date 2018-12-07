@@ -1,6 +1,10 @@
 package com.mayhew3.mediamogul.dataobject;
 
-import com.mayhew3.mediamogul.db.PostgresConnection;
+import com.mayhew3.postgresobject.dataobject.DataObject;
+import com.mayhew3.postgresobject.dataobject.FieldValue;
+import com.mayhew3.postgresobject.dataobject.FieldValueInteger;
+import com.mayhew3.postgresobject.dataobject.FieldValueString;
+import com.mayhew3.postgresobject.db.PostgresConnection;
 import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.TiVoEpisode;
 import org.junit.Before;
@@ -21,7 +25,7 @@ public class EpisodeTest {
   @Before
   public void setUp() {
     episode = new Episode();
-    episode.id.initializeValue(INITIAL_ID);
+    episode.id.changeValue(INITIAL_ID);
   }
 
   @Test

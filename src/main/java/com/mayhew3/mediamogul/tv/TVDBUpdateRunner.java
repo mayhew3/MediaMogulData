@@ -1,9 +1,9 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.ArgumentChecker;
-import com.mayhew3.mediamogul.db.PostgresConnectionFactory;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBUpdateError;

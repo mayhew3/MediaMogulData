@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.model.tv;
 
-import com.mayhew3.mediamogul.dataobject.*;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.dataobject.*;
+import com.mayhew3.postgresobject.db.SQLConnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

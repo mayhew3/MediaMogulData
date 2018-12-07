@@ -2,7 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBWorkItem;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;

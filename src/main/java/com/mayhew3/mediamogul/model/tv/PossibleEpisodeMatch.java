@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.model.tv;
 
-import com.mayhew3.mediamogul.dataobject.*;
+import com.mayhew3.postgresobject.dataobject.*;
 import org.jetbrains.annotations.NotNull;
 
 public class PossibleEpisodeMatch extends RetireableDataObject implements Comparable<PossibleEpisodeMatch> {

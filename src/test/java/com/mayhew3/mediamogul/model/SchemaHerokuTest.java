@@ -1,8 +1,8 @@
 package com.mayhew3.mediamogul.model;
 
-import com.mayhew3.mediamogul.dataobject.DataObjectMismatch;
-import com.mayhew3.mediamogul.db.PostgresConnectionFactory;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.dataobject.DataObjectMismatch;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import org.junit.Test;
 

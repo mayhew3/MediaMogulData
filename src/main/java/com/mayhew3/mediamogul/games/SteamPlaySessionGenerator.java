@@ -1,8 +1,8 @@
 package com.mayhew3.mediamogul.games;
 
-import com.mayhew3.mediamogul.ArgumentChecker;
-import com.mayhew3.mediamogul.db.PostgresConnectionFactory;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.GameplaySession;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;

@@ -2,8 +2,9 @@ package com.mayhew3.mediamogul;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.db.PostgresConnectionFactory;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.mediamogul.games.SteamGameUpdater;
 import com.mayhew3.mediamogul.games.provider.SteamProviderImpl;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;

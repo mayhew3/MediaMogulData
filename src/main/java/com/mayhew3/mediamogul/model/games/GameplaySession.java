@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.model.games;
 
-import com.mayhew3.mediamogul.dataobject.*;
+import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.mediamogul.model.Person;
 
 public class GameplaySession extends RetireableDataObject {

@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.archive;
 
-import com.mayhew3.mediamogul.dataobject.DataObject;
+import com.mayhew3.postgresobject.dataobject.DataObject;
 
 public abstract class ArchiveableFactory<T extends DataObject> {
   public abstract T createEntity();

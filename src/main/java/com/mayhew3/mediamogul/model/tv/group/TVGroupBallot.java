@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.model.tv.group;
 
-import com.mayhew3.mediamogul.dataobject.*;
+import com.mayhew3.postgresobject.dataobject.*;
 
 public class TVGroupBallot extends RetireableDataObject {
 

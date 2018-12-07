@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.model;
 
-import com.mayhew3.mediamogul.dataobject.DataSchema;
+import com.mayhew3.postgresobject.dataobject.DataSchema;
 import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.model.tv.group.*;

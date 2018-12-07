@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.model.tv;
 
-import com.mayhew3.mediamogul.dataobject.*;
+import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.mediamogul.model.Person;
 
 public class EpisodeRating extends RetireableDataObject {

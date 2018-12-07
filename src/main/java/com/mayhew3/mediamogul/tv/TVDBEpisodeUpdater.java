@@ -2,8 +2,8 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.dataobject.FieldValue;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.dataobject.FieldValue;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.tv.exception.MalformedTVDBEpisodeException;
 import com.mayhew3.mediamogul.tv.exception.MultipleMatchesException;

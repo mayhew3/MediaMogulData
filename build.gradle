@@ -15,7 +15,7 @@ repositories {
     jcenter()
     maven { url 'https://jitpack.io' }
     flatDir {
-        dirs "$System.env.IDEA_ANNOTATIONS_DIR"
+        dirs "$System.env.IDEA_ANNOTATIONS_DIR", "$System.env.POSTGRES_OBJECTS_DIR"
     }
 }
 
@@ -31,6 +31,7 @@ dependencies {
     compile 'org.seleniumhq.selenium:selenium-server:3.12.0'
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
     compile name: 'annotations-java8'
+    compile name: 'postgres-object-0.9.0'
     compile 'com.github.igdb:api-java:2.0.1'
 
     // Use JUnit test framework

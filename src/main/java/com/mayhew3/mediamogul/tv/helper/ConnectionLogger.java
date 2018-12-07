@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.tv.helper;
 
 import com.mayhew3.mediamogul.model.tv.ConnectLog;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 
 import java.sql.ResultSet;

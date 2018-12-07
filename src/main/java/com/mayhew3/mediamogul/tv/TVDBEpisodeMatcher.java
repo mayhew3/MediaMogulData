@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.tv;
 
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.*;
 import info.debatty.java.stringsimilarity.NGram;
 import info.debatty.java.stringsimilarity.interfaces.StringDistance;

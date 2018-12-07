@@ -1,8 +1,8 @@
 package com.mayhew3.mediamogul.model.tv.group;
 
-import com.mayhew3.mediamogul.dataobject.FieldValueForeignKey;
-import com.mayhew3.mediamogul.dataobject.Nullability;
-import com.mayhew3.mediamogul.dataobject.RetireableDataObject;
+import com.mayhew3.postgresobject.dataobject.FieldValueForeignKey;
+import com.mayhew3.postgresobject.dataobject.Nullability;
+import com.mayhew3.postgresobject.dataobject.RetireableDataObject;
 import com.mayhew3.mediamogul.model.tv.Episode;
 
 public class TVGroupEpisode extends RetireableDataObject {

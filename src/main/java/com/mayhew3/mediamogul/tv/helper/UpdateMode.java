@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.tv.helper;
 
 import com.google.common.collect.Lists;
-import com.mayhew3.mediamogul.ArgumentChecker;
+import com.mayhew3.postgresobject.ArgumentChecker;
 
 import java.util.Optional;
 

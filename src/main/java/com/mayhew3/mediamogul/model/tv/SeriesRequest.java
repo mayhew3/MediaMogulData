@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.model.tv;
 
-import com.mayhew3.mediamogul.dataobject.Nullability;
-import com.mayhew3.mediamogul.dataobject.RetireableDataObject;
+import com.mayhew3.postgresobject.dataobject.Nullability;
+import com.mayhew3.postgresobject.dataobject.RetireableDataObject;
 import com.mayhew3.mediamogul.model.Person;
 
 public class SeriesRequest extends RetireableDataObject {

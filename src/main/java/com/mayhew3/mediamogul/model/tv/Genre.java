@@ -1,9 +1,9 @@
 package com.mayhew3.mediamogul.model.tv;
 
-import com.mayhew3.mediamogul.dataobject.DataObject;
-import com.mayhew3.mediamogul.dataobject.FieldValueString;
-import com.mayhew3.mediamogul.dataobject.Nullability;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.dataobject.DataObject;
+import com.mayhew3.postgresobject.dataobject.FieldValueString;
+import com.mayhew3.postgresobject.dataobject.Nullability;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;

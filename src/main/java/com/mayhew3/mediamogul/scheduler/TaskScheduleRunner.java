@@ -2,10 +2,10 @@ package com.mayhew3.mediamogul.scheduler;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.ArgumentChecker;
+import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
-import com.mayhew3.mediamogul.db.PostgresConnectionFactory;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.games.*;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;

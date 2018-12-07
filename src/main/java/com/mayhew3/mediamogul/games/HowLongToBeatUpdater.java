@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
-import com.mayhew3.mediamogul.db.SQLConnection;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.SteamAttribute;
 import org.openqa.selenium.By;

@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.model.games;
 
-import com.mayhew3.mediamogul.dataobject.*;
+import com.mayhew3.postgresobject.dataobject.*;
 
 public class PossibleGameMatch extends RetireableDataObject {
 
