@@ -80,6 +80,8 @@ public class Series extends RetireableDataObject {
   public FieldValueForeignKey addedByUser = registerForeignKey(new Person(), Nullability.NULLABLE);
 
   public Series() {
+    registerStringField("trailer_link", Nullability.NULLABLE);
+
     addUniqueConstraint(tvdbSeriesExtId);
   }
 
