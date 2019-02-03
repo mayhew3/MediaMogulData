@@ -107,6 +107,13 @@ public class EpisodeGroupUpdater implements UpdateRunner {
       groupRating.commit(connection);
     }
 
+    removeEmptyGroups();
+  }
+
+  private void removeEmptyGroups() throws SQLException {
+    String sql = "DELETE FROM episode_group_rating WHERE watched = ? ";
+    Integer deleted = connection.prepareAndExecuteStatementUpdate(sql, 0);
+    debug(deleted + " episode groups deleted because they had no watched episodes.");
   }
 
   protected void debug(Object object) {
