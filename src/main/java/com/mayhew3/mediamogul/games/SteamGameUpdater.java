@@ -97,36 +97,36 @@ public class SteamGameUpdater implements UpdateRunner {
         jsonSteamIDs.add(jsonGame.getInt("appid"));
       }
 
+      debug("");
+      debug("Updating ownership of games no longer in steam library...");
+      debug("");
+
+      ResultSet resultSet = connection.executeQuery("SELECT * FROM game WHERE steamid is not null AND owned = 'owned'");
+
+      while (resultSet.next()) {
+        Integer steamid = resultSet.getInt("steamid");
+
+        if (!jsonSteamIDs.contains(steamid)) {
+          debug(resultSet.getString("title") + ": no longer found!");
+
+          Game game = new Game();
+          game.initializeFromDBObject(resultSet);
+          game.owned.changeValue("not owned");
+          game.commit(connection);
+
+          Optional<PersonGame> personGameOptional = game.getPersonGame(person_id, connection);
+          if (personGameOptional.isPresent()) {
+            PersonGame personGame = personGameOptional.get();
+            personGame.retire();
+            personGame.commit(connection);
+          }
+        }
+      }
+
       debug("Operation finished!");
     } catch (IOException e) {
       debug("Error reading from URL: " + steamProvider.getFullUrl());
       e.printStackTrace();
-    }
-
-    debug("");
-    debug("Updating ownership of games no longer in steam library...");
-    debug("");
-
-    ResultSet resultSet = connection.executeQuery("SELECT * FROM game WHERE steamid is not null AND owned = 'owned'");
-
-    while (resultSet.next()) {
-      Integer steamid = resultSet.getInt("steamid");
-
-      if (!jsonSteamIDs.contains(steamid)) {
-        debug(resultSet.getString("title") + ": no longer found!");
-
-        Game game = new Game();
-        game.initializeFromDBObject(resultSet);
-        game.owned.changeValue("not owned");
-        game.commit(connection);
-
-        Optional<PersonGame> personGameOptional = game.getPersonGame(person_id, connection);
-        if (personGameOptional.isPresent()) {
-          PersonGame personGame = personGameOptional.get();
-          personGame.retire();
-          personGame.commit(connection);
-        }
-      }
     }
 
   }
