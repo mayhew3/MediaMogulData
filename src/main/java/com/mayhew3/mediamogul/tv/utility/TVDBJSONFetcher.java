@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.tv.utility;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.ExternalServiceHandler;
+import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -55,8 +57,8 @@ public class TVDBJSONFetcher {
       series.initializeFromDBObject(resultSet);
       Integer tvdbSeriesId = series.tvdbSeriesExtId.getValue();
 
-
-      TVDBJWTProviderImpl tvdbjwtProvider = new TVDBJWTProviderImpl();
+      ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
+      TVDBJWTProviderImpl tvdbjwtProvider = new TVDBJWTProviderImpl(tvdbServiceHandler);
 
       tvdbjwtProvider.writeSearchToFile(singleSeriesTitle);
       tvdbjwtProvider.writeSeriesToFile(tvdbSeriesId);

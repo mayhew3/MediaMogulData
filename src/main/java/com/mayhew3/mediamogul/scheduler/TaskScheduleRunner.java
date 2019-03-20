@@ -2,6 +2,8 @@ package com.mayhew3.mediamogul.scheduler;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.ExternalServiceHandler;
+import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -72,19 +74,20 @@ public class TaskScheduleRunner {
     List<String> argList = Lists.newArrayList(args);
     Boolean logToFile = argList.contains("LogToFile");
 
-    TVDBJWTProvider tvdbjwtProvider = null;
-    try {
-      tvdbjwtProvider = new TVDBJWTProviderImpl();
-    } catch (UnirestException e) {
-      e.printStackTrace();
-    }
-
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
     JSONReader jsonReader = new JSONReaderImpl();
     TiVoDataProvider tiVoDataProvider = new RemoteFileDownloader(false);
     IGDBProviderImpl igdbProvider = new IGDBProviderImpl();
+    ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
+
+    TVDBJWTProvider tvdbjwtProvider = null;
+    try {
+      tvdbjwtProvider = new TVDBJWTProviderImpl(tvdbServiceHandler);
+    } catch (UnirestException e) {
+      e.printStackTrace();
+    }
 
     setDriverPath();
 

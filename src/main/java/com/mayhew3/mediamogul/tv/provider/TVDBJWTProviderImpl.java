@@ -6,6 +6,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
+import com.mayhew3.mediamogul.ExternalServiceHandler;
 import javafx.util.Pair;
 import org.apache.http.auth.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
@@ -23,11 +24,13 @@ import java.util.Map;
 
 public class TVDBJWTProviderImpl implements TVDBJWTProvider {
   private String token = null;
+  private ExternalServiceHandler externalServiceHandler;
 
-  public TVDBJWTProviderImpl() throws UnirestException {
+  public TVDBJWTProviderImpl(ExternalServiceHandler externalServiceHandler) throws UnirestException {
     if (token == null) {
       token = getToken();
     }
+    this.externalServiceHandler = externalServiceHandler;
   }
 
 
@@ -232,17 +235,26 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
   private HttpResponse<String> getStringData(String url, Map<String, Object> queryParams) throws UnirestException, AuthenticationException {
     HttpResponse<String> response = getDataInternal(url, queryParams);
 
-    if ("Unauthorized".equals(response.getStatusText())) {
+    if (response.getStatus() == 200) {
+      externalServiceHandler.connectionSuccess();
+      return response;
+    } else if ("Unauthorized".equals(response.getStatusText())) {
       System.out.println("Refreshing token...");
 
       token = getToken();
       response = getDataInternal(url, queryParams);
 
       if ("Unauthorized".equals(response.getStatusText())) {
+        externalServiceHandler.connectionFailed();
         throw new AuthenticationException("Invalid authentication.");
+      } else {
+        externalServiceHandler.connectionSuccess();
+        return response;
       }
+    } else {
+      externalServiceHandler.connectionFailed();
+      throw new RuntimeException("Unexpected response code: " + response.getStatus());
     }
-    return response;
   }
 
   private HttpResponse<String> getDataInternal(String url, Map<String, Object> queryParams) throws UnirestException {

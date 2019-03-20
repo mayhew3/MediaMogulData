@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.ExternalServiceHandler;
+import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -75,7 +77,8 @@ public class TVDBSeriesMatchRunner implements UpdateRunner {
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
 
-    TVDBSeriesMatchRunner tvdbUpdateRunner = new TVDBSeriesMatchRunner(connection, new TVDBJWTProviderImpl(), new JSONReaderImpl(), updateMode);
+    ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
+    TVDBSeriesMatchRunner tvdbUpdateRunner = new TVDBSeriesMatchRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), updateMode);
     tvdbUpdateRunner.runUpdate();
   }
 

@@ -63,9 +63,10 @@ public class QuickBatchUpdater {
     );
 
     try {
-      TVDBJWTProviderImpl tvdbjwtProvider = new TVDBJWTProviderImpl();
+      ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
+      TVDBJWTProviderImpl tvdbjwtProvider = new TVDBJWTProviderImpl(tvdbServiceHandler);
       updateRunners.add(new TVDBUpdateRunner(connection, tvdbjwtProvider, new JSONReaderImpl(), UpdateMode.SMART));
-      updateRunners.add(new TVDBSeriesMatchRunner(connection, new TVDBJWTProviderImpl(), new JSONReaderImpl(), UpdateMode.SMART));
+      updateRunners.add(new TVDBSeriesMatchRunner(connection, tvdbjwtProvider, new JSONReaderImpl(), UpdateMode.SMART));
     } catch (UnirestException e) {
       debug("Error getting TVDB token. Skipping TVDB updates.");
       e.printStackTrace();

@@ -1,6 +1,9 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.ExternalServiceHandler;
+import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.model.ExternalService;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -80,8 +83,9 @@ public class TVDBUpdateRunner implements UpdateRunner {
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.SMART);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
 
-    TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(), new JSONReaderImpl(), updateMode);
+    TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), updateMode);
     tvdbUpdateRunner.runUpdate();
 
     if (tvdbUpdateRunner.getSeriesUpdates() > 0) {
@@ -202,7 +206,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Sneaky Pete"; // update for testing on a single series
+    String singleSeriesTitle = "Halt and Catch Fire"; // update for testing on a single series
 
     String sql = "select *\n" +
         "from series\n" +
