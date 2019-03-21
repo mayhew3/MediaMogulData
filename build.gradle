@@ -33,6 +33,8 @@ dependencies {
     compile name: 'annotations-java8'
     compile name: 'postgres-object-0.9.1'
     compile 'com.github.igdb:api-java:2.0.1'
+    compile 'com.cloudinary:cloudinary-http44:1.22.1'
+    compile 'com.cloudinary:cloudinary-taglib:1.22.1'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
