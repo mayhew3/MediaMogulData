@@ -123,6 +123,8 @@ public class TaskScheduleRunner {
         10);
     addPeriodicTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
         30);
+    addPeriodicTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
+        60);
     addPeriodicTask(new SteamGameUpdater(connection, person_id, steamProvider),
         60);
     addPeriodicTask(new OldDataArchiveRunner(connection),
@@ -138,6 +140,7 @@ public class TaskScheduleRunner {
     addNightlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL));
     addNightlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK));
     addNightlyTask(new GiantBombUpdater(connection));
+    addNightlyTask(new CloudinaryUploader(connection, UpdateMode.FULL));
   }
 
   private void addPeriodicTask(UpdateRunner updateRunner, Integer minutesBetween) {

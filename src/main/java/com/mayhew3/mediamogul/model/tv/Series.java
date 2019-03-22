@@ -301,6 +301,9 @@ public class Series extends RetireableDataObject {
   }
 
   public Optional<TVDBSeries> getTVDBSeries(SQLConnection connection) throws SQLException {
+    if (tvdbSeriesId.getValue() == null) {
+      return Optional.empty();
+    }
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(
         "SELECT * " +
             "FROM tvdb_series " +
