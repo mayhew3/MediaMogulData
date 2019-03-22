@@ -72,7 +72,7 @@ public class HowLongToBeatUpdater {
   }
 
   private WebElement findCorrectTable() {
-    List<WebElement> allTables = driver.findElements(By.className("game_main_table"));
+    List<WebElement> allTables = driver.findElements(By.tagName("table"));
     for (WebElement table : allTables) {
       WebElement table_header = table.findElement(By.tagName("thead"));
       WebElement firstColumn = table_header.findElement(By.tagName("td"));

@@ -11,8 +11,13 @@ import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -108,7 +113,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateFull() {
-    String sql = "SELECT * FROM game WHERE howlong_updated IS NULL ";
+    String sql = "SELECT * FROM game WHERE howlong_updated IS NULL";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
@@ -119,7 +124,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateOnSingle() {
-    String gameTitle = "Middle-earth™: Shadow of War™";
+    String gameTitle = "Return of the Obra Dinn";
     String sql = "SELECT * FROM game WHERE title = ? ";
 
     try {
@@ -134,7 +139,9 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     int i = 1;
     int failures = 0;
 
-    ChromeDriver chromeDriver = new ChromeDriver();
+    ChromeOptions chromeOptions = new ChromeOptions()
+        .setHeadless(true);
+    WebDriver chromeDriver = new ChromeDriver(chromeOptions);
 
     while (resultSet.next()) {
       Game game = new Game();
@@ -171,7 +178,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
 
     debug("Operation completed! Failed on " + failures + "/" + (i-1) + " games (" + (failures/i*100) + "%)");
 
-    chromeDriver.close();
+    chromeDriver.quit();
   }
 
   private void logFailure(Game game) throws SQLException {
