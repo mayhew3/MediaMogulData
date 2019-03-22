@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
 import com.cloudinary.utils.ObjectUtils;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBPoster;
@@ -37,8 +38,14 @@ public class CloudinaryUploader implements UpdateRunner {
   private UpdateMode updateMode;
 
   public CloudinaryUploader(SQLConnection connection, @NotNull UpdateMode updateMode) {
+    String cloudinary_url = System.getenv("CLOUDINARY_URL");
+    Preconditions.checkNotNull(cloudinary_url, "Need to have a CLOUDINARY_URL to get Cloudinary results.");
+
     this.connection = connection;
     this.cloudinary = Singleton.getCloudinary();
+
+    Preconditions.checkState("media-mogul".equals(this.cloudinary.config.cloudName),
+        "CLOUDINARY_URL environment variable should initialize Cloudinary singleton with media-mogul cloud name.");
 
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
