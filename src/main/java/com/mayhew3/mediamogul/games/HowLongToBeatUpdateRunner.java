@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.ExternalServiceHandler;
+import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -29,13 +31,14 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
 
   private SQLConnection connection;
   private UpdateMode updateMode;
+  private ExternalServiceHandler howLongServiceHandler;
 
   private final Map<UpdateMode, Runnable> methodMap;
 
-  public HowLongToBeatUpdateRunner(SQLConnection connection, UpdateMode updateMode) {
+  public HowLongToBeatUpdateRunner(SQLConnection connection, UpdateMode updateMode, ExternalServiceHandler howLongServiceHandler) {
     methodMap = new HashMap<>();
-    methodMap.put(UpdateMode.QUICK, this::runUpdateFull);
-    methodMap.put(UpdateMode.FULL, this::runUpdateOnAllFailed);
+    methodMap.put(UpdateMode.QUICK, this::runUpdateQuick);
+    methodMap.put(UpdateMode.FULL, this::runUpdateFull);
     methodMap.put(UpdateMode.SINGLE, this::runUpdateOnSingle);
 
     this.connection = connection;
@@ -45,6 +48,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     }
 
     this.updateMode = updateMode;
+    this.howLongServiceHandler = howLongServiceHandler;
   }
 
   public static void main(String[] args) throws FileNotFoundException, SQLException, URISyntaxException {
@@ -64,10 +68,11 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
 
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.QUICK);
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    ExternalServiceHandler howLongServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.HowLongToBeat);
 
     setDriverPath();
 
-    HowLongToBeatUpdateRunner updateRunner = new HowLongToBeatUpdateRunner(connection, updateMode);
+    HowLongToBeatUpdateRunner updateRunner = new HowLongToBeatUpdateRunner(connection, updateMode, howLongServiceHandler);
     updateRunner.runUpdate();
   }
 
@@ -86,7 +91,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     methodMap.get(updateMode).run();
   }
 
-  private void runUpdateFull() {
+  private void runUpdateQuick() {
     Date date = new DateTime().minusDays(7).toDate();
     Timestamp timestamp = new Timestamp(date.getTime());
 
@@ -102,7 +107,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     }
   }
 
-  private void runUpdateOnAllFailed() {
+  private void runUpdateFull() {
     String sql = "SELECT * FROM game WHERE howlong_updated IS NULL ";
 
     try {
@@ -138,20 +143,24 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
 
         debug("Updating game: " + game);
 
-        HowLongToBeatUpdater updater = new HowLongToBeatUpdater(game, connection, chromeDriver);
+        HowLongToBeatUpdater updater = new HowLongToBeatUpdater(game, connection, chromeDriver, howLongServiceHandler);
         updater.runUpdater();
+        howLongServiceHandler.connectionSuccess();
       } catch (SQLException e) {
         e.printStackTrace();
         debug("Game failed to load from DB.");
+        howLongServiceHandler.connectionFailed();
         failures++;
       } catch (GameFailedException e) {
         e.printStackTrace();
         debug("Game failed: " + game);
+        howLongServiceHandler.connectionFailed();
         logFailure(game);
         failures++;
       } catch (WebDriverException e) {
         e.printStackTrace();
         debug("WebDriver error: " + game);
+        howLongServiceHandler.connectionFailed();
         logFailure(game);
         failures++;
       }

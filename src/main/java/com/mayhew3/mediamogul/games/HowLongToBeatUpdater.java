@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import org.jetbrains.annotations.NotNull;
@@ -18,14 +19,16 @@ public class HowLongToBeatUpdater {
   private Game game;
   private SQLConnection connection;
   private WebDriver driver;
+  private ExternalServiceHandler howLongServiceHandler;
   final private Integer indexColumn = 0;
   final private Integer polledColumn = 1;
   final private Integer medianColumn = 3;
 
-  HowLongToBeatUpdater(Game game, SQLConnection connection, WebDriver webDriver) {
+  HowLongToBeatUpdater(Game game, SQLConnection connection, WebDriver webDriver, ExternalServiceHandler howLongServiceHandler) {
     this.game = game;
     this.connection = connection;
     this.driver = webDriver;
+    this.howLongServiceHandler = howLongServiceHandler;
   }
 
   public void runUpdater() throws GameFailedException, SQLException {

@@ -5,7 +5,8 @@ import com.google.common.collect.Lists;
 import java.util.Optional;
 
 public enum ExternalServiceType {
-  TVDB("tvdb");
+  TVDB("tvdb"),
+  HowLongToBeat("HowLongToBeat");
 
   private final String typekey;
 

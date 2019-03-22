@@ -49,6 +49,7 @@ public class TaskScheduleRunner {
   private TiVoDataProvider tiVoDataProvider;
   private IGDBProvider igdbProvider;
   private SteamProvider steamProvider;
+  ExternalServiceHandler howLongServiceHandler;
 
   private String identifier;
 
@@ -58,7 +59,7 @@ public class TaskScheduleRunner {
   private Boolean logToFile;
   private PrintStream logOutput = null;
 
-  private TaskScheduleRunner(SQLConnection connection, @Nullable TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, TiVoDataProvider tiVoDataProvider, IGDBProvider igdbProvider, String identifier, Integer person_id, Boolean logToFile, SteamProviderImpl steamProvider) {
+  private TaskScheduleRunner(SQLConnection connection, @Nullable TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, TiVoDataProvider tiVoDataProvider, IGDBProvider igdbProvider, String identifier, Integer person_id, Boolean logToFile, SteamProviderImpl steamProvider, ExternalServiceHandler howLongServiceHandler) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;
@@ -68,6 +69,7 @@ public class TaskScheduleRunner {
     this.person_id = person_id;
     this.logToFile = logToFile;
     this.steamProvider = steamProvider;
+    this.howLongServiceHandler = howLongServiceHandler;
   }
 
   public static void main(String... args) throws URISyntaxException, SQLException, FileNotFoundException, InterruptedException {
@@ -81,6 +83,7 @@ public class TaskScheduleRunner {
     TiVoDataProvider tiVoDataProvider = new RemoteFileDownloader(false);
     IGDBProviderImpl igdbProvider = new IGDBProviderImpl();
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
+    ExternalServiceHandler howLongServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.HowLongToBeat);
 
     TVDBJWTProvider tvdbjwtProvider = null;
     try {
@@ -101,7 +104,8 @@ public class TaskScheduleRunner {
         argumentChecker.getDBIdentifier(),
         person_id,
         logToFile,
-        new SteamProviderImpl());
+        new SteamProviderImpl(),
+        howLongServiceHandler);
     taskScheduleRunner.runUpdates();
   }
 
@@ -138,7 +142,7 @@ public class TaskScheduleRunner {
     addNightlyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY));
     addNightlyTask(new EpisodeGroupUpdater(connection));
     addNightlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL));
-    addNightlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK));
+    addNightlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler));
     addNightlyTask(new GiantBombUpdater(connection));
     addNightlyTask(new CloudinaryUploader(connection, UpdateMode.FULL));
   }
