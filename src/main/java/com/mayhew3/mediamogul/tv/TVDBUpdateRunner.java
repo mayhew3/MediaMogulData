@@ -3,7 +3,6 @@ package com.mayhew3.mediamogul.tv;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
-import com.mayhew3.mediamogul.model.ExternalService;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -29,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TVDBUpdateRunner implements UpdateRunner {
 
@@ -168,10 +168,18 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
   // todo: run on shows that haven't been updated in the past week. Test first: queries to see how many this is.
   private void runSanityUpdateOnShowsThatHaventBeenUpdatedInAWhile() {
+    Set<Series> allSeries = new HashSet<>();
+    allSeries.addAll(getEligibleTierOneSeries());
+    allSeries.addAll(getEligibleTierTwoSeries());
+    allSeries.addAll(getEligibleUnownedShows());
+
+    runUpdateForSeriesSet(allSeries);
+  }
+
+  private Set<Series> getEligibleTierOneSeries() {
+    Set<Series> serieses = new HashSet<>();
     DateTime today = new DateTime();
-    Timestamp sevenDaysAgo = new Timestamp(today.minusDays(7).getMillis());
     Timestamp threeDaysAgo = new Timestamp(today.minusDays(3).getMillis());
-    Timestamp threeMonthsAgo = new Timestamp(today.minusMonths(3).getMillis());
 
     String sql = "select *\n" +
         "from series\n" +
@@ -179,12 +187,76 @@ public class TVDBUpdateRunner implements UpdateRunner {
         "and last_tvdb_update is not null\n" +
         "and suggestion = ?\n" +
         "and retired = ?\n" +
-        "and ((last_tvdb_update < ? and tier = ?) " +
-          "or (last_tvdb_update < ? and most_recent > ?))";
+        "and last_tvdb_update < ? " +
+        "and id in (select series_id" +
+        "           from person_series " +
+        "           where tier = ?) ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, false, 0, threeDaysAgo, 1, sevenDaysAgo, threeMonthsAgo);
-      runUpdateOnResultSet(resultSet);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, false, 0, threeDaysAgo, 1);
+      while (resultSet.next()) {
+        Series series = new Series();
+        series.initializeFromDBObject(resultSet);
+        serieses.add(series);
+      }
+      return serieses;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private Set<Series> getEligibleTierTwoSeries() {
+    Set<Series> serieses = new HashSet<>();
+    DateTime today = new DateTime();
+    Timestamp sevenDaysAgo = new Timestamp(today.minusDays(7).getMillis());
+
+    String sql = "select *\n" +
+        "from series\n" +
+        "where tvdb_match_status = ? " +
+        "and last_tvdb_update is not null\n" +
+        "and suggestion = ?\n" +
+        "and retired = ?\n" +
+        "and last_tvdb_update < ? " +
+        "and id in (select series_id" +
+        "           from person_series " +
+        "           where tier = ?) ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, false, 0, sevenDaysAgo, 2);
+      while (resultSet.next()) {
+        Series series = new Series();
+        series.initializeFromDBObject(resultSet);
+        serieses.add(series);
+      }
+      return serieses;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private Set<Series> getEligibleUnownedShows() {
+    Set<Series> serieses = new HashSet<>();
+    DateTime today = new DateTime();
+    Timestamp thirtyDaysAgo = new Timestamp(today.minusDays(30).getMillis());
+
+    String sql = "select *\n" +
+        "from series\n" +
+        "where tvdb_match_status = ? " +
+        "and last_tvdb_update is not null\n" +
+        "and suggestion = ?\n" +
+        "and retired = ?\n" +
+        "and last_tvdb_update < ? " +
+        "and id not in (select series_id" +
+        "           from person_series) ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, false, 0, thirtyDaysAgo);
+      while (resultSet.next()) {
+        Series series = new Series();
+        series.initializeFromDBObject(resultSet);
+        serieses.add(series);
+      }
+      return serieses;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -371,6 +443,35 @@ public class TVDBUpdateRunner implements UpdateRunner {
     debug("Update complete for result set: " + i + " processed.");
   }
 
+  private void runUpdateForSeriesSet(Set<Series> serieses) {
+    debug("Starting update.");
+
+    List<Series> sortedSerieses = serieses.stream()
+        .sorted()
+        .collect(Collectors.toList());
+
+    int i = 0;
+
+    for (Series series : sortedSerieses) {
+      i++;
+
+      try {
+        @NotNull SeriesUpdateResult result = runUpdateOnSingleSeries(series, false);
+        if (result.equals(SeriesUpdateResult.UPDATE_SUCCESS)) {
+          tvdbConnectionLog.updatedShows.increment(1);
+        } else {
+          tvdbConnectionLog.failedShows.increment(1);
+        }
+      } catch (Exception e) {
+        debug("Show failed on initialization from DB.");
+      }
+
+      seriesUpdates++;
+    }
+
+    debug("Update complete for result set: " + i + " processed.");
+  }
+
   private void runSmartUpdateSingleQuery() {
 
     debug("Starting update.");
@@ -477,6 +578,10 @@ public class TVDBUpdateRunner implements UpdateRunner {
       addingSeries = true;
     }
 
+    return runUpdateOnSingleSeries(series, addingSeries);
+  }
+
+  private @NotNull SeriesUpdateResult runUpdateOnSingleSeries(Series series, boolean addingSeries) throws SQLException {
     try {
       updateTVDB(series);
       if (addingSeries) {

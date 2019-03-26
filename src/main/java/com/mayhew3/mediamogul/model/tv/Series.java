@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Series extends RetireableDataObject {
+public class Series extends RetireableDataObject implements Comparable<Series> {
 
   /* Foreign Keys */
   public FieldValueForeignKey tvdbSeriesId = registerForeignKey(new TVDBSeries(), Nullability.NULLABLE);
@@ -283,6 +283,13 @@ public class Series extends RetireableDataObject {
     return season;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    Preconditions.checkState(obj instanceof Series, "Should only call equals on another Series");
+    Series otherSeries = (Series) obj;
+    return id.getValue().equals(otherSeries.id.getValue());
+  }
+
   @NotNull
   public List<Episode> getEpisodes(SQLConnection connection) throws SQLException {
     List<Episode> episodes = new ArrayList<>();
@@ -339,5 +346,10 @@ public class Series extends RetireableDataObject {
     }
 
     return tiVoEpisodes;
+  }
+
+  @Override
+  public int compareTo(@NotNull Series o) {
+    return id.getValue().compareTo(o.id.getValue());
   }
 }
