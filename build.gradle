@@ -14,9 +14,6 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
     maven { url 'https://jitpack.io' }
-    flatDir {
-        dirs "$System.env.POSTGRES_OBJECTS_DIR"
-    }
 }
 
 
@@ -31,7 +28,7 @@ dependencies {
     compile 'org.seleniumhq.selenium:selenium-server:3.141.59'
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
     compile group: 'org.jetbrains', name: 'annotations', version: '17.0.0'
-    compile name: 'postgres-object-0.9.1'
+    compile 'com.github.mayhew3:Postgres-Object:0.9.2'
     compile 'com.github.igdb:api-java:2.0.1'
     compile 'com.cloudinary:cloudinary-http44:1.22.1'
     compile 'com.cloudinary:cloudinary-taglib:1.22.1'
