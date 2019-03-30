@@ -111,8 +111,6 @@ public class TaskScheduleRunner {
 
   private void createTaskList() {
     // REGULAR
-    addPeriodicTask(new SeriesDenormUpdater(connection),
-        5);
     addPeriodicTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         5);
     addPeriodicTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
