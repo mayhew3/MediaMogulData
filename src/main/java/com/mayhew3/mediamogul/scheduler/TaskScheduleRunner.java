@@ -123,8 +123,6 @@ public class TaskScheduleRunner {
         3);
     addPeriodicTask(new SteamPlaySessionGenerator(connection, person_id),
         10);
-    addPeriodicTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
-        30);
     addPeriodicTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
         60);
     addPeriodicTask(new SteamGameUpdater(connection, person_id, steamProvider),
