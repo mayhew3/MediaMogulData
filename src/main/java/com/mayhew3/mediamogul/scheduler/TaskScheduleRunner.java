@@ -111,24 +111,14 @@ public class TaskScheduleRunner {
 
   private void createTaskList() {
     // REGULAR
-    addPeriodicTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
-        5);
-    addPeriodicTask(new SteamPlaySessionGenerator(connection, person_id),
-        10);
-    addPeriodicTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
-        60);
-    addPeriodicTask(new SteamGameUpdater(connection, person_id, steamProvider),
-        60);
     addPeriodicTask(new OldDataArchiveRunner(connection),
         30);
 
     // NIGHTLY
-    addNightlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY));
     addNightlyTask(new TiVoCommunicator(connection, tiVoDataProvider, UpdateMode.FULL));
     addNightlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED));
     addNightlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL));
     addNightlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler));
-    addNightlyTask(new GiantBombUpdater(connection));
   }
 
   private void addPeriodicTask(UpdateRunner updateRunner, Integer minutesBetween) {
