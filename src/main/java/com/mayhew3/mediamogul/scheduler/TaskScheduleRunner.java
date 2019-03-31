@@ -113,14 +113,6 @@ public class TaskScheduleRunner {
     // REGULAR
     addPeriodicTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         5);
-    addPeriodicTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
-        1);
-    addPeriodicTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
-        2);
-    addPeriodicTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
-        1);
-    addPeriodicTask(new TVDBSeriesMatchRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
-        3);
     addPeriodicTask(new SteamPlaySessionGenerator(connection, person_id),
         10);
     addPeriodicTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
@@ -133,14 +125,10 @@ public class TaskScheduleRunner {
     // NIGHTLY
     addNightlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY));
     addNightlyTask(new TiVoCommunicator(connection, tiVoDataProvider, UpdateMode.FULL));
-    addNightlyTask(new MetacriticTVUpdater(connection, UpdateMode.FULL));
     addNightlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED));
-    addNightlyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY));
-    addNightlyTask(new EpisodeGroupUpdater(connection));
     addNightlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL));
     addNightlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler));
     addNightlyTask(new GiantBombUpdater(connection));
-    addNightlyTask(new CloudinaryUploader(connection, UpdateMode.FULL));
   }
 
   private void addPeriodicTask(UpdateRunner updateRunner, Integer minutesBetween) {
