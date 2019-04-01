@@ -1,24 +1,26 @@
 package com.mayhew3.mediamogul.tv.utility;
 
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.group.*;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
-import javafx.util.Pair;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class TVGroupDataImporter {
   private SQLConnection connection;
 
-  private Map<Pair<Integer, Date>, TVGroupBallot> ballotCache;
+  private Map<BallotInfo, TVGroupBallot> ballotCache;
 
   private TVGroupDataImporter(SQLConnection connection) {
     this.connection = connection;
@@ -139,7 +141,7 @@ public class TVGroupDataImporter {
         tvGroupBallot.commit(connection);
       }
 
-      ballotCache.put(new Pair<>(series.id.getValue(), new Date(voteDate.getTime())), tvGroupBallot);
+      ballotCache.put(new BallotInfo(series.id.getValue(), new Date(voteDate.getTime())), tvGroupBallot);
       return tvGroupBallot;
     }
   }
@@ -165,7 +167,7 @@ public class TVGroupDataImporter {
   }
 
   private Optional<TVGroupBallot> findBallotFromCache(Series series, Date voteDate) {
-    TVGroupBallot tvGroupBallot = ballotCache.get(new Pair<>(series.id.getValue(), voteDate));
+    TVGroupBallot tvGroupBallot = ballotCache.get(new BallotInfo(series.id.getValue(), voteDate));
     if (tvGroupBallot == null) {
       return Optional.empty();
     } else {
@@ -188,6 +190,14 @@ public class TVGroupDataImporter {
     System.out.println(new Date() + " " + msg);
   }
 
+  private class BallotInfo {
+    public Integer series_id;
+    Date voteDate;
 
+    BallotInfo(Integer series_id, Date voteDate) {
+      this.series_id = series_id;
+      this.voteDate = voteDate;
+    }
+  }
 
 }

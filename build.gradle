@@ -49,10 +49,15 @@ jar {
     manifest {
         attributes("Implementation-Title": "Task Schedule Runner",
                 "Implementation-Version": version,
-                "Main-Class": "com.mayhew3.mediamogulscheduler.TaskScheduleRunner")
+                "Main-Class": "com.mayhew3.mediamogul.TaskScheduleRunner")
     }
     archiveFileName = "media-mogul-scheduler.jar"
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true
 }
 
 task stage(dependsOn: ['build', 'clean'])
