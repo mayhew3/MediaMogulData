@@ -115,10 +115,7 @@ public class TaskScheduleRunner {
         30);
 
     // NIGHTLY
-    addNightlyTask(new TiVoCommunicator(connection, tiVoDataProvider, UpdateMode.FULL));
-    addNightlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED));
-    addNightlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL));
-    addNightlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler));
+//    addNightlyTask(new TiVoCommunicator(connection, tiVoDataProvider, UpdateMode.FULL));
   }
 
   private void addPeriodicTask(UpdateRunner updateRunner, Integer minutesBetween) {
