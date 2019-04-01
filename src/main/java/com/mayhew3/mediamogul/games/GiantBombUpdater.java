@@ -9,6 +9,7 @@ import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -181,7 +182,7 @@ public class GiantBombUpdater implements UpdateRunner {
         Date date = simpleDateFormat.parse(original_release_date);
         Timestamp timestamp = new Timestamp(date.getTime());
         game.giantbomb_release_date.changeValue(timestamp);
-        game.giantbomb_year.changeValue(date.getYear() + 1900);
+        game.giantbomb_year.changeValue(new DateTime(date).getYear());
       }
 
       game.giantbomb_icon_url.changeValue(image.getString("icon_url"));
