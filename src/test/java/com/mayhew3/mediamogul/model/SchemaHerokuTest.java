@@ -16,7 +16,7 @@ public class SchemaHerokuTest {
 
   @Test
   public void testHerokuSchemaUpToDate() throws URISyntaxException, SQLException {
-    SQLConnection connection = PostgresConnectionFactory.getSqlConnection(PostgresConnectionFactory.HEROKU);
+    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(System.getenv("DATABASE_URL"));
     List<DataObjectMismatch> mismatches = MediaMogulSchema.schema.validateSchemaAgainstDatabase(connection);
 
     if (!mismatches.isEmpty()) {

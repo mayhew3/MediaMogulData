@@ -69,6 +69,16 @@ task runTaskScheduleRunner(type:JavaExec) {
     args = ['-db', 'Heroku', 'LogToFile']
 }
 
+test {
+    exclude 'com/mayhew3/mediamogul/TiVoDaylightSavingsTest.class'
+    exclude 'com/mayhew3/mediamogul/TiVoMatchExistingTest.class'
+    exclude 'com/mayhew3/mediamogul/TVDBSeriesUpdaterTest.class'
+    exclude 'com/mayhew3/mediamogul/SchemaTestTest.class'
+    exclude 'com/mayhew3/mediamogul/SchemaLocalTest.class'
+    exclude 'com/mayhew3/mediamogul/SteamUpdaterTest.class'
+    exclude 'com/mayhew3/mediamogul/IGDBUpdaterTest.class'
+}
+
 run {
     args = ['-db', 'Test']
 }
