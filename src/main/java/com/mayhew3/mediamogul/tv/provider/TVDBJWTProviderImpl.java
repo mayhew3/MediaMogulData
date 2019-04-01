@@ -7,7 +7,6 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
-import javafx.util.Pair;
 import org.apache.http.auth.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -151,9 +150,9 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
   }
 
 
-  public void writeEpisodeDetailsToFiles(Integer tvdbSeriesId, List<Pair<Integer, Integer>> episodeNumbers) throws IOException, UnirestException, AuthenticationException {
-    for (Pair<Integer, Integer> episodeNumber : episodeNumbers) {
-      writeEpisodeDetailToFile(tvdbSeriesId, episodeNumber.getKey(), episodeNumber.getValue());
+  public void writeEpisodeDetailsToFiles(Integer tvdbSeriesId, List<EpisodeDetail> episodeNumbers) throws IOException, UnirestException, AuthenticationException {
+    for (EpisodeDetail episodeNumber : episodeNumbers) {
+      writeEpisodeDetailToFile(tvdbSeriesId, episodeNumber.seriesNumber, episodeNumber.episodeNumber);
     }
   }
 
@@ -292,4 +291,6 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
   private HttpResponse<String> getStringData(String url) throws UnirestException, AuthenticationException {
     return getStringData(url, Maps.newHashMap());
   }
+
 }
+

@@ -3,13 +3,13 @@ package com.mayhew3.mediamogul.tv.utility;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.model.tv.Series;
+import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
+import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
+import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import com.mayhew3.mediamogul.model.tv.Series;
-import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
-import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
-import javafx.util.Pair;
 import org.apache.http.auth.AuthenticationException;
 
 import java.io.IOException;
@@ -69,10 +69,10 @@ public class TVDBJSONFetcher {
       // todo: and remove the episodes I don't want?
 //      tvdbjwtProvider.writeEpisodeSummariesToFile(tvdbSeriesId);
 
-      List<Pair<Integer, Integer>> episodeNumbers = new ArrayList<>();
-      episodeNumbers.add(new Pair<>(4, 1));
-      episodeNumbers.add(new Pair<>(4, 2));
-      episodeNumbers.add(new Pair<>(4, 3));
+      List<TVDBJWTProvider.EpisodeDetail> episodeNumbers = new ArrayList<>();
+      episodeNumbers.add(new TVDBJWTProvider.EpisodeDetail(4, 1));
+      episodeNumbers.add(new TVDBJWTProvider.EpisodeDetail(4, 2));
+      episodeNumbers.add(new TVDBJWTProvider.EpisodeDetail(4, 3));
       tvdbjwtProvider.writeEpisodeDetailsToFiles(tvdbSeriesId, episodeNumbers);
 
       tvdbjwtProvider.writePostersToFile(tvdbSeriesId);

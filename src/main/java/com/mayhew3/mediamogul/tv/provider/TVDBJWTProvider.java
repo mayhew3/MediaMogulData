@@ -19,4 +19,15 @@ public interface TVDBJWTProvider {
   JSONObject getPosterData(Integer tvdbId) throws UnirestException, AuthenticationException;
 
   JSONObject getUpdatedSeries(Timestamp fromDate) throws UnirestException, AuthenticationException;
+
+  public class EpisodeDetail {
+    public Integer seriesNumber;
+    public Integer episodeNumber;
+
+    public EpisodeDetail(Integer seriesNumber, Integer episodeNumber) {
+      this.seriesNumber = seriesNumber;
+      this.episodeNumber = episodeNumber;
+    }
+  }
+
 }
