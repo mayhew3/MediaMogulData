@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -44,14 +46,14 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String[] args) throws FileNotFoundException, SQLException, URISyntaxException {
+  public static void main(String[] args) throws FileNotFoundException, SQLException, URISyntaxException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     Boolean logToFile = argList.contains("LogToFile");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.UNMATCHED);
 
     if (logToFile) {
-      String mediaMogulLogs = System.getenv("MediaMogulLogs");
+      String mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulLogs");
 
       File file = new File(mediaMogulLogs + "\\MetacriticGameUpdater.log");
       FileOutputStream fos = new FileOutputStream(file, true);

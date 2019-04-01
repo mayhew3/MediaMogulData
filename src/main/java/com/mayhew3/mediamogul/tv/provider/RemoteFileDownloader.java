@@ -1,5 +1,7 @@
 package com.mayhew3.mediamogul.tv.provider;
 
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -22,11 +24,8 @@ public class RemoteFileDownloader implements TiVoDataProvider {
   private Boolean saveXml = false;
   private String localFolderPath;
 
-  public RemoteFileDownloader(Boolean saveXml) {
-    String tivoApiKey = System.getenv("TIVO_API_KEY");
-    if (tivoApiKey == null) {
-      throw new IllegalStateException("No TIVO_API_KEY environment variable found!");
-    }
+  public RemoteFileDownloader(Boolean saveXml) throws MissingEnvException {
+    String tivoApiKey = EnvironmentChecker.getOrThrow("TIVO_API_KEY");
 
     Authenticator.setDefault (new Authenticator() {
       protected PasswordAuthentication getPasswordAuthentication() {

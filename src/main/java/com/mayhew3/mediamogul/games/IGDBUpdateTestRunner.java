@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.games;
 
 import callback.OnSuccessCallback;
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import wrapper.IGDBWrapper;
@@ -15,8 +17,8 @@ public class IGDBUpdateTestRunner {
     Test utility to see if threads close in most basic case. They don't.
 
   * */
-  public static void main(String[] args) {
-    IGDBWrapper igdbWrapper = new IGDBWrapper(System.getenv("igdb_key"), Version.STANDARD, false);
+  public static void main(String[] args) throws MissingEnvException {
+    IGDBWrapper igdbWrapper = new IGDBWrapper(EnvironmentChecker.getOrThrow("igdb_key"), Version.STANDARD, false);
 
     Parameters parameters = new Parameters()
         .addSearch("Forza Horizon 4")

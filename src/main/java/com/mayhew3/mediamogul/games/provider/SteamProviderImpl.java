@@ -1,5 +1,7 @@
 package com.mayhew3.mediamogul.games.provider;
 
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,9 +14,9 @@ public class SteamProviderImpl implements SteamProvider {
   private String steamKey;
   private String steamID;
 
-  public SteamProviderImpl() {
-    steamKey = System.getenv("SteamKey");
-    steamID = System.getenv("SteamID");
+  public SteamProviderImpl() throws MissingEnvException {
+    steamKey = EnvironmentChecker.getOrThrow("SteamKey");
+    steamID = EnvironmentChecker.getOrThrow("SteamID");
     assert steamID != null;
     assert steamKey != null;
   }

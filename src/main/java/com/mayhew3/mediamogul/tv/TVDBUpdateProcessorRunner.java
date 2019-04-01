@@ -2,8 +2,10 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -52,6 +54,7 @@ public class TVDBUpdateProcessorRunner {
 
   private static Boolean logToFile = false;
   private static PrintStream logOutput = null;
+  private static String mediaMogulLogs;
 
   @SuppressWarnings("FieldCanBeLocal")
   private Integer SECONDS = 57;
@@ -67,9 +70,10 @@ public class TVDBUpdateProcessorRunner {
     this.identifier = identifier;
   }
 
-  public static void main(String... args) throws UnirestException, URISyntaxException, SQLException, InterruptedException, FileNotFoundException {
+  public static void main(String... args) throws UnirestException, URISyntaxException, SQLException, InterruptedException, FileNotFoundException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     logToFile = argList.contains("LogToFile");
+    mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulLogs");
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
@@ -242,8 +246,6 @@ public class TVDBUpdateProcessorRunner {
   private static void openLogStream(String identifier) throws FileNotFoundException {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
     String dateFormatted = simpleDateFormat.format(new Date());
-
-    String mediaMogulLogs = System.getenv("MediaMogulLogs");
 
     File file = new File(mediaMogulLogs + "\\TVDBUpdateProcessor_" + dateFormatted + "_" + identifier + ".log");
     FileOutputStream fos = new FileOutputStream(file, true);

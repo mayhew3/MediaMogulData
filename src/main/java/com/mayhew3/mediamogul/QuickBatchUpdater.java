@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.ArgumentChecker;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class QuickBatchUpdater {
 
-  public static void main(String... args) throws FileNotFoundException, URISyntaxException, SQLException {
+  public static void main(String... args) throws FileNotFoundException, URISyntaxException, SQLException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     Boolean logToFile = argList.contains("LogToFile");
     Boolean saveTiVoXML = argList.contains("SaveTiVoXML");
@@ -39,7 +40,7 @@ public class QuickBatchUpdater {
       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
       String dateFormatted = simpleDateFormat.format(new Date());
 
-      String mediaMogulLogs = System.getenv("MediaMogulLogs");
+      String mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulLogs");
 
       File file = new File(mediaMogulLogs + "\\QuickBatchUpdater_" + dateFormatted + "_" + identifier + ".log");
       FileOutputStream fos = new FileOutputStream(file, true);
@@ -53,7 +54,7 @@ public class QuickBatchUpdater {
     debug("");
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
-    Integer person_id = Integer.parseInt(System.getenv("MediaMogulPersonID"));
+    Integer person_id = Integer.parseInt(EnvironmentChecker.getOrThrow("MediaMogulPersonID"));
 
     // INITIALIZE UPDATERS
 

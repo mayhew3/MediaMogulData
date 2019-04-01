@@ -6,7 +6,9 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
+import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import org.apache.http.auth.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -24,8 +26,10 @@ import java.util.Map;
 public class TVDBJWTProviderImpl implements TVDBJWTProvider {
   private String token = null;
   private ExternalServiceHandler externalServiceHandler;
+  private String tvdbApiKey;
 
-  public TVDBJWTProviderImpl(ExternalServiceHandler externalServiceHandler) throws UnirestException {
+  public TVDBJWTProviderImpl(ExternalServiceHandler externalServiceHandler) throws UnirestException, MissingEnvException {
+    tvdbApiKey = EnvironmentChecker.getOrThrow("TVDB_API_KEY");
     if (token == null) {
       token = getToken();
     }
@@ -195,11 +199,6 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
 
 
   private String getToken() throws UnirestException {
-    String tvdbApiKey = System.getenv("TVDB_API_KEY");
-    if (tvdbApiKey == null) {
-      throw new IllegalStateException("No TVDB_API_KEY environment variable found!");
-    }
-
     String urlString = "https://api.thetvdb.com/login";
     HttpRequest httpRequest = Unirest.post(urlString)
         .header("Content-Type", "application/json")

@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -44,7 +45,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String[] args) throws SQLException, URISyntaxException {
+  public static void main(String[] args) throws SQLException, URISyntaxException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.FULL);

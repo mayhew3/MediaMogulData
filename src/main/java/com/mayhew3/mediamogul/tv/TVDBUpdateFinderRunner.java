@@ -2,8 +2,10 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -53,6 +55,8 @@ public class TVDBUpdateFinderRunner {
   private static Boolean logToFile = false;
   private static PrintStream logOutput = null;
 
+  private static String mediaMogulLogs;
+
   // TVDB doesn't seem to work right with a timestamp less than 120 seconds ago, always returns nothing.
   @SuppressWarnings("FieldCanBeLocal")
   private Integer SECONDS = 120;
@@ -64,11 +68,12 @@ public class TVDBUpdateFinderRunner {
     this.identifier = identifier;
   }
 
-  public static void main(String... args) throws UnirestException, URISyntaxException, SQLException, InterruptedException, FileNotFoundException, AuthenticationException {
+  public static void main(String... args) throws UnirestException, URISyntaxException, SQLException, InterruptedException, FileNotFoundException, AuthenticationException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     logToFile = argList.contains("LogToFile");
     boolean lastWeek = argList.contains("LastWeek");
     boolean healthCheck = argList.contains("HealthCheck");
+    mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulLogs");
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
@@ -96,8 +101,6 @@ public class TVDBUpdateFinderRunner {
   private static void openLogStream(String identifier) throws FileNotFoundException {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
     String dateFormatted = simpleDateFormat.format(new Date());
-
-    String mediaMogulLogs = System.getenv("MediaMogulLogs");
 
     File file = new File(mediaMogulLogs + "\\TVDBUpdateFinder_" + dateFormatted + "_" + identifier + ".log");
     FileOutputStream fos = new FileOutputStream(file, true);

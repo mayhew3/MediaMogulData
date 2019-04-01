@@ -1,5 +1,7 @@
 package com.mayhew3.mediamogul.tv.utility;
 
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -26,7 +28,7 @@ public class TVDBXMLFetcher {
     this.connection = connection;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, IOException, SAXException {
+  public static void main(String... args) throws URISyntaxException, SQLException, IOException, SAXException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
@@ -35,7 +37,7 @@ public class TVDBXMLFetcher {
     tvdbxmlFetcher.downloadXMLForSeries();
   }
 
-  private void downloadXMLForSeries() throws SQLException, IOException, SAXException {
+  private void downloadXMLForSeries() throws SQLException, IOException, SAXException, MissingEnvException {
 
     String sql = "select *\n" +
         "from series\n" +
@@ -56,7 +58,7 @@ public class TVDBXMLFetcher {
 
       Integer tvdbID = series.tvdbSeriesExtId.getValue();
 
-      String apiKey = System.getenv("TVDB_API_KEY");
+      String apiKey = EnvironmentChecker.getOrThrow("TVDB_API_KEY");
       String url = "http://thetvdb.com/api/" + apiKey + "/series/" + tvdbID + "/all/en.xml";
 
       nodeReader.readXMLFromUrl(url);

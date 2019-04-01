@@ -2,6 +2,8 @@ package com.mayhew3.mediamogul.archive;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -33,9 +35,10 @@ public class OldDataArchiveRunner implements UpdateRunner {
 
   // Map of DB table to months of data to keep.
   private List<ArchiveableFactory> tablesToArchive;
+  private String mediaMogulLogs;
 
 
-  public static void main(String... args) throws URISyntaxException, SQLException, IOException {
+  public static void main(String... args) throws URISyntaxException, SQLException, IOException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
@@ -45,9 +48,9 @@ public class OldDataArchiveRunner implements UpdateRunner {
   }
 
 
-  public OldDataArchiveRunner(SQLConnection connection) {
+  public OldDataArchiveRunner(SQLConnection connection) throws MissingEnvException {
     this.connection = connection;
-
+    this.mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulArchives");
     tablesToArchive = new ArrayList<>();
 
     // ADD NEW TABLES TO ARCHIVE HERE!
@@ -185,8 +188,6 @@ public class OldDataArchiveRunner implements UpdateRunner {
   private File getFile(String tableName, Timestamp rowDate) {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
     String dateFormatted = simpleDateFormat.format(rowDate);
-
-    String mediaMogulLogs = System.getenv("MediaMogulArchives");
 
     return new File(mediaMogulLogs + "\\Archive_" + tableName + "_" + dateFormatted + ".csv");
   }

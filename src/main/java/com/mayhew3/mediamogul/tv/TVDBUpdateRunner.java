@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -77,7 +78,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, UnirestException {
+  public static void main(String... args) throws URISyntaxException, SQLException, UnirestException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.SMART);

@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.mediamogul.SSLTool;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -62,7 +63,7 @@ public class TiVoCommunicator implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String[] args) throws SQLException, URISyntaxException, BadlyFormattedXMLException {
+  public static void main(String[] args) throws SQLException, URISyntaxException, BadlyFormattedXMLException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     Boolean saveTiVoXML = argList.contains("SaveTiVoXML");
 

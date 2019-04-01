@@ -1,5 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -29,12 +31,12 @@ public class SteamPlaySessionGenerator implements UpdateRunner {
     this.person_id = person_id;
   }
 
-  public static void main(String[] args) throws SQLException, URISyntaxException {
+  public static void main(String[] args) throws SQLException, URISyntaxException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
 
-    String personIDString = System.getenv("MediaMogulPersonID");
+    String personIDString = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     assert personIDString != null;
 
     Integer person_id = Integer.parseInt(personIDString);

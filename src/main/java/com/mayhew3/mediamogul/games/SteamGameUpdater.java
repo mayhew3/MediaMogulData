@@ -2,6 +2,8 @@ package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -38,12 +40,12 @@ public class SteamGameUpdater implements UpdateRunner {
     this.steamProvider = steamProvider;
   }
 
-  public static void main(String... args) throws SQLException, FileNotFoundException, URISyntaxException {
+  public static void main(String... args) throws SQLException, FileNotFoundException, URISyntaxException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     boolean logToFile = argList.contains("LogToFile");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    String personIDString = System.getenv("MediaMogulPersonID");
+    String personIDString = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     assert personIDString != null;
 
     Integer person_id = Integer.parseInt(personIDString);

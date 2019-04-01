@@ -3,6 +3,8 @@ package com.mayhew3.mediamogul.games.provider;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IGDBProviderImpl implements IGDBProvider {
+
+  private String igdb_key;
+
+  public IGDBProviderImpl() throws MissingEnvException {
+    igdb_key = EnvironmentChecker.getOrThrow("igdb_key");
+  }
 
   @Override
   public JSONArray findGameMatches(String gameTitle) {
@@ -52,11 +60,6 @@ public class IGDBProviderImpl implements IGDBProvider {
   // utilities
 
   private HttpResponse<String> getDataInternal(String url, Map<String, Object> queryParams) throws UnirestException {
-    String igdb_key = System.getenv("igdb_key");
-    if (igdb_key == null) {
-      throw new IllegalStateException("No igdb_key environment variable found!");
-    }
-
     return Unirest.get(url)
         .header("user-key", igdb_key)
         .header("Accept", "application/json")

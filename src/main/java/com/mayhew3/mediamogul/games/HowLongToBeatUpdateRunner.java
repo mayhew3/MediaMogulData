@@ -1,8 +1,10 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -56,13 +58,13 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     this.howLongServiceHandler = howLongServiceHandler;
   }
 
-  public static void main(String[] args) throws FileNotFoundException, SQLException, URISyntaxException {
+  public static void main(String[] args) throws FileNotFoundException, SQLException, URISyntaxException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     Boolean logToFile = argList.contains("LogToFile");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     if (logToFile) {
-      String mediaMogulLogs = System.getenv("MediaMogulLogs");
+      String mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulLogs");
 
       File file = new File(mediaMogulLogs + "\\HowLongToBeatUpdater.log");
       FileOutputStream fos = new FileOutputStream(file, true);

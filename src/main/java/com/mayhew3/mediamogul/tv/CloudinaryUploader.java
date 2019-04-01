@@ -5,6 +5,8 @@ import com.cloudinary.Singleton;
 import com.cloudinary.utils.ObjectUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBPoster;
 import com.mayhew3.mediamogul.model.tv.TVDBSeries;
@@ -37,9 +39,8 @@ public class CloudinaryUploader implements UpdateRunner {
 
   private UpdateMode updateMode;
 
-  public CloudinaryUploader(SQLConnection connection, @NotNull UpdateMode updateMode) {
-    String cloudinary_url = System.getenv("CLOUDINARY_URL");
-    Preconditions.checkNotNull(cloudinary_url, "Need to have a CLOUDINARY_URL to get Cloudinary results.");
+  public CloudinaryUploader(SQLConnection connection, @NotNull UpdateMode updateMode) throws MissingEnvException {
+    EnvironmentChecker.getOrThrow("CLOUDINARY_URL");
 
     this.connection = connection;
     this.cloudinary = Singleton.getCloudinary();
@@ -59,7 +60,7 @@ public class CloudinaryUploader implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.QUICK);
 

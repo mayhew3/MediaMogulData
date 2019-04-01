@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv.utility;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
@@ -30,7 +31,7 @@ public class TVDBJSONFetcher {
     this.connection = connection;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, IOException, UnirestException, AuthenticationException {
+  public static void main(String... args) throws URISyntaxException, SQLException, IOException, UnirestException, AuthenticationException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
@@ -39,7 +40,7 @@ public class TVDBJSONFetcher {
     tvdbJsonFetcher.downloadJSONForSeries();
   }
 
-  private void downloadJSONForSeries() throws SQLException, IOException, UnirestException, AuthenticationException {
+  private void downloadJSONForSeries() throws SQLException, IOException, UnirestException, AuthenticationException, MissingEnvException {
 
     String sql = "select *\n" +
         "from series\n" +

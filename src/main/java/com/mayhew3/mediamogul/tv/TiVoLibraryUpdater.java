@@ -2,8 +2,10 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -26,7 +28,7 @@ import java.util.List;
 
 public class TiVoLibraryUpdater {
 
-  public static void main(String... args) throws FileNotFoundException, URISyntaxException, SQLException {
+  public static void main(String... args) throws FileNotFoundException, URISyntaxException, SQLException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     Boolean nightly = argList.contains("FullMode");
     Boolean tvdbOnly = argList.contains("TVDBOnly");
@@ -41,7 +43,7 @@ public class TiVoLibraryUpdater {
       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
       String dateFormatted = simpleDateFormat.format(new Date());
 
-      String mediaMogulLogs = System.getenv("MediaMogulLogs");
+      String mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulLogs");
 
       File file = new File(mediaMogulLogs + "\\TiVoUpdaterPostgres_" + dateFormatted + "_" + argumentChecker.getDBIdentifier() + ".log");
       FileOutputStream fos = new FileOutputStream(file, true);

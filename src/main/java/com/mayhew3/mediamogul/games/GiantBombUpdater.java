@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -32,19 +34,21 @@ import java.util.concurrent.TimeUnit;
 public class GiantBombUpdater implements UpdateRunner {
 
   private SQLConnection connection;
+  private String api_key;
 
-  public GiantBombUpdater(SQLConnection connection) {
+  public GiantBombUpdater(SQLConnection connection) throws MissingEnvException {
     this.connection = connection;
+    api_key = EnvironmentChecker.getOrThrow("giantbomb_api");
   }
 
-  public static void main(String[] args) throws SQLException, FileNotFoundException, URISyntaxException, InterruptedException {
+  public static void main(String[] args) throws SQLException, FileNotFoundException, URISyntaxException, InterruptedException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
     Boolean singleGame = argList.contains("SingleGame");
     Boolean logToFile = argList.contains("LogToFile");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     if (logToFile) {
-      String mediaMogulLogs = System.getenv("MediaMogulLogs");
+      String mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulLogs");
 
       File file = new File(mediaMogulLogs + "\\SteamUpdaterErrors.log");
       FileOutputStream fos = new FileOutputStream(file, true);
@@ -265,7 +269,6 @@ public class GiantBombUpdater implements UpdateRunner {
 
   protected String getFullUrl(String search) throws UnsupportedEncodingException {
     String encoded = URLEncoder.encode(search, "UTF-8");
-    String api_key = System.getenv("giantbomb_api");
     if (api_key == null) {
       throw new RuntimeException("Environment variable with name 'giantbomb_api' not found!");
     }
@@ -283,8 +286,7 @@ public class GiantBombUpdater implements UpdateRunner {
     return jsonObject.getJSONObject("results");
   }
 
-  protected String getIdUrl(Integer id) throws UnsupportedEncodingException {
-    String api_key = System.getenv("giantbomb_api");
+  protected String getIdUrl(Integer id) {
     return "https://www.giantbomb.com/api/game/3030-" + id + "/" +
         "?api_key=" + api_key +
         "&format=json" +

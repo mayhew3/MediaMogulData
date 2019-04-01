@@ -1,8 +1,10 @@
 package com.mayhew3.mediamogul.scheduler;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.*;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
@@ -54,21 +56,15 @@ public class TaskScheduleRunner {
     this.person_id = person_id;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, InterruptedException {
-    String databaseUrl = System.getenv("DATABASE_URL");
-    if (databaseUrl == null) {
-      throw new IllegalStateException("No env 'DATABASE_URL' found!");
-    }
+  public static void main(String... args) throws URISyntaxException, SQLException, InterruptedException, MissingEnvException {
+    String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
 
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(databaseUrl);
     JSONReader jsonReader = new JSONReaderImpl();
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
     ExternalServiceHandler howLongServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.HowLongToBeat);
     IGDBProviderImpl igdbProvider = new IGDBProviderImpl();
-    String mediaMogulPersonID = System.getenv("MediaMogulPersonID");
-    if (mediaMogulPersonID == null) {
-      throw new IllegalStateException("No env 'MediaMogulPersonID' found!");
-    }
+    String mediaMogulPersonID = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     Integer person_id = Integer.parseInt(mediaMogulPersonID);
 
     TVDBJWTProvider tvdbjwtProvider = null;
@@ -91,7 +87,7 @@ public class TaskScheduleRunner {
     taskScheduleRunner.runUpdates();
   }
 
-  private void createTaskList() {
+  private void createTaskList() throws MissingEnvException {
     // REGULAR
 
     addPeriodicTask(new SeriesDenormUpdater(connection),
@@ -137,7 +133,7 @@ public class TaskScheduleRunner {
   }
 
   @SuppressWarnings("InfiniteLoopStatement")
-  private void runUpdates() throws InterruptedException {
+  private void runUpdates() throws InterruptedException, MissingEnvException {
     if (tvdbjwtProvider == null) {
       throw new IllegalStateException("Can't currently run updater with no TVDB token. TVDB is the only thing it can handle yet.");
     }
@@ -181,11 +177,8 @@ public class TaskScheduleRunner {
   }
 
 
-  private static void maybeSetDriverPath() {
-    String envName = System.getenv("envName");
-    if (envName == null) {
-      throw new IllegalStateException("No env with 'envName' found!");
-    }
+  private static void maybeSetDriverPath() throws MissingEnvException {
+    String envName = EnvironmentChecker.getOrThrow("envName");
 
     if (!"Heroku".equals(envName)) {
       String driverPath = System.getProperty("user.dir") + "\\resources\\chromedriver.exe";
