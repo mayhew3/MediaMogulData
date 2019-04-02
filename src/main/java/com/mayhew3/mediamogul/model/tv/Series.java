@@ -35,6 +35,7 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
 
   /* Matching Helpers */
   public FieldValueString metacriticHint = registerStringField("metacritic_hint", Nullability.NULLABLE);
+  public FieldValueString metacriticConfirmed = registerStringField("metacritic_confirmed", Nullability.NULLABLE);
   public FieldValueBoolean ignoreTVDB = registerBooleanField("ignore_tvdb", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueBoolean matchedWrong = registerBooleanField("matched_wrong", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueBoolean needsTVDBRedo = registerBooleanField("needs_tvdb_redo", Nullability.NOT_NULL).defaultValue(false);

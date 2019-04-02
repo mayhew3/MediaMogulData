@@ -1,13 +1,13 @@
 package com.mayhew3.mediamogul.tv;
 
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Season;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
@@ -34,6 +34,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
     methodMap.put(UpdateMode.FULL, this::runFullUpdate);
     methodMap.put(UpdateMode.QUICK, this::runQuickUpdate);
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
+    methodMap.put(UpdateMode.SANITY, this::runUpdateOnMatched);
 
     this.connection = connection;
 
@@ -44,7 +45,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, MetacriticException {
+  public static void main(String... args) throws URISyntaxException, SQLException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.FULL);
 
@@ -73,6 +74,21 @@ public class MetacriticTVUpdater implements UpdateRunner {
     }
   }
 
+  private void runUpdateOnMatched() {
+    String sql = "select *\n" +
+        "from series\n" +
+        "where tvdb_match_status = ? " +
+        "and metacritic IS NOT NULL " +
+        "and retired = ? ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0);
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   private void runQuickUpdate() {
     String sql = "select *\n" +
         "from series\n" +
@@ -90,7 +106,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
 
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Prey"; // update for testing on a single series
+    String singleSeriesTitle = "Pitch"; // update for testing on a single series
 
     String sql = "select *\n" +
         "from series\n" +
@@ -133,39 +149,51 @@ public class MetacriticTVUpdater implements UpdateRunner {
     }
   }
 
-  private void parseMetacritic(Series series) throws MetacriticException, SQLException {
+  private void parseMetacritic(Series series) throws MetacriticException {
     String title = series.seriesTitle.getValue();
     debug("Metacritic update for: " + title);
 
-    List<String> stringsToTry = new ArrayList<>();
+    String matchedTitle = series.metacriticConfirmed.getValue();
 
-    String hint = series.metacriticHint.getValue();
+    if (matchedTitle == null) {
 
-    if (hint != null) {
-      stringsToTry.add(hint);
+      List<String> stringsToTry = new ArrayList<>();
+
+      String hint = series.metacriticHint.getValue();
+
+      if (hint != null) {
+        stringsToTry.add(hint);
+      } else {
+        String formattedTitle =
+            title
+                .toLowerCase()
+                .replaceAll(" ", "-")
+                .replaceAll("'", "")
+                .replaceAll("\\.", "");
+
+        Integer year = new DateTime(new Date()).getYear();
+        String formattedTitleWithYear = formattedTitle + "-" + year;
+
+        stringsToTry.add(formattedTitleWithYear);
+        stringsToTry.add(formattedTitle);
+      }
+
+      matchedTitle = findMetacriticForStrings(series, stringsToTry);
+
+      if (matchedTitle == null) {
+        throw new MetacriticException("Couldn't find Metacritic page for series '" + title + "' with formatted '" + stringsToTry + "'");
+      }
+
     } else {
-      String formattedTitle =
-          title
-              .toLowerCase()
-              .replaceAll(" ", "-")
-              .replaceAll("'", "")
-              .replaceAll("\\.", "");
-
-      Integer year = new DateTime(new Date()).getYear();
-      String formattedTitleWithYear = formattedTitle + "-" + year;
-
-      stringsToTry.add(formattedTitleWithYear);
-      stringsToTry.add(formattedTitle);
+      try {
+        findMetacriticForString(series, matchedTitle, 1);
+      } catch (Exception e) {
+        throw new MetacriticException("Had trouble finding metacritic for Season 1 of series '" + title + "' even though formatted title was confirmed previously: '" + series.metacriticConfirmed.getValue() + "'");
+      }
     }
 
     Integer seasonNumber = 1;
-    Boolean failed = false;
-
-    String matchedTitle = findMetacriticForStrings(series, stringsToTry);
-
-    if (matchedTitle == null) {
-      throw new MetacriticException("Couldn't find Metacritic page for series '" + title + "' with formatted '" + stringsToTry + "'");
-    }
+    boolean failed = false;
 
     while (!failed) {
       seasonNumber++;
@@ -174,7 +202,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
         findMetacriticForString(series, matchedTitle + "/season-" + seasonNumber, seasonNumber);
       } catch (Exception e) {
         failed = true;
-        debug("Finished finding seasons after Season " + (seasonNumber-1));
+        debug("Finished finding seasons after Season " + (seasonNumber - 1));
       }
     }
   }
@@ -194,9 +222,14 @@ public class MetacriticTVUpdater implements UpdateRunner {
 
   private void findMetacriticForString(Series series, String formattedTitle, Integer seasonNumber) throws IOException, SQLException, MetacriticException {
     Document document = Jsoup.connect("http://www.metacritic.com/tv/" + formattedTitle)
-        .timeout(3000)
+        .timeout(10000)
         .userAgent("Mozilla")
         .get();
+
+    if (seasonNumber == 1) {
+      series.metacriticConfirmed.changeValue(formattedTitle);
+      series.commit(connection);
+    }
 
     if (seasonNumber > 1) {
       Elements select = document.select("[href=/tv/" + formattedTitle + "]");

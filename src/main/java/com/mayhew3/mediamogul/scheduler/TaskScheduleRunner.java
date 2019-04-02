@@ -90,6 +90,8 @@ public class TaskScheduleRunner {
   private void createTaskList() throws MissingEnvException {
     // REGULAR
 
+    addPeriodicTask(new MetacriticTVUpdater(connection, UpdateMode.SANITY),
+        2000);
     addPeriodicTask(new SeriesDenormUpdater(connection),
         5);
     addPeriodicTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
@@ -100,6 +102,8 @@ public class TaskScheduleRunner {
         1);
     addPeriodicTask(new TVDBSeriesMatchRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
         3);
+    addPeriodicTask(new MetacriticTVUpdater(connection, UpdateMode.QUICK),
+        2);
 
     addPeriodicTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         5);
