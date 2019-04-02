@@ -22,20 +22,21 @@ public class SchemaHerokuTest {
   @Test
   public void testHerokuSchemaUpToDate() throws URISyntaxException, SQLException, MissingEnvException {
     String database_url = EnvironmentChecker.getOrThrow("DATABASE_URL");
+    logger.debug("Database URL: " + database_url);
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(database_url);
     List<DataObjectMismatch> mismatches = MediaMogulSchema.schema.validateSchemaAgainstDatabase(connection);
 
     if (!mismatches.isEmpty()) {
-      debug("Mismatches found: ");
+      logger.error("Mismatches found: ");
       for (DataObjectMismatch mismatch : mismatches) {
-        debug(" - " + mismatch);
+        logger.error(" - " + mismatch);
         if (mismatch.getMessage().equals("Table not found!")) {
-          debug("    - " + mismatch.getDataObject().generateTableCreateStatement());
+          logger.error("    - " + mismatch.getDataObject().generateTableCreateStatement());
         }
         if (mismatch.getMessage().equals("ForeignKey restraint not found in DB.")) {
           List<String> stringList = mismatch.getDataObject().generateAddForeignKeyStatements();
           for (String fkStatement : stringList) {
-            debug("    - " + fkStatement);
+            logger.error("    - " + fkStatement);
           }
         }
       }
@@ -44,7 +45,4 @@ public class SchemaHerokuTest {
 
   }
 
-  private void debug(Object message) {
-    logger.debug(message);
-  }
 }

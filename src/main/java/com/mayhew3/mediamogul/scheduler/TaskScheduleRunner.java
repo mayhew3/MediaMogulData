@@ -24,8 +24,6 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,8 +79,6 @@ public class TaskScheduleRunner {
 
     maybeSetDriverPath();
 
-    printClassPaths();
-
     TaskScheduleRunner taskScheduleRunner = new TaskScheduleRunner(
         connection,
         tvdbjwtProvider,
@@ -92,16 +88,6 @@ public class TaskScheduleRunner {
         new SteamProviderImpl(),
         person_id);
     taskScheduleRunner.runUpdates();
-  }
-
-  private static void printClassPaths() {
-    ClassLoader cl = ClassLoader.getSystemClassLoader();
-
-    URL[] urls = ((URLClassLoader)cl).getURLs();
-
-    for(URL url: urls){
-      debug(url.getFile());
-    }
   }
 
   private void createTaskList() throws MissingEnvException {
@@ -161,9 +147,9 @@ public class TaskScheduleRunner {
 
     createTaskList();
 
-    debug("");
-    debug("SESSION START!");
-    debug("");
+    info("");
+    info("SESSION START!");
+    info("");
 
     while (true) {
 
@@ -176,16 +162,16 @@ public class TaskScheduleRunner {
         try {
           ConnectionLogger connectionLogger = new ConnectionLogger(connection);
 
-          debug("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
+          info("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
 
           connectionLogger.logConnectionStart(updateRunner);
           updateRunner.runUpdate();
           connectionLogger.logConnectionEnd();
 
-          debug("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
+          info("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
 
         } catch (Exception e) {
-          debug("Exception encountered during run of update '" + updateRunner.getUniqueIdentifier() + "'.");
+          logger.error("Exception encountered during run of update '" + updateRunner.getUniqueIdentifier() + "'.");
           e.printStackTrace();
         } finally {
           // mark the task as having been run, whether it succeeds or errors out.
@@ -207,8 +193,8 @@ public class TaskScheduleRunner {
     }
   }
 
-  protected static void debug(Object message) {
-    logger.debug(message);
+  private static void info(Object message) {
+    logger.info(message);
   }
 
 }
