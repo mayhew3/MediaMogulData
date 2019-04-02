@@ -83,6 +83,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
         "from series\n" +
         "where tvdb_match_status = ? " +
         "and metacritic IS NOT NULL " +
+        "and metacritic_confirmed IS NULL " +
         "and retired = ? ";
 
     try {
@@ -110,7 +111,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
 
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Pitch"; // update for testing on a single series
+    String singleSeriesTitle = "Castle Rock"; // update for testing on a single series
 
     String sql = "select *\n" +
         "from series\n" +
@@ -150,6 +151,11 @@ public class MetacriticTVUpdater implements UpdateRunner {
       }
 
       debug(i + " processed.");
+    }
+    if (i == 0) {
+      logger.info("No rows found to process. Finished.");
+    } else {
+      logger.info("Finished processing " + i + " rows.");
     }
   }
 
