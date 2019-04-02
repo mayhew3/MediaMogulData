@@ -170,7 +170,7 @@ public class HowLongToBeatUpdater {
     resultElement = getResult(searchBox);
 
     if (resultElement == null) {
-      debug("Unable to find exact match for game '" + title + "'");
+      logger.warn("Unable to find exact match for game '" + title + "'");
       return null;
     }
 

@@ -1,14 +1,13 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.PossibleSeriesMatch;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -88,7 +87,7 @@ public class TVDBSeriesMatchUpdater {
       Optional<Series> differentSeriesWithSameTVDBID = findDifferentSeriesWithSameTVDBID(series.id.getValue(), bestMatch.tvdbSeriesExtId.getValue());
       series.tvdbMatchId.changeValue(bestMatch.tvdbSeriesExtId.getValue());
       if (differentSeriesWithSameTVDBID.isPresent()) {
-        debug("Duplicate series found with TVDB ID " + bestMatch.tvdbSeriesExtId.getValue() + ": " + differentSeriesWithSameTVDBID.get());
+        logger.info("Duplicate series found with TVDB ID " + bestMatch.tvdbSeriesExtId.getValue() + ": " + differentSeriesWithSameTVDBID.get());
         series.tvdbMatchStatus.changeValue("Duplicate");
       } else {
         series.tvdbMatchStatus.changeValue(TVDBMatchStatus.NEEDS_CONFIRMATION);

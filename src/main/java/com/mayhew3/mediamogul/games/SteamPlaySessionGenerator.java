@@ -2,14 +2,13 @@ package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.GameplaySession;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SteamPlaySessionGenerator implements UpdateRunner {
@@ -55,7 +53,7 @@ public class SteamPlaySessionGenerator implements UpdateRunner {
   public void runUpdate() throws SQLException {
     Integer numberOfGames = getNumberOfGames();
 
-    debug("Found " + numberOfGames + " newly played Steam games. Grouping into sessions.");
+    logger.info("Found " + numberOfGames + " newly played Steam games. Grouping into sessions.");
 
     String sql = "SELECT DISTINCT game_id " +
         getNewlyPlayedGameQuery() +
@@ -155,7 +153,7 @@ public class SteamPlaySessionGenerator implements UpdateRunner {
         "AND gameplay_session_id IS NULL ";
   }
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 

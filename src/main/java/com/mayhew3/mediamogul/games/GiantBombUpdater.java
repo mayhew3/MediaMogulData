@@ -108,7 +108,7 @@ public class GiantBombUpdater implements UpdateRunner {
           updateMatch(game, match);
         }
       } catch (IOException e) {
-        debug("Error occured for game: " + game.title.getValue());
+        logger.warn("Error occured for game: " + game.title.getValue());
         e.printStackTrace();
       } finally {
         // Giant Bomb added API request limits of 1 per second. Because it is exact, and I don't have many games to try,
@@ -203,10 +203,10 @@ public class GiantBombUpdater implements UpdateRunner {
 
       game.commit(connection);
     } catch (JSONException e) {
-      debug("Error getting object for results on '" + title + "'.");
+      logger.warn("Error getting object for results on '" + title + "'.");
       e.printStackTrace();
     } catch (ParseException e) {
-      debug("Error parsing date.");
+      logger.warn("Error parsing date.");
       e.printStackTrace();
     }
   }
@@ -320,7 +320,7 @@ public class GiantBombUpdater implements UpdateRunner {
   }
 
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 

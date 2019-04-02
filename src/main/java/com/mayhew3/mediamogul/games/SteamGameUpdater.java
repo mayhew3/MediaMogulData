@@ -4,10 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.games.provider.SteamProvider;
 import com.mayhew3.mediamogul.games.provider.SteamProviderImpl;
 import com.mayhew3.mediamogul.model.games.Game;
@@ -15,6 +11,9 @@ import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.PersonGame;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -74,16 +73,16 @@ public class SteamGameUpdater implements UpdateRunner {
       System.setOut(logPrintStream);
     }
 
-    debug("");
-    debug("SESSION START! Date: " + new Date());
-    debug("");
+    logger.info("");
+    logger.info("SESSION START! Date: " + new Date());
+    logger.info("");
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
     SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, new SteamProviderImpl());
     steamGameUpdater.runUpdate();
 
-    debug(" --- ");
-    debug(" Full operation complete!");
+    logger.info(" --- ");
+    logger.info(" Full operation complete!");
   }
 
   public void runUpdate() throws SQLException {
@@ -104,9 +103,9 @@ public class SteamGameUpdater implements UpdateRunner {
         jsonSteamIDs.add(jsonGame.getInt("appid"));
       }
 
-      debug("");
-      debug("Updating ownership of games no longer in steam library...");
-      debug("");
+      logger.info("");
+      logger.info("Updating ownership of games no longer in steam library...");
+      logger.info("");
 
       ResultSet resultSet = connection.executeQuery("SELECT * FROM game WHERE steamid is not null AND owned = 'owned'");
 
@@ -130,9 +129,9 @@ public class SteamGameUpdater implements UpdateRunner {
         }
       }
 
-      debug("Operation finished!");
+      logger.info("Operation finished!");
     } catch (IOException e) {
-      debug("Error reading from URL: " + steamProvider.getFullUrl());
+      logger.error("Error reading from URL: " + steamProvider.getFullUrl());
       e.printStackTrace();
     }
 
@@ -256,7 +255,7 @@ public class SteamGameUpdater implements UpdateRunner {
     }
   }
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 

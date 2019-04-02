@@ -5,13 +5,12 @@ import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -19,10 +18,7 @@ import org.joda.time.DateTime;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -162,18 +158,18 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
         howLongServiceHandler.connectionSuccess();
       } catch (SQLException e) {
         e.printStackTrace();
-        debug("Game failed to load from DB.");
+        logger.error("Game failed to load from DB.");
         howLongServiceHandler.connectionFailed();
         failures++;
       } catch (GameFailedException e) {
         e.printStackTrace();
-        debug("Game failed: " + game);
+        logger.warn("Game failed: " + game);
         howLongServiceHandler.connectionFailed();
         logFailure(game);
         failures++;
       } catch (WebDriverException e) {
         e.printStackTrace();
-        debug("WebDriver error: " + game);
+        logger.error("WebDriver error: " + game);
         howLongServiceHandler.connectionFailed();
         logFailure(game);
         failures++;
@@ -183,7 +179,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
       i++;
     }
 
-    debug("Operation completed! Failed on " + failures + "/" + (i-1) + " games (" + (failures/i*100) + "%)");
+    logger.info("Operation completed! Failed on " + failures + "/" + (i-1) + " games (" + (failures/i*100) + "%)");
 
     chromeDriver.quit();
   }

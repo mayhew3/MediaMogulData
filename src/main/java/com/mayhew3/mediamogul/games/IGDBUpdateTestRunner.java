@@ -45,7 +45,7 @@ public class IGDBUpdateTestRunner {
 
   }
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 

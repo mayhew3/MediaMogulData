@@ -227,11 +227,11 @@ public class CloudinaryUploader implements UpdateRunner {
         return Optional.of(uploadResult.get("public_id").toString());
       } catch (Exception e) {
         e.printStackTrace();
-        debug("Failed to resolve url even though it passed exists check: '" + url + "'");
+        logger.warn("Failed to resolve url even though it passed exists check: '" + url + "'");
         return Optional.empty();
       }
     } else {
-      debug("TVDB image not available at the moment: " + url);
+      logger.warn("TVDB image not available at the moment: " + url);
       return Optional.empty();
     }
   }

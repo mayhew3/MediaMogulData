@@ -4,10 +4,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
@@ -20,6 +16,9 @@ import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -164,25 +163,25 @@ public class TVDBSeriesMatchRunner implements UpdateRunner {
   private void runSmartUpdate() {
 
     debug("");
-    debug("-- STARTING UPDATE FOR NEEDS FIRST PASS SHOWS WITH NO ERRORS -- ");
+    logger.info("-- STARTING UPDATE FOR NEEDS FIRST PASS SHOWS WITH NO ERRORS -- ");
     debug("");
 
     runFirstPassUpdate();
 
     debug("");
-    debug("-- STARTING UPDATE FOR RECENTLY FAILED SHOWS WITH FEW ERRORS -- ");
+    logger.info("-- STARTING UPDATE FOR RECENTLY FAILED SHOWS WITH FEW ERRORS -- ");
     debug("");
 
     runUpdateOnRecentlyErrored();
 
     debug("");
-    debug("-- STARTING UPDATE FOR OLD FAILED SHOWS WITH MANY ERRORS -- ");
+    logger.info("-- STARTING UPDATE FOR OLD FAILED SHOWS WITH MANY ERRORS -- ");
     debug("");
 
     runUpdateOnOldErrors();
 
     debug("");
-    debug("-- STARTING UPDATE FOR ALL UNMATCHED EPISODES -- ");
+    logger.info("-- STARTING UPDATE FOR ALL UNMATCHED EPISODES -- ");
     debug("");
 
     tryToMatchTiVoEpisodes();
@@ -369,7 +368,7 @@ public class TVDBSeriesMatchRunner implements UpdateRunner {
       }
     }
 
-    debug("Update complete for result set: " + i + " processed.");
+    logger.info("Update complete for result set: " + i + " processed.");
   }
 
   @NotNull
@@ -382,7 +381,7 @@ public class TVDBSeriesMatchRunner implements UpdateRunner {
       return SeriesUpdateResult.UPDATE_SUCCESS;
     } catch (Exception e) {
       e.printStackTrace();
-      debug("Show failed TVDB: " + series.seriesTitle.getValue());
+      logger.warn("Show failed TVDB: " + series.seriesTitle.getValue());
       updateTVDBErrors(series);
       return SeriesUpdateResult.UPDATE_FAILED;
     }

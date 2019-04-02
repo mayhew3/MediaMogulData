@@ -1,10 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.model.games.Game;
@@ -12,6 +8,9 @@ import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -61,7 +60,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
     igdbUpdateRunner.runUpdate();
   }
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 
@@ -149,7 +148,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
       try {
         processSingleGame(resultSet, game);
       } catch (Exception e) {
-        debug("Show failed on initialization from DB.");
+        logger.error("Show failed on initialization from DB.");
       }
     }
 
@@ -163,7 +162,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
       updateIGDB(game);
     } catch (Exception e) {
       e.printStackTrace();
-      debug("Game failed IGDB: " + game.title.getValue() + " (ID " + game.id.getValue() + ")");
+      logger.warn("Game failed IGDB: " + game.title.getValue() + " (ID " + game.id.getValue() + ")");
     }
   }
 

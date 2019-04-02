@@ -3,13 +3,12 @@ package com.mayhew3.mediamogul.games;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +20,6 @@ import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,11 +139,11 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
         metacriticGameUpdater.runUpdater();
       } catch (GameFailedException e) {
         e.printStackTrace();
-        debug("Show failed: " + game.title.getValue());
+        logger.warn("Show failed: " + game.title.getValue());
         failures++;
       } catch (SQLException e) {
         e.printStackTrace();
-        debug("Failed to load game from database.");
+        logger.error("Failed to load game from database.");
         failures++;
       }
 
@@ -154,12 +152,12 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     }
 
     if (i > 1) {
-      debug("Operation completed! Failed on " + failures + "/" + (i - 1) + " games (" + (100 * failures / (i - 1)) + "%)");
+      logger.info("Operation completed! Failed on " + failures + "/" + (i - 1) + " games (" + (100 * failures / (i - 1)) + "%)");
     }
   }
 
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 }

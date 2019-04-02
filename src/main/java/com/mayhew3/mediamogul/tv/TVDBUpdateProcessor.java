@@ -2,18 +2,17 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.mediamogul.scheduler.UpdateRunner;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBUpdateError;
 import com.mayhew3.mediamogul.model.tv.TVDBWorkItem;
+import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,9 +64,9 @@ public class TVDBUpdateProcessor implements UpdateRunner {
   public void runUpdate() throws SQLException, UnirestException {
     List<TVDBWorkItem> workItems = getUnprocessedWorkItems();
     if (workItems.isEmpty()) {
-      debug("No series in queue.");
+      logger.info("No series in queue.");
     } else {
-      debug("Updating " + workItems.size() + " shows...");
+      logger.info("Updating " + workItems.size() + " shows...");
       runPeriodicUpdate(workItems);
     }
   }
@@ -88,7 +87,7 @@ public class TVDBUpdateProcessor implements UpdateRunner {
             tvdbConnectionLog.failedShows.increment(1);
           }
         } catch (Exception e) {
-          debug("Show failed on initialization from DB.");
+          logger.error("Show failed on initialization from DB.");
         }
 
       }
@@ -142,9 +141,9 @@ public class TVDBUpdateProcessor implements UpdateRunner {
     } catch (Exception e) {
       e.printStackTrace();
       if (series == null) {
-        debug(workItemGroup.workItems.size() + " work items failed for series id: " + workItemGroup.seriesId);
+        logger.info(workItemGroup.workItems.size() + " work items failed for series id: " + workItemGroup.seriesId);
       } else {
-        debug("Series TVDB failed: " + series.seriesTitle.getValue());
+        logger.warn("Series TVDB failed: " + series.seriesTitle.getValue());
         updateTVDBErrors(series);
       }
       return SeriesUpdateResult.UPDATE_FAILED;
@@ -249,7 +248,7 @@ public class TVDBUpdateProcessor implements UpdateRunner {
     }
   }
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 

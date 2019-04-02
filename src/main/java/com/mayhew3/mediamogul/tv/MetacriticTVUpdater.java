@@ -2,7 +2,6 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mayhew3.mediamogul.model.tv.Season;
 import com.mayhew3.mediamogul.model.tv.Series;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
@@ -142,12 +141,12 @@ public class MetacriticTVUpdater implements UpdateRunner {
         series.metacriticNew.changeValue(false);
         series.commit(connection);
       } catch (MetacriticException e) {
-        debug("Unable to find metacritic for: " + series.seriesTitle.getValue());
+        logger.warn("Unable to find metacritic for: " + series.seriesTitle.getValue());
         series.metacriticNew.changeValue(false);
         series.commit(connection);
       } catch (Exception e) {
         e.printStackTrace();
-        debug("Uncaught exception during metacritic fetch: " + series.seriesTitle.getValue());
+        logger.error("Uncaught exception during metacritic fetch: " + series.seriesTitle.getValue());
       }
 
       debug(i + " processed.");

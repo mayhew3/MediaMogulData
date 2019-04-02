@@ -3,13 +3,12 @@ package com.mayhew3.mediamogul.games;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -126,10 +125,10 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
         steamAttributeUpdater.runUpdater();
       } catch (SQLException e) {
         e.printStackTrace();
-        debug("Game failed to load from DB.");
+        logger.error("Game failed to load from DB.");
       } catch (GameFailedException e) {
         e.printStackTrace();
-        debug("Game failed: " + game);
+        logger.warn("Game failed: " + game);
       }
 
       debug(i + " processed.");

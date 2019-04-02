@@ -5,7 +5,6 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
@@ -77,8 +76,8 @@ public class IGDBProviderImpl implements IGDBProvider {
     try {
       return new JSONArray(body);
     } catch (JSONException e) {
-      debug("Unable to parse response: ");
-      debug(body);
+      logger.error("Unable to parse response: ");
+      logger.error(body);
       throw e;
     }
   }
@@ -96,8 +95,8 @@ public class IGDBProviderImpl implements IGDBProvider {
     try {
       return new JSONObject(body);
     } catch (JSONException e) {
-      debug("Unable to parse response: ");
-      debug(body);
+      logger.error("Unable to parse response: ");
+      logger.error(body);
       throw e;
     }
   }
@@ -109,9 +108,5 @@ public class IGDBProviderImpl implements IGDBProvider {
     } catch (UnirestException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  void debug(Object message) {
-    logger.debug(message);
   }
 }

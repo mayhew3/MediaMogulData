@@ -4,15 +4,14 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.dataobject.DataObject;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.dataobject.FieldValueTimestamp;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +27,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -103,7 +101,7 @@ public class OldDataArchiveRunner implements UpdateRunner {
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, lastDateInTimestamp);
 
-    debug("Query executed on table " + tableName + " before " + lastDateToKeep + ". Processing rows...");
+    logger.info("Query executed on table " + tableName + " before " + lastDateToKeep + ". Processing rows...");
 
 
     while (resultSet.next()) {
@@ -145,7 +143,7 @@ public class OldDataArchiveRunner implements UpdateRunner {
       }
     }
 
-    debug(i + " rows processed. Done with table " + tableName);
+    logger.info(i + " rows processed. Done with table " + tableName);
   }
 
   private void debug(String message) {

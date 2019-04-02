@@ -1,14 +1,13 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.mediamogul.scheduler.UpdateRunner;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBWorkItem;
+import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,12 +68,12 @@ public class TVDBUpdateFinder implements UpdateRunner {
     Timestamp now = now();
 
     Seconds secondsDiff = Seconds.secondsBetween(new DateTime(startTime), new DateTime(now));
-    debug("Finding updates between " + startTime + " and " + now + ", diff of " + secondsDiff.getSeconds() + " seconds.");
+    logger.info("Finding updates between " + startTime + " and " + now + ", diff of " + secondsDiff.getSeconds() + " seconds.");
 
     JSONObject updatedSeries = tvdbjwtProvider.getUpdatedSeries(startTime);
 
     if (updatedSeries.isNull("data")) {
-      debug("Empty list of TVDB updated.");
+      logger.info("Empty list of TVDB updated.");
       lastUpdated = now;
     }
 
@@ -86,7 +85,7 @@ public class TVDBUpdateFinder implements UpdateRunner {
   private void processTVDBPayload(Timestamp now, JSONObject updatedSeries) throws SQLException {
     @NotNull JSONArray seriesArray = jsonReader.getArrayWithKey(updatedSeries, "data");
 
-    debug("Total series found: " + seriesArray.length());
+    logger.info("Total series found: " + seriesArray.length());
 
     for (int i = 0; i < seriesArray.length(); i++) {
       JSONObject seriesRow = seriesArray.getJSONObject(i);
@@ -145,7 +144,7 @@ public class TVDBUpdateFinder implements UpdateRunner {
     workItem.commit(connection);
   }
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 

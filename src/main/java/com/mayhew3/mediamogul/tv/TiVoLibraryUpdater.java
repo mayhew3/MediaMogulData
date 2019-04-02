@@ -156,7 +156,7 @@ public class TiVoLibraryUpdater {
     connection.closeConnection();
   }
 
-  protected static void debug(Object message) {
+  private static void debug(Object message) {
     logger.debug(message);
   }
 
