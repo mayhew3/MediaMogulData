@@ -3,10 +3,13 @@ package com.mayhew3.mediamogul.tv.utility;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.group.*;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
@@ -21,6 +24,8 @@ public class TVGroupDataImporter {
   private SQLConnection connection;
 
   private Map<BallotInfo, TVGroupBallot> ballotCache;
+
+  private static Logger logger = LogManager.getLogger(TVGroupDataImporter.class);
 
   private TVGroupDataImporter(SQLConnection connection) {
     this.connection = connection;
@@ -186,8 +191,8 @@ public class TVGroupDataImporter {
     tvGroupVote.commit(connection);
   }
 
-  protected void debug(String msg) {
-    System.out.println(new Date() + " " + msg);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
   private class BallotInfo {

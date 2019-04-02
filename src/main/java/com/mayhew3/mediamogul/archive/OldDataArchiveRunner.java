@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -12,6 +13,8 @@ import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.dataobject.DataObject;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.dataobject.FieldValueTimestamp;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
@@ -37,6 +40,7 @@ public class OldDataArchiveRunner implements UpdateRunner {
   private List<ArchiveableFactory> tablesToArchive;
   private String mediaMogulLogs;
 
+  private static Logger logger = LogManager.getLogger(OldDataArchiveRunner.class);
 
   public static void main(String... args) throws URISyntaxException, SQLException, IOException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
@@ -144,8 +148,8 @@ public class OldDataArchiveRunner implements UpdateRunner {
     debug(i + " rows processed. Done with table " + tableName);
   }
 
-  private void debug(String str) {
-    System.out.println(new Date() + ": " + str);
+  private void debug(String message) {
+    logger.debug(message);
   }
 
   private void copyRowToArchiveFile(DataObject dataObject, @NotNull PrintStream printStream) {

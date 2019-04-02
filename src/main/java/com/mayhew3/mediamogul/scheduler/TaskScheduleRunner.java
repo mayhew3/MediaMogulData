@@ -19,12 +19,15 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,10 +41,12 @@ public class TaskScheduleRunner {
   @Nullable
   private TVDBJWTProvider tvdbjwtProvider;
   private JSONReader jsonReader;
-  ExternalServiceHandler howLongServiceHandler;
+  private ExternalServiceHandler howLongServiceHandler;
   private IGDBProvider igdbProvider;
   private SteamProvider steamProvider;
   private Integer person_id;
+
+  private static Logger logger = LogManager.getLogger(TaskScheduleRunner.class);
 
   private TaskScheduleRunner(SQLConnection connection,
                              @Nullable TVDBJWTProvider tvdbjwtProvider,
@@ -76,6 +81,8 @@ public class TaskScheduleRunner {
 
     maybeSetDriverPath();
 
+    printClassPaths();
+
     TaskScheduleRunner taskScheduleRunner = new TaskScheduleRunner(
         connection,
         tvdbjwtProvider,
@@ -85,6 +92,16 @@ public class TaskScheduleRunner {
         new SteamProviderImpl(),
         person_id);
     taskScheduleRunner.runUpdates();
+  }
+
+  private static void printClassPaths() {
+    ClassLoader cl = ClassLoader.getSystemClassLoader();
+
+    URL[] urls = ((URLClassLoader)cl).getURLs();
+
+    for(URL url: urls){
+      debug(url.getFile());
+    }
   }
 
   private void createTaskList() throws MissingEnvException {
@@ -191,7 +208,7 @@ public class TaskScheduleRunner {
   }
 
   protected static void debug(Object message) {
-    System.out.println(new Date() + ": " + message);
+    logger.debug(message);
   }
 
 }

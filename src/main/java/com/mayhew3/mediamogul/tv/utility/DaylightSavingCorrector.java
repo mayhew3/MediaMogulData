@@ -1,9 +1,11 @@
 package com.mayhew3.mediamogul.tv.utility;
 
+import com.mayhew3.mediamogul.model.tv.TiVoEpisode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import com.mayhew3.mediamogul.model.tv.TiVoEpisode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class DaylightSavingCorrector {
 
   private SQLConnection connection;
+
+  private static Logger logger = LogManager.getLogger(DaylightSavingCorrector.class);
 
   private DaylightSavingCorrector(SQLConnection connection) {
     this.connection = connection;
@@ -117,8 +121,8 @@ public class DaylightSavingCorrector {
   }
 
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 

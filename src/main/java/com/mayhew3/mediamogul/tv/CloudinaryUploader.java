@@ -15,6 +15,8 @@ import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
@@ -38,6 +40,8 @@ public class CloudinaryUploader implements UpdateRunner {
   private final Map<UpdateMode, Runnable> methodMap;
 
   private UpdateMode updateMode;
+
+  private static Logger logger = LogManager.getLogger(CloudinaryUploader.class);
 
   public CloudinaryUploader(SQLConnection connection, @NotNull UpdateMode updateMode) throws MissingEnvException {
     EnvironmentChecker.getOrThrow("CLOUDINARY_URL");
@@ -232,8 +236,8 @@ public class CloudinaryUploader implements UpdateRunner {
     }
   }
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
   private static boolean exists(String URLName){

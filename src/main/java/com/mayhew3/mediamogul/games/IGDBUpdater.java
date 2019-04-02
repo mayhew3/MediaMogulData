@@ -1,10 +1,13 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.PossibleGameMatch;
 import com.mayhew3.mediamogul.xml.JSONReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -24,6 +27,8 @@ public class IGDBUpdater {
   private JSONReader jsonReader;
 
   private Set<Integer> existingGameMatches = new HashSet<>();
+
+  private static Logger logger = LogManager.getLogger(IGDBUpdater.class);
 
   IGDBUpdater(@NotNull Game game, SQLConnection connection, IGDBProvider igdbProvider, JSONReader jsonReader) {
     this.game = game;
@@ -293,8 +298,8 @@ public class IGDBUpdater {
     }
   }
 
-  protected static void debug(Object object) {
-    System.out.println(object);
+  protected static void debug(Object message) {
+    logger.debug(message);
   }
 
 

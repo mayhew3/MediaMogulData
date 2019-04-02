@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -9,6 +10,8 @@ import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.GameplaySession;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
@@ -25,6 +28,8 @@ public class SteamPlaySessionGenerator implements UpdateRunner {
 
   private SQLConnection connection;
   private Integer person_id;
+
+  private static Logger logger = LogManager.getLogger(SteamPlaySessionGenerator.class);
 
   public SteamPlaySessionGenerator(SQLConnection connection, Integer person_id) {
     this.connection = connection;
@@ -151,7 +156,7 @@ public class SteamPlaySessionGenerator implements UpdateRunner {
   }
 
   protected static void debug(Object message) {
-    System.out.println(new Date() + ": " + message);
+    logger.debug(message);
   }
 
   private void createOrUpdateGameplaySession(List<GameLog> connectedLogs, GameplaySession sessionToContinue) throws SQLException {

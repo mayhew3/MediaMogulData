@@ -3,13 +3,15 @@ package com.mayhew3.mediamogul.tv.blog;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.EpisodeGroupRating;
 import com.mayhew3.mediamogul.model.tv.EpisodeRating;
 import com.mayhew3.mediamogul.model.tv.Series;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,6 +39,8 @@ public class BlogRankingsCreator {
   private String outputPath;
 
   private List<Integer> postBoundaries = Lists.newArrayList(43, 20, 10, 0);
+
+  private static Logger logger = LogManager.getLogger(BlogRankingsCreator.class);
 
   private BlogRankingsCreator(SQLConnection connection, String templatePath, String outputPath) throws IOException {
     this.connection = connection;
@@ -396,8 +400,8 @@ public class BlogRankingsCreator {
   }
 
 
-  protected void debug(Object object) {
-    System.out.println(new Date() + ": " + object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 }

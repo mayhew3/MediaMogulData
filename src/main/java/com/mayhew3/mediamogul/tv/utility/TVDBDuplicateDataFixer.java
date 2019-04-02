@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.tv.utility;
 
 import com.google.common.collect.Ordering;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -11,6 +12,8 @@ import com.mayhew3.mediamogul.model.tv.TiVoEpisode;
 import com.mayhew3.mediamogul.tv.SeriesDenormUpdater;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URISyntaxException;
@@ -21,6 +24,8 @@ import java.util.*;
 
 public class TVDBDuplicateDataFixer {
   private SQLConnection connection;
+
+  private static Logger logger = LogManager.getLogger(TVDBDuplicateDataFixer.class);
 
   private final Ordering<Episode> DATEADDED = new Ordering<Episode>() {
     @Override
@@ -274,8 +279,8 @@ public class TVDBDuplicateDataFixer {
 
 
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 }

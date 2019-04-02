@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
@@ -14,6 +15,8 @@ import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import org.apache.http.auth.AuthenticationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +42,8 @@ public class TVDBUpdateProcessor implements UpdateRunner {
   // todo: add a failure_time field instead. just don't retry a work item, let the failure updater handle it.
   @SuppressWarnings("FieldCanBeLocal")
   private final Integer ERROR_THRESHOLD = 3;
+
+  private static Logger logger = LogManager.getLogger(TVDBUpdateProcessor.class);
 
   public TVDBUpdateProcessor(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader) {
     this.connection = connection;
@@ -245,7 +250,7 @@ public class TVDBUpdateProcessor implements UpdateRunner {
   }
 
   protected static void debug(Object message) {
-    System.out.println(new Date() + ": " + message);
+    logger.debug(message);
   }
 
 }

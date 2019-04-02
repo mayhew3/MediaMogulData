@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -14,6 +15,8 @@ import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.PersonGame;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -33,6 +36,8 @@ public class SteamGameUpdater implements UpdateRunner {
   private SQLConnection connection;
   private Integer person_id;
   private SteamProvider steamProvider;
+
+  private static Logger logger = LogManager.getLogger(SteamGameUpdater.class);
 
   public SteamGameUpdater(SQLConnection connection, Integer person_id, SteamProvider steamProvider) {
     this.connection = connection;
@@ -251,8 +256,8 @@ public class SteamGameUpdater implements UpdateRunner {
     }
   }
 
-  protected static void debug(Object object) {
-    System.out.println(object);
+  protected static void debug(Object message) {
+    logger.debug(message);
   }
 
   @Override

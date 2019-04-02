@@ -2,12 +2,15 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mayhew3.mediamogul.model.tv.Season;
 import com.mayhew3.mediamogul.model.tv.Series;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
@@ -28,6 +31,8 @@ public class MetacriticTVUpdater implements UpdateRunner {
   private UpdateMode updateMode;
 
   private final Map<UpdateMode, Runnable> methodMap;
+
+  private static Logger logger = LogManager.getLogger(MetacriticTVUpdater.class);
 
   public MetacriticTVUpdater(SQLConnection connection, UpdateMode updateMode) {
     methodMap = new HashMap<>();
@@ -280,8 +285,8 @@ public class MetacriticTVUpdater implements UpdateRunner {
     series.commit(connection);
   }
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
   @Override

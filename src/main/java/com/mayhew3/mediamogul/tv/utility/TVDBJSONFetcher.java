@@ -5,6 +5,7 @@ import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
@@ -12,6 +13,8 @@ import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -26,6 +29,8 @@ public class TVDBJSONFetcher {
   private String singleSeriesTitle = "Inside Amy Schumer"; // update for testing on a single series
 
   private SQLConnection connection;
+
+  private static Logger logger = LogManager.getLogger(TVDBJSONFetcher.class);
 
   private TVDBJSONFetcher(SQLConnection connection) {
     this.connection = connection;
@@ -84,8 +89,8 @@ public class TVDBJSONFetcher {
   }
 
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 }

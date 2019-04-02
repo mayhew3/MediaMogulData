@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv.utility;
 
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -9,6 +10,8 @@ import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.xml.NodeReader;
 import com.mayhew3.mediamogul.xml.NodeReaderImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -23,6 +26,8 @@ public class TVDBXMLFetcher {
   private String filePath = "src\\test\\resources\\TVDB_Inside_Amy_Schumer.xml";
 
   private SQLConnection connection;
+
+  private static Logger logger = LogManager.getLogger(TVDBXMLFetcher.class);
 
   private TVDBXMLFetcher(SQLConnection connection) {
     this.connection = connection;
@@ -68,8 +73,8 @@ public class TVDBXMLFetcher {
   }
 
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 }

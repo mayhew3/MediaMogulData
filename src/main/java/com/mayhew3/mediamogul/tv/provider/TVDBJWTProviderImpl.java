@@ -9,7 +9,10 @@ import com.mashape.unirest.request.HttpRequest;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import org.apache.http.auth.AuthenticationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +30,8 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
   private String token = null;
   private ExternalServiceHandler externalServiceHandler;
   private String tvdbApiKey;
+
+  private static Logger logger = LogManager.getLogger(TVDBJWTProviderImpl.class);
 
   public TVDBJWTProviderImpl(ExternalServiceHandler externalServiceHandler) throws UnirestException, MissingEnvException {
     tvdbApiKey = EnvironmentChecker.getOrThrow("TVDB_API_KEY");
@@ -97,7 +102,7 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
 
     long epochTime = getEpochTime(fromDate);
 
-    System.out.println("Epoch time: " + epochTime);
+    debug("Epoch time: " + epochTime);
 
     String seriesUrl = "https://api.thetvdb.com/updated/query";
 
@@ -218,14 +223,14 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
       if (jsonObject.has("token")) {
         return jsonObject.getString("token");
       } else {
-        System.out.println("Error fetching token. Response: ");
-        System.out.println(responseAsString.getBody());
+        debug("Error fetching token. Response: ");
+        debug(responseAsString.getBody());
         throw new UnirestException("Unable to fetch token.");
       }
 
     } catch (JSONException e) {
-      System.out.println("Unable to parse JSON response: ");
-      System.out.println(responseAsString.getBody());
+      debug("Unable to parse JSON response: ");
+      debug(responseAsString.getBody());
       throw e;
     }
   }
@@ -237,7 +242,7 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
       externalServiceHandler.connectionSuccess();
       return response;
     } else if ("Unauthorized".equals(response.getStatusText())) {
-      System.out.println("Refreshing token...");
+      debug("Refreshing token...");
 
       token = getToken();
       response = getDataInternal(url, queryParams);
@@ -276,8 +281,8 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
     try {
       return new JSONObject(body);
     } catch (JSONException e) {
-      System.out.println("Unable to parse response: ");
-      System.out.println(body);
+      debug("Unable to parse response: ");
+      debug(body);
       throw e;
     }
   }
@@ -291,5 +296,8 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
     return getStringData(url, Maps.newHashMap());
   }
 
+  void debug(Object message) {
+    logger.debug(message);
+  }
 }
 

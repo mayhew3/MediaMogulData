@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -11,6 +12,8 @@ import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.URISyntaxException;
@@ -27,6 +30,8 @@ public class IGDBUpdateRunner implements UpdateRunner {
   private UpdateMode updateMode;
 
   private final Map<UpdateMode, Runnable> methodMap;
+
+  private static Logger logger = LogManager.getLogger(IGDBUpdateRunner.class);
 
   public IGDBUpdateRunner(SQLConnection connection, IGDBProvider igdbProvider, JSONReader jsonReader, UpdateMode updateMode) {
     methodMap = new HashMap<>();
@@ -56,8 +61,8 @@ public class IGDBUpdateRunner implements UpdateRunner {
     igdbUpdateRunner.runUpdate();
   }
 
-  protected static void debug(Object object) {
-    System.out.println(object);
+  protected static void debug(Object message) {
+    logger.debug(message);
   }
 
 

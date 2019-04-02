@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.*;
@@ -11,6 +12,8 @@ import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import org.apache.http.auth.AuthenticationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
@@ -34,6 +37,8 @@ class TVDBEpisodeUpdater {
   private TVDBJWTProvider tvdbjwtProvider;
   private JSONReader jsonReader;
   private Boolean retireUnfound;
+
+  private static Logger logger = LogManager.getLogger(TVDBEpisodeUpdater.class);
 
   TVDBEpisodeUpdater(Series series,
                      SQLConnection connection,
@@ -627,8 +632,8 @@ class TVDBEpisodeUpdater {
     }
   }
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 }

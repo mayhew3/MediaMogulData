@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.PossibleSeriesMatch;
 import com.mayhew3.mediamogul.model.tv.Series;
@@ -9,6 +10,8 @@ import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import org.apache.http.auth.AuthenticationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -30,6 +33,8 @@ public class TVDBSeriesMatchUpdater {
   private SQLConnection connection;
   private TVDBJWTProvider tvdbDataProvider;
   private JSONReader jsonReader;
+
+  private static Logger logger = LogManager.getLogger(TVDBSeriesMatchUpdater.class);
 
   public TVDBSeriesMatchUpdater(SQLConnection connection,
                                 @NotNull Series series,
@@ -186,8 +191,8 @@ public class TVDBSeriesMatchUpdater {
     return seriesMatches.has("data") ? seriesMatches.getJSONArray("data") : new JSONArray();
   }
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 

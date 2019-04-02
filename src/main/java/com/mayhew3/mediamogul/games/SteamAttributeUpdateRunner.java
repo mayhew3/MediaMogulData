@@ -3,12 +3,15 @@ package com.mayhew3.mediamogul.games;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -29,6 +32,8 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
   private UpdateMode updateMode;
 
   private final Map<UpdateMode, Runnable> methodMap;
+
+  private static Logger logger = LogManager.getLogger(SteamAttributeUpdateRunner.class);
 
   public SteamAttributeUpdateRunner(SQLConnection connection, UpdateMode updateMode) {
     this.updateMode = updateMode;
@@ -139,8 +144,8 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
   }
 
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
   @Override

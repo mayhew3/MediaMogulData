@@ -1,14 +1,16 @@
 package com.mayhew3.mediamogul.tv.utility;
 
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.EpisodeRating;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TmpRating;
 import com.mayhew3.mediamogul.tv.SeriesDenormUpdater;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,6 +24,8 @@ import java.util.Date;
 
 public class TVRatingSpreadsheetCopier {
   private SQLConnection connection;
+
+  private static Logger logger = LogManager.getLogger(TVRatingSpreadsheetCopier.class);
 
   private TVRatingSpreadsheetCopier(SQLConnection connection) {
     this.connection = connection;
@@ -191,7 +195,7 @@ public class TVRatingSpreadsheetCopier {
     return null;
   }
 
-  public void debug(String str) {
-    System.out.println(str);
+  public void debug(Object message) {
+    logger.debug(message);
   }
 }

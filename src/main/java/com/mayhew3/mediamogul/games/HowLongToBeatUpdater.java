@@ -1,8 +1,10 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.ExternalServiceHandler;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
+import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.openqa.selenium.*;
@@ -23,6 +25,8 @@ public class HowLongToBeatUpdater {
   final private Integer indexColumn = 0;
   final private Integer polledColumn = 1;
   final private Integer medianColumn = 3;
+
+  private static Logger logger = LogManager.getLogger(HowLongToBeatUpdater.class);
 
   HowLongToBeatUpdater(Game game, SQLConnection connection, WebDriver webDriver, ExternalServiceHandler howLongServiceHandler) {
     this.game = game;
@@ -307,8 +311,8 @@ public class HowLongToBeatUpdater {
     return null;
   }
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 

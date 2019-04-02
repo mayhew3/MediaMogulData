@@ -6,6 +6,7 @@ import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -15,6 +16,8 @@ import com.mayhew3.mediamogul.tv.provider.RemoteFileDownloader;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +30,8 @@ import java.util.Date;
 import java.util.List;
 
 public class TiVoLibraryUpdater {
+
+  private static Logger logger = LogManager.getLogger(TiVoLibraryUpdater.class);
 
   public static void main(String... args) throws FileNotFoundException, URISyntaxException, SQLException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
@@ -60,7 +65,7 @@ public class TiVoLibraryUpdater {
 
     ConnectionLogger logger = new ConnectionLogger(connection);
 
-    logger.logConnectionStart(nightly);
+//    logger.logConnectionStart(nightly);
 
     if (!tvdbOnly) {
       try {
@@ -151,8 +156,8 @@ public class TiVoLibraryUpdater {
     connection.closeConnection();
   }
 
-  protected static void debug(Object object) {
-    System.out.println(object);
+  protected static void debug(Object message) {
+    logger.debug(message);
   }
 
 }

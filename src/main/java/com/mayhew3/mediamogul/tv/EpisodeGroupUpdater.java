@@ -1,11 +1,13 @@
 package com.mayhew3.mediamogul.tv;
 
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
@@ -24,6 +26,8 @@ import static java.lang.Math.toIntExact;
 public class EpisodeGroupUpdater implements UpdateRunner {
 
   private SQLConnection connection;
+
+  private static Logger logger = LogManager.getLogger(EpisodeGroupUpdater.class);
 
   public static void main(String... args) throws URISyntaxException, SQLException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
@@ -116,8 +120,8 @@ public class EpisodeGroupUpdater implements UpdateRunner {
     debug(deleted + " episode groups deleted because they had no watched episodes.");
   }
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
   private Integer getNumberOfRatedEpisodes(List<EpisodeInfo> episodeInfos) {

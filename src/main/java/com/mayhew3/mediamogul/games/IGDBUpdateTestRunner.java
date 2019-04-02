@@ -3,6 +3,9 @@ package com.mayhew3.mediamogul.games;
 import callback.OnSuccessCallback;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import wrapper.IGDBWrapper;
@@ -11,7 +14,7 @@ import wrapper.Version;
 
 public class IGDBUpdateTestRunner {
 
-
+  private static Logger logger = LogManager.getLogger(IGDBUpdateTestRunner.class);
   /*
 
     Test utility to see if threads close in most basic case. They don't.
@@ -29,7 +32,7 @@ public class IGDBUpdateTestRunner {
     igdbWrapper.games(parameters, new OnSuccessCallback() {
       @Override
       public void onSuccess(@NotNull JSONArray jsonArray) {
-        System.out.println(jsonArray);
+        debug(jsonArray);
       }
 
       @Override
@@ -42,8 +45,8 @@ public class IGDBUpdateTestRunner {
 
   }
 
-  protected static void debug(Object object) {
-    System.out.println(object);
+  protected static void debug(Object message) {
+    logger.debug(message);
   }
 
 

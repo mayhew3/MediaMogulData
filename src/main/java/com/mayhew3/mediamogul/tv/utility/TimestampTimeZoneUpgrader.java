@@ -1,10 +1,13 @@
 package com.mayhew3.mediamogul.tv.utility;
 
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
@@ -12,6 +15,8 @@ import java.sql.SQLException;
 public class TimestampTimeZoneUpgrader {
   private DataSchema schema;
   private SQLConnection connection;
+
+  private static Logger logger = LogManager.getLogger(TimestampTimeZoneUpgrader.class);
 
   private TimestampTimeZoneUpgrader(DataSchema schema, SQLConnection connection) {
     this.schema = schema;
@@ -49,8 +54,8 @@ public class TimestampTimeZoneUpgrader {
   }
 
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
 }

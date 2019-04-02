@@ -6,6 +6,7 @@ import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -18,6 +19,8 @@ import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import org.apache.http.auth.AuthenticationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
@@ -56,6 +59,8 @@ public class TVDBUpdateFinderRunner {
   private static PrintStream logOutput = null;
 
   private static String mediaMogulLogs;
+
+  private static Logger logger = LogManager.getLogger(TVDBUpdateFinderRunner.class);
 
   // TVDB doesn't seem to work right with a timestamp less than 120 seconds ago, always returns nothing.
   @SuppressWarnings("FieldCanBeLocal")
@@ -388,7 +393,7 @@ public class TVDBUpdateFinderRunner {
   }
 
   protected static void debug(Object message) {
-    System.out.println(message);
+    logger.debug(message);
   }
 
   class TVDBUpdate {

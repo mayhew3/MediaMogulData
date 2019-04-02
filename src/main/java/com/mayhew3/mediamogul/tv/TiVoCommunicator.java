@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.mediamogul.SSLTool;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -16,6 +17,8 @@ import com.mayhew3.mediamogul.tv.provider.TiVoDataProvider;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.NodeReader;
 import com.mayhew3.mediamogul.xml.NodeReaderImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Document;
@@ -45,6 +48,8 @@ public class TiVoCommunicator implements UpdateRunner {
 
   private static SQLConnection sqlConnection;
   private TiVoDataProvider tiVoDataProvider;
+
+  private static Logger logger = LogManager.getLogger(TiVoCommunicator.class);
 
   public TiVoCommunicator(SQLConnection connection, TiVoDataProvider tiVoDataProvider, UpdateMode updateMode) {
     episodesOnTiVo = new ArrayList<>();
@@ -728,8 +733,8 @@ public class TiVoCommunicator implements UpdateRunner {
     return UpdateMode.FULL.equals(updateMode);
   }
 
-  protected void debug(Object object) {
-    System.out.println(object);
+  private void debug(Object message) {
+    logger.debug(message);
   }
 
   @Override
