@@ -25,14 +25,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.lang.Thread.sleep;
-
 public class TaskScheduleRunner {
-  private List<TaskSchedule> taskSchedules = new ArrayList<>();
+  private List<PeriodicTaskSchedule> taskSchedules = new ArrayList<>();
 
   private SQLConnection connection;
 
@@ -59,7 +56,7 @@ public class TaskScheduleRunner {
     this.person_id = person_id;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, InterruptedException, MissingEnvException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
 
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(databaseUrl);
@@ -154,8 +151,7 @@ public class TaskScheduleRunner {
         .withHoursBetween(hoursBetween));
   }
 
-  @SuppressWarnings("InfiniteLoopStatement")
-  private void runUpdates() throws InterruptedException, MissingEnvException {
+  private void runUpdates() throws MissingEnvException {
     if (tvdbjwtProvider == null) {
       throw new IllegalStateException("Can't currently run updater with no TVDB token. TVDB is the only thing it can handle yet.");
     }
@@ -166,38 +162,106 @@ public class TaskScheduleRunner {
     info("SESSION START!");
     info("");
 
-    while (true) {
+    runEligibleTasks();
 
-      List<TaskSchedule> eligibleTasks = taskSchedules.stream()
-          .filter(TaskSchedule::isEligibleToRun)
-          .collect(Collectors.toList());
+  }
 
-      for (TaskSchedule taskSchedule : eligibleTasks) {
-        UpdateRunner updateRunner = taskSchedule.getUpdateRunner();
-        try {
-          ConnectionLogger connectionLogger = new ConnectionLogger(connection);
+  private void scheduleNextFutureTask() {
+    PeriodicTaskSchedule nextTask = getNextTask();
+    Long millisUntilNextRun = nextTask.getMillisUntilNextRun();
 
-          info("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
+    long secondsUntilNextRun = millisUntilNextRun / 1000;
+    long minutesUntilNextRun = millisUntilNextRun / 1000 / 60;
 
-          connectionLogger.logConnectionStart(updateRunner);
-          updateRunner.runUpdate();
-          connectionLogger.logConnectionEnd();
+    long remainderSeconds = secondsUntilNextRun - (minutesUntilNextRun * 60);
 
-          info("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
+    logger.info("Scheduling next task '" + nextTask + "' to run in " + minutesUntilNextRun + " min " + remainderSeconds +
+        " sec.");
 
-        } catch (Exception e) {
-          logger.error("Exception encountered during run of update '" + updateRunner.getUniqueIdentifier() + "'.");
-          e.printStackTrace();
-        } finally {
-          // mark the task as having been run, whether it succeeds or errors out.
-          taskSchedule.updateLastRanToNow();
-        }
-      }
+    DelayedTask delayedTask = new DelayedTask(this, nextTask);
 
-      sleep(15000);
+    if (millisUntilNextRun < 0) {
+      millisUntilNextRun = 1L;
+    }
+
+    Timer timer = new Timer();
+    timer.schedule(delayedTask, millisUntilNextRun);
+  }
+
+  private class DelayedTask extends TimerTask {
+
+    private TaskScheduleRunner runner;
+    private PeriodicTaskSchedule nextTask;
+
+    private DelayedTask(TaskScheduleRunner runner, PeriodicTaskSchedule nextTask) {
+      this.runner = runner;
+      this.nextTask = nextTask;
+    }
+
+    @Override
+    public void run() {
+      logger.info("Timer complete! Beginning delayed task: " + this.nextTask);
+      runUpdateForSingleTask(this.nextTask);
+      logger.info("Finished delayed task. Throwing back to find eligible tasks.");
+      runner.runEligibleTasks();
     }
   }
 
+  private void runEligibleTasks() {
+
+    List<PeriodicTaskSchedule> eligibleTasks = taskSchedules.stream()
+        .filter(PeriodicTaskSchedule::isEligibleToRun)
+        .collect(Collectors.toList());
+
+    if (eligibleTasks.isEmpty()) {
+      logger.info("No eligible tasks. Scheduling next task.");
+      scheduleNextFutureTask();
+    } else {
+      updateTasks(eligibleTasks);
+    }
+  }
+
+  private void updateTasks(List<PeriodicTaskSchedule> eligibleTasks) {
+    logger.info("Found " + eligibleTasks.size() + " tasks to run.");
+
+    for (PeriodicTaskSchedule taskSchedule : eligibleTasks) {
+      runUpdateForSingleTask(taskSchedule);
+    }
+
+    logger.info("Finished current loop. Finding more eligible tasks.");
+    runEligibleTasks();
+  }
+
+  private void runUpdateForSingleTask(PeriodicTaskSchedule taskSchedule) {
+    UpdateRunner updateRunner = taskSchedule.getUpdateRunner();
+    try {
+      ConnectionLogger connectionLogger = new ConnectionLogger(connection);
+
+      info("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
+
+      connectionLogger.logConnectionStart(updateRunner);
+      updateRunner.runUpdate();
+      connectionLogger.logConnectionEnd();
+
+      info("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
+
+    } catch (Exception e) {
+      logger.error("Exception encountered during run of update '" + updateRunner.getUniqueIdentifier() + "'.");
+      e.printStackTrace();
+    } finally {
+      // mark the task as having been run, whether it succeeds or errors out.
+      taskSchedule.updateLastRanToNow();
+    }
+  }
+
+  private PeriodicTaskSchedule getNextTask() {
+    Optional<PeriodicTaskSchedule> taskSchedule = taskSchedules.stream()
+        .min(Comparator.comparing(PeriodicTaskSchedule::getMillisUntilNextRun));
+    if (!taskSchedule.isPresent()) {
+      throw new RuntimeException("No tasks found!");
+    }
+    return taskSchedule.get();
+  }
 
   private static void maybeSetDriverPath() throws MissingEnvException {
     String envName = EnvironmentChecker.getOrThrow("envName");
