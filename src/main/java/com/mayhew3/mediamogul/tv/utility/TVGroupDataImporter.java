@@ -3,7 +3,6 @@ package com.mayhew3.mediamogul.tv.utility;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.group.*;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -66,7 +65,7 @@ public class TVGroupDataImporter {
         tvGroupVoteImport.imported.changeValue(true);
         tvGroupVoteImport.commit(connection);
       } else {
-        debug("No series found with title: '" + title + "'");
+        logger.warn("No series found with title: '" + title + "'");
       }
     }
   }

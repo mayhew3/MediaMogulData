@@ -9,7 +9,6 @@ import com.mashape.unirest.request.HttpRequest;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -242,7 +241,7 @@ public class TVDBJWTProviderImpl implements TVDBJWTProvider {
       externalServiceHandler.connectionSuccess();
       return response;
     } else if ("Unauthorized".equals(response.getStatusText())) {
-      debug("Refreshing token...");
+      logger.info("Refreshing token...");
 
       token = getToken();
       response = getDataInternal(url, queryParams);

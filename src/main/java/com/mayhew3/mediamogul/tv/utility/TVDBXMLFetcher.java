@@ -2,14 +2,13 @@ package com.mayhew3.mediamogul.tv.utility;
 
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.xml.NodeReader;
 import com.mayhew3.mediamogul.xml.NodeReaderImpl;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -51,7 +50,7 @@ public class TVDBXMLFetcher {
         "and retired = ? ";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, singleSeriesTitle, 0);
 
-    debug("Starting update.");
+    logger.info("Starting update.");
 
 
     if (resultSet.next()) {

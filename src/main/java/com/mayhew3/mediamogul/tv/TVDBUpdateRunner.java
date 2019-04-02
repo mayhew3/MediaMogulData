@@ -4,10 +4,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBUpdateError;
@@ -18,6 +14,9 @@ import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -332,18 +331,18 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
       validateLastUpdate(mostRecentSuccessfulUpdate);
 
-      debug("Finding all episodes updated since: " + mostRecentSuccessfulUpdate);
+      logger.info("Finding all episodes updated since: " + mostRecentSuccessfulUpdate);
 
       JSONObject updatedSeries = tvdbjwtProvider.getUpdatedSeries(mostRecentSuccessfulUpdate);
 
       if (updatedSeries.isNull("data")) {
-        debug("Empty list of TVDB updated.");
+        logger.info("Empty list of TVDB updated.");
         return;
       }
 
       @NotNull JSONArray seriesArray = jsonReader.getArrayWithKey(updatedSeries, "data");
 
-      debug("Total series found: " + seriesArray.length());
+      logger.info("Total series found: " + seriesArray.length());
 
       for (int i = 0; i < seriesArray.length(); i++) {
         JSONObject seriesRow = seriesArray.getJSONObject(i);
@@ -367,10 +366,10 @@ public class TVDBUpdateRunner implements UpdateRunner {
               tvdbConnectionLog.failedShows.increment(1);
             }
           } catch (Exception e) {
-            debug("Show failed on initialization from DB.");
+            logger.error("Show failed on initialization from DB.");
           }
         } else {
-          debug("Recently updated series not found: ID " + seriesId);
+          logger.error("Recently updated series not found: ID " + seriesId);
         }
       }
     } catch (SQLException | UnirestException | AuthenticationException e) {
@@ -424,7 +423,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateOnResultSet(ResultSet resultSet) throws SQLException {
-    debug("Starting update.");
+    logger.info("Starting update.");
 
     int i = 0;
 
@@ -440,17 +439,17 @@ public class TVDBUpdateRunner implements UpdateRunner {
           tvdbConnectionLog.failedShows.increment(1);
         }
       } catch (Exception e) {
-        debug("Show failed on initialization from DB.");
+        logger.error("Show failed on initialization from DB.");
       }
 
       seriesUpdates++;
     }
 
-    debug("Update complete for result set: " + i + " processed.");
+    logger.info("Update complete for result set: " + i + " processed.");
   }
 
   private void runUpdateForSeriesSet(Set<Series> serieses) {
-    debug("Starting update.");
+    logger.info("Starting update.");
 
     List<Series> sortedSerieses = serieses.stream()
         .sorted()
@@ -469,13 +468,13 @@ public class TVDBUpdateRunner implements UpdateRunner {
           tvdbConnectionLog.failedShows.increment(1);
         }
       } catch (Exception e) {
-        debug("Show failed on initialization from DB.");
+        logger.error("Show failed on initialization from DB.");
       }
 
       seriesUpdates++;
     }
 
-    debug("Update complete for result set: " + i + " processed.");
+    logger.info("Update complete for result set: " + i + " processed.");
   }
 
   private void runSmartUpdateSingleQuery() {
@@ -506,7 +505,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
               tvdbConnectionLog.failedShows.increment(1);
             }
           } catch (Exception e) {
-            debug("Show failed on initialization from DB.");
+            logger.error("Show failed on initialization from DB.");
           }
 
           seriesUpdates++;

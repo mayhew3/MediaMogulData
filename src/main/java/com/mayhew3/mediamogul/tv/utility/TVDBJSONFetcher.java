@@ -5,7 +5,6 @@ import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
@@ -54,7 +53,7 @@ public class TVDBJSONFetcher {
         "and retired = ? ";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, singleSeriesTitle, 0);
 
-    debug("Starting update.");
+    logger.info("Starting update.");
 
 
     if (resultSet.next()) {

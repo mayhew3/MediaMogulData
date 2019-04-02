@@ -23,16 +23,16 @@ public class SchemaTestTest {
     List<DataObjectMismatch> mismatches = MediaMogulSchema.schema.validateSchemaAgainstDatabase(connection);
 
     if (!mismatches.isEmpty()) {
-      debug("Mismatches found: ");
+      logger.error("Mismatches found: ");
       for (DataObjectMismatch mismatch : mismatches) {
-        debug(" - " + mismatch);
+        logger.error(" - " + mismatch);
         if (mismatch.getMessage().equals("Table not found!")) {
-          debug("    - " + mismatch.getDataObject().generateTableCreateStatement());
+          logger.error("    - " + mismatch.getDataObject().generateTableCreateStatement());
         }
         if (mismatch.getMessage().equals("ForeignKey restraint not found in DB.")) {
           List<String> stringList = mismatch.getDataObject().generateAddForeignKeyStatements();
           for (String fkStatement : stringList) {
-            debug("    - " + fkStatement);
+            logger.error("    - " + fkStatement);
           }
         }
       }

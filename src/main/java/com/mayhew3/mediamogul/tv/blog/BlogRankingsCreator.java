@@ -108,11 +108,11 @@ public class BlogRankingsCreator {
         "AND aired = watched " +
         "AND rating IS NOT NULL ";
 
-    debug("Getting series count...");
+    logger.info("Getting series count...");
 
     Integer totalShows = getSeriesCount(reusableJoins);
 
-    debug("Done. Processing series...");
+    logger.info("Done. Processing series...");
 
     String fullSql = "SELECT * " +
         reusableJoins +

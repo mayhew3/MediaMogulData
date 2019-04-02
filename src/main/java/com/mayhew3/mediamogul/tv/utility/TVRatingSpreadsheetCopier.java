@@ -65,13 +65,13 @@ public class TVRatingSpreadsheetCopier {
 
 //            debug("Episode matched and rating updated. " + tmpRating);
           } else {
-            debug("Series found, but episode failed to match. " + tmpRating);
+            logger.warn("Series found, but episode failed to match. " + tmpRating);
           }
         } else {
-          debug("No series match found. " + tmpRating);
+          logger.warn("No series match found. " + tmpRating);
         }
       } catch (Exception e) {
-        debug("Row in spreadsheet failed. " + tmpRating);
+        logger.warn("Row in spreadsheet failed. " + tmpRating);
         e.printStackTrace();
       }
     }

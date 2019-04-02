@@ -19,10 +19,10 @@ public abstract class DatabaseTest {
 
   @Before
   public void setUp() throws URISyntaxException, SQLException {
-    debug("Setting up test DB...");
+    logger.info("Setting up test DB...");
     connection = PostgresConnectionFactory.getSqlConnection(PostgresConnectionFactory.TEST);
     new DatabaseRecreator(connection).recreateDatabase(MediaMogulSchema.schema);
-    debug("DB re-created.");
+    logger.info("DB re-created.");
   }
 
   private void debug(Object message) {

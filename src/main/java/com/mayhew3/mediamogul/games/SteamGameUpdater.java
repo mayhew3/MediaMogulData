@@ -73,15 +73,15 @@ public class SteamGameUpdater implements UpdateRunner {
       System.setOut(logPrintStream);
     }
 
-    logger.info("");
+    logger.debug("");
     logger.info("SESSION START! Date: " + new Date());
-    logger.info("");
+    logger.debug("");
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
     SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, new SteamProviderImpl());
     steamGameUpdater.runUpdate();
 
-    logger.info(" --- ");
+    logger.debug(" --- ");
     logger.info(" Full operation complete!");
   }
 

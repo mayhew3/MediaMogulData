@@ -1,11 +1,12 @@
 package com.mayhew3.mediamogul.tv.utility;
 
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
+import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.dataobject.*;
+import com.mayhew3.postgresobject.dataobject.DataObject;
+import com.mayhew3.postgresobject.dataobject.DataSchema;
+import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,7 +44,7 @@ public class TimestampTimeZoneUpgrader {
   }
 
   private void upgradeColumn(FieldValue fieldValue, DataObject table) throws SQLException {
-    debug("Updating {" + table.getTableName() + ", " + fieldValue.getFieldName() + "}");
+    logger.info("Updating {" + table.getTableName() + ", " + fieldValue.getFieldName() + "}");
 
     String sql =
         "ALTER TABLE " + table.getTableName() + " " +

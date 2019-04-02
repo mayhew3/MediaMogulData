@@ -1,16 +1,14 @@
 package com.mayhew3.mediamogul.tv.utility;
 
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
+import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import com.mayhew3.mediamogul.model.tv.Series;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Optional;
 
 public class SeriesDeleter {
@@ -44,7 +42,7 @@ public class SeriesDeleter {
 
   public void executeDelete() throws SQLException {
 
-    debug("Beginning full retiring of series: " + series.seriesTitle.getValue());
+    logger.info("Beginning full retiring of series: " + series.seriesTitle.getValue());
 
     /*
       - series
@@ -79,7 +77,7 @@ public class SeriesDeleter {
     retireSeasons();
     retireEpisodes();
 
-    debug("Full retire complete.");
+    logger.info("Full retire complete.");
   }
 
   private void retireSeries() throws SQLException {
@@ -92,7 +90,7 @@ public class SeriesDeleter {
     if (updatedRows != 1) {
       throw new RuntimeException("Expected exactly one row updated.");
     }
-    debug("1 series retired with ID " + series.id.getValue());
+    logger.info("1 series retired with ID " + series.id.getValue());
   }
 
   private void retireTVDBSeries() throws SQLException {
