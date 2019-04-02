@@ -91,52 +91,67 @@ public class TaskScheduleRunner {
   }
 
   private void createTaskList() throws MissingEnvException {
-    // REGULAR
 
-    addPeriodicTask(new MetacriticTVUpdater(connection, UpdateMode.SANITY),
-        2000);
-    addPeriodicTask(new SeriesDenormUpdater(connection),
+    // MINUTELY
+
+    addMinutelyTask(new SeriesDenormUpdater(connection),
         5);
-    addPeriodicTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
         1);
-    addPeriodicTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
+    addMinutelyTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
         2);
-    addPeriodicTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
+    addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
         1);
-    addPeriodicTask(new TVDBSeriesMatchRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
+    addMinutelyTask(new TVDBSeriesMatchRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
         3);
-    addPeriodicTask(new MetacriticTVUpdater(connection, UpdateMode.QUICK),
+    addMinutelyTask(new MetacriticTVUpdater(connection, UpdateMode.QUICK),
         2);
-
-    addPeriodicTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
+    addMinutelyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         5);
-    addPeriodicTask(new SteamPlaySessionGenerator(connection, person_id),
+    addMinutelyTask(new SteamPlaySessionGenerator(connection, person_id),
         10);
-    addPeriodicTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
         30);
-    addPeriodicTask(new SteamGameUpdater(connection, person_id, steamProvider),
-        60);
-    addPeriodicTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
-        60);
 
-    // NIGHTLY
-    addNightlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY));
-    addNightlyTask(new MetacriticTVUpdater(connection, UpdateMode.FULL));
-    addNightlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED));
-    addNightlyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY));
-    addNightlyTask(new EpisodeGroupUpdater(connection));
-    addNightlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL));
-    addNightlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler));
-    addNightlyTask(new GiantBombUpdater(connection));
-    addNightlyTask(new CloudinaryUploader(connection, UpdateMode.FULL));
+
+    // HOURLY
+
+    addHourlyTask(new SteamGameUpdater(connection, person_id, steamProvider),
+        1);
+    addHourlyTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
+        1);
+
+    addHourlyTask(new MetacriticTVUpdater(connection, UpdateMode.SANITY),
+        24);
+    addHourlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY),
+        24);
+    addHourlyTask(new MetacriticTVUpdater(connection, UpdateMode.FULL),
+        24);
+    addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED),
+        24);
+    addHourlyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY),
+        24);
+    addHourlyTask(new EpisodeGroupUpdater(connection),
+        24);
+    addHourlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL),
+        24);
+    addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler),
+        24);
+    addHourlyTask(new GiantBombUpdater(connection),
+        24);
+    addHourlyTask(new CloudinaryUploader(connection, UpdateMode.FULL),
+        24);
+
   }
 
-  private void addPeriodicTask(UpdateRunner updateRunner, Integer minutesBetween) {
-    taskSchedules.add(new PeriodicTaskSchedule(updateRunner, connection, minutesBetween));
+  private void addMinutelyTask(UpdateRunner updateRunner, Integer minutesBetween) {
+    taskSchedules.add(new PeriodicTaskSchedule(updateRunner, connection)
+        .withMinutesBetween(minutesBetween));
   }
 
-  private void addNightlyTask(UpdateRunner updateRunner) {
-    taskSchedules.add(new NightlyTaskSchedule(updateRunner, connection, 1));
+  private void addHourlyTask(UpdateRunner updateRunner, Integer hoursBetween) {
+    taskSchedules.add(new PeriodicTaskSchedule(updateRunner, connection)
+        .withHoursBetween(hoursBetween));
   }
 
   @SuppressWarnings("InfiniteLoopStatement")
