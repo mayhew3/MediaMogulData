@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mayhew3.mediamogul.model.tv.Season;
 import com.mayhew3.mediamogul.model.tv.Series;
+import com.mayhew3.mediamogul.model.tv.TVDBSeries;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
@@ -111,7 +112,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
 
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Castle Rock"; // update for testing on a single series
+    String singleSeriesTitle = "Love"; // update for testing on a single series
 
     String sql = "select *\n" +
         "from series\n" +
@@ -159,7 +160,7 @@ public class MetacriticTVUpdater implements UpdateRunner {
     }
   }
 
-  private void parseMetacritic(Series series) throws MetacriticException {
+  private void parseMetacritic(Series series) throws MetacriticException, SQLException {
     String title = series.seriesTitle.getValue();
     debug("Metacritic update for: " + title);
 
@@ -173,20 +174,26 @@ public class MetacriticTVUpdater implements UpdateRunner {
 
       if (hint != null) {
         stringsToTry.add(hint);
-      } else {
-        String formattedTitle =
-            title
-                .toLowerCase()
-                .replaceAll(" ", "-")
-                .replaceAll("'", "")
-                .replaceAll("\\.", "");
-
-        Integer year = new DateTime(new Date()).getYear();
-        String formattedTitleWithYear = formattedTitle + "-" + year;
-
-        stringsToTry.add(formattedTitleWithYear);
-        stringsToTry.add(formattedTitle);
       }
+
+      String formattedTitle =
+          title
+              .toLowerCase()
+              .replaceAll(" ", "-")
+              .replaceAll("'", "")
+              .replaceAll("\\.", "")
+              .replaceAll("\\(", "")
+              .replaceAll("\\)", "");
+
+      Optional<TVDBSeries> tvdbSeries = series.getTVDBSeries(connection);
+
+      Date dateToCheck = tvdbSeries.isPresent() ? tvdbSeries.get().firstAired.getValue() : new Date();
+
+      Integer year = new DateTime(dateToCheck).getYear();
+      String formattedTitleWithYear = formattedTitle + "-" + year;
+
+      stringsToTry.add(formattedTitleWithYear);
+      stringsToTry.add(formattedTitle);
 
       matchedTitle = findMetacriticForStrings(series, stringsToTry);
 
