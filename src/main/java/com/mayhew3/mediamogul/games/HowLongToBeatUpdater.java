@@ -11,6 +11,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -291,7 +292,7 @@ public class HowLongToBeatUpdater {
     String minuteString = s.replace("m", "");
     Integer minute = Integer.valueOf(minuteString);
     BigDecimal minutePart = BigDecimal.valueOf(minute);
-    return minutePart.divide(BigDecimal.valueOf(60), 4, BigDecimal.ROUND_HALF_EVEN);
+    return minutePart.divide(BigDecimal.valueOf(60), 4, RoundingMode.HALF_EVEN);
   }
 
   @Nullable

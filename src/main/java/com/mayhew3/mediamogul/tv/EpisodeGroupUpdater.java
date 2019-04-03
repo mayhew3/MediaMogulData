@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -233,7 +234,6 @@ public class EpisodeGroupUpdater implements UpdateRunner {
 
   }
 
-  @SuppressWarnings("ConstantConditions")
   @Nullable
   private BigDecimal getAvgRating(List<EpisodeInfo> episodeInfos) {
     List<BigDecimal> ratings = episodeInfos.stream()
@@ -250,10 +250,9 @@ public class EpisodeGroupUpdater implements UpdateRunner {
     BigDecimal totalRating = ratings.stream()
         .reduce(BigDecimal::add)
         .get();
-    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, BigDecimal.ROUND_HALF_UP);
+    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, RoundingMode.HALF_EVEN);
   }
 
-  @SuppressWarnings("ConstantConditions")
   @Nullable
   private BigDecimal getAvgFunny(List<EpisodeInfo> episodeInfos) {
     List<BigDecimal> ratings = episodeInfos.stream()
@@ -270,10 +269,9 @@ public class EpisodeGroupUpdater implements UpdateRunner {
     BigDecimal totalRating = ratings.stream()
         .reduce(BigDecimal::add)
         .get();
-    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, BigDecimal.ROUND_HALF_UP);
+    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, RoundingMode.HALF_EVEN);
   }
 
-  @SuppressWarnings("ConstantConditions")
   @Nullable
   private BigDecimal getAvgCharacter(List<EpisodeInfo> episodeInfos) {
     List<BigDecimal> ratings = episodeInfos.stream()
@@ -290,10 +288,9 @@ public class EpisodeGroupUpdater implements UpdateRunner {
     BigDecimal totalRating = ratings.stream()
         .reduce(BigDecimal::add)
         .get();
-    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, BigDecimal.ROUND_HALF_UP);
+    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, RoundingMode.HALF_EVEN);
   }
 
-  @SuppressWarnings("ConstantConditions")
   @Nullable
   private BigDecimal getAvgStory(List<EpisodeInfo> episodeInfos) {
     List<BigDecimal> ratings = episodeInfos.stream()
@@ -310,7 +307,7 @@ public class EpisodeGroupUpdater implements UpdateRunner {
     BigDecimal totalRating = ratings.stream()
         .reduce(BigDecimal::add)
         .get();
-    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, BigDecimal.ROUND_HALF_UP);
+    return totalRating.divide(BigDecimal.valueOf(ratings.size()), 1, RoundingMode.HALF_EVEN);
   }
 
   @Nullable
@@ -362,7 +359,7 @@ public class EpisodeGroupUpdater implements UpdateRunner {
         .add(max.multiply(BigDecimal.valueOf(3)))
         .add(last);
 
-    return total.divide(BigDecimal.valueOf(9), BigDecimal.ROUND_HALF_UP);
+    return total.divide(BigDecimal.valueOf(9), RoundingMode.HALF_EVEN);
   }
 
   @NotNull

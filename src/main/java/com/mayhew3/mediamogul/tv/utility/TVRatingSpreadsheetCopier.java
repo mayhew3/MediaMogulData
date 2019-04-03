@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -137,7 +138,7 @@ public class TVRatingSpreadsheetCopier {
       return null;
     }
     BigDecimal timesTen = original.multiply(BigDecimal.valueOf(10));
-    return timesTen.setScale(0, BigDecimal.ROUND_HALF_UP);
+    return timesTen.setScale(0, RoundingMode.HALF_EVEN);
   }
 
 
