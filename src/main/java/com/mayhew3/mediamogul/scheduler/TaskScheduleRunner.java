@@ -91,17 +91,19 @@ public class TaskScheduleRunner {
 
     // MINUTELY
 
+    addMinutelyTask(new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader),
+        1);
     addMinutelyTask(new SeriesDenormUpdater(connection),
         5);
-    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
-        1);
+//    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
+//        1);
     addMinutelyTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
         2);
     addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
         1);
     addMinutelyTask(new TVDBSeriesMatchRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
         3);
-    addMinutelyTask(new MetacriticTVUpdater(connection, UpdateMode.QUICK),
+    addMinutelyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.QUICK),
         2);
     addMinutelyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         5);
@@ -118,11 +120,11 @@ public class TaskScheduleRunner {
     addHourlyTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
         1);
 
-    addHourlyTask(new MetacriticTVUpdater(connection, UpdateMode.SANITY),
+    addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.SANITY),
         24);
     addHourlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY),
         24);
-    addHourlyTask(new MetacriticTVUpdater(connection, UpdateMode.FULL),
+    addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.FULL),
         24);
     addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED),
         24);

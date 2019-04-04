@@ -43,6 +43,7 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   public FieldValueString tivoName = registerStringField("tivo_name", Nullability.NULLABLE);
   public FieldValueInteger tvdbMatchId = registerIntegerField("tvdb_match_id", Nullability.NULLABLE);
 
+  public FieldValueBoolean firstProcessed = registerBooleanField("first_processed", Nullability.NOT_NULL).defaultValue(false);
 
   /* Denorms */
   public FieldValueInteger activeEpisodes = registerIntegerField("active_episodes", Nullability.NOT_NULL).defaultValue(0);

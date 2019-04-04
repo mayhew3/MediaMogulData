@@ -6,7 +6,6 @@ import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -110,8 +109,8 @@ public class TiVoLibraryUpdater {
 
     if (nightly) {
       try {
-        MetacriticTVUpdater metacriticTVUpdater = new MetacriticTVUpdater(connection, UpdateMode.FULL);
-        metacriticTVUpdater.runFullUpdate();
+        MetacriticTVUpdateRunner metacriticTVUpdateRunner = new MetacriticTVUpdateRunner(connection, UpdateMode.FULL);
+        metacriticTVUpdateRunner.runFullUpdate();
       } catch (Exception e) {
         debug("Uncaught exception during metacritic update.");
         e.printStackTrace();

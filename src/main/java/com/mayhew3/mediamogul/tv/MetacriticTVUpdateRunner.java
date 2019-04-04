@@ -25,16 +25,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class MetacriticTVUpdater implements UpdateRunner {
+public class MetacriticTVUpdateRunner implements UpdateRunner {
 
   private SQLConnection connection;
   private UpdateMode updateMode;
 
   private final Map<UpdateMode, Runnable> methodMap;
 
-  private static Logger logger = LogManager.getLogger(MetacriticTVUpdater.class);
+  private static Logger logger = LogManager.getLogger(MetacriticTVUpdateRunner.class);
 
-  public MetacriticTVUpdater(SQLConnection connection, UpdateMode updateMode) {
+  public MetacriticTVUpdateRunner(SQLConnection connection, UpdateMode updateMode) {
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.FULL, this::runFullUpdate);
     methodMap.put(UpdateMode.QUICK, this::runQuickUpdate);
@@ -55,9 +55,9 @@ public class MetacriticTVUpdater implements UpdateRunner {
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.FULL);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
-    MetacriticTVUpdater metacriticTVUpdater = new MetacriticTVUpdater(connection, updateMode);
+    MetacriticTVUpdateRunner metacriticTVUpdateRunner = new MetacriticTVUpdateRunner(connection, updateMode);
 
-    metacriticTVUpdater.runUpdate();
+    metacriticTVUpdateRunner.runUpdate();
   }
 
   @Override
