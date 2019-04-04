@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class CloudinaryUploader implements UpdateRunner {
+public class CloudinaryUploadRunner implements UpdateRunner {
 
   private Cloudinary cloudinary;
   private SQLConnection connection;
@@ -41,9 +41,9 @@ public class CloudinaryUploader implements UpdateRunner {
 
   private UpdateMode updateMode;
 
-  private static Logger logger = LogManager.getLogger(CloudinaryUploader.class);
+  private static Logger logger = LogManager.getLogger(CloudinaryUploadRunner.class);
 
-  public CloudinaryUploader(SQLConnection connection, @NotNull UpdateMode updateMode) throws MissingEnvException {
+  public CloudinaryUploadRunner(SQLConnection connection, @NotNull UpdateMode updateMode) throws MissingEnvException {
     EnvironmentChecker.getOrThrow("CLOUDINARY_URL");
 
     this.connection = connection;
@@ -69,8 +69,8 @@ public class CloudinaryUploader implements UpdateRunner {
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.QUICK);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
-    CloudinaryUploader cloudinaryUploader = new CloudinaryUploader(connection, updateMode);
-    cloudinaryUploader.runUpdate();
+    CloudinaryUploadRunner cloudinaryUploadRunner = new CloudinaryUploadRunner(connection, updateMode);
+    cloudinaryUploadRunner.runUpdate();
   }
 
   @Override

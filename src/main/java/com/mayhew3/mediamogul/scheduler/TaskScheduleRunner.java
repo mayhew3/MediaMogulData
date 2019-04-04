@@ -117,7 +117,7 @@ public class TaskScheduleRunner {
 
     addHourlyTask(new SteamGameUpdater(connection, person_id, steamProvider),
         1);
-    addHourlyTask(new CloudinaryUploader(connection, UpdateMode.QUICK),
+    addHourlyTask(new CloudinaryUploadRunner(connection, UpdateMode.QUICK),
         1);
 
     addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.SANITY),
@@ -138,7 +138,7 @@ public class TaskScheduleRunner {
         24);
     addHourlyTask(new GiantBombUpdater(connection),
         24);
-    addHourlyTask(new CloudinaryUploader(connection, UpdateMode.FULL),
+    addHourlyTask(new CloudinaryUploadRunner(connection, UpdateMode.FULL),
         24);
 
   }
