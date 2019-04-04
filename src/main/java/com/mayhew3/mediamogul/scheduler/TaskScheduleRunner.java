@@ -95,8 +95,8 @@ public class TaskScheduleRunner {
         1);
     addMinutelyTask(new SeriesDenormUpdater(connection),
         5);
-//    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
-//        1);
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
+        1);
     addMinutelyTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
         2);
     addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),

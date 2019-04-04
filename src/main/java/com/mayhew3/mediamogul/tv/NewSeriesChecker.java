@@ -4,6 +4,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
+import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
@@ -56,6 +57,7 @@ public class NewSeriesChecker implements UpdateRunner {
       logger.info("New Series found: '" + series.seriesTitle.getValue() + "'");
 
       updateTVDB(series);
+      updateMetacritic(series);
 
       series.firstProcessed.changeValue(true);
       series.commit(connection);
@@ -67,6 +69,16 @@ public class NewSeriesChecker implements UpdateRunner {
     try {
       updater.updateSeries();
     } catch (ShowFailedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void updateMetacritic(Series series) throws SQLException {
+    MetacriticTVUpdater metacriticTVUpdater = new MetacriticTVUpdater(series, connection);
+
+    try {
+      metacriticTVUpdater.parseMetacritic();
+    } catch (MetacriticException e) {
       e.printStackTrace();
     }
   }
