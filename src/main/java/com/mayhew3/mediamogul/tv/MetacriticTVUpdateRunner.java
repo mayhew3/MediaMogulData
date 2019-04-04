@@ -29,7 +29,6 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
   public MetacriticTVUpdateRunner(SQLConnection connection, UpdateMode updateMode) {
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.FULL, this::runFullUpdate);
-    methodMap.put(UpdateMode.QUICK, this::runQuickUpdate);
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
     methodMap.put(UpdateMode.SANITY, this::runUpdateOnMatched);
 
@@ -86,22 +85,6 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
       throw new RuntimeException(e);
     }
   }
-
-  private void runQuickUpdate() {
-    String sql = "select *\n" +
-        "from series\n" +
-        "where tvdb_match_status = ? " +
-        "and metacritic_new = ? " +
-        "and retired = ? ";
-
-    try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, true, 0);
-      runUpdateOnResultSet(resultSet);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
 
   private void runUpdateSingle() {
     String singleSeriesTitle = "Love"; // update for testing on a single series

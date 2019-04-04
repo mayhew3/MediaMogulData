@@ -93,18 +93,16 @@ public class TaskScheduleRunner {
 
     addMinutelyTask(new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader),
         1);
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
+        1);
     addMinutelyTask(new SeriesDenormUpdater(connection),
         5);
-    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
+    addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
         1);
     addMinutelyTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
         2);
-    addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
-        1);
     addMinutelyTask(new TVDBSeriesMatchRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
         3);
-    addMinutelyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.QUICK),
-        2);
     addMinutelyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         5);
     addMinutelyTask(new SteamPlaySessionGenerator(connection, person_id),
@@ -116,8 +114,6 @@ public class TaskScheduleRunner {
     // HOURLY
 
     addHourlyTask(new SteamGameUpdater(connection, person_id, steamProvider),
-        1);
-    addHourlyTask(new CloudinaryUploadRunner(connection, UpdateMode.QUICK),
         1);
 
     addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.SANITY),

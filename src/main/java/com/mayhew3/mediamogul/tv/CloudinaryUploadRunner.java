@@ -2,35 +2,23 @@ package com.mayhew3.mediamogul.tv;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
-import com.cloudinary.utils.ObjectUtils;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
-import com.mayhew3.mediamogul.model.tv.TVDBPoster;
-import com.mayhew3.mediamogul.model.tv.TVDBSeries;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joda.time.DateTime;
 
-import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class CloudinaryUploadRunner implements UpdateRunner {
 
@@ -40,8 +28,6 @@ public class CloudinaryUploadRunner implements UpdateRunner {
   private final Map<UpdateMode, Runnable> methodMap;
 
   private UpdateMode updateMode;
-
-  private static Logger logger = LogManager.getLogger(CloudinaryUploadRunner.class);
 
   public CloudinaryUploadRunner(SQLConnection connection, @NotNull UpdateMode updateMode) throws MissingEnvException {
     EnvironmentChecker.getOrThrow("CLOUDINARY_URL");
@@ -54,7 +40,6 @@ public class CloudinaryUploadRunner implements UpdateRunner {
 
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
-    methodMap.put(UpdateMode.QUICK, this::runQuickUpdate);
     methodMap.put(UpdateMode.FULL, this::runFullUpdate);
 
     if (!methodMap.keySet().contains(updateMode)) {
@@ -91,31 +76,6 @@ public class CloudinaryUploadRunner implements UpdateRunner {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, "You're the Worst");
       runUpdateOnResultSet(resultSet, true);
     } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private void runQuickUpdate() {
-    runUpdateOnNewlyAddedShows();
-  }
-
-  private void runUpdateOnNewlyAddedShows() {
-    DateTime today = new DateTime();
-    Timestamp oneHourAgo = new Timestamp(today.minusHours(2).getMillis());
-
-    String sql = "SELECT s.* " +
-            "FROM series s " +
-            "WHERE s.suggestion = ? " +
-            "AND s.date_added > ? " +
-            "AND s.poster IS NOT NULL " +
-            "AND s.cloud_poster IS NULL " +
-            "AND s.retired = ? ";
-
-    try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, false, oneHourAgo, 0);
-      runUpdateOnResultSet(resultSet, true);
-    } catch (SQLException e) {
-      e.printStackTrace();
       throw new RuntimeException(e);
     }
   }
@@ -163,97 +123,8 @@ public class CloudinaryUploadRunner implements UpdateRunner {
       Series series = new Series();
       series.initializeFromDBObject(resultSet);
 
-      updateSeries(series, otherPosters);
-    }
-  }
-
-  private void updateSeries(Series series, Boolean otherPosters) throws SQLException {
-    debug("Updating posters for series '" + series.seriesTitle.getValue() + "'...");
-    String poster = series.poster.getValue();
-    String cloud_poster = series.cloud_poster.getValue();
-    if (poster != null && cloud_poster == null) {
-      String url = "https://thetvdb.com/banners/" + poster;
-      Optional<String> maybeCloudID = uploadToCloudinaryAndReturnPublicID(url);
-      if (maybeCloudID.isPresent()) {
-        debug("Successfully uploaded poster for series '" + series.seriesTitle.getValue() + "'");
-        String cloudID = maybeCloudID.get();
-
-        series.cloud_poster.changeValue(cloudID);
-        series.commit(connection);
-
-
-      }
-    }
-    if (otherPosters) {
-      updateAllTVDBPosters(series);
-    }
-  }
-
-  private void updateAllTVDBPosters(Series series) throws SQLException {
-    Optional<TVDBSeries> maybeTVDBSeries = series.getTVDBSeries(connection);
-    if (maybeTVDBSeries.isPresent()) {
-      TVDBSeries tvdbSeries = maybeTVDBSeries.get();
-      String sql = "SELECT * " +
-              "FROM tvdb_poster " +
-              "WHERE tvdb_series_id = ? " +
-              "AND retired = ? ";
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, tvdbSeries.id.getValue(), 0);
-      while (resultSet.next()) {
-        TVDBPoster tvdbPoster = new TVDBPoster();
-        tvdbPoster.initializeFromDBObject(resultSet);
-        updateTVDBPoster(tvdbPoster);
-      }
-    }
-  }
-
-  private void updateTVDBPoster(TVDBPoster tvdbPoster) throws SQLException {
-    String poster = tvdbPoster.posterPath.getValue();
-    String cloud_poster = tvdbPoster.cloud_poster.getValue();
-    if (poster != null && cloud_poster == null) {
-      debug("Uploading poster '" + poster + "'...");
-      String url = "https://thetvdb.com/banners/" + poster;
-      Optional<String> maybeCloudID = uploadToCloudinaryAndReturnPublicID(url);
-      if (maybeCloudID.isPresent()) {
-        tvdbPoster.cloud_poster.changeValue(maybeCloudID.get());
-        tvdbPoster.commit(connection);
-      }
-    }
-  }
-
-  private Optional<String> uploadToCloudinaryAndReturnPublicID(String url) {
-    if (exists(url)) {
-      try {
-        Map uploadResult = cloudinary.uploader().upload(url, ObjectUtils.emptyMap());
-        return Optional.of(uploadResult.get("public_id").toString());
-      } catch (Exception e) {
-        e.printStackTrace();
-        logger.warn("Failed to resolve url even though it passed exists check: '" + url + "'");
-        return Optional.empty();
-      }
-    } else {
-      logger.warn("TVDB image not available at the moment: " + url);
-      return Optional.empty();
-    }
-  }
-
-  private void debug(Object message) {
-    logger.debug(message);
-  }
-
-  private static boolean exists(String URLName){
-    List<Integer> acceptableCodes = Lists.newArrayList(HttpURLConnection.HTTP_OK, HttpURLConnection.HTTP_MOVED_PERM);
-    try {
-      HttpURLConnection.setFollowRedirects(false);
-      // note : you may also need
-      //        HttpURLConnection.setInstanceFollowRedirects(false)
-      HttpURLConnection con =
-              (HttpURLConnection) new URL(URLName).openConnection();
-      con.setRequestMethod("HEAD");
-      return (acceptableCodes.contains(con.getResponseCode()));
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      return false;
+      CloudinaryUpdater cloudinaryUpdater = new CloudinaryUpdater(cloudinary, series, connection);
+      cloudinaryUpdater.updateSeries(otherPosters);
     }
   }
 

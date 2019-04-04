@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.tv;
 
+import com.cloudinary.Singleton;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
@@ -58,6 +59,7 @@ public class NewSeriesChecker implements UpdateRunner {
 
       updateTVDB(series);
       updateMetacritic(series);
+      updateCloudinary(series);
 
       series.firstProcessed.changeValue(true);
       series.commit(connection);
@@ -81,5 +83,11 @@ public class NewSeriesChecker implements UpdateRunner {
     } catch (MetacriticException e) {
       e.printStackTrace();
     }
+  }
+
+  private void updateCloudinary(Series series) throws SQLException {
+    CloudinaryUpdater cloudinaryUpdater = new CloudinaryUpdater(Singleton.getCloudinary(), series, connection);
+
+    cloudinaryUpdater.updateSeries(true);
   }
 }
