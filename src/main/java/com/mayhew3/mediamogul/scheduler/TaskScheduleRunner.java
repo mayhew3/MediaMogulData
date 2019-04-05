@@ -98,7 +98,7 @@ public class TaskScheduleRunner {
 
     addMinutelyTask(new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader),
         1);
-    addMinutelyTask(new NewGameChecker(connection, jsonReader, igdbProvider, chromeProvider, howLongServiceHandler),
+    addMinutelyTask(new NewGameChecker(connection, jsonReader, igdbProvider, chromeProvider, howLongServiceHandler, person_id),
         1);
     addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
         1);
@@ -129,7 +129,7 @@ public class TaskScheduleRunner {
         24);
     addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.FULL),
         24);
-    addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED),
+    addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED, person_id),
         24);
     addHourlyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY),
         24);

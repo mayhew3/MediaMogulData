@@ -27,6 +27,7 @@ import java.util.Map;
 public class MetacriticGameUpdateRunner implements UpdateRunner {
 
   private UpdateMode updateMode;
+  private Integer person_id;
 
   private final Map<UpdateMode, Runnable> methodMap;
 
@@ -34,7 +35,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
   private static Logger logger = LogManager.getLogger(MetacriticGameUpdateRunner.class);
 
-  public MetacriticGameUpdateRunner(SQLConnection connection, UpdateMode updateMode) {
+  public MetacriticGameUpdateRunner(SQLConnection connection, UpdateMode updateMode, Integer person_id) {
+    this.person_id = person_id;
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.FULL, this::updateAllGames);
     methodMap.put(UpdateMode.UNMATCHED, this::updateUnmatchedGames);
@@ -67,7 +69,10 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
 
-    MetacriticGameUpdateRunner updateRunner = new MetacriticGameUpdateRunner(connection, updateMode);
+    String mediaMogulPersonID = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
+    Integer person_id = Integer.parseInt(mediaMogulPersonID);
+
+    MetacriticGameUpdateRunner updateRunner = new MetacriticGameUpdateRunner(connection, updateMode, person_id);
     updateRunner.runUpdate();
   }
 
@@ -135,7 +140,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         debug("Updating game: " + game.title.getValue());
 
-        MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection);
+        MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id);
         metacriticGameUpdater.runUpdater();
       } catch (GameFailedException e) {
         e.printStackTrace();

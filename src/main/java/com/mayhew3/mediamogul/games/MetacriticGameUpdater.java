@@ -21,10 +21,12 @@ public class MetacriticGameUpdater {
 
   private Game game;
   private SQLConnection connection;
+  private Integer person_id;
 
-  public MetacriticGameUpdater(Game game, SQLConnection connection) {
+  public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id) {
     this.game = game;
     this.connection = connection;
+    this.person_id = person_id;
   }
 
   public void runUpdater() throws GameFailedException, SQLException {
@@ -112,6 +114,7 @@ public class MetacriticGameUpdater {
         gameLog.eventtype.changeValue("Metacritic");
         gameLog.eventdate.changeValue(new Timestamp(new Date().getTime()));
 
+        gameLog.person_id.changeValue(person_id);
         gameLog.gameID.changeValue(game.id.getValue());
         gameLog.commit(connection);
       }

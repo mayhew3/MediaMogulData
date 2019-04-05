@@ -19,6 +19,7 @@ class FirstTimeGameUpdater {
   private ChromeDriver chromeDriver;
   private ExternalServiceHandler howLongServiceHandler;
   private String giantbomb_api_key;
+  private Integer person_id;
 
   private static Logger logger = LogManager.getLogger(FirstTimeGameUpdater.class);
 
@@ -28,7 +29,8 @@ class FirstTimeGameUpdater {
                        JSONReader jsonReader,
                        ChromeDriver chromeDriver,
                        ExternalServiceHandler howLongServiceHandler,
-                       String giantbomb_api_key) {
+                       String giantbomb_api_key,
+                       Integer person_id) {
     this.game = game;
     this.connection = connection;
     this.igdbProvider = igdbProvider;
@@ -36,6 +38,7 @@ class FirstTimeGameUpdater {
     this.chromeDriver = chromeDriver;
     this.howLongServiceHandler = howLongServiceHandler;
     this.giantbomb_api_key = giantbomb_api_key;
+    this.person_id = person_id;
   }
 
   void updateGame() throws SQLException {
@@ -64,7 +67,7 @@ class FirstTimeGameUpdater {
 
   private void updateMetacritic() throws SQLException {
     logger.info("Updating Metacritic...");
-    MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection);
+    MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id);
     try {
       metacriticGameUpdater.runUpdater();
     } catch (GameFailedException e) {

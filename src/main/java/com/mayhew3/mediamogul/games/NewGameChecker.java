@@ -26,15 +26,22 @@ public class NewGameChecker implements UpdateRunner {
   private ChromeProvider chromeProvider;
   private ExternalServiceHandler howLongServiceHandler;
   private String giantbomb_api_key;
+  private Integer person_id;
 
   private static Logger logger = LogManager.getLogger(NewGameChecker.class);
 
-  public NewGameChecker(SQLConnection connection, JSONReader jsonReader, IGDBProvider igdbProvider, ChromeProvider chromeProvider, ExternalServiceHandler howLongServiceHandler) throws MissingEnvException {
+  public NewGameChecker(SQLConnection connection,
+                        JSONReader jsonReader,
+                        IGDBProvider igdbProvider,
+                        ChromeProvider chromeProvider,
+                        ExternalServiceHandler howLongServiceHandler,
+                        Integer person_id) throws MissingEnvException {
     this.connection = connection;
     this.jsonReader = jsonReader;
     this.igdbProvider = igdbProvider;
     this.chromeProvider = chromeProvider;
     this.howLongServiceHandler = howLongServiceHandler;
+    this.person_id = person_id;
     this.giantbomb_api_key = EnvironmentChecker.getOrThrow("giantbomb_api");
   }
 
@@ -77,7 +84,8 @@ public class NewGameChecker implements UpdateRunner {
           jsonReader,
           chromeDriver,
           howLongServiceHandler,
-          giantbomb_api_key);
+          giantbomb_api_key,
+          person_id);
       firstTimeGameUpdater.updateGame();
       logger.info("Finished processing game '" + game.title.getValue() + "'");
 
