@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
@@ -17,8 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,12 +37,14 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   private SQLConnection connection;
   private UpdateMode updateMode;
   private ExternalServiceHandler howLongServiceHandler;
+  private ChromeProvider chromeProvider;
 
   private final Map<UpdateMode, Runnable> methodMap;
 
   private static Logger logger = LogManager.getLogger(HowLongToBeatUpdateRunner.class);
 
-  public HowLongToBeatUpdateRunner(SQLConnection connection, UpdateMode updateMode, ExternalServiceHandler howLongServiceHandler) {
+  public HowLongToBeatUpdateRunner(SQLConnection connection, UpdateMode updateMode, ExternalServiceHandler howLongServiceHandler, ChromeProvider chromeProvider) {
+    this.chromeProvider = chromeProvider;
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.QUICK, this::runUpdateQuick);
     methodMap.put(UpdateMode.FULL, this::runUpdateFull);
@@ -78,9 +79,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
     ExternalServiceHandler howLongServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.HowLongToBeat);
 
-    setDriverPath();
-
-    HowLongToBeatUpdateRunner updateRunner = new HowLongToBeatUpdateRunner(connection, updateMode, howLongServiceHandler);
+    HowLongToBeatUpdateRunner updateRunner = new HowLongToBeatUpdateRunner(connection, updateMode, howLongServiceHandler, new ChromeProvider());
     updateRunner.runUpdate();
   }
 
@@ -142,9 +141,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     int i = 1;
     int failures = 0;
 
-    ChromeOptions chromeOptions = new ChromeOptions()
-        .setHeadless(true);
-    WebDriver chromeDriver = new ChromeDriver(chromeOptions);
+    WebDriver chromeDriver = chromeProvider.openBrowser();
 
     while (resultSet.next()) {
       Game game = new Game();
@@ -181,7 +178,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
 
     logger.info("Operation completed! Failed on " + failures + "/" + (i-1) + " games (" + (failures/i*100) + "%)");
 
-    chromeDriver.quit();
+    chromeProvider.closeBrowser();
   }
 
   private void logFailure(Game game) throws SQLException {

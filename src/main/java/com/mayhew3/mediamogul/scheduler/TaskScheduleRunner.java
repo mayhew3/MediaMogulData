@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.scheduler;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
@@ -39,6 +40,8 @@ public class TaskScheduleRunner {
   private ExternalServiceHandler howLongServiceHandler;
   private IGDBProvider igdbProvider;
   private SteamProvider steamProvider;
+  private ChromeProvider chromeProvider;
+
   private Integer person_id;
 
   private static Logger logger = LogManager.getLogger(TaskScheduleRunner.class);
@@ -46,13 +49,14 @@ public class TaskScheduleRunner {
   private TaskScheduleRunner(SQLConnection connection,
                              @Nullable TVDBJWTProvider tvdbjwtProvider,
                              JSONReader jsonReader,
-                             ExternalServiceHandler howLongServiceHandler, IGDBProvider igdbProvider, SteamProvider steamProvider, Integer person_id) {
+                             ExternalServiceHandler howLongServiceHandler, IGDBProvider igdbProvider, SteamProvider steamProvider, ChromeProvider chromeProvider, Integer person_id) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;
     this.howLongServiceHandler = howLongServiceHandler;
     this.igdbProvider = igdbProvider;
     this.steamProvider = steamProvider;
+    this.chromeProvider = chromeProvider;
     this.person_id = person_id;
   }
 
@@ -67,14 +71,14 @@ public class TaskScheduleRunner {
     String mediaMogulPersonID = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     Integer person_id = Integer.parseInt(mediaMogulPersonID);
 
+    ChromeProvider chromeProvider = new ChromeProvider();
+
     TVDBJWTProvider tvdbjwtProvider = null;
     try {
       tvdbjwtProvider = new TVDBJWTProviderImpl(tvdbServiceHandler);
     } catch (UnirestException e) {
       e.printStackTrace();
     }
-
-    maybeSetDriverPath();
 
     TaskScheduleRunner taskScheduleRunner = new TaskScheduleRunner(
         connection,
@@ -83,6 +87,7 @@ public class TaskScheduleRunner {
         howLongServiceHandler,
         igdbProvider,
         new SteamProviderImpl(),
+        chromeProvider,
         person_id);
     taskScheduleRunner.runUpdates();
   }
@@ -128,9 +133,9 @@ public class TaskScheduleRunner {
         24);
     addHourlyTask(new EpisodeGroupUpdater(connection),
         24);
-    addHourlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL),
+    addHourlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL, chromeProvider),
         24);
-    addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler),
+    addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler, chromeProvider),
         24);
     addHourlyTask(new GiantBombUpdater(connection),
         24);

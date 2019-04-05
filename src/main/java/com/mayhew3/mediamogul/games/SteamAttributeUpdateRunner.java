@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.games.Game;
@@ -29,13 +30,15 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
 
   private SQLConnection connection;
   private UpdateMode updateMode;
+  private ChromeProvider chromeProvider;
 
   private final Map<UpdateMode, Runnable> methodMap;
 
   private static Logger logger = LogManager.getLogger(SteamAttributeUpdateRunner.class);
 
-  public SteamAttributeUpdateRunner(SQLConnection connection, UpdateMode updateMode) {
+  public SteamAttributeUpdateRunner(SQLConnection connection, UpdateMode updateMode, ChromeProvider chromeProvider) {
     this.updateMode = updateMode;
+    this.chromeProvider = chromeProvider;
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.FULL, this::runUpdateFull);
     methodMap.put(UpdateMode.SINGLE, this::runUpdateOnSingle);
@@ -67,9 +70,7 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.FULL);
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
 
-    setDriverPath();
-
-    SteamAttributeUpdateRunner updateRunner = new SteamAttributeUpdateRunner(connection, updateMode);
+    SteamAttributeUpdateRunner updateRunner = new SteamAttributeUpdateRunner(connection, updateMode, new ChromeProvider());
     updateRunner.runUpdate();
 
   }
@@ -110,7 +111,7 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
 
     int i = 0;
 
-    ChromeDriver chromeDriver = new ChromeDriver();
+    ChromeDriver chromeDriver = chromeProvider.openBrowser();
 
     while (resultSet.next()) {
       i++;
@@ -134,12 +135,7 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
       debug(i + " processed.");
     }
 
-    chromeDriver.close();
-  }
-
-  private static void setDriverPath() {
-    String driverPath = System.getProperty("user.dir") + "\\resources\\chromedriver.exe";
-    System.setProperty("webdriver.chrome.driver", driverPath);
+    chromeProvider.closeBrowser();
   }
 
 
