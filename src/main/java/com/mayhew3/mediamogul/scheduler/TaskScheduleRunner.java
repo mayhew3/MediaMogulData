@@ -137,7 +137,7 @@ public class TaskScheduleRunner {
         24);
     addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler, chromeProvider),
         24);
-    addHourlyTask(new GiantBombUpdater(connection),
+    addHourlyTask(new GiantBombUpdateRunner(connection),
         24);
     addHourlyTask(new CloudinaryUploadRunner(connection, UpdateMode.FULL),
         24);

@@ -33,14 +33,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class GiantBombUpdater implements UpdateRunner {
+public class GiantBombUpdateRunner implements UpdateRunner {
 
   private SQLConnection connection;
   private String api_key;
 
-  private static Logger logger = LogManager.getLogger(GiantBombUpdater.class);
+  private static Logger logger = LogManager.getLogger(GiantBombUpdateRunner.class);
 
-  public GiantBombUpdater(SQLConnection connection) throws MissingEnvException {
+  public GiantBombUpdateRunner(SQLConnection connection) throws MissingEnvException {
     this.connection = connection;
     api_key = EnvironmentChecker.getOrThrow("giantbomb_api");
   }
@@ -62,12 +62,12 @@ public class GiantBombUpdater implements UpdateRunner {
       System.err.println("Starting run on " + new Date());
     }
 
-    GiantBombUpdater giantBombUpdater = new GiantBombUpdater(PostgresConnectionFactory.createConnection(argumentChecker));
+    GiantBombUpdateRunner giantBombUpdateRunner = new GiantBombUpdateRunner(PostgresConnectionFactory.createConnection(argumentChecker));
 
     if (singleGame) {
-      giantBombUpdater.updateFieldsOnSingle();
+      giantBombUpdateRunner.updateFieldsOnSingle();
     } else {
-      giantBombUpdater.runUpdate();
+      giantBombUpdateRunner.runUpdate();
     }
   }
 
