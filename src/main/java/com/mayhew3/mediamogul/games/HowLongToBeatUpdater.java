@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public class HowLongToBeatUpdater {
+class HowLongToBeatUpdater {
 
   private Game game;
   private SQLConnection connection;
@@ -36,7 +36,7 @@ public class HowLongToBeatUpdater {
     this.howLongServiceHandler = howLongServiceHandler;
   }
 
-  public void runUpdater() throws GameFailedException, SQLException {
+  void runUpdater() throws GameFailedException, SQLException {
     String title = game.title.getValue();
     title = title.replace("™", "");
 
@@ -64,6 +64,8 @@ public class HowLongToBeatUpdater {
 
     game.howlong_updated.changeValue(new Timestamp(new Date().getTime()));
     game.commit(connection);
+
+    howLongServiceHandler.connectionSuccess();
   }
 
   private void updateTitle() throws GameFailedException {
@@ -89,7 +91,7 @@ public class HowLongToBeatUpdater {
   }
 
   @NotNull
-  private String goToGameUrlFromProfile(String title) throws GameFailedException {
+  private String goToGameUrlFromProfile(String title) throws GameFailedException, InterruptedException {
     String url = "http://howlongtobeat.com/user.php?n=mayhew3&s=games";
     driver.get(url);
 
@@ -110,7 +112,7 @@ public class HowLongToBeatUpdater {
         .build()
         .perform();
 
-    waitForSeconds(7);
+    Thread.sleep(7000);
 
     WebElement user_games = driver.findElement(By.id("user_games"));
     List<WebElement> links = user_games.findElements(By.tagName("a"));
@@ -131,14 +133,6 @@ public class HowLongToBeatUpdater {
   }
 
 
-  private void waitForSeconds(Integer seconds) {
-    // probably better way to do this.
-    long end = System.currentTimeMillis() + (seconds*1000);
-    while (System.currentTimeMillis() < end) {
-      // do nothing;
-    }
-  }
-
   @NotNull
   private String findGame(String title) throws GameFailedException, SQLException {
     String currentUrl = goToGameUrlFromSearch(title);
@@ -148,6 +142,8 @@ public class HowLongToBeatUpdater {
         currentUrl = goToGameUrlFromProfile(title);
       } catch (StaleElementReferenceException e) {
         throw new GameFailedException("Stale reference from profile.");
+      } catch (InterruptedException e) {
+        throw new GameFailedException("Thread sleep interrupted.");
       }
     }
 
@@ -215,7 +211,7 @@ public class HowLongToBeatUpdater {
     return findResultElement(By.id("global_search_box"));
   }
 
-  private void populateTimesFromTable(WebElement game_main_table) throws GameFailedException {
+  private void populateTimesFromTable(WebElement game_main_table) {
     for (WebElement row : game_main_table.findElements(By.tagName("tr"))) {
       List<WebElement> columns = row.findElements(By.tagName("td"));
       String playStyle = columns.get(indexColumn).getText();
@@ -288,7 +284,7 @@ public class HowLongToBeatUpdater {
 
   private BigDecimal convertHour(String firstPart) {
     String hourString = firstPart.replace("h", "");
-    Integer hour = Integer.valueOf(hourString);
+    int hour = Integer.parseInt(hourString);
     return BigDecimal.valueOf(hour);
   }
 
@@ -316,16 +312,12 @@ public class HowLongToBeatUpdater {
     return null;
   }
 
-  private void debug(Object message) {
-    logger.debug(message);
-  }
-
 
   private class TimeAndConfidence {
     public BigDecimal time;
-    public Integer confidence;
+    Integer confidence;
 
-    public TimeAndConfidence(BigDecimal time, Integer confidence) {
+    TimeAndConfidence(BigDecimal time, Integer confidence) {
       this.time = time;
       this.confidence = confidence;
     }

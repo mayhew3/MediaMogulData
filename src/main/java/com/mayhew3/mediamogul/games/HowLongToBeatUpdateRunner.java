@@ -152,7 +152,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
 
         HowLongToBeatUpdater updater = new HowLongToBeatUpdater(game, connection, chromeDriver, howLongServiceHandler);
         updater.runUpdater();
-        howLongServiceHandler.connectionSuccess();
+
       } catch (SQLException e) {
         e.printStackTrace();
         logger.error("Game failed to load from DB.");
