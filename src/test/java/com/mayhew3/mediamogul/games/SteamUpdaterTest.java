@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.DatabaseTest;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.SteamTestProviderImpl;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.games.Game;
@@ -23,12 +25,14 @@ import static org.fest.assertions.api.Assertions.assertThat;
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class SteamUpdaterTest extends DatabaseTest {
   private SteamTestProviderImpl steamProvider;
+  private ChromeProvider chromeProvider;
   private int person_id;
 
   @Override
-  public void setUp() throws URISyntaxException, SQLException {
+  public void setUp() throws URISyntaxException, SQLException, MissingEnvException {
     super.setUp();
     steamProvider = new SteamTestProviderImpl("src\\test\\resources\\Steam\\steam_", new JSONReaderImpl());
+    chromeProvider = new ChromeProvider();
     person_id = 1;
     createPerson();
   }

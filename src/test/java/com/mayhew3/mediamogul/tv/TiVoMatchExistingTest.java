@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mayhew3.mediamogul.DatabaseTest;
 import com.mayhew3.mediamogul.dataobject.TiVoLocalProvider;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBSeries;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
@@ -20,7 +21,7 @@ public class TiVoMatchExistingTest extends DatabaseTest {
   private TiVoLocalProvider tiVoLocalProvider;
 
   @Override
-  public void setUp() throws URISyntaxException, SQLException {
+  public void setUp() throws URISyntaxException, SQLException, MissingEnvException {
     super.setUp();
     tiVoLocalProvider = new TiVoLocalProvider(
         "src\\test\\resources\\AtlantaDaylightSavings\\",

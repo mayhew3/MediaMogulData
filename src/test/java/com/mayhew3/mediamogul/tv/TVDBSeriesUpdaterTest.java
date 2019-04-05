@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.DatabaseTest;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
@@ -42,7 +43,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   private TVDBJWTProvider tvdbjwtProvider;
 
   @Override
-  public void setUp() throws URISyntaxException, SQLException {
+  public void setUp() throws URISyntaxException, SQLException, MissingEnvException {
     super.setUp();
     tvdbjwtProvider = new TVDBLocalJSONProvider("src\\test\\resources\\TVDBTest\\");
   }

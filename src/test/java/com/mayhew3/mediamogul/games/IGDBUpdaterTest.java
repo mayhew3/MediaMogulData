@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.DatabaseTest;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBTestProviderImpl;
 import com.mayhew3.mediamogul.model.games.Game;
@@ -28,7 +29,7 @@ public class IGDBUpdaterTest extends DatabaseTest {
   private JSONReader jsonReader;
 
   @Override
-  public void setUp() throws URISyntaxException, SQLException {
+  public void setUp() throws URISyntaxException, SQLException, MissingEnvException {
     super.setUp();
     jsonReader = new JSONReaderImpl();
     igdbProvider = new IGDBTestProviderImpl("src\\test\\resources\\IGDBTest\\", jsonReader);
