@@ -42,8 +42,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, 10234);
 
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, steamProvider);
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    steamGameUpdateRunner.runUpdate();
 
 
     Optional<Game> optionalGame = findGameFromDB(gameName);
@@ -113,8 +113,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame(gameName, steamID, 10234);
 
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, steamProvider);
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    steamGameUpdateRunner.runUpdate();
 
 
     Optional<Game> optionalGame = findGameFromDB(gameName);
@@ -185,8 +185,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame(myName, steamID, 10234);
 
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, steamProvider);
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    steamGameUpdateRunner.runUpdate();
 
     Optional<Game> optionalGame = findGameFromDB(myName);
 
@@ -216,8 +216,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, 10234);
 
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, steamProvider);
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    steamGameUpdateRunner.runUpdate();
 
 
     Optional<Game> optionalGame = findGameFromDB("Clunkers");
@@ -247,8 +247,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, originalMinutesPlayed);
 
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, steamProvider);
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    steamGameUpdateRunner.runUpdate();
 
 
     Optional<Game> optionalGame = findGameFromDB("Clunkers");
@@ -269,7 +269,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     steamProvider.setFileSuffix("clunkers");
 
-    steamGameUpdater.runUpdate();
+    steamGameUpdateRunner.runUpdate();
 
     optionalGame = findGameFromDB("Clunkers");
 
@@ -303,8 +303,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, 10234);
 
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, steamProvider);
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    steamGameUpdateRunner.runUpdate();
 
     SteamPlaySessionGenerator steamPlaySessionGenerator = new SteamPlaySessionGenerator(connection, person_id);
     steamPlaySessionGenerator.runUpdate();
@@ -351,8 +351,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame(gameName, steamID, 10234);
 
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, steamProvider);
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    steamGameUpdateRunner.runUpdate();
 
     SteamPlaySessionGenerator steamPlaySessionGenerator = new SteamPlaySessionGenerator(connection, person_id);
     steamPlaySessionGenerator.runUpdate();

@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e099498-ec9e-4703-ab18-cce3963e4d0c" name="Default" comment="Move annotation directory">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/ChromeProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/old/RunSteamUpdater.bat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/old/RunSteamUpdater.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/old/RunUpdater.bat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/old/RunUpdater.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/old/RunUpdaterHeroku.bat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/old/RunUpdaterHeroku.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -114,11 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="437">
-              <caret line="138" selection-start-line="138" selection-end-line="138" />
+              <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
             </state>
           </provider>
         </entry>
@@ -144,11 +143,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3515">
-              <caret line="213" column="52" selection-start-line="213" selection-start-column="52" selection-end-line="213" selection-end-column="52" />
+            <state relative-caret-position="190">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
             </state>
           </provider>
         </entry>
@@ -257,7 +256,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/model/SchemaHerokuTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/OldDataArchiveRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/GiantBombUpdater.java" />
@@ -303,11 +301,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/Game.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/NewGameChecker.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/ChromeProvider.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" />
       </list>
     </option>
   </component>
@@ -1081,12 +1080,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SteamGameUpdateRunner" type="Application" factoryName="Application" folderName="Games" nameIsGenerated="true">
+      <envs>
+        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdateRunner" />
+      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
+      <option name="PROGRAM_PARAMETERS" value="-db Heroku" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SteamGameUpdater (LogToFile)" type="Application" factoryName="Application" folderName="Games">
       <envs>
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdater" />
-      <module name="media-mogul-data_main" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdateRunner" />
+      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
       <option name="PROGRAM_PARAMETERS" value="-db Heroku LogToFile" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -1097,7 +1115,7 @@
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="DATABASE_URL" value="jdbc:postgresql://localhost:5432/tv?user\=postgres&amp;password\=m3mysql" />
       </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdater" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdateRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
       <option name="PROGRAM_PARAMETERS" value="-db Local" />
       <method v="2">
@@ -1108,28 +1126,9 @@
       <envs>
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdater" />
-      <module name="media-mogul-data_main" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdateRunner" />
+      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
       <option name="PROGRAM_PARAMETERS" value="-db Test LogToFile" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SteamGameUpdater" type="Application" factoryName="Application" folderName="Games" nameIsGenerated="true">
-      <envs>
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdater" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Heroku" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -2335,7 +2334,7 @@
       <item itemvalue="Application.SteamGameUpdater (LogToFile)" />
       <item itemvalue="Application.SteamGameUpdater (local)" />
       <item itemvalue="Application.SteamGameUpdater (test/LogToFile)" />
-      <item itemvalue="Application.SteamGameUpdater" />
+      <item itemvalue="Application.SteamGameUpdateRunner" />
       <item itemvalue="Application.SteamPlaySessionGenerator (heroku)" />
       <item itemvalue="Application.SteamPlaySessionGenerator (local)" />
       <item itemvalue="Application.IGDBUpdateRunner (heroku/sanity)" />
@@ -2512,6 +2511,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" order="0" visible="true" weight="0.15085287" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -3031,13 +3031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3515">
-          <caret line="213" column="52" selection-start-line="213" selection-start-column="52" selection-end-line="213" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -3060,7 +3053,14 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
-          <caret line="138" selection-start-line="138" selection-end-line="138" />
+          <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>

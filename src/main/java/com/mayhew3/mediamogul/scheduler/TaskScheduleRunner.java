@@ -118,7 +118,7 @@ public class TaskScheduleRunner {
 
     // HOURLY
 
-    addHourlyTask(new SteamGameUpdater(connection, person_id, steamProvider),
+    addHourlyTask(new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider),
         1);
 
     addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.SANITY),

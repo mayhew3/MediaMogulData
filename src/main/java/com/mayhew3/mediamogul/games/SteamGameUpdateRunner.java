@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.SteamProvider;
@@ -20,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -30,18 +32,20 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class SteamGameUpdater implements UpdateRunner {
+public class SteamGameUpdateRunner implements UpdateRunner {
 
   private SQLConnection connection;
   private Integer person_id;
   private SteamProvider steamProvider;
+  private ChromeProvider chromeProvider;
 
-  private static Logger logger = LogManager.getLogger(SteamGameUpdater.class);
+  private static Logger logger = LogManager.getLogger(SteamGameUpdateRunner.class);
 
-  public SteamGameUpdater(SQLConnection connection, Integer person_id, SteamProvider steamProvider) {
+  public SteamGameUpdateRunner(SQLConnection connection, Integer person_id, SteamProvider steamProvider, ChromeProvider chromeProvider) {
     this.connection = connection;
     this.person_id = person_id;
     this.steamProvider = steamProvider;
+    this.chromeProvider = chromeProvider;
   }
 
   public static void main(String... args) throws SQLException, FileNotFoundException, URISyntaxException, MissingEnvException {
@@ -78,8 +82,8 @@ public class SteamGameUpdater implements UpdateRunner {
     logger.debug("");
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(connection, person_id, new SteamProviderImpl());
-    steamGameUpdater.runUpdate();
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, new SteamProviderImpl(), new ChromeProvider());
+    steamGameUpdateRunner.runUpdate();
 
     logger.debug(" --- ");
     logger.info(" Full operation complete!");
@@ -98,7 +102,12 @@ public class SteamGameUpdater implements UpdateRunner {
       for (int i = 0; i < jsonArray.length(); i++) {
         JSONObject jsonGame = jsonArray.getJSONObject(i);
 
-        processSteamGame(unfoundGames, duplicateGames, jsonGame);
+        try {
+          processSteamGame(unfoundGames, duplicateGames, jsonGame);
+        } catch (GameFailedException e) {
+          logger.error("Game failed: " + jsonGame);
+          e.printStackTrace();
+        }
 
         jsonSteamIDs.add(jsonGame.getInt("appid"));
       }
@@ -137,7 +146,7 @@ public class SteamGameUpdater implements UpdateRunner {
 
   }
 
-  private void processSteamGame(Map<Integer, String> unfoundGames, ArrayList<String> duplicateGames, JSONObject jsonGame) throws SQLException {
+  private void processSteamGame(Map<Integer, String> unfoundGames, ArrayList<String> duplicateGames, JSONObject jsonGame) throws SQLException, GameFailedException {
     String name = jsonGame.getString("name");
     Integer steamID = jsonGame.getInt("appid");
     Integer playtime = jsonGame.getInt("playtime_forever");
@@ -190,7 +199,7 @@ public class SteamGameUpdater implements UpdateRunner {
     game.commit(connection);
   }
 
-  private void addNewGame(String name, Integer steamID, Integer playtime, String icon, String logo, Game game) throws SQLException {
+  private void addNewGame(String name, Integer steamID, Integer playtime, String icon, String logo, Game game) throws SQLException, GameFailedException {
     game.initializeForInsert();
 
     boolean needsPlaytimeUpdate = playtime > 0;
@@ -220,6 +229,14 @@ public class SteamGameUpdater implements UpdateRunner {
       personGame.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
       personGame.commit(connection);
     }
+
+    ChromeDriver chromeDriver = chromeProvider.openBrowser();
+
+    SteamAttributeUpdater steamAttributeUpdater = new SteamAttributeUpdater(game, connection, chromeDriver);
+    steamAttributeUpdater.runUpdater();
+
+    chromeProvider.closeBrowser();
+
   }
 
   private void logUpdateToPlaytime(String name, Integer steamID, BigDecimal previousPlaytime, BigDecimal updatedPlaytime, Integer gameID) throws SQLException {
