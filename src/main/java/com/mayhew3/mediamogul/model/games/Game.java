@@ -23,6 +23,8 @@ public class Game extends DataObject {
 
   public FieldValueInteger steam_attribute_count = registerIntegerField("steam_attribute_count", Nullability.NULLABLE);
 
+  public FieldValueBoolean first_processed = registerBooleanField("first_processed", Nullability.NOT_NULL).defaultValue(false);
+
   public FieldValueInteger steamID = registerIntegerField("steamid", Nullability.NULLABLE);
   public FieldValueInteger giantbomb_id = registerIntegerField("giantbomb_id", Nullability.NULLABLE);
   public FieldValueInteger giantbomb_year = registerIntegerField("giantbomb_year", Nullability.NULLABLE);
