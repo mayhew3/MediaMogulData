@@ -144,7 +144,11 @@ public class HowLongToBeatUpdater {
     String currentUrl = goToGameUrlFromSearch(title);
 
     if (currentUrl == null) {
-      currentUrl = goToGameUrlFromProfile(title);
+      try {
+        currentUrl = goToGameUrlFromProfile(title);
+      } catch (StaleElementReferenceException e) {
+        throw new GameFailedException("Stale reference from profile.");
+      }
     }
 
     String[] split = currentUrl.split("=");

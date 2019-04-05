@@ -75,22 +75,29 @@ public class NewGameChecker implements UpdateRunner {
       Game game = new Game();
       game.initializeFromDBObject(resultSet);
 
-      // DO STUFF
-      logger.info("New Game found: '" + game.title.getValue() + "'");
-      FirstTimeGameUpdater firstTimeGameUpdater = new FirstTimeGameUpdater(
-          game,
-          connection,
-          igdbProvider,
-          jsonReader,
-          chromeDriver,
-          howLongServiceHandler,
-          giantbomb_api_key,
-          person_id);
-      firstTimeGameUpdater.updateGame();
-      logger.info("Finished processing game '" + game.title.getValue() + "'");
+      try {
+        // DO STUFF
+        logger.info("New Game found: '" + game.title.getValue() + "'");
+        FirstTimeGameUpdater firstTimeGameUpdater = new FirstTimeGameUpdater(
+            game,
+            connection,
+            igdbProvider,
+            jsonReader,
+            chromeDriver,
+            howLongServiceHandler,
+            giantbomb_api_key,
+            person_id);
+        firstTimeGameUpdater.updateGame();
+        logger.info("Finished processing game '" + game.title.getValue() + "'");
 
-      game.first_processed.changeValue(true);
-      game.commit(connection);
+      } catch (Exception e) {
+        logger.error("Uncaught exception during processing of game: '" + game.title.getValue() + "'");
+        e.printStackTrace();
+      } finally {
+        game.first_processed.changeValue(true);
+        game.commit(connection);
+      }
+
     }
 
     if (browserOpen) {
