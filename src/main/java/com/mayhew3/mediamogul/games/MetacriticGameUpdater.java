@@ -69,7 +69,7 @@ public class MetacriticGameUpdater {
       String formattedPlatform = formattedPlatforms.get(platform);
 
       Document document = Jsoup.connect("http://www.metacritic.com/game/" + formattedPlatform + "/" + formattedTitle)
-          .timeout(3000)
+          .timeout(10000)
           .userAgent("Mozilla")
           .get();
 

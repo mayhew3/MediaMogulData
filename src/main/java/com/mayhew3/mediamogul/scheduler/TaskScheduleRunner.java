@@ -98,6 +98,8 @@ public class TaskScheduleRunner {
 
     addMinutelyTask(new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader),
         1);
+    addMinutelyTask(new NewGameChecker(connection, jsonReader, igdbProvider, chromeProvider, howLongServiceHandler),
+        1);
     addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
         1);
     addMinutelyTask(new SeriesDenormUpdater(connection),
