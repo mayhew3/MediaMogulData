@@ -60,7 +60,6 @@ public class TVDBUpdateProcessor implements UpdateRunner {
     return null;
   }
 
-  @SuppressWarnings("InfiniteLoopStatement")
   public void runUpdate() throws SQLException, UnirestException {
     List<TVDBWorkItem> workItems = getUnprocessedWorkItems();
     if (workItems.isEmpty()) {

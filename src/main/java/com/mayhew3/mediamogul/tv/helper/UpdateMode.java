@@ -19,6 +19,7 @@ public enum UpdateMode {
   EPISODE_MATCH("EpisodeMatch"),
   FIRST_PASS("FirstPass"),
   MANUAL("Manual"),
+  PING("Ping"),
   UNMATCHED("Unmatched");
 
   private final String typekey;

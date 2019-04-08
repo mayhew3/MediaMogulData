@@ -122,6 +122,8 @@ public class TaskScheduleRunner {
 
     addHourlyTask(new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider),
         1);
+    addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.PING, howLongServiceHandler, chromeProvider),
+        1);
 
     addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.SANITY),
         24);

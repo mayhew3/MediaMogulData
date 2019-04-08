@@ -49,6 +49,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
     methodMap.put(UpdateMode.QUICK, this::runUpdateQuick);
     methodMap.put(UpdateMode.FULL, this::runUpdateFull);
     methodMap.put(UpdateMode.SINGLE, this::runUpdateOnSingle);
+    methodMap.put(UpdateMode.PING, this::runUpdateOnSingleForPing);
 
     this.connection = connection;
 
@@ -126,6 +127,21 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateOnSingle() {
+    String gameTitle = "Return of the Obra Dinn";
+    String sql = "SELECT * FROM game WHERE title = ? ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameTitle);
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /*
+  * Special Single-mode update on a game we know works to verify updater is still working correctly.
+  * */
+  private void runUpdateOnSingleForPing() {
     String gameTitle = "Return of the Obra Dinn";
     String sql = "SELECT * FROM game WHERE title = ? ";
 

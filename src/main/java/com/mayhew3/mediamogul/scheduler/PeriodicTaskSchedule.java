@@ -54,7 +54,7 @@ public class PeriodicTaskSchedule {
     if (lastRan == null) {
       updateLastRanFromDB();
       if (lastRan == null) {
-        logger.info("Task has never been run! Running for first time.");
+        logger.info("Task '" + getUpdateRunner().getUniqueIdentifier() + "' has never been run! Running for first time.");
         return true;
       }
     }
