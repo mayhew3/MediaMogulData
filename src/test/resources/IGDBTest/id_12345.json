@@ -1,11 +1,6 @@
 [
   {
-    "cover": {
-      "width": 1440,
-      "cloudinary_id": "aqbsdjsafgkdg",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/aqbsdjsafgkdg.jpg",
-      "height": 2160
-    },
+    "cover": 34567,
     "name": "Quidditch",
     "id": 12345
   }

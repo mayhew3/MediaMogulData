@@ -28,4 +28,11 @@ public class IGDBTestProviderImpl implements IGDBProvider {
     return jsonArrayFromFile;
   }
 
+  @Override
+  public JSONObject getCoverInfo(Integer igdb_cover_id) {
+    String filepath = filePrefix + "cover_id_" + igdb_cover_id + ".json";
+    @NotNull JSONArray jsonArrayFromFile = jsonReader.parseJSONArray(filepath);
+    return jsonArrayFromFile.getJSONObject(0);
+  }
+
 }
