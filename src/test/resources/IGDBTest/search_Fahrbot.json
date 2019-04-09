@@ -1,11 +1,6 @@
 [
   {
-    "cover": {
-      "width": 1440,
-      "cloudinary_id": "ogznieioyzvsiok1sl2m",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/ogznieioyzvsiok1sl2m.jpg",
-      "height": 2160
-    },
+    "cover": 567890,
     "name": "Forza Horizon 4",
     "id": 82090
   }

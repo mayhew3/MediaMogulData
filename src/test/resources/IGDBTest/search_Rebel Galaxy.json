@@ -1,11 +1,6 @@
 [
   {
-    "cover": {
-      "width": 450,
-      "cloudinary_id": "x2hq9gtf2ylhjywvrvsa",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/x2hq9gtf2ylhjywvrvsa.jpg",
-      "height": 450
-    },
+    "cover": 992345,
     "first_release_date": 1445299200000,
     "name": "Rebel Galaxy",
     "id": 11719,
@@ -18,12 +13,7 @@
     ]
   },
   {
-    "cover": {
-      "width": 408,
-      "cloudinary_id": "rdjeychsctjdzqfjqiou",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/rdjeychsctjdzqfjqiou.jpg",
-      "height": 600
-    },
+    "cover": 999345,
     "first_release_date": 1553990400000,
     "name": "Rebel Galaxy Outlaw",
     "id": 107318,
@@ -38,12 +28,7 @@
     "id": 102624
   },
   {
-    "cover": {
-      "width": 520,
-      "cloudinary_id": "ils9dxgnlkfasmzuykkj",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/ils9dxgnlkfasmzuykkj.jpg",
-      "height": 293
-    },
+    "cover": 999945,
     "name": "Kepler Galaxy Wars : Rebel Alliance Mission",
     "id": 99981
   },

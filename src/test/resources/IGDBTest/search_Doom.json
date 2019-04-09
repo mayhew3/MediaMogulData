@@ -1,21 +1,11 @@
 [
   {
-    "cover": {
-      "width": 1440,
-      "cloudinary_id": "ogznieioyzvsiok1sl2m",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/ogznieioyzvsiok1sl2m.jpg",
-      "height": 2160
-    },
+    "cover": 567890,
     "name": "Doom",
     "id": 82090
   },
   {
-    "cover": {
-      "width": 1528,
-      "cloudinary_id": "ht1cef3fa2zdyumdyrzl",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/ht1cef3fa2zdyumdyrzl.jpg",
-      "height": 1802
-    },
+    "cover": 678901,
     "name": "Doom",
     "id": 3047
   }

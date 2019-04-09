@@ -1,11 +1,6 @@
 [
   {
-    "cover": {
-      "width": 1440,
-      "cloudinary_id": "haiouwnfdakjlhedw",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/haiouwnfdakjlhedw.jpg",
-      "height": 2160
-    },
+    "cover": 456789,
     "name": "Crumbles",
     "id": 23456
   }

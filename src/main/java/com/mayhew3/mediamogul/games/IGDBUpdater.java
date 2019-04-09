@@ -221,15 +221,15 @@ class IGDBUpdater {
     possibleGameMatch.igdbGameExtId.changeValue(id);
     possibleGameMatch.igdbGameTitle.changeValue(name);
 
-    Optional<JSONObject> optionalCover = jsonReader.getOptionalObjectWithKey(possibleMatch, "cover");
+    @Nullable Integer optionalCover = jsonReader.getNullableIntegerWithKey(possibleMatch, "cover");
 
-    if (optionalCover.isPresent()) {
-      JSONObject cover = optionalCover.get();
-      @NotNull String cloudinary_id = jsonReader.getStringWithKey(cover, "cloudinary_id");
+    if (optionalCover != null) {
+      JSONObject cover = igdbProvider.getCoverInfo(optionalCover);
+      @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
       @NotNull Integer width = jsonReader.getIntegerWithKey(cover, "width");
       @NotNull Integer height = jsonReader.getIntegerWithKey(cover, "height");
 
-      possibleGameMatch.poster.changeValue(cloudinary_id);
+      possibleGameMatch.poster.changeValue(image_id);
       possibleGameMatch.poster_w.changeValue(width);
       possibleGameMatch.poster_h.changeValue(height);
     }

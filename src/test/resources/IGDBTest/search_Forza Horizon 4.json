@@ -1,51 +1,26 @@
 [
   {
-    "cover": {
-      "width": 1440,
-      "cloudinary_id": "ogznieioyzvsiok1sl2m",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/ogznieioyzvsiok1sl2m.jpg",
-      "height": 2160
-    },
+    "cover": 567890,
     "name": "Forza Horizon 4",
     "id": 82090
   },
   {
-    "cover": {
-      "width": 1528,
-      "cloudinary_id": "ht1cef3fa2zdyumdyrzl",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/ht1cef3fa2zdyumdyrzl.jpg",
-      "height": 1802
-    },
+    "cover": 678901,
     "name": "Forza Horizon",
     "id": 3047
   },
   {
-    "cover": {
-      "width": 785,
-      "cloudinary_id": "sfdtdk9ag0h328wqkrqn",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/sfdtdk9ag0h328wqkrqn.jpg",
-      "height": 1000
-    },
+    "cover": 789012,
     "name": "Forza Horizon 3",
     "id": 19539
   },
   {
-    "cover": {
-      "width": 410,
-      "cloudinary_id": "m4g5ia3bfmdeglgzvjlm",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/m4g5ia3bfmdeglgzvjlm.jpg",
-      "height": 490
-    },
+    "cover": 890123,
     "name": "Forza Horizon 2",
     "id": 7326
   },
   {
-    "cover": {
-      "width": 200,
-      "cloudinary_id": "qiuzjwh41pj1tvqptm2n",
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/qiuzjwh41pj1tvqptm2n.jpg",
-      "height": 300
-    },
+    "cover": 901234,
     "name": "Forza Horizon 4: Ultimate Edition",
     "id": 110392
   }
