@@ -11,20 +11,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public class IGDBProviderImpl implements IGDBProvider {
 
   private String igdb_key;
-  private String api_url_base = "https://api-v3.igdb.com";
 
   private static Logger logger = LogManager.getLogger(IGDBProviderImpl.class);
 
   public IGDBProviderImpl() throws MissingEnvException {
-    igdb_key = EnvironmentChecker.getOrThrow("igdb_v3_key");
+    igdb_key = EnvironmentChecker.getOrThrow("igdb_key");
   }
 
   @Override
@@ -32,7 +31,7 @@ public class IGDBProviderImpl implements IGDBProvider {
 
     String gameTitleEncoded = encodeGameTitle(gameTitle);
 
-    String url = api_url_base + "/games/";
+    String url = "https://api-endpoint.igdb.com/games/";
     HashMap<String, Object> queryVars = new HashMap<>();
     queryVars.put("search", gameTitleEncoded);
     queryVars.put("fields", "name,cover");
@@ -44,31 +43,20 @@ public class IGDBProviderImpl implements IGDBProvider {
 
   @Override
   public JSONArray getUpdatedInfo(Integer igdb_id) {
-    String url = api_url_base + "/games/" + igdb_id;
+    String url = "https://api-endpoint.igdb.com/games/" + igdb_id;
     HashMap<String, Object> queryVars = new HashMap<>();
     queryVars.put("fields", "name,cover");
 
     return getArrayData(url, queryVars);
   }
 
-  @Override
-  public JSONObject getCoverInfo(Integer igdb_cover_id) {
-    String url = api_url_base + "/covers/" + igdb_cover_id;
-    HashMap<String, Object> queryVars = new HashMap<>();
-    queryVars.put("fields", "image_id,width,height");
-
-    JSONArray arrayData = getArrayData(url, queryVars);
-    if (arrayData.length() == 1) {
-      return arrayData.getJSONObject(0);
-    } else {
-      throw new IllegalStateException("No array data found for cover with id: " + igdb_cover_id);
-    }
-  }
-
   private String encodeGameTitle(String gameTitle) {
     String gameTitleEncoded;
-    gameTitleEncoded = gameTitle.replace(":", "");
-    gameTitleEncoded = URLEncoder.encode(gameTitleEncoded, StandardCharsets.UTF_8);
+    try {
+      gameTitleEncoded = URLEncoder.encode(gameTitle, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
     return gameTitleEncoded;
   }
 
@@ -113,7 +101,6 @@ public class IGDBProviderImpl implements IGDBProvider {
     }
   }
 
-  @SuppressWarnings("unused")
   private JSONObject getObjectData(String url, Map<String, Object> queryParams) {
     try {
       HttpResponse<String> dataInternal = getDataInternal(url, queryParams);

@@ -1,14 +1,14 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.PossibleGameMatch;
 import com.mayhew3.mediamogul.xml.JSONReader;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
 
-class IGDBUpdater {
+public class IGDBUpdater {
   private Game game;
   private String titleToSearch;
 
@@ -65,13 +65,6 @@ class IGDBUpdater {
     } else {
       debug(" - Found IGDB data matching existing ID. Updating.");
       JSONObject updatedInfo = updatedInfoArray.getJSONObject(0);
-      if (updatedInfo.has("status") && 401 == updatedInfo.getInt("status")) {
-        logger.error("Error code returned by IGDB.");
-        logger.error("Title: " + updatedInfo.getString("title"));
-        logger.error("Cause: " + updatedInfo.getString("cause"));
-        logger.error("Details: " + updatedInfo.getString("details"));
-        throw new IllegalStateException("Failure fetching from IGDB.");
-      }
       saveExactMatch(updatedInfo);
     }
   }
@@ -186,15 +179,15 @@ class IGDBUpdater {
 
     incrementNextUpdate();
 
-    @Nullable Integer optionalCover = jsonReader.getNullableIntegerWithKey(exactMatch, "cover");
-    if (optionalCover != null) {
-      JSONObject cover = igdbProvider.getCoverInfo(optionalCover);
+    Optional<JSONObject> optionalCover = jsonReader.getOptionalObjectWithKey(exactMatch, "cover");
+    if (optionalCover.isPresent()) {
+      JSONObject cover = optionalCover.get();
 
-      @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
+      @NotNull String cloudinary_id = jsonReader.getStringWithKey(cover, "cloudinary_id");
       @NotNull Integer width = jsonReader.getIntegerWithKey(cover, "width");
       @NotNull Integer height = jsonReader.getIntegerWithKey(cover, "height");
 
-      game.igdb_poster.changeValue(image_id);
+      game.igdb_poster.changeValue(cloudinary_id);
       game.igdb_poster_w.changeValue(width);
       game.igdb_poster_h.changeValue(height);
     }

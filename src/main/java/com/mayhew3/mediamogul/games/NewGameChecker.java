@@ -3,24 +3,18 @@ package com.mayhew3.mediamogul.games;
 import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
-import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
-import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.xml.JSONReader;
-import com.mayhew3.mediamogul.xml.JSONReaderImpl;
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -49,20 +43,6 @@ public class NewGameChecker implements UpdateRunner {
     this.howLongServiceHandler = howLongServiceHandler;
     this.person_id = person_id;
     this.giantbomb_api_key = EnvironmentChecker.getOrThrow("giantbomb_api");
-  }
-
-  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
-    ArgumentChecker argumentChecker = new ArgumentChecker(args);
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
-    JSONReaderImpl jsonReader = new JSONReaderImpl();
-    IGDBProviderImpl igdbProvider = new IGDBProviderImpl();
-    ChromeProvider chromeProvider = new ChromeProvider();
-    ExternalServiceHandler howLongToBeat = new ExternalServiceHandler(connection, ExternalServiceType.HowLongToBeat);
-    String mediaMogulPersonID = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
-    Integer person_id = Integer.parseInt(mediaMogulPersonID);
-
-    NewGameChecker newGameChecker = new NewGameChecker(connection, jsonReader, igdbProvider, chromeProvider, howLongToBeat, person_id);
-    newGameChecker.runUpdate();
   }
 
   @Override
