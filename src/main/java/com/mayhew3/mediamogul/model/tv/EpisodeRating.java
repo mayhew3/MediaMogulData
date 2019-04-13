@@ -20,8 +20,10 @@ public class EpisodeRating extends RetireableDataObject {
   public FieldValueString review = registerStringField("review", Nullability.NULLABLE);
 
   public EpisodeRating() {
-    registerForeignKey(new Person(), Nullability.NOT_NULL);
+    FieldValueForeignKey personId = registerForeignKey(new Person(), Nullability.NOT_NULL);
     registerBooleanField("rating_pending", Nullability.NOT_NULL).defaultValue(false);
+    addColumnsIndex(episodeId, personId, retired);
+    addColumnsIndex(watchedDate);
   }
 
   @Override

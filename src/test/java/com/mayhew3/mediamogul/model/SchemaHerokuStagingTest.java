@@ -5,7 +5,7 @@ import com.mayhew3.postgresobject.dataobject.DataSchema;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
 import com.mayhew3.postgresobject.model.SchemaTest;
 
-public class SchemaHerokuTest extends SchemaTest {
+public class SchemaHerokuStagingTest extends SchemaTest {
 
   @Override
   public DataSchema getDataSchema() {
@@ -15,11 +15,10 @@ public class SchemaHerokuTest extends SchemaTest {
   @Override
   public String getDBConnectionString() {
     try {
-      return EnvironmentChecker.getOrThrow("DATABASE_URL");
+      return EnvironmentChecker.getOrThrow("postgresURL_heroku_staging");
     } catch (MissingEnvException e) {
       e.printStackTrace();
       throw new IllegalStateException(e);
     }
   }
-
 }
