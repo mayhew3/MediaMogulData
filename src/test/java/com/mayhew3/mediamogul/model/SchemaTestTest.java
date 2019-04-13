@@ -8,6 +8,11 @@ import com.mayhew3.postgresobject.model.SchemaTest;
 public class SchemaTestTest extends SchemaTest {
 
   @Override
+  public DataSchema getDataSchema() {
+    return MediaMogulSchema.schema;
+  }
+
+  @Override
   public String getDBConnectionString() {
     try {
       return EnvironmentChecker.getOrThrow("postgresURL_test");
@@ -15,10 +20,5 @@ public class SchemaTestTest extends SchemaTest {
       e.printStackTrace();
       throw new IllegalStateException(e);
     }
-  }
-
-  @Override
-  public DataSchema getDataSchema() {
-    return MediaMogulSchema.schema;
   }
 }
