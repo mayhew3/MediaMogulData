@@ -1,48 +1,24 @@
 package com.mayhew3.mediamogul.model;
 
-import com.mayhew3.postgresobject.dataobject.DataObjectMismatch;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Test;
+import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.dataobject.DataSchema;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
+import com.mayhew3.postgresobject.model.SchemaTest;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
-import java.util.List;
+public class SchemaTestTest extends SchemaTest {
 
-import static org.junit.Assert.fail;
-
-public class SchemaTestTest {
-
-  private static Logger logger = LogManager.getLogger(SchemaTestTest.class);
-  
-  @Test
-  public void testHerokuTestUpToDate() throws URISyntaxException, SQLException {
-    SQLConnection connection = PostgresConnectionFactory.getSqlConnection(PostgresConnectionFactory.TEST);
-    List<DataObjectMismatch> mismatches = MediaMogulSchema.schema.validateSchemaAgainstDatabase(connection);
-
-    if (!mismatches.isEmpty()) {
-      logger.error("Mismatches found: ");
-      for (DataObjectMismatch mismatch : mismatches) {
-        logger.error(" - " + mismatch);
-        if (mismatch.getMessage().equals("Table not found!")) {
-          logger.error("    - " + mismatch.getDataObject().generateTableCreateStatement());
-        }
-        if (mismatch.getMessage().equals("ForeignKey restraint not found in DB.")) {
-          List<String> stringList = mismatch.getDataObject().generateAddForeignKeyStatements();
-          for (String fkStatement : stringList) {
-            logger.error("    - " + fkStatement);
-          }
-        }
-      }
-      fail();
+  @Override
+  public String getDBConnectionString() {
+    try {
+      return EnvironmentChecker.getOrThrow("postgresURL_test");
+    } catch (MissingEnvException e) {
+      e.printStackTrace();
+      throw new IllegalStateException(e);
     }
-
   }
 
-  private void debug(Object message) {
-    logger.debug(message);
+  @Override
+  public DataSchema getDataSchema() {
+    return MediaMogulSchema.schema;
   }
-
 }
