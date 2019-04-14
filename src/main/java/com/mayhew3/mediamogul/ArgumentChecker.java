@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul;
 
 import org.apache.commons.cli.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -55,6 +56,7 @@ public class ArgumentChecker {
     }
   }
 
+  @NotNull
   public String getDBIdentifier() {
     if (commands.hasOption("db")) {
       return commands.getOptionValue("db");

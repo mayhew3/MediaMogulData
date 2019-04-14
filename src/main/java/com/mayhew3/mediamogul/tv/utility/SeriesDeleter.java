@@ -1,13 +1,17 @@
 package com.mayhew3.mediamogul.tv.utility;
 
+import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.model.tv.Series;
-import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.mediamogul.ArgumentChecker;
+import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
+import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URISyntaxException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -24,19 +28,49 @@ public class SeriesDeleter {
   }
 
   public static void main(String... args) throws URISyntaxException, SQLException {
-    String seriesTitle = "Colony";
+    String seriesTitle = "The Great British Baking Show";
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
+    UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.SINGLE);
+    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
 
-    Optional<Series> series = Series.findSeriesFromTitle(seriesTitle, connection);
+    if (UpdateMode.SINGLE.equals(updateMode)) {
+      Optional<Series> series = Series.findSeriesFromTitle(seriesTitle, connection);
 
-    if (series.isPresent()) {
-      SeriesDeleter seriesDeleter = new SeriesDeleter(series.get(), connection);
-      seriesDeleter.executeDelete();
+      if (series.isPresent()) {
+        SeriesDeleter seriesDeleter = new SeriesDeleter(series.get(), connection);
+        seriesDeleter.executeDelete();
+      } else {
+        throw new RuntimeException("Unable to find series with title: " + seriesTitle);
+      }
     } else {
-      throw new RuntimeException("Unable to find series with title: " + seriesTitle);
+      runUpdateSuggestions(connection);
+    }
+  }
+
+  private static void runUpdateSuggestions(SQLConnection connection) throws SQLException {
+    String sql = "select * " +
+        "from series " +
+        "where suggestion = ? " +
+        "and tvdb_match_status <> ? " +
+        "and tvdb_match_status <> ? " +
+        "and retired = ? " +
+        "order by title";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql,
+        true,
+        TVDBMatchStatus.MATCH_CONFIRMED,
+        TVDBMatchStatus.MATCH_COMPLETED,
+        0);
+
+    while (resultSet.next()) {
+      Series series = new Series();
+      series.initializeFromDBObject(resultSet);
+
+      SeriesDeleter seriesDeleter = new SeriesDeleter(series, connection);
+      seriesDeleter.executeDelete();
     }
   }
 
@@ -54,6 +88,7 @@ public class SeriesDeleter {
       |-- season
         |-- season_viewing_location
       |-- possible_series_match
+      |-- possible_episode_match
       |-- episode
         |-- edge_tivo_episode
           |-- tivo_episode
@@ -62,6 +97,11 @@ public class SeriesDeleter {
       |-- series_viewing_location
       |-- tvdb_migration_error
       |-- tvdb_work_item
+      |-- tv_group_series
+        |-- tv_group_ballot
+          |-- tv_group_vote
+      |-- person_series
+      |-- tvdb_update_error
      */
 
     retireSeries();

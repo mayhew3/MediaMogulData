@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
@@ -14,7 +15,7 @@ import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
-import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
@@ -86,8 +87,9 @@ public class TVDBUpdateRunner implements UpdateRunner {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.SMART);
+    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
 
     TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), updateMode);
@@ -283,7 +285,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Halt and Catch Fire"; // update for testing on a single series
+    String singleSeriesTitle = "The Great British Baking Show"; // update for testing on a single series
 
     String sql = "select *\n" +
         "from series\n" +
