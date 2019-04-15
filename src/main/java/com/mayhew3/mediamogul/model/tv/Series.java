@@ -121,10 +121,9 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   public static Optional<Series> findSeriesFromTitle(String seriesTitle, SQLConnection connection) throws SQLException {
     String sql = "SELECT * " +
         "FROM series " +
-        "WHERE title = ? " +
-        "AND retired = ? ";
+        "WHERE title = ? ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, seriesTitle, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, seriesTitle);
 
     if (resultSet.next()) {
       Series series = new Series();

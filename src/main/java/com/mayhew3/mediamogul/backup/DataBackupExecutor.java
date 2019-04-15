@@ -47,7 +47,7 @@ public class DataBackupExecutor {
       postgres_pgpass = EnvironmentChecker.getOrThrow("postgres_pgpass_heroku");
 
     } else if ("local".equals(env)) {
-      db_url = EnvironmentChecker.getOrThrow("postgresURL_local");
+      db_url = EnvironmentChecker.getOrThrow("postgresURL_local_backup");
       postgres_pgpass = EnvironmentChecker.getOrThrow("postgres_pgpass_local");
 
     } else {

@@ -28,7 +28,7 @@ public class SeriesRetirer {
   }
 
   public static void main(String... args) throws URISyntaxException, SQLException {
-    String seriesTitle = "The Great British Baking Show";
+    String seriesTitle = "The Good Place";
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.SINGLE);
@@ -113,6 +113,8 @@ public class SeriesRetirer {
     retireRowsWithFKToSeries("series_viewing_location");
     retireRowsWithFKToSeries("tvdb_migration_error");
     retireRowsWithFKToSeries("tvdb_work_item");
+    retireRowsWithFKToSeries("tvdb_update_error");
+    retireRowsWithFKToSeries("person_series");
 
     retireSeasons();
     retireEpisodes();
@@ -148,6 +150,9 @@ public class SeriesRetirer {
   private void retireEpisodes() throws SQLException {
     retireRowsWithFKToSeries("episode");
     retireRowsWhereReferencedRowIsRetired("episode_rating", "episode");
+    retireRowsWhereReferencedRowIsRetired("possible_episode_match", "tvdb_episode");
+    retireRowsWhereReferencedRowIsRetired("possible_episode_match", "tivo_episode");
+    retireRowsWhereReferencedRowIsRetired("tv_group_episode", "episode");
     retireTivoEpisodes();
     deleteTiVoEdgeRows();
   }
@@ -199,10 +204,10 @@ public class SeriesRetirer {
     String sql =
         "UPDATE " + tableName + " tn " +
             "SET retired = tn.id, " +
-            "    retired_date = now() " +
+            "    retired_date = rt.retired_date " +
             "FROM " + referencedTable + " rt " +
             "WHERE tn." + referencedTable + "_id = rt.id " +
-            "AND rt.retired <> ?";
+            "AND rt.retired <> ? ";
     Integer retiredRows = connection.prepareAndExecuteStatementUpdate(sql, 0);
     debug("Retired " + retiredRows + " rows from table '" + tableName + "' referencing retired rows in table '" + referencedTable + "'");
   }
