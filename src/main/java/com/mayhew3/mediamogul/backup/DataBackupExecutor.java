@@ -82,7 +82,7 @@ public class DataBackupExecutor {
         "--format=custom",
         "--verbose",
         "--file=" + fullBackupPath,
-        db_url);
+        "\"" + db_url + "\"");
     processBuilder.environment().put("PGPASSFILE", postgres_pgpass);
 
     processBuilder.inheritIO();

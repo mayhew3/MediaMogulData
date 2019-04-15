@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 public class OldDataArchiveRunner implements UpdateRunner {
 
   private SQLConnection connection;
+  private String dbIdentifier;
 
   // Map of DB table to months of data to keep.
   private List<ArchiveableFactory> tablesToArchive;
@@ -44,14 +45,16 @@ public class OldDataArchiveRunner implements UpdateRunner {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    String dbIdentifier = argumentChecker.getDBIdentifier();
 
-    OldDataArchiveRunner runner = new OldDataArchiveRunner(connection);
+    OldDataArchiveRunner runner = new OldDataArchiveRunner(connection, dbIdentifier);
     runner.runUpdate();
   }
 
 
-  public OldDataArchiveRunner(SQLConnection connection) throws MissingEnvException {
+  public OldDataArchiveRunner(SQLConnection connection, String dbIdentifier) throws MissingEnvException {
     this.connection = connection;
+    this.dbIdentifier = dbIdentifier;
     this.mediaMogulLogs = EnvironmentChecker.getOrThrow("MediaMogulArchives");
     tablesToArchive = new ArrayList<>();
 
@@ -191,7 +194,13 @@ public class OldDataArchiveRunner implements UpdateRunner {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
     String dateFormatted = simpleDateFormat.format(rowDate);
 
-    return new File(mediaMogulLogs + "\\Archive_" + tableName + "_" + dateFormatted + ".csv");
+    File directory = new File(mediaMogulLogs + "\\" + dbIdentifier);
+    if (!directory.exists()) {
+      //noinspection ResultOfMethodCallIgnored
+      directory.mkdir();
+    }
+
+    return new File(mediaMogulLogs + "\\" + dbIdentifier + "\\Archive_" + tableName + "_" + dateFormatted + ".csv");
   }
 
 }

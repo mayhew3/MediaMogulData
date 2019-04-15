@@ -1,10 +1,8 @@
 package com.mayhew3.mediamogul.scheduler;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.ChromeProvider;
-import com.mayhew3.mediamogul.EnvironmentChecker;
-import com.mayhew3.mediamogul.ExternalServiceHandler;
-import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.*;
+import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.*;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
@@ -71,6 +69,8 @@ public class TaskScheduleRunner {
     String mediaMogulPersonID = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     Integer person_id = Integer.parseInt(mediaMogulPersonID);
 
+    String envName = EnvironmentChecker.getOrThrow("envName");
+
     ChromeProvider chromeProvider = new ChromeProvider();
 
     TVDBJWTProvider tvdbjwtProvider = null;
@@ -89,7 +89,11 @@ public class TaskScheduleRunner {
         new SteamProviderImpl(),
         chromeProvider,
         person_id);
-    taskScheduleRunner.runUpdates();
+    taskScheduleRunner.runUpdates(envName);
+  }
+
+  private void createLocalTaskList() throws MissingEnvException {
+    addHourlyTask(new OldDataArchiveRunner(connection, "heroku"), 24);
   }
 
   private void createTaskList() throws MissingEnvException {
@@ -158,12 +162,16 @@ public class TaskScheduleRunner {
         .withHoursBetween(hoursBetween));
   }
 
-  private void runUpdates() throws MissingEnvException {
+  private void runUpdates(String envName) throws MissingEnvException {
     if (tvdbjwtProvider == null) {
       throw new IllegalStateException("Can't currently run updater with no TVDB token. TVDB is the only thing it can handle yet.");
     }
 
-    createTaskList();
+    if ("Heroku".equals(envName)) {
+      createTaskList();
+    } else {
+      createLocalTaskList();
+    }
 
     info("");
     info("SESSION START!");
