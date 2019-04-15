@@ -3,41 +3,49 @@ package com.mayhew3.mediamogul;
 import org.apache.commons.cli.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ArgumentChecker {
-  private final CommandLine commands;
+  private CommandLine commands;
+  private List<Option> optionList;
+  private String[] args;
+  private Boolean finalized = false;
 
   public ArgumentChecker(String... args) {
-    Options options = new Options();
+    this.optionList = new ArrayList<>();
+    this.args = args;
 
     Option dbOption = Option.builder("db")
         .hasArg()
         .desc("Database")
         .required(true)
         .build();
-    options.addOption(dbOption);
+    optionList.add(dbOption);
 
     Option modeOption = Option.builder("mode")
         .hasArg()
         .desc("Update Mode")
         .required(false)
         .build();
-    options.addOption(modeOption);
+    optionList.add(modeOption);
 
-    Option templateOption = Option.builder("template")
-        .hasArg()
-        .desc("Full path to Template File")
-        .required(false)
-        .build();
-    options.addOption(templateOption);
+  }
 
-    Option blogOutputOption = Option.builder("blog")
-        .hasArg()
-        .desc("Full path to Blog Output File")
-        .required(false)
-        .build();
-    options.addOption(blogOutputOption);
+  private void maybeFinalize() {
+    if (!finalized) {
+      finalizeChecker();
+    }
+  }
+
+  private void finalizeChecker() {
+    finalized = true;
+
+    Options options = new Options();
+    for (Option option : optionList) {
+      options.addOption(option);
+    }
 
     CommandLineParser parser = new DefaultParser();
 
@@ -48,36 +56,62 @@ public class ArgumentChecker {
     }
   }
 
-  public Optional<String> getUpdateModeIdentifier() {
-    if (commands.hasOption("mode")) {
-      return Optional.of(commands.getOptionValue("mode"));
+  public void addExpectedOption(String label, Boolean required, String description) {
+    Option option = Option.builder(label)
+        .hasArg()
+        .desc(description)
+        .required(required)
+        .build();
+    optionList.add(option);
+  }
+
+  public void removeExpectedOption(String label) {
+    Optional<Option> matching = optionList.stream()
+        .filter(option -> label.equalsIgnoreCase(option.getOpt()))
+        .findFirst();
+    if (matching.isPresent()) {
+      optionList.remove(matching.get());
+    } else {
+      throw new IllegalArgumentException("No option with name '" + label + "'.");
+    }
+  }
+
+  public String getRequiredValue(String label) {
+    maybeFinalize();
+
+    if (commands.hasOption(label)) {
+      String optionValue = commands.getOptionValue(label);
+      if (optionValue == null) {
+        throw new IllegalArgumentException("No argument value found for required argument: " + label);
+      }
+      return optionValue;
+    } else {
+      throw new IllegalArgumentException("No argument value found for required argument: " + label);
+    }
+  }
+
+  public Optional<String> getOptionalIdentifier(String label) {
+    maybeFinalize();
+
+    if (commands.hasOption(label)) {
+      String optionValue = commands.getOptionValue(label);
+      if (optionValue == null) {
+        return Optional.empty();
+      } else {
+        return Optional.of(optionValue);
+      }
     } else {
       return Optional.empty();
     }
+  }
+
+  public Optional<String> getUpdateModeIdentifier() {
+    return getOptionalIdentifier("mode");
   }
 
   @NotNull
   public String getDBIdentifier() {
-    if (commands.hasOption("db")) {
-      return commands.getOptionValue("db");
-    } else {
-      throw new IllegalStateException("No command line argument specified for 'db'!");
-    }
+    return getRequiredValue("db");
   }
 
-  public Optional<String> getTemplateFilePath() {
-    if (commands.hasOption("template")) {
-      return Optional.of(commands.getOptionValue("template"));
-    } else {
-      return Optional.empty();
-    }
-  }
-
-  public Optional<String> getBlogOutputFilePath() {
-    if (commands.hasOption("blog")) {
-      return Optional.of(commands.getOptionValue("blog"));
-    } else {
-      return Optional.empty();
-    }
-  }
 }

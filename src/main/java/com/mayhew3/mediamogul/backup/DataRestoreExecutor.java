@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.backup;
 
+import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class DataRestoreExecutor {
 
@@ -45,8 +47,15 @@ public class DataRestoreExecutor {
   public static void main(String... args) throws IOException, InterruptedException, MissingEnvException {
     logger.info("Beginning execution of executor!");
 
-    String appName = args.length > 0 ? args[0] : null;
+    ArgumentChecker argumentChecker = new ArgumentChecker(args);
+    argumentChecker.removeExpectedOption("db");
+    argumentChecker.addExpectedOption("env", true, "Name of DB environment to which to restore database.");
+    argumentChecker.addExpectedOption("backupEnv", true, "Name of DB environment whose backup should be restored.");
+    argumentChecker.addExpectedOption("appName", false, "Name of Heroku app to which to restore database. Only required if env is Heroku.");
 
+    String env = argumentChecker.getRequiredValue("env");
+    String backupEnv = argumentChecker.getRequiredValue("backupEnv");
+    Optional<String> optionalAppName = argumentChecker.getOptionalIdentifier("appName");
 
     aws_program_dir = EnvironmentChecker.getOrThrow("AWS_PROGRAM_DIR");
     aws_user_dir = EnvironmentChecker.getOrThrow("AWS_USER_DIR");
@@ -54,7 +63,7 @@ public class DataRestoreExecutor {
 
     postgres_program_dir = EnvironmentChecker.getOrThrow("POSTGRES_PROGRAM_DIR");
     postgres_pgpass_local = EnvironmentChecker.getOrThrow("postgres_pgpass_local");
-    String backup_dir_location = EnvironmentChecker.getOrThrow("BACKUP_DIR_HEROKU");
+    String backup_dir_location = EnvironmentChecker.getOrThrow("BACKUP_DIR_MM");
 
     File pgpass_file = new File(postgres_pgpass_local);
     assert pgpass_file.exists() && pgpass_file.isFile();
@@ -65,19 +74,33 @@ public class DataRestoreExecutor {
     File backup_dir = new File(backup_dir_location);
     assert backup_dir.exists() && backup_dir.isDirectory();
 
-    Path latestBackup = getLatestBackup(backup_dir_location);
+    File base_backup_dir = new File(backup_dir_location);
+    assert base_backup_dir.exists() && base_backup_dir.isDirectory();
+
+    File env_backup_dir = new File(backup_dir_location + "\\" + backupEnv);
+    if (!env_backup_dir.exists()) {
+      //noinspection ResultOfMethodCallIgnored
+      env_backup_dir.mkdir();
+    }
+
+    Path latestBackup = getLatestBackup(env_backup_dir.getPath());
     logger.info("File to restore: " + latestBackup.toString());
 
     // If no appName, do local restore. Otherwise restore to app.
-    if (appName == null) {
-      logger.info("Restoring to local DB, because no appName.");
+    if ("local".equalsIgnoreCase(env)) {
+      logger.info("Restoring to local DB.");
       restoreToLocal(latestBackup, "tv");
     } else {
-      logger.info("Restoring to Heroku app '" + appName + "'");
-      String outputPath = getAWSPath(latestBackup);
-      copyDBtoAWS(latestBackup, outputPath);
-      String result = getSignedUrl(outputPath);
-      restoreToHeroku(appName, result);
+      if (optionalAppName.isPresent()) {
+        String appName = optionalAppName.get();
+        logger.info("Restoring to Heroku app '" + optionalAppName + "'");
+        String outputPath = getAWSPath(latestBackup);
+        copyDBtoAWS(latestBackup, outputPath);
+        String result = getSignedUrl(outputPath);
+        restoreToHeroku(appName, result);
+      } else {
+        throw new IllegalStateException("No appName found for env: " + env);
+      }
     }
   }
 

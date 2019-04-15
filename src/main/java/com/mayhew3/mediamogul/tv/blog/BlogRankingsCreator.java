@@ -55,12 +55,12 @@ public class BlogRankingsCreator {
   public static void main(String... args) throws URISyntaxException, SQLException, IOException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     Optional<String> templateFilePath = argumentChecker.getTemplateFilePath();
-    if (!templateFilePath.isPresent()) {
+    if (templateFilePath.isEmpty()) {
       throw new IllegalStateException("No 'template' argument provided.");
     }
 
     Optional<String> blogOutputFilePath = argumentChecker.getBlogOutputFilePath();
-    if (!blogOutputFilePath.isPresent()) {
+    if (blogOutputFilePath.isEmpty()) {
       throw new IllegalStateException("No 'blog' argument provided.");
     }
 
