@@ -3,12 +3,14 @@ package com.mayhew3.mediamogul.tv.utility;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
+import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupBallot;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupEpisode;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupSeries;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupVote;
 import com.mayhew3.postgresobject.dataobject.DataObject;
+import com.mayhew3.postgresobject.dataobject.RetireableDataObject;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
 import java.net.URISyntaxException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -23,6 +26,9 @@ import java.util.List;
 public class SeriesDeleter {
 
   private static SQLConnection connection;
+
+  @SuppressWarnings("FieldCanBeLocal")
+  private static Integer dayThreshold = 0;
 
   private static Logger logger = LogManager.getLogger(SeriesDeleter.class);
 
@@ -32,6 +38,7 @@ public class SeriesDeleter {
 
     connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
 
+    printAllRetiredCounts();
     runUpdateOnRetired();
   }
 
@@ -65,10 +72,12 @@ public class SeriesDeleter {
       |-- tvdb_update_error
      */
 
-    retireRowsWhereReferenceIsRetired(new TVGroupEpisode(), new Episode());
     retireRowsWhereReferenceIsRetired(new PossibleEpisodeMatch(), new TVDBEpisode());
+    retireRowsWhereReferenceIsRetired(new TVDBMigrationLog(), new TVDBEpisode());
     retireRowsWhereReferenceIsRetired(new PossibleEpisodeMatch(), new TiVoEpisode());
     retireRowsWhereReferenceIsRetired(new TVDBUpdateError(), new Series());
+    retireRowsWhereReferenceIsRetired(new Episode(), new TVDBEpisode());
+    retireRowsWhereReferenceIsRetired(new TVGroupEpisode(), new Episode());
 
     List<DataObject> tablesToDelete = Lists.newArrayList(
         new EpisodeGroupRating(),
@@ -83,10 +92,10 @@ public class SeriesDeleter {
 
 //        new TmpRating(),
         new TVGroupEpisode(),
-        new TVDBEpisode(),
         new TiVoEpisode(),
         new EpisodeRating(),
         new Episode(),
+        new TVDBEpisode(),
 
         new SeasonViewingLocation(),
         new Season(),
@@ -117,6 +126,39 @@ public class SeriesDeleter {
     logger.info("Full delete complete.");
   }
 
+  private static void nullOutReferencesToRetiredRows(DataObject table, DataObject refTable) throws SQLException {
+    String fkColumn = refTable.getTableName() + "_id";
+    String tableName = table.getTableName();
+    Integer affectedCount = connection.prepareAndExecuteStatementUpdate(
+        "UPDATE " + tableName + " orig " +
+            "SET " + fkColumn + " = NULL " +
+            "FROM " + refTable.getTableName() + " ref " +
+            "WHERE orig." + fkColumn + " = ref.id " +
+            "AND orig.retired = ? " +
+            "AND ref.retired <> ? ",
+        0, 0
+    );
+    logger.info("Updated " + affectedCount + " rows, nulling " + fkColumn + " FK to retired row.");
+  }
+
+  private static void printAllRetiredCounts() throws SQLException {
+    logger.info("Retired counts: ");
+
+    List<DataObject> allTables = MediaMogulSchema.schema.getAllTables();
+    for (DataObject table : allTables) {
+      if (table instanceof RetireableDataObject) {
+        ResultSet resultSet = connection.prepareAndExecuteStatementFetch(
+            "SELECT COUNT(1) AS retired_count " +
+                "FROM " + table.getTableName() + " " +
+                "WHERE retired <> 0 ");
+        if (resultSet.next()) {
+          int retired_count = resultSet.getInt("retired_count");
+          logger.info("- " + table.getTableName() + ": " + retired_count);
+        }
+      }
+    }
+  }
+
   private static void retireRowsWhereReferenceIsRetired(DataObject table, DataObject refTable) throws SQLException {
 
     String fkColumn = refTable.getTableName() + "_id ";
@@ -136,11 +178,12 @@ public class SeriesDeleter {
 
   private static void deleteRetiredRowsInTable(String tableName) throws SQLException {
     logger.info("Deleting from " + tableName + "...");
-    DateTime thirtyDaysAgo = new DateTime().minusDays(0);
+    DateTime thirtyDaysAgo = new DateTime().minusDays(dayThreshold);
     Integer deletedRows = connection.prepareAndExecuteStatementUpdate(
         "DELETE FROM " + tableName + " " +
             "WHERE retired <> ? " +
-            "AND retired_date < ?",
+            "AND (retired_date < ? " +
+            "    OR retired_date IS NULL) ",
         0,
         new Timestamp(thirtyDaysAgo.toDate().getTime())
     );

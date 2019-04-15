@@ -77,7 +77,7 @@ public class SeriesMerger {
     baseSeries.commit(connection);
 
     SeriesRetirer seriesRetirer = new SeriesRetirer(unmatchedSeries, connection);
-    seriesRetirer.executeDelete();
+    seriesRetirer.executeRetire();
   }
 
   private void validateNoOtherEpisodes(List<TiVoEpisode> tiVoEpisodes) throws SQLException {

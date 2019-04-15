@@ -41,12 +41,14 @@ public class SeriesRetirer {
 
       if (series.isPresent()) {
         SeriesRetirer seriesRetirer = new SeriesRetirer(series.get(), connection);
-        seriesRetirer.executeDelete();
+        seriesRetirer.executeRetire();
       } else {
         throw new RuntimeException("Unable to find series with title: " + seriesTitle);
       }
-    } else {
+    } else if (UpdateMode.FULL.equals(updateMode)) {
       runUpdateSuggestions(connection);
+    } else if (UpdateMode.SMART.equals(updateMode)) {
+      runUpdateIgnored(connection);
     }
   }
 
@@ -70,11 +72,31 @@ public class SeriesRetirer {
       series.initializeFromDBObject(resultSet);
 
       SeriesRetirer seriesRetirer = new SeriesRetirer(series, connection);
-      seriesRetirer.executeDelete();
+      seriesRetirer.executeRetire();
     }
   }
 
-  public void executeDelete() throws SQLException {
+  private static void runUpdateIgnored(SQLConnection connection) throws SQLException {
+    String sql = "select * " +
+        "from series " +
+        "where tvdb_match_status = ? " +
+        "and retired = ? " +
+        "order by title";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql,
+        TVDBMatchStatus.IGNORED,
+        0);
+
+    while (resultSet.next()) {
+      Series series = new Series();
+      series.initializeFromDBObject(resultSet);
+
+      SeriesRetirer seriesRetirer = new SeriesRetirer(series, connection);
+      seriesRetirer.executeRetire();
+    }
+  }
+
+  public void executeRetire() throws SQLException {
 
     logger.info("Beginning full retiring of series: " + series.seriesTitle.getValue());
 
@@ -207,8 +229,9 @@ public class SeriesRetirer {
             "    retired_date = rt.retired_date " +
             "FROM " + referencedTable + " rt " +
             "WHERE tn." + referencedTable + "_id = rt.id " +
+            "AND tn.retired = ? " +
             "AND rt.retired <> ? ";
-    Integer retiredRows = connection.prepareAndExecuteStatementUpdate(sql, 0);
+    Integer retiredRows = connection.prepareAndExecuteStatementUpdate(sql, 0, 0);
     debug("Retired " + retiredRows + " rows from table '" + tableName + "' referencing retired rows in table '" + referencedTable + "'");
   }
 
@@ -224,8 +247,9 @@ public class SeriesRetirer {
         "UPDATE " + tableName + " " +
             "SET retired = id," +
             "    retired_date = now() " +
-            "WHERE " + columnName + " = ? ";
-    return connection.prepareAndExecuteStatementUpdate(sql, id);
+            "WHERE " + columnName + " = ? " +
+            "AND retired = ? ";
+    return connection.prepareAndExecuteStatementUpdate(sql, id, 0);
   }
 
 

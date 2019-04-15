@@ -2,15 +2,14 @@ package com.mayhew3.mediamogul.tv;
 
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.dataobject.FieldValue;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.tv.exception.MalformedTVDBEpisodeException;
 import com.mayhew3.mediamogul.tv.exception.MultipleMatchesException;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
+import com.mayhew3.postgresobject.dataobject.FieldValue;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,7 +74,7 @@ class TVDBEpisodeUpdater {
             existingTVDBEpisodeByTVDBID.commit(connection);
 
             Episode episode = existingTVDBEpisodeByTVDBID.getEpisodeOrNull(connection);
-            if (episode != null && !episode.onTiVo.getValue()) {
+            if (episode != null) {
               episode.retire();
               episode.commit(connection);
             }
