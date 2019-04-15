@@ -15,14 +15,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class SeriesDeleter {
+public class SeriesRetirer {
 
   private Series series;
   private SQLConnection connection;
 
-  private static Logger logger = LogManager.getLogger(SeriesDeleter.class);
+  private static Logger logger = LogManager.getLogger(SeriesRetirer.class);
 
-  public SeriesDeleter(Series series, SQLConnection connection) {
+  public SeriesRetirer(Series series, SQLConnection connection) {
     this.series = series;
     this.connection = connection;
   }
@@ -40,8 +40,8 @@ public class SeriesDeleter {
       Optional<Series> series = Series.findSeriesFromTitle(seriesTitle, connection);
 
       if (series.isPresent()) {
-        SeriesDeleter seriesDeleter = new SeriesDeleter(series.get(), connection);
-        seriesDeleter.executeDelete();
+        SeriesRetirer seriesRetirer = new SeriesRetirer(series.get(), connection);
+        seriesRetirer.executeDelete();
       } else {
         throw new RuntimeException("Unable to find series with title: " + seriesTitle);
       }
@@ -69,8 +69,8 @@ public class SeriesDeleter {
       Series series = new Series();
       series.initializeFromDBObject(resultSet);
 
-      SeriesDeleter seriesDeleter = new SeriesDeleter(series, connection);
-      seriesDeleter.executeDelete();
+      SeriesRetirer seriesRetirer = new SeriesRetirer(series, connection);
+      seriesRetirer.executeDelete();
     }
   }
 

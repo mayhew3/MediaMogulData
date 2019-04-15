@@ -10,7 +10,7 @@ import com.mayhew3.mediamogul.tv.SeriesDenormUpdater;
 import com.mayhew3.mediamogul.tv.TVDBEpisodeMatcher;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
-import com.mayhew3.mediamogul.tv.utility.SeriesDeleter;
+import com.mayhew3.mediamogul.tv.utility.SeriesRetirer;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
@@ -76,8 +76,8 @@ public class SeriesMerger {
 
     baseSeries.commit(connection);
 
-    SeriesDeleter seriesDeleter = new SeriesDeleter(unmatchedSeries, connection);
-    seriesDeleter.executeDelete();
+    SeriesRetirer seriesRetirer = new SeriesRetirer(unmatchedSeries, connection);
+    seriesRetirer.executeDelete();
   }
 
   private void validateNoOtherEpisodes(List<TiVoEpisode> tiVoEpisodes) throws SQLException {
