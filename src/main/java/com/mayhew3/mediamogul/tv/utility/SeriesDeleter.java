@@ -28,7 +28,7 @@ public class SeriesDeleter {
   private static SQLConnection connection;
 
   @SuppressWarnings("FieldCanBeLocal")
-  private static Integer dayThreshold = 0;
+  private static Integer dayThreshold = 30;
 
   private static Logger logger = LogManager.getLogger(SeriesDeleter.class);
 
