@@ -11,11 +11,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -44,7 +46,7 @@ public class DataRestoreExecutor {
     return 0;
   };
 
-  public static void main(String... args) throws IOException, InterruptedException, MissingEnvException {
+  public static void main(String... args) throws IOException, InterruptedException, MissingEnvException, URISyntaxException, SQLException {
     logger.info("Beginning execution of executor!");
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
@@ -93,7 +95,7 @@ public class DataRestoreExecutor {
     } else {
       if (optionalAppName.isPresent()) {
         String appName = optionalAppName.get();
-        logger.info("Restoring to Heroku app '" + optionalAppName + "'");
+        logger.info("Restoring to Heroku app '" + appName + "'");
         String outputPath = getAWSPath(latestBackup);
         copyDBtoAWS(latestBackup, outputPath);
         String result = getSignedUrl(outputPath);

@@ -1,9 +1,10 @@
 package com.mayhew3.mediamogul.tv;
 
+import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
-import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,9 @@ public class EpisodeGroupUpdater implements UpdateRunner {
 
   public static void main(String... args) throws URISyntaxException, SQLException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+
+    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
 
     EpisodeGroupUpdater updater = new EpisodeGroupUpdater(connection);
     updater.runUpdate();
