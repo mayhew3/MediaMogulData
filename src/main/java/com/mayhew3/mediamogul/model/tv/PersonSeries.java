@@ -19,6 +19,8 @@ public class PersonSeries extends RetireableDataObject {
   public FieldValueTimestamp firstUnwatched = registerTimestampField("first_unwatched", Nullability.NULLABLE);
   public FieldValueTimestamp lastUnwatched = registerTimestampField("last_unwatched", Nullability.NULLABLE);
 
+  public FieldValueBoolean pinned = registerBooleanField("pinned", Nullability.NOT_NULL).defaultValue(false);
+
   public PersonSeries() {
     addUniqueConstraint(seriesId, personId);
   }

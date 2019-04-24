@@ -2,10 +2,12 @@ package com.mayhew3.mediamogul.tv;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBPoster;
 import com.mayhew3.mediamogul.model.tv.TVDBSeries;
+import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +24,7 @@ public class CloudinaryUpdater {
 
   private Cloudinary cloudinary;
   private Series series;
+  private TVDBPoster poster;
   private SQLConnection connection;
 
   private static Logger logger = LogManager.getLogger(CloudinaryUploadRunner.class);
@@ -32,8 +35,14 @@ public class CloudinaryUpdater {
     this.connection = connection;
   }
 
+  public CloudinaryUpdater(Cloudinary cloudinary, TVDBPoster poster, SQLConnection connection) {
+    this.cloudinary = cloudinary;
+    this.poster = poster;
+    this.connection = connection;
+  }
 
-  public void updateSeries(Boolean otherPosters) throws SQLException {
+  public void updateSeries(Boolean otherPosters) throws SQLException, ShowFailedException {
+    Preconditions.checkState(series != null, "Cannot call updateSeries without initializing series object.");
     debug("Updating posters for series '" + series.seriesTitle.getValue() + "'...");
     String poster = series.poster.getValue();
     String cloud_poster = series.cloud_poster.getValue();
@@ -47,7 +56,8 @@ public class CloudinaryUpdater {
         series.cloud_poster.changeValue(cloudID);
         series.commit(connection);
 
-
+      } else {
+        throw new ShowFailedException("Series poster not found: " + series.seriesTitle.getValue());
       }
     }
     if (otherPosters) {
@@ -67,12 +77,22 @@ public class CloudinaryUpdater {
       while (resultSet.next()) {
         TVDBPoster tvdbPoster = new TVDBPoster();
         tvdbPoster.initializeFromDBObject(resultSet);
-        updateTVDBPoster(tvdbPoster);
+        try {
+          updateTVDBPoster(tvdbPoster);
+        } catch (ShowFailedException e) {
+          e.printStackTrace();
+          logger.warn("Poster failed while updating series. Continuing on other posters.");
+        }
       }
     }
   }
 
-  private void updateTVDBPoster(TVDBPoster tvdbPoster) throws SQLException {
+  public void updateTVDBPoster() throws SQLException, ShowFailedException {
+    Preconditions.checkState(poster != null, "Cannot call method without initializing Poster first.");
+    updateTVDBPoster(poster);
+  }
+
+  private void updateTVDBPoster(TVDBPoster tvdbPoster) throws SQLException, ShowFailedException {
     String poster = tvdbPoster.posterPath.getValue();
     String cloud_poster = tvdbPoster.cloud_poster.getValue();
     if (poster != null && cloud_poster == null) {
@@ -82,6 +102,8 @@ public class CloudinaryUpdater {
       if (maybeCloudID.isPresent()) {
         tvdbPoster.cloud_poster.changeValue(maybeCloudID.get());
         tvdbPoster.commit(connection);
+      } else {
+        throw new ShowFailedException("TVDB Poster not found.");
       }
     }
   }
