@@ -6,11 +6,15 @@ import com.google.common.base.Preconditions;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
+import com.mayhew3.mediamogul.model.tv.TVDBPoster;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
+import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +32,8 @@ public class CloudinaryUploadRunner implements UpdateRunner {
   private final Map<UpdateMode, Runnable> methodMap;
 
   private UpdateMode updateMode;
+
+  private static Logger logger = LogManager.getLogger(CloudinaryUploadRunner.class);
 
   public CloudinaryUploadRunner(SQLConnection connection, @NotNull UpdateMode updateMode) throws MissingEnvException {
     EnvironmentChecker.getOrThrow("CLOUDINARY_URL");
@@ -81,11 +87,14 @@ public class CloudinaryUploadRunner implements UpdateRunner {
   }
 
   private void runFullUpdate() {
-    runUpdateOnTierOne();
-    runUpdateOnAllNonSuggestionSeries();
+//    runUpdateOnTierOne();
+    runUpdateOnAllSeries();
+//    runUpdateOnAllUnmatchedPosters();
   }
 
   private void runUpdateOnTierOne() {
+    logger.info("Running on all Tier 1 shows.");
+
     String sql = "SELECT s.* " +
             "FROM series s " +
             "INNER JOIN person_series ps " +
@@ -102,6 +111,8 @@ public class CloudinaryUploadRunner implements UpdateRunner {
   }
 
   private void runUpdateOnAllNonSuggestionSeries() {
+    logger.info("Running truncated version on other shows.");
+
     String sql = "SELECT s.* " +
             "FROM series s " +
             "WHERE s.suggestion = ? " +
@@ -118,14 +129,87 @@ public class CloudinaryUploadRunner implements UpdateRunner {
     }
   }
 
+  private void runUpdateOnAllSeries() {
+    logger.info("Running truncated version on other shows.");
+
+    String sql = "SELECT s.* " +
+            "FROM series s " +
+            "WHERE s.retired = ? " +
+            "AND s.poster IS NOT NULL " +
+            "AND s.cloud_poster IS NULL ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
+      runUpdateOnResultSet(resultSet, false);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void runUpdateOnAllUnmatchedPosters() {
+    logger.info("Running on unmatched posters.");
+
+    String sql = "SELECT * " +
+        "FROM tvdb_poster " +
+        "WHERE cloud_poster IS NULL " +
+        "AND retired = ? ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
+      runUpdateOnPosterResultSet(resultSet);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+  }
+
   private void runUpdateOnResultSet(ResultSet resultSet, Boolean otherPosters) throws SQLException {
+    int postersProcessed = 0;
+    int postersFailed = 0;
+
     while (resultSet.next()) {
+      postersProcessed++;
+
+      logger.debug("Processing poster " + postersProcessed + "... (" + postersFailed + " failed so far.)");
+
       Series series = new Series();
       series.initializeFromDBObject(resultSet);
 
       CloudinaryUpdater cloudinaryUpdater = new CloudinaryUpdater(cloudinary, series, connection);
-      cloudinaryUpdater.updateSeries(otherPosters);
+      try {
+        cloudinaryUpdater.updateSeries(otherPosters);
+      } catch (ShowFailedException e) {
+        postersFailed++;
+      }
     }
+
+    logger.info("Finished processing " + postersProcessed + " posters: " +
+        (postersProcessed - postersFailed) + " were updated successfully.");
+  }
+
+  private void runUpdateOnPosterResultSet(ResultSet resultSet) throws SQLException {
+    int postersProcessed = 0;
+    int postersFailed = 0;
+
+    while (resultSet.next()) {
+      postersProcessed++;
+
+      logger.debug("Processing poster " + postersProcessed + "...");
+
+      TVDBPoster poster = new TVDBPoster();
+      poster.initializeFromDBObject(resultSet);
+
+      CloudinaryUpdater cloudinaryUpdater = new CloudinaryUpdater(cloudinary, poster, connection);
+      try {
+        cloudinaryUpdater.updateTVDBPoster();
+      } catch (ShowFailedException e) {
+        postersFailed++;
+      }
+    }
+
+    logger.info("Finished processing " + postersProcessed + " posters: " +
+        (postersProcessed - postersFailed) + " were updated successfully.");
   }
 
   @Override
