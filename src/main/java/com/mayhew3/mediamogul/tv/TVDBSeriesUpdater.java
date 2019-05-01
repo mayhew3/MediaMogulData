@@ -3,16 +3,14 @@ package com.mayhew3.mediamogul.tv;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.scheduler.TaskScheduleRunner;
-import com.mayhew3.postgresobject.dataobject.FieldValue;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.SeriesMerger;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
-import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import com.mayhew3.postgresobject.dataobject.FieldValue;
+import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -283,23 +281,28 @@ public class TVDBSeriesUpdater {
     masterField.changeValue(newValue);
   }
 
-  private void updateAllEpisodes(Integer tvdbID) throws UnirestException, AuthenticationException, SQLException {
+  private void updateAllEpisodes(Integer tvdbID) {
     Integer pageNumber = 1;
     Integer lastPage;
 
     do {
 
-      JSONObject episodeData = tvdbDataProvider.getEpisodeSummaries(tvdbID, pageNumber);
+      try {
+        JSONObject episodeData = tvdbDataProvider.getEpisodeSummaries(tvdbID, pageNumber);
 
-      JSONObject links = episodeData.getJSONObject("links");
-      lastPage = jsonReader.getIntegerWithKey(links, "last");
-      debug("Page " + pageNumber + " of " + lastPage + "...");
+        JSONObject links = episodeData.getJSONObject("links");
+        lastPage = jsonReader.getIntegerWithKey(links, "last");
+        debug("Page " + pageNumber + " of " + lastPage + "...");
 
-      JSONArray episodeArray = episodeData.getJSONArray("data");
+        JSONArray episodeArray = episodeData.getJSONArray("data");
 
-      for (int i = 0; i < episodeArray.length(); i++) {
-        JSONObject episode = episodeArray.getJSONObject(i);
-        updateEpisode(episode);
+        for (int i = 0; i < episodeArray.length(); i++) {
+          JSONObject episode = episodeArray.getJSONObject(i);
+          updateEpisode(episode);
+        }
+      } catch (Exception e) {
+        logger.warn("Error fetching episode data for series with TVDB ID: " + tvdbID);
+        lastPage = 0;
       }
 
       pageNumber++;
@@ -361,7 +364,7 @@ public class TVDBSeriesUpdater {
     }
   }
 
-  private void updateTVDBSeries(Integer tvdbID, JSONObject seriesJson, TVDBSeries tvdbSeries) throws UnirestException, AuthenticationException, SQLException {
+  private void updateTVDBSeries(Integer tvdbID, JSONObject seriesJson, TVDBSeries tvdbSeries) throws SQLException {
     String tvdbSeriesName = jsonReader.getStringWithKey(seriesJson, "seriesName");
 
     Integer id = jsonReader.getIntegerWithKey(seriesJson, "id");
@@ -412,25 +415,30 @@ public class TVDBSeriesUpdater {
     tvdbSeries.commit(connection);
   }
 
-  private Optional<String> updatePosters(Integer tvdbID, TVDBSeries tvdbSeries) throws UnirestException, AuthenticationException, SQLException {
+  private Optional<String> updatePosters(Integer tvdbID, TVDBSeries tvdbSeries)  {
 
-    JSONObject imageData = tvdbDataProvider.getPosterData(tvdbID);
-    @NotNull JSONArray images = jsonReader.getArrayWithKey(imageData, "data");
+    try {
+      JSONObject imageData = tvdbDataProvider.getPosterData(tvdbID);
+      @NotNull JSONArray images = jsonReader.getArrayWithKey(imageData, "data");
 
-    if (images.length() == 0) {
+      if (images.length() == 0) {
+        return Optional.empty();
+      }
+
+      JSONObject mostRecentImageObj = images.getJSONObject(images.length() - 1);
+      @NotNull String mostRecentImage = jsonReader.getStringWithKey(mostRecentImageObj, "fileName");
+
+      for (int i = 0; i < images.length(); i++) {
+        JSONObject image = images.getJSONObject(i);
+        @NotNull String filename = jsonReader.getStringWithKey(image, "fileName");
+        tvdbSeries.addPoster(filename, null, connection);
+      }
+
+      return Optional.of(mostRecentImage);
+    } catch (Exception e) {
+      logger.warn("Error fetching posters for series: " + tvdbSeries.name.getValue());
       return Optional.empty();
     }
-
-    JSONObject mostRecentImageObj = images.getJSONObject(images.length()-1);
-    @NotNull String mostRecentImage = jsonReader.getStringWithKey(mostRecentImageObj, "fileName");
-
-    for (int i = 0; i < images.length(); i++) {
-      JSONObject image = images.getJSONObject(i);
-      @NotNull String filename = jsonReader.getStringWithKey(image, "fileName");
-      tvdbSeries.addPoster(filename, null, connection);
-    }
-
-    return Optional.of(mostRecentImage);
   }
 
   private void updateEpisodeLastError(Integer tvdbEpisodeExtId) {

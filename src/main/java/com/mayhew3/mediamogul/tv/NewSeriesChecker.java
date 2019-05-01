@@ -66,7 +66,8 @@ public class NewSeriesChecker implements UpdateRunner {
   public void runUpdate() throws SQLException, UnirestException, AuthenticationException {
     String sql = "SELECT * " +
         "FROM series " +
-        "WHERE first_processed = ? ";
+        "WHERE first_processed = ? " +
+        "ORDER BY id ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, false);
 
