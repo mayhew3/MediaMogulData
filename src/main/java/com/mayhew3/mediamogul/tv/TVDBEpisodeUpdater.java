@@ -4,8 +4,6 @@ import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
 import com.mayhew3.mediamogul.model.tv.TVDBMigrationLog;
-import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
-import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -30,27 +28,21 @@ class TVDBEpisodeUpdater {
 
   private SQLConnection connection;
   private Integer tvdbRemoteId;
-  private TVDBJWTProvider tvdbjwtProvider;
   private JSONReader jsonReader;
-  private Boolean retireUnfound;
 
   private static Logger logger = LogManager.getLogger(TVDBEpisodeUpdater.class);
 
   TVDBEpisodeUpdater(Series series,
                      SQLConnection connection,
-                     TVDBJWTProvider tvdbjwtProvider,
                      Integer tvdbEpisodeId,
                      JSONReader jsonReader,
-                     Boolean retireUnfound,
                      List<Episode> episodes,
                      List<TVDBEpisode> tvdbEpisodes,
                      JSONObject episodeJSON) {
     this.series = series;
     this.connection = connection;
     this.tvdbRemoteId = tvdbEpisodeId;
-    this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;
-    this.retireUnfound = retireUnfound;
     this.episodes = episodes;
     this.tvdbEpisodes = tvdbEpisodes;
     this.episodeJson = episodeJSON;
@@ -59,45 +51,20 @@ class TVDBEpisodeUpdater {
   /**
    * @return Whether a new episode was added, or episode was found and updated.
    * @throws SQLException If DB query error
-   * @throws ShowFailedException If multiple episodes were found to update
    */
   EPISODE_RESULT updateSingleEpisode() throws SQLException {
-    /*if (episodeData.has("Error") && retireUnfound) {
-      @NotNull String error = jsonReader.getStringWithKey(episodeData, "Error");
-      String unfoundError = "ID: " + tvdbRemoteId + " not found";
-      if (unfoundError.equals(error)) {
-        TVDBEpisode existingTVDBEpisodeByTVDBID = findExistingTVDBEpisodeByTVDBID(tvdbRemoteId);
 
-        if (existingTVDBEpisodeByTVDBID != null) {
-          debug("Episode no longer in TVDB. Retiring.");
-          existingTVDBEpisodeByTVDBID.retire();
-          existingTVDBEpisodeByTVDBID.commit(connection);
-
-          Episode episode = existingTVDBEpisodeByTVDBID.getEpisodeOrNull(connection);
-          if (episode != null) {
-            episode.retire();
-            episode.commit(connection);
-          }
-
-          return EPISODE_RESULT.RETIRED;
-        }
-      }
-    }
-
-    JSONObject episodeJson = episodeData.getJSONObject("data");
-*/
     Integer seriesId = series.id.getValue();
 
-    Optional<TVDBEpisode> existingEpisode = findMatch();
+    Optional<TVDBEpisode> existingEpisode = findExistingTVDBEpisode();
 
     @NotNull Integer episodenumber = jsonReader.getIntegerWithKey(episodeJson, "airedEpisodeNumber");
     @Nullable String episodename = jsonReader.getNullableStringWithKey(episodeJson, "episodeName");
     @NotNull Integer seasonnumber = jsonReader.getIntegerWithKey(episodeJson, "airedSeason");
     @Nullable String firstaired = jsonReader.getNullableStringWithKey(episodeJson, "firstAired");
 
-    Boolean matched = false;
-    Boolean added = false;
-    Boolean changed = false;
+    boolean added = false;
+    boolean changed = false;
 
     TVDBEpisode tvdbEpisode;
     Episode episode;
@@ -106,6 +73,10 @@ class TVDBEpisodeUpdater {
       tvdbEpisode = existingEpisode.get();
       episode = getEpisodeFromTVDBEpisodeID(tvdbEpisode.id.getValue());
     } else {
+      logger.debug("Adding new episode.");
+
+      added = true;
+
       tvdbEpisode = new TVDBEpisode();
       tvdbEpisode.initializeForInsert();
 
@@ -178,13 +149,6 @@ class TVDBEpisodeUpdater {
 
     if (episodeId == null) {
       throw new RuntimeException("_id wasn't populated on Episode with tvdbEpisodeId " + tvdbRemoteId + " after insert.");
-    } else {
-      // add manual reference to episode to episodes array.
-/*
-      updateSeriesDenorms(added, matched, series);
-
-      series.commit(connection);
-      */
     }
 
     if (added) {
@@ -243,7 +207,7 @@ class TVDBEpisodeUpdater {
     tvdbEpisode.seasonNumber.changeValue(season);
   }
 
-  private Optional<TVDBEpisode> findMatch() {
+  private Optional<TVDBEpisode> findExistingTVDBEpisode() {
     int tvdbEpisodeExtId = episodeJson.getInt("id");
     Optional<TVDBEpisode> existingTVDBEpisodeByTVDBID = findExistingTVDBEpisodeByTVDBID(tvdbEpisodeExtId);
     if (existingTVDBEpisodeByTVDBID.isPresent()) {
