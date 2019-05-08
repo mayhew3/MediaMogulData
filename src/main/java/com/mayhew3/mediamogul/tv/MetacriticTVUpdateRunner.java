@@ -74,8 +74,8 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
     String sql = "select *\n" +
         "from series\n" +
         "where tvdb_match_status = ? " +
-        "and metacritic IS NOT NULL " +
-        "and metacritic_confirmed IS NULL " +
+        "and metacritic IS NULL " +
+        "and metacritic_confirmed IS NOT NULL " +
         "and retired = ? ";
 
     try {
@@ -87,7 +87,7 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Love"; // update for testing on a single series
+    String singleSeriesTitle = "Battlestar Galactica (2003)"; // update for testing on a single series
 
     String sql = "select *\n" +
         "from series\n" +

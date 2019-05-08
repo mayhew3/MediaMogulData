@@ -13,7 +13,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -30,16 +29,19 @@ public class MetacriticTVUpdater {
 
   private static Logger logger = LogManager.getLogger(MetacriticTVUpdater.class);
 
-  public MetacriticTVUpdater(Series series, SQLConnection connection) {
+  MetacriticTVUpdater(Series series, SQLConnection connection) {
     this.series = series;
     this.connection = connection;
   }
 
-  public void parseMetacritic() throws MetacriticException, SQLException {
+  void parseMetacritic() throws MetacriticException, SQLException {
     String title = series.seriesTitle.getValue();
     logger.debug("Metacritic update for: " + title);
 
     String matchedTitle = series.metacriticConfirmed.getValue();
+
+    List<Season> seasons = getSeasons(series);
+    Season firstSeason = seasons.get(0);
 
     if (matchedTitle == null) {
 
@@ -64,13 +66,13 @@ public class MetacriticTVUpdater {
 
       Date dateToCheck = tvdbSeries.isPresent() ? tvdbSeries.get().firstAired.getValue() : new Date();
 
-      Integer year = new DateTime(dateToCheck).getYear();
+      int year = new DateTime(dateToCheck).getYear();
       String formattedTitleWithYear = formattedTitle + "-" + year;
 
       stringsToTry.add(formattedTitleWithYear);
       stringsToTry.add(formattedTitle);
 
-      matchedTitle = findMetacriticForStrings(stringsToTry);
+      matchedTitle = findMetacriticForStrings(stringsToTry, firstSeason);
 
       if (matchedTitle == null) {
         throw new MetacriticException("Couldn't find Metacritic page for series '" + title + "' with formatted '" + stringsToTry + "'");
@@ -78,32 +80,47 @@ public class MetacriticTVUpdater {
 
     } else {
       try {
-        findMetacriticForString(matchedTitle, 1);
-      } catch (Exception e) {
+        findMetacriticForString(matchedTitle, firstSeason);
+      } catch (IOException e) {
         throw new MetacriticException("Had trouble finding metacritic for Season 1 of series '" + title + "' even though formatted title was confirmed previously: '" + series.metacriticConfirmed.getValue() + "'");
       }
     }
 
-    Integer seasonNumber = 1;
-    boolean failed = false;
-
-    while (!failed) {
-      seasonNumber++;
-
+    for (Season season : seasons) {
+      Integer seasonNumber = season.seasonNumber.getValue();
       try {
-        findMetacriticForString(matchedTitle + "/season-" + seasonNumber, seasonNumber);
+        findMetacriticForString(matchedTitle + "/season-" + seasonNumber, season);
+      } catch (IOException e) {
+        logger.debug("No metacritic page found for Season " + seasonNumber);
       } catch (Exception e) {
-        failed = true;
-        logger.debug("Finished finding seasons after Season " + (seasonNumber - 1));
+        logger.debug("Found metacritic page but failed to get score: " + e.getLocalizedMessage());
       }
     }
   }
 
+  private List<Season> getSeasons(Series series) throws SQLException {
+    String sql = "SELECT * " +
+        "FROM season " +
+        "WHERE series_id = ? " +
+        "AND retired = ? " +
+        "AND season_number <> ? " +
+        "ORDER BY season_number ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, series.id.getValue(), 0, 0);
+
+    List<Season> seasons = new ArrayList<>();
+    while(resultSet.next()) {
+      Season season = new Season();
+      season.initializeFromDBObject(resultSet);
+      seasons.add(season);
+    }
+    return seasons;
+  }
+
   @Nullable
-  private String findMetacriticForStrings(List<String> stringsToTry) {
+  private String findMetacriticForStrings(List<String> stringsToTry, Season firstSeason) {
     for (String stringToTry : stringsToTry) {
       try {
-        findMetacriticForString(stringToTry, 1);
+        findMetacriticForString(stringToTry, firstSeason);
         return stringToTry;
       } catch (Exception e) {
         logger.debug("Unable to find metacritic page for string: " + stringToTry);
@@ -112,54 +129,38 @@ public class MetacriticTVUpdater {
     return null;
   }
 
-  private void findMetacriticForString(String formattedTitle, Integer seasonNumber) throws IOException, SQLException, MetacriticException {
+  private void findMetacriticForString(String formattedTitle, Season season) throws IOException, SQLException, MetacriticException {
     Document document = Jsoup.connect("http://www.metacritic.com/tv/" + formattedTitle)
         .timeout(10000)
         .userAgent("Mozilla")
         .get();
 
+    Integer seasonNumber = season.seasonNumber.getValue();
     if (seasonNumber == 1) {
       series.metacriticConfirmed.changeValue(formattedTitle);
       series.commit(connection);
     }
 
-    if (seasonNumber > 1) {
-      Elements select = document.select("[href=/tv/" + formattedTitle + "]");
-      if (select.isEmpty()) {
-        throw new MetacriticException("Current season doesn't exist.");
-      }
-    }
-
-    Elements elements = document.select("[itemprop=ratingValue]");
-    Element first = elements.first();
-
-    if (first == null) {
-      throw new MetacriticException("Page found, but no element found with 'ratingValue' id.");
+    Element first;
+    try {
+      Element primaryBabyItemDiv = document.select(".primary_baby_item").first();
+      first = primaryBabyItemDiv.select(".metascore_w").first();
+    } catch (Exception e) {
+      throw new MetacriticException("Page found, but no element found with 'primary_baby_item' id.");
     }
 
     Node metacriticValue = first.childNodes().get(0);
 
-    Integer metaCritic = Integer.valueOf(metacriticValue.toString());
-
-    String sql = "SELECT * " +
-        "FROM season " +
-        "WHERE series_id = ? " +
-        "AND season_number = ?";
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, series.id.getValue(), seasonNumber);
-
-    Season season = new Season();
-
-    if (resultSet.next()) {
-      season.initializeFromDBObject(resultSet);
-    } else {
-      season.initializeForInsert();
-      season.dateModified.changeValue(new Date());
+    Integer metaCritic;
+    try {
+      metaCritic = Integer.valueOf(metacriticValue.toString());
+    } catch (NumberFormatException e) {
+      throw new MetacriticException("Found metacritic score element, but it had non-numeric value.");
     }
 
     logger.debug("Updating Season " + seasonNumber + " (" + metaCritic + ")");
 
     season.metacritic.changeValue(metaCritic);
-    season.seasonNumber.changeValue(seasonNumber);
     season.seriesId.changeValue(series.id.getValue());
 
     if (season.hasChanged()) {
