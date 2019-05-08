@@ -163,8 +163,6 @@ public class TVDBSeriesUpdater {
     series.lastTVDBUpdate.changeValue(new Date());
     series.tvdbManualQueue.changeValue(false);
 
-    series.tvdbMatchStatus.changeValue(TVDBMatchStatus.MATCH_COMPLETED);
-
     series.commit(connection);
 
     debug("Finished series update.");
@@ -181,6 +179,10 @@ public class TVDBSeriesUpdater {
       tvdbSeries.apiVersion.changeValue(2);
       tvdbSeries.commit(connection);
     }
+
+    series.tvdbMatchStatus.changeValue(TVDBMatchStatus.MATCH_COMPLETED);
+
+    series.commit(connection);
 
     debug(seriesTitle + ": Update complete! Added: " + episodesAdded + "; Updated: " + episodesUpdated);
 
