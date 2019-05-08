@@ -105,7 +105,6 @@ public class TVDBSeriesUpdater {
     debug("Finished series update.");
 
     updateAllEpisodes(tvdbSeriesExtId);
-    retireOrphanedEpisodes(tvdbSeriesId);
     updateOnlyAbsoluteNumbers();
 
     series.tvdbNew.changeValue(false);
@@ -180,38 +179,6 @@ public class TVDBSeriesUpdater {
   }
 
 
-  private void retireOrphanedEpisodes(Integer tvdbSeriesId) throws SQLException {
-    String sql = "SELECT te.* " +
-        "FROM tvdb_episode te " +
-        "INNER JOIN episode e " +
-        " ON e.tvdb_episode_id = te.id " +
-        "LEFT OUTER JOIN edge_tivo_episode ete " +
-        " ON ete.episode_id = e.id " +
-        "LEFT OUTER JOIN episode_rating er " +
-        " ON er.episode_id = e.id " +
-        "WHERE ete.id IS NULL " +
-        "AND er.id IS NULL " +
-        "AND te.tvdb_series_id = ? " +
-        "AND te.retired = ? ";
-
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, tvdbSeriesId, 0);
-    while (resultSet.next()) {
-      TVDBEpisode tvdbEpisode = new TVDBEpisode();
-      tvdbEpisode.initializeFromDBObject(resultSet);
-
-      Integer tvdbEpisodeExtId = tvdbEpisode.tvdbEpisodeExtId.getValue();
-      if (!foundEpisodeIds.contains(tvdbEpisodeExtId) &&
-          !erroredEpisodeIds.contains(tvdbEpisodeExtId)) {
-        Episode episode = tvdbEpisode.getEpisode(connection);
-        episode.retire();
-        episode.commit(connection);
-
-        tvdbEpisode.retire();
-        tvdbEpisode.commit(connection);
-      }
-    }
-  }
-
   private <T> void updateLinkedFieldsIfNotOverridden(FieldValue<T> slaveField, FieldValue<T> masterField, @Nullable T newValue) {
     if (slaveField.getValue() == null ||
         slaveField.getValue().equals(masterField.getValue())) {
@@ -283,10 +250,8 @@ public class TVDBSeriesUpdater {
       TVDBEpisodeUpdater tvdbEpisodeUpdater = new TVDBEpisodeUpdater(
           series,
           connection,
-          tvdbDataProvider,
           episodeRemoteId,
           new JSONReaderImpl(),
-          false,
           episodes,
           tvdbEpisodes,
           episode);
