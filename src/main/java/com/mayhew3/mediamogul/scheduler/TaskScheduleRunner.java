@@ -123,6 +123,8 @@ public class TaskScheduleRunner {
         30);
     addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
         30);
+    addMinutelyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.CHUNKED),
+        30);
 
 
     // HOURLY
@@ -131,12 +133,9 @@ public class TaskScheduleRunner {
         1);
     addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.PING, howLongServiceHandler, chromeProvider),
         1);
-
     addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.SANITY),
-        24);
+        2);
     addHourlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY),
-        24);
-    addHourlyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.FULL),
         24);
     addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED, person_id),
         24);

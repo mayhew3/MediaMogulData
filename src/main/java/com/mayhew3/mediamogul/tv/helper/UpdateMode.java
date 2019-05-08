@@ -20,6 +20,7 @@ public enum UpdateMode {
   FIRST_PASS("FirstPass"),
   MANUAL("Manual"),
   PING("Ping"),
+  CHUNKED("Chunked"),
   UNMATCHED("Unmatched");
 
   private final String typekey;

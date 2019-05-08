@@ -30,7 +30,8 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.FULL, this::runFullUpdate);
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
-    methodMap.put(UpdateMode.SANITY, this::runUpdateOnMatched);
+    methodMap.put(UpdateMode.CHUNKED, this::runUpdateChunked);
+    methodMap.put(UpdateMode.SANITY, this::runUpdateChunkedSanity);
 
     this.connection = connection;
 
@@ -57,8 +58,8 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
   }
 
   void runFullUpdate() {
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_match_status = ? " +
         "and retired = ? ";
 
@@ -71,8 +72,8 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateOnMatched() {
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_match_status = ? " +
         "and metacritic IS NULL " +
         "and metacritic_confirmed IS NOT NULL " +
@@ -86,11 +87,45 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
     }
   }
 
+  private void runUpdateChunked() {
+    String sql = "select * " +
+        "from series " +
+        "where tvdb_match_status = ? " +
+        "and metacritic IS NULL " +
+        "and retired = ? " +
+        "ORDER BY metacritic_failed NULLS FIRST, id " +
+        "LIMIT 8 ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0);
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void runUpdateChunkedSanity() {
+    String sql = "select * " +
+        "from series " +
+        "where tvdb_match_status = ? " +
+        "and metacritic IS NOT NULL " +
+        "and retired = ? " +
+        "ORDER BY metacritic_success NULLS FIRST, id " +
+        "LIMIT 8 ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0);
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   private void runUpdateSingle() {
     String singleSeriesTitle = "Battlestar Galactica (2003)"; // update for testing on a single series
 
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_match_status = ? " +
         "and title = ? " +
         "and retired = ? ";
