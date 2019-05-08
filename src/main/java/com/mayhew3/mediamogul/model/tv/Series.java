@@ -22,7 +22,6 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   /* Data */
   public FieldValueString seriesTitle = registerStringField("title", Nullability.NULLABLE);
   public FieldValueInteger tier = registerIntegerField("tier", Nullability.NULLABLE, IntegerSize.SMALLINT);
-  public FieldValueInteger metacritic = registerIntegerField("metacritic", Nullability.NULLABLE, IntegerSize.SMALLINT);
   public FieldValueInteger mayhewRating = registerIntegerField("mayhew_rating", Nullability.NULLABLE, IntegerSize.SMALLINT);
 
   public FieldValueString tivoSeriesExtId = registerStringField("tivo_series_ext_id", Nullability.NULLABLE);
@@ -34,8 +33,6 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   public FieldValueString airTime = registerStringField("air_time", Nullability.NULLABLE);
 
   /* Matching Helpers */
-  public FieldValueString metacriticHint = registerStringField("metacritic_hint", Nullability.NULLABLE);
-  public FieldValueString metacriticConfirmed = registerStringField("metacritic_confirmed", Nullability.NULLABLE);
   public FieldValueBoolean ignoreTVDB = registerBooleanField("ignore_tvdb", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueBoolean matchedWrong = registerBooleanField("matched_wrong", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueBoolean needsTVDBRedo = registerBooleanField("needs_tvdb_redo", Nullability.NOT_NULL).defaultValue(false);
@@ -44,6 +41,15 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   public FieldValueInteger tvdbMatchId = registerIntegerField("tvdb_match_id", Nullability.NULLABLE);
 
   public FieldValueBoolean firstProcessed = registerBooleanField("first_processed", Nullability.NOT_NULL).defaultValue(false);
+
+  /* Metacritic */
+  public FieldValueInteger metacritic = registerIntegerField("metacritic", Nullability.NULLABLE, IntegerSize.SMALLINT);
+  public FieldValueString metacriticHint = registerStringField("metacritic_hint", Nullability.NULLABLE);
+  public FieldValueString metacriticConfirmed = registerStringField("metacritic_confirmed", Nullability.NULLABLE);
+  public FieldValueBoolean metacriticNew = registerBooleanField("metacritic_new", Nullability.NOT_NULL).defaultValue(true);
+  public FieldValueInteger metacritic_season = registerIntegerField("metacritic_season", Nullability.NULLABLE);
+  public FieldValueTimestamp metacritic_success = registerTimestampField("metacritic_success", Nullability.NULLABLE);
+  public FieldValueTimestamp metacritic_failed = registerTimestampField("metacritic_failed", Nullability.NULLABLE);
 
   /* Denorms */
   public FieldValueInteger activeEpisodes = registerIntegerField("active_episodes", Nullability.NOT_NULL).defaultValue(0);
@@ -64,7 +70,6 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   public FieldValueBoolean isSuggestion = registerBooleanField("suggestion", Nullability.NOT_NULL).defaultValue(false);
 
   public FieldValueBoolean tvdbNew = registerBooleanField("tvdb_new", Nullability.NOT_NULL).defaultValue(true);
-  public FieldValueBoolean metacriticNew = registerBooleanField("metacritic_new", Nullability.NOT_NULL).defaultValue(true);
 
   public FieldValueInteger tivoVersion = registerIntegerField("tivo_version", Nullability.NOT_NULL).defaultValue(1);
 

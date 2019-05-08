@@ -75,27 +75,50 @@ public class MetacriticTVUpdater {
       matchedTitle = findMetacriticForStrings(stringsToTry, firstSeason);
 
       if (matchedTitle == null) {
+        markFailed();
         throw new MetacriticException("Couldn't find Metacritic page for series '" + title + "' with formatted '" + stringsToTry + "'");
       }
-
     } else {
       try {
         findMetacriticForString(matchedTitle, firstSeason);
       } catch (IOException e) {
-        throw new MetacriticException("Had trouble finding metacritic for Season 1 of series '" + title + "' even though formatted title was confirmed previously: '" + series.metacriticConfirmed.getValue() + "'");
+        markFailed();
+        throw new MetacriticException("Had trouble finding metacritic page for Season 1 of series '" + title + "' even though formatted title was confirmed previously: '" + series.metacriticConfirmed.getValue() + "'");
+      } catch (MetacriticException e) {
+        logger.debug("Unable to find metacritic value for Season 1.");
       }
     }
 
     for (Season season : seasons) {
       Integer seasonNumber = season.seasonNumber.getValue();
-      try {
-        findMetacriticForString(matchedTitle + "/season-" + seasonNumber, season);
-      } catch (IOException e) {
-        logger.debug("No metacritic page found for Season " + seasonNumber);
-      } catch (Exception e) {
-        logger.debug("Found metacritic page but failed to get score: " + e.getLocalizedMessage());
+      if (seasonNumber > 1) {
+        try {
+          findMetacriticForString(matchedTitle + "/season-" + seasonNumber, season);
+        } catch (IOException e) {
+          logger.debug("No metacritic page found for Season " + seasonNumber);
+        } catch (Exception e) {
+          logger.debug("Found metacritic page for Season " + seasonNumber + " but failed to get score: " + e.getLocalizedMessage());
+        }
       }
     }
+
+    if (series.metacritic.getValue() == null) {
+      markFailed();
+    } else {
+      markSucceeded();
+    }
+  }
+
+  private void markSucceeded() throws SQLException {
+    series.metacritic_success.changeValue(new Date());
+    series.metacritic_failed.changeValue(null);
+    series.commit(connection);
+  }
+
+  private void markFailed() throws SQLException {
+    series.metacritic_failed.changeValue(new Date());
+    series.metacritic_success.changeValue(null);
+    series.commit(connection);
   }
 
   private List<Season> getSeasons(Series series) throws SQLException {
@@ -136,6 +159,9 @@ public class MetacriticTVUpdater {
         .get();
 
     Integer seasonNumber = season.seasonNumber.getValue();
+
+    logger.debug("Found page for Season " + seasonNumber);
+
     if (seasonNumber == 1) {
       series.metacriticConfirmed.changeValue(formattedTitle);
       series.commit(connection);
@@ -158,7 +184,7 @@ public class MetacriticTVUpdater {
       throw new MetacriticException("Found metacritic score element, but it had non-numeric value.");
     }
 
-    logger.debug("Updating Season " + seasonNumber + " (" + metaCritic + ")");
+    logger.debug("Found Metacritic value for Season " + seasonNumber + " (" + metaCritic + ")");
 
     season.metacritic.changeValue(metaCritic);
     season.seriesId.changeValue(series.id.getValue());
@@ -169,7 +195,11 @@ public class MetacriticTVUpdater {
 
     season.commit(connection);
 
-    series.metacritic.changeValue(metaCritic);
+    if (series.metacritic_season.getValue() == null ||
+        seasonNumber >= series.metacritic_season.getValue()) {
+      series.metacritic.changeValue(metaCritic);
+      series.metacritic_season.changeValue(seasonNumber);
+    }
     series.commit(connection);
   }
 
