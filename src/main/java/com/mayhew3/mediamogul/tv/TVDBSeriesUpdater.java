@@ -1,11 +1,9 @@
 package com.mayhew3.mediamogul.tv;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
-import com.mayhew3.mediamogul.tv.helper.SeriesMerger;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
@@ -26,6 +24,8 @@ import java.util.*;
 public class TVDBSeriesUpdater {
 
   private Series series;
+  private List<Episode> episodes;
+  private List<TVDBEpisode> tvdbEpisodes;
 
   private SQLConnection connection;
   private TVDBJWTProvider tvdbDataProvider;
@@ -40,10 +40,10 @@ public class TVDBSeriesUpdater {
 
   private static Logger logger = LogManager.getLogger(TVDBSeriesUpdater.class);
 
-  public TVDBSeriesUpdater(SQLConnection connection,
-                           @NotNull Series series,
-                           TVDBJWTProvider tvdbWebProvider,
-                           JSONReader jsonReader) {
+  TVDBSeriesUpdater(SQLConnection connection,
+                    @NotNull Series series,
+                    TVDBJWTProvider tvdbWebProvider,
+                    JSONReader jsonReader) {
     this.series = series;
     this.connection = connection;
     this.tvdbDataProvider = tvdbWebProvider;
@@ -56,75 +56,12 @@ public class TVDBSeriesUpdater {
   void updateSeries() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
     String seriesTitle = series.seriesTitle.getValue();
 
+    episodes = series.getEpisodes(connection);
+    tvdbEpisodes = series.getTVDBEpisodes(connection);
+
     debug(seriesTitle + ": ID found, getting show data.");
 
-    Boolean duplicateSeriesMatched = duplicateSeriesMatched();
-
-    if (!duplicateSeriesMatched) {
-      updateShowData();
-
-      if (series.tivoSeriesV2ExtId.getValue() != null) {
-        tryToMatchUnmatchedEpisodes();
-      }
-    }
-  }
-
-  private Boolean duplicateSeriesMatched() throws SQLException, ShowFailedException {
-    Integer matchId = series.tvdbMatchId.getValue();
-    if (matchId != null && TVDBMatchStatus.MATCH_CONFIRMED.equals(series.tvdbMatchStatus.getValue())) {
-      Optional<Series> existingSeries = Series.findSeriesFromTVDBExtID(matchId, connection);
-
-      if (existingSeries.isPresent()) {
-        SeriesMerger seriesMerger = new SeriesMerger(series, existingSeries.get(), connection);
-        seriesMerger.executeMerge();
-      }
-      return existingSeries.isPresent();
-    }
-    return false;
-  }
-
-  private void tryToMatchUnmatchedEpisodes() throws SQLException {
-    List<TiVoEpisode> unmatchedEpisodes = findUnmatchedEpisodes();
-
-    debug(unmatchedEpisodes.size() + " unmatched episodes found.");
-
-    List<String> newlyMatched = new ArrayList<>();
-
-    for (TiVoEpisode tivoEpisode : unmatchedEpisodes) {
-      TVDBEpisodeMatcher matcher = new TVDBEpisodeMatcher(connection, tivoEpisode, series.id.getValue());
-      Optional<TVDBEpisode> tvdbEpisodeOptional = matcher.matchAndLinkEpisode();
-
-      if (tvdbEpisodeOptional.isPresent()) {
-        TVDBEpisode tvdbEpisode = tvdbEpisodeOptional.get();
-        newlyMatched.add(tvdbEpisode.seasonNumber.getValue() + "x" + tvdbEpisode.episodeNumber.getValue());
-      }
-    }
-
-    if (!newlyMatched.isEmpty()) {
-      String join = Joiner.on(", ").join(newlyMatched);
-      debug(newlyMatched.size() + " episodes matched: " + join);
-    }
-  }
-
-  private List<TiVoEpisode> findUnmatchedEpisodes() throws SQLException {
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(
-        "SELECT * " +
-            "FROM tivo_episode " +
-            "WHERE tivo_series_v2_ext_id = ? " +
-            "AND tvdb_match_status = ? " +
-            "AND retired = ? " +
-            "ORDER BY episode_number, showing_start_time",
-        series.tivoSeriesV2ExtId.getValue(),
-        TVDBMatchStatus.MATCH_FIRST_PASS,
-        0
-    );
-    List<TiVoEpisode> tiVoEpisodes = new ArrayList<>();
-    while (resultSet.next()) {
-      TiVoEpisode tiVoEpisode = new TiVoEpisode();
-      tiVoEpisode.initializeFromDBObject(resultSet);
-      tiVoEpisodes.add(tiVoEpisode);
-    }
-    return tiVoEpisodes;
+    updateShowData();
   }
 
   private void updateShowData() throws SQLException, UnirestException, AuthenticationException, ShowFailedException {
@@ -340,10 +277,19 @@ public class TVDBSeriesUpdater {
 
   private void updateEpisode(JSONObject episode) throws SQLException {
     Integer episodeRemoteId = episode.getInt("id");
-    debug("updateEpisode " + episodeRemoteId);
+    debug("updateEpisode " + episode.getInt("airedSeason") + "x" + episode.getInt("airedEpisodeNumber") + ": " + episodeRemoteId);
 
     try {
-      TVDBEpisodeUpdater tvdbEpisodeUpdater = new TVDBEpisodeUpdater(series, connection, tvdbDataProvider, episodeRemoteId, new JSONReaderImpl(), false);
+      TVDBEpisodeUpdater tvdbEpisodeUpdater = new TVDBEpisodeUpdater(
+          series,
+          connection,
+          tvdbDataProvider,
+          episodeRemoteId,
+          new JSONReaderImpl(),
+          false,
+          episodes,
+          tvdbEpisodes,
+          episode);
       TVDBEpisodeUpdater.EPISODE_RESULT episodeResult = tvdbEpisodeUpdater.updateSingleEpisode();
 
       if (episodeResult == TVDBEpisodeUpdater.EPISODE_RESULT.ADDED) {

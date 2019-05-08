@@ -1,10 +1,12 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBUpdateError;
@@ -15,7 +17,6 @@ import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
-import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.http.auth.AuthenticationException;
@@ -94,11 +95,6 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
     TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), updateMode);
     tvdbUpdateRunner.runUpdate();
-
-    if (tvdbUpdateRunner.getSeriesUpdates() > 0) {
-      // update denorms after changes.
-      new SeriesDenormUpdater(connection).runUpdate();
-    }
   }
 
   public void runUpdate() throws SQLException {
@@ -317,8 +313,12 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
         debug("Updating series '" + series.seriesTitle.getValue() + "'");
 
-        TVDBEpisodeUpdater tvdbEpisodeUpdater = new TVDBEpisodeUpdater(series, connection, tvdbjwtProvider, 1, jsonReader, false);
-        tvdbEpisodeUpdater.updateOnlyAirTimes();
+        List<Episode> episodes = series.getEpisodes(connection);
+
+        for (Episode episode : episodes) {
+          episode.updateAirTime(series.airTime.getValue());
+          episode.commit(connection);
+        }
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
