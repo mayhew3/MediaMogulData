@@ -1,12 +1,16 @@
 package com.mayhew3.mediamogul.model.tv;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -156,6 +160,66 @@ public class Episode extends RetireableDataObject {
     updateSeasonRow(season.getValue(), connection);
   }
 
+
+  public void updateAirTime(String seriesAirTime) {
+    if (seriesAirTime == null) {
+      seriesAirTime = "00:00";
+    }
+
+    // my first-time update populated this for ALL rows with air date, but periodic updates
+    // should only populate new episodes with future dates using series time. Because most
+    // commonly the air time will refer to CURRENT episodes, not past ones.
+    if (airDate.getValue() == null) {
+      airTime.changeValue(null);
+    } else if (futureAirDateOrFirstAirTime(airDate.getValue())) {
+
+      DateTimeFormatter dateOnlyFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+      String dateOnly = dateOnlyFormatter.print(airDate.getValue().getTime());
+
+      String stringWithTime = dateOnly + " " + seriesAirTime;
+
+      List<String> possibleTimeFormats = Lists.newArrayList(
+          "hh:mm aa",
+          "hh:mmaa",
+          "HH:mm",
+          "h aa",
+          "haa",
+          "HHmm",
+          "h.mmaa",
+          "hh:mm aa zzz"
+      );
+
+      Optional<Date> airTimeDate = tryToParse(stringWithTime, possibleTimeFormats);
+      airTimeDate.ifPresent(date -> airTime.changeValue(date));
+    }
+  }
+
+  private boolean futureAirDateOrFirstAirTime(Timestamp airDate) {
+    return isInFuture(airDate) || airTime.getValue() == null;
+  }
+
+  private Boolean isInFuture(Timestamp airDate) {
+    Date date = new Date(airDate.getTime());
+    Date today = trimToMidnight(new Date());
+
+    return !today.after(trimToMidnight(date));
+  }
+
+  private Date trimToMidnight(Date date) {
+    return new DateTime(date).withTimeAtStartOfDay().toDate();
+  }
+
+  private Optional<Date> tryToParse(String stringWithTime, List<String> minuteFormats) {
+    for (String minuteFormat : minuteFormats) {
+      DateTimeFormatter simpleDateFormat = DateTimeFormat.forPattern("yyyy-MM-dd " + minuteFormat);
+      try {
+        DateTime dateTime = simpleDateFormat.parseDateTime(stringWithTime);
+        return Optional.of(dateTime.toDate());
+      } catch (IllegalArgumentException ignored) {
+      }
+    }
+    return Optional.empty();
+  }
 
   private void updateSeasonRow(Integer seasonNumber, SQLConnection connection) throws SQLException {
     Preconditions.checkState(seriesId.getValue() != null, "Can't update the season if there is no associated series_id yet.");
