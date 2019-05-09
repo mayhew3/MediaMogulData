@@ -72,6 +72,36 @@ task runTaskScheduleRunner(type:JavaExec) {
     args = ['-db', 'Heroku', 'LogToFile']
 }
 
+task runHerokuBackup(type:JavaExec) {
+    main = 'com.mayhew3.mediamogul.backup.DataBackupExecutor'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['heroku']
+}
+
+task runLocalBackup(type:JavaExec) {
+    main = 'com.mayhew3.mediamogul.backup.DataBackupExecutor'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['local']
+}
+
+task runLocalRestoreFromHeroku(type:JavaExec) {
+    main = 'com.mayhew3.mediamogul.backup.DataRestoreExecutor'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-env', 'local', '-backupEnv', 'heroku']
+}
+
+task runLocalRestoreFromLocal(type:JavaExec) {
+    main = 'com.mayhew3.mediamogul.backup.DataRestoreExecutor'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-env', 'local', '-backupEnv', 'local']
+}
+
+task runStagingRestoreFromHeroku(type:JavaExec) {
+    main = 'com.mayhew3.mediamogul.backup.DataRestoreExecutor'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['-env', 'heroku-staging', '-backupEnv', 'heroku', '-appName', 'media-mogul-staging']
+}
+
 test {
     exclude 'com/mayhew3/mediamogul/tv/TiVoDaylightSavingsTest.class'
     exclude 'com/mayhew3/mediamogul/tv/TiVoMatchExistingTest.class'
