@@ -110,7 +110,7 @@ public class TaskScheduleRunner {
     addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
         1);
     addMinutelyTask(new SeriesDenormUpdater(connection),
-        5);
+        30);
     addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
         1);
     addMinutelyTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
@@ -129,6 +129,8 @@ public class TaskScheduleRunner {
         7);
     addMinutelyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.SANITY),
         14);
+    addMinutelyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler, chromeProvider),
+        30);
 
     // HOURLY
     addHourlyTask(new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider),
@@ -142,8 +144,6 @@ public class TaskScheduleRunner {
     addHourlyTask(new EpisodeGroupUpdater(connection),
         24);
     addHourlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL, chromeProvider),
-        24);
-    addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.QUICK, howLongServiceHandler, chromeProvider),
         24);
     addHourlyTask(new GiantBombUpdateRunner(connection),
         24);

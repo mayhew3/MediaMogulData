@@ -15,7 +15,6 @@ import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import org.joda.time.DateTime;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
@@ -100,14 +99,15 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateQuick() {
-    Date date = new DateTime().minusDays(7).toDate();
-    Timestamp timestamp = new Timestamp(date.getTime());
 
-    String sql = "SELECT * FROM game WHERE howlong_updated IS NULL "
-        + " AND (howlong_failed IS NULL OR howlong_failed < ?)";
+    String sql = "SELECT * " +
+        "FROM game " +
+        "WHERE howlong_updated IS NULL " +
+        "ORDER BY howlong_failed NULLS FIRST, id " +
+        "LIMIT 1 ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, timestamp);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
 
       runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {

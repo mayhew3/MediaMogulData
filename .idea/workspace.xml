@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e099498-ec9e-4703-ab18-cce3963e4d0c" name="Default" comment="Move annotation directory">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/MetacriticTVUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/MetacriticTVUpdateRunner.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -97,7 +97,16 @@
             <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="332">
-                  <caret line="127" column="81" lean-forward="true" selection-start-line="127" selection-start-column="81" selection-end-line="127" selection-end-column="81" />
+                  <caret line="112" column="10" selection-start-line="112" selection-start-column="10" selection-end-line="112" selection-end-column="10" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="285">
+                  <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -107,15 +116,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="63">
                   <caret line="76" column="40" lean-forward="true" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/TVDBEpisode.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="76">
-                  <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -288,7 +288,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/GiantBombUpdateRunner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdater.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/provider/IGDBProvider.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/NewGameChecker.java" />
@@ -335,6 +334,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/MetacriticTVUpdateRunner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" />
       </list>
     </option>
@@ -420,7 +420,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TVDBUpdateRunner (local/sanity)">
+  <component name="RunManager" selected="Application.HowLongToBeatUpdateRunner (local/quick)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -774,7 +774,7 @@
         <env name="giantbomb_api" value="5565f1f674caf87eaeed23269d7bb06dadfc2e6f" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.HowLongToBeatUpdateRunner" />
-      <module name="media-mogul-data.main" />
+      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
       <option name="PROGRAM_PARAMETERS" value="-db Local -mode Quick" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -2690,8 +2690,8 @@
       <window_info id="Learn" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32587412" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24755245" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3160839" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24755245" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3160839" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -2862,13 +2862,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/resources/IGDBTest/search_Zeblos.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/IGDBUpdater.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3971">
@@ -3251,10 +3244,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="332">
-          <caret line="127" column="81" lean-forward="true" selection-start-line="127" selection-start-column="81" selection-end-line="127" selection-end-column="81" />
+          <caret line="112" column="10" selection-start-line="112" selection-start-column="10" selection-end-line="112" selection-end-column="10" />
         </state>
       </provider>
     </entry>
