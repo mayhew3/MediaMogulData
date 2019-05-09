@@ -119,6 +119,8 @@ public class TaskScheduleRunner {
         3);
     addMinutelyTask(new SteamPlaySessionGenerator(connection, person_id),
         10);
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY),
+        20);
     addMinutelyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         30);
     addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
@@ -138,8 +140,6 @@ public class TaskScheduleRunner {
     addHourlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY),
         24);
     addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED, person_id),
-        24);
-    addHourlyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY),
         24);
     addHourlyTask(new EpisodeGroupUpdater(connection),
         24);

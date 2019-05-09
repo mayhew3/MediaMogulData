@@ -137,8 +137,8 @@ public class TVDBUpdateRunner implements UpdateRunner {
    * Go to theTVDB and update all matched series in my DB with the ones from theirs.
    */
   private void runFullUpdate() {
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_match_status = ? " +
         "and retired = ? ";
 
@@ -181,22 +181,22 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
   private Set<Series> getEligibleTierOneSeries() {
     Set<Series> serieses = new HashSet<>();
-    DateTime today = new DateTime();
-    Timestamp threeDaysAgo = new Timestamp(today.minusDays(3).getMillis());
 
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_match_status = ? " +
-        "and last_tvdb_update is not null\n" +
-        "and suggestion = ?\n" +
-        "and retired = ?\n" +
-        "and last_tvdb_update < ? " +
+        "and last_tvdb_update is not null " +
+        "and retired = ? " +
+        "and (last_tvdb_update > last_tvdb_error or last_tvdb_error is null) " +
         "and id in (select series_id" +
         "           from person_series " +
-        "           where tier = ?) ";
+        "           where tier = ?" +
+        "           and retired = ?) " +
+        "order by last_tvdb_update " +
+        "limit 2 ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, false, 0, threeDaysAgo, 1);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0, 1, 0);
       while (resultSet.next()) {
         Series series = new Series();
         series.initializeFromDBObject(resultSet);
@@ -210,22 +210,26 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
   private Set<Series> getEligibleTierTwoSeries() {
     Set<Series> serieses = new HashSet<>();
-    DateTime today = new DateTime();
-    Timestamp sevenDaysAgo = new Timestamp(today.minusDays(7).getMillis());
 
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_match_status = ? " +
-        "and last_tvdb_update is not null\n" +
-        "and suggestion = ?\n" +
-        "and retired = ?\n" +
-        "and last_tvdb_update < ? " +
+        "and last_tvdb_update is not null " +
+        "and retired = ? " +
+        "and (last_tvdb_update > last_tvdb_error or last_tvdb_error is null) " +
         "and id in (select series_id" +
         "           from person_series " +
-        "           where tier = ?) ";
+        "           where tier = ?" +
+        "           and retired = ?) " +
+        "and id not in (select series_id " +
+        "               from person_series " +
+        "               where tier = ?" +
+        "               and retired = ?) " +
+        "order by last_tvdb_update " +
+        "limit 1 ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, false, 0, sevenDaysAgo, 2);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0, 2, 0, 1, 0);
       while (resultSet.next()) {
         Series series = new Series();
         series.initializeFromDBObject(resultSet);
@@ -239,21 +243,21 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
   private Set<Series> getEligibleUnownedShows() {
     Set<Series> serieses = new HashSet<>();
-    DateTime today = new DateTime();
-    Timestamp thirtyDaysAgo = new Timestamp(today.minusDays(30).getMillis());
 
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_match_status = ? " +
-        "and last_tvdb_update is not null\n" +
-        "and suggestion = ?\n" +
-        "and retired = ?\n" +
-        "and last_tvdb_update < ? " +
-        "and id not in (select series_id" +
-        "           from person_series) ";
+        "and last_tvdb_update is not null " +
+        "and retired = ? " +
+        "and (last_tvdb_update > last_tvdb_error or last_tvdb_error is null) " +
+        "and id not in (select series_id " +
+        "           from person_series " +
+        "           where retired = ?) " +
+        "order by last_tvdb_update " +
+        "limit 1 ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, false, 0, thirtyDaysAgo);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0, 0);
       while (resultSet.next()) {
         Series series = new Series();
         series.initializeFromDBObject(resultSet);
@@ -266,10 +270,10 @@ public class TVDBUpdateRunner implements UpdateRunner {
   }
 
   private void runManuallyQueuedUpdates() {
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where tvdb_manual_queue = ? " +
-        "and retired = ?;";
+        "and retired = ? ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, true, 0);
@@ -283,8 +287,8 @@ public class TVDBUpdateRunner implements UpdateRunner {
   private void runUpdateSingle() {
     String singleSeriesTitle = "The Great British Baking Show"; // update for testing on a single series
 
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where title = ? " +
         "and retired = ? ";
 
@@ -299,8 +303,8 @@ public class TVDBUpdateRunner implements UpdateRunner {
   private void runAirTimesUpdate() {
     String singleSeriesTitle = "Detroit Steel"; // update for testing on a single series
 
-    String sql = "select *\n" +
-        "from series\n" +
+    String sql = "select * " +
+        "from series " +
         "where title = ? " +
         "and retired = ? ";
 
@@ -388,10 +392,10 @@ public class TVDBUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateOnRecentlyErrored() {
-    String sql = "select *\n" +
-        "from series\n" +
-        "where last_tvdb_error is not null\n" +
-        "and consecutive_tvdb_errors < ?\n" +
+    String sql = "select * " +
+        "from series " +
+        "where last_tvdb_error is not null " +
+        "and consecutive_tvdb_errors < ? " +
         "and tvdb_match_status = ? " +
         "and retired = ? ";
 
@@ -408,11 +412,11 @@ public class TVDBUpdateRunner implements UpdateRunner {
     DateTime aWeekAgo = now.minusDays(ERROR_FOLLOW_UP_THRESHOLD_IN_DAYS);
     Timestamp timestamp = new Timestamp(aWeekAgo.toDate().getTime());
 
-    String sql = "select *\n" +
-        "from series\n" +
-        "where last_tvdb_error is not null\n" +
-        "and last_tvdb_error < ?\n" +
-        "and consecutive_tvdb_errors >= ?\n" +
+    String sql = "select * " +
+        "from series " +
+        "where last_tvdb_error is not null " +
+        "and last_tvdb_error < ? " +
+        "and consecutive_tvdb_errors >= ? " +
         "and tvdb_match_status = ? " +
         "and retired = ? ";
 
@@ -633,9 +637,9 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
 
   private Timestamp getMostRecentSuccessfulUpdate() throws SQLException {
-    String sql = "select max(start_time) as max_start_time\n" +
-        "from tvdb_connection_log\n" +
-        "where update_type in (?, ?, ?)\n" +
+    String sql = "select max(start_time) as max_start_time " +
+        "from tvdb_connection_log " +
+        "where update_type in (?, ?, ?) " +
         "and finish_time is not null";
     @NotNull ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql,
         UpdateMode.FULL.getTypekey(),
