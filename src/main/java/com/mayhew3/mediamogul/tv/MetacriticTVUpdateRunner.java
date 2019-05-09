@@ -94,7 +94,7 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
         "and metacritic IS NULL " +
         "and retired = ? " +
         "ORDER BY metacritic_failed NULLS FIRST, id " +
-        "LIMIT 8 ";
+        "LIMIT 2 ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0);
@@ -111,7 +111,7 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
         "and metacritic IS NOT NULL " +
         "and retired = ? " +
         "ORDER BY metacritic_success NULLS FIRST, id " +
-        "LIMIT 8 ";
+        "LIMIT 2 ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, TVDBMatchStatus.MATCH_COMPLETED, 0);
