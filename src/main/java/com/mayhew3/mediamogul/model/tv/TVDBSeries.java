@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class TVDBSeries extends RetireableDataObject {
 
@@ -47,8 +48,7 @@ public class TVDBSeries extends RetireableDataObject {
     return name.getValue();
   }
 
-  @Nullable
-  public TVDBPoster addPoster(String posterPath, @Nullable Integer season, SQLConnection connection) throws SQLException {
+  public Optional<TVDBPoster> addPosterIfDoesntExist(String posterPath, @Nullable Integer season, SQLConnection connection) throws SQLException {
     Preconditions.checkNotNull(id.getValue(), "Cannot insert join entity until TVDBSeries object is committed (id is non-null)");
 
     @NotNull ResultSet resultSet = connection.prepareAndExecuteStatementFetch("SELECT 1 " +
@@ -65,8 +65,8 @@ public class TVDBSeries extends RetireableDataObject {
       tvdbPoster.season.changeValue(season);
       tvdbPoster.commit(connection);
 
-      return tvdbPoster;
+      return Optional.of(tvdbPoster);
     }
-    return null;
+    return Optional.empty();
   }
 }

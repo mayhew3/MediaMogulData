@@ -87,46 +87,8 @@ public class CloudinaryUploadRunner implements UpdateRunner {
   }
 
   private void runFullUpdate() {
-//    runUpdateOnTierOne();
     runUpdateOnAllSeries();
-//    runUpdateOnAllUnmatchedPosters();
-  }
-
-  private void runUpdateOnTierOne() {
-    logger.info("Running on all Tier 1 shows.");
-
-    String sql = "SELECT s.* " +
-            "FROM series s " +
-            "INNER JOIN person_series ps " +
-            "  ON ps.series_id = s.id " +
-            "WHERE ps.tier = ? " +
-            "AND ps.person_id = ? ";
-
-    try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 1, 1);
-      runUpdateOnResultSet(resultSet, true);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private void runUpdateOnAllNonSuggestionSeries() {
-    logger.info("Running truncated version on other shows.");
-
-    String sql = "SELECT s.* " +
-            "FROM series s " +
-            "WHERE s.suggestion = ? " +
-            "AND s.retired = ? " +
-            "AND s.poster IS NOT NULL " +
-            "AND s.cloud_poster IS NULL ";
-
-    try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, false, 0);
-      runUpdateOnResultSet(resultSet, false);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+    runUpdateOnAllUnmatchedPosters();
   }
 
   private void runUpdateOnAllSeries() {

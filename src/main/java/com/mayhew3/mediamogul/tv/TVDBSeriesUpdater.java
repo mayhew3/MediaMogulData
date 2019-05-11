@@ -317,8 +317,13 @@ public class TVDBSeriesUpdater {
       tvdbSeries.commit(connection);
     }
 
-    Optional<String> primaryPoster = updatePosters(tvdbID, tvdbSeries);
-    primaryPoster.ifPresent(poster -> updateLinkedFieldsIfNotOverridden(series.poster, tvdbSeries.lastPoster, poster));
+    Optional<TVDBPoster> optionalLastAdded = updatePosters(tvdbID, tvdbSeries);
+    if (optionalLastAdded.isPresent()) {
+      TVDBPoster lastAdded = optionalLastAdded.get();
+      tvdbSeries.lastPoster.changeValue(lastAdded.posterPath.getValue());
+      series.poster.changeValue(lastAdded.posterPath.getValue());
+      series.cloud_poster.changeValue(optionalLastAdded.get().cloud_poster.getValue());
+    }
 
     // only add change log if an existing series is changing, not for a new one.
     if (!isForInsert && tvdbSeries.hasChanged()) {
@@ -328,7 +333,7 @@ public class TVDBSeriesUpdater {
     tvdbSeries.commit(connection);
   }
 
-  private Optional<String> updatePosters(Integer tvdbID, TVDBSeries tvdbSeries)  {
+  private Optional<TVDBPoster> updatePosters(Integer tvdbID, TVDBSeries tvdbSeries)  {
 
     try {
       JSONObject imageData = tvdbDataProvider.getPosterData(tvdbID);
@@ -338,16 +343,15 @@ public class TVDBSeriesUpdater {
         return Optional.empty();
       }
 
-      JSONObject mostRecentImageObj = images.getJSONObject(images.length() - 1);
-      @NotNull String mostRecentImage = jsonReader.getStringWithKey(mostRecentImageObj, "fileName");
+      Optional<TVDBPoster> mostRecentPoster = Optional.empty();
 
       for (int i = 0; i < images.length(); i++) {
         JSONObject image = images.getJSONObject(i);
         @NotNull String filename = jsonReader.getStringWithKey(image, "fileName");
-        tvdbSeries.addPoster(filename, null, connection);
+        mostRecentPoster = tvdbSeries.addPosterIfDoesntExist(filename, null, connection);
       }
 
-      return Optional.of(mostRecentImage);
+      return mostRecentPoster;
     } catch (Exception e) {
       logger.warn("Error fetching posters for series: " + tvdbSeries.name.getValue());
       return Optional.empty();
