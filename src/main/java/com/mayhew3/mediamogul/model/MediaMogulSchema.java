@@ -18,6 +18,7 @@ public class MediaMogulSchema {
       new Genre(),
       new Movie(),
       new Person(),
+      new PersonPoster(),
       new PersonSeries(),
       new PossibleSeriesMatch(),
       new PossibleEpisodeMatch(),
