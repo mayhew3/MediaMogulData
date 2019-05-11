@@ -20,6 +20,7 @@ public class PersonSeries extends RetireableDataObject {
   public FieldValueTimestamp lastUnwatched = registerTimestampField("last_unwatched", Nullability.NULLABLE);
 
   public FieldValueBoolean pinned = registerBooleanField("pinned", Nullability.NOT_NULL).defaultValue(false);
+  public FieldValueForeignKey tvdb_poster_id = registerForeignKey(new TVDBPoster(), Nullability.NULLABLE);
 
   public PersonSeries() {
     addUniqueConstraint(seriesId, personId);
