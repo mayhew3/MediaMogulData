@@ -56,6 +56,13 @@ public class CloudinaryUpdater {
         series.cloud_poster.changeValue(cloudID);
         series.commit(connection);
 
+        Optional<TVDBPoster> optionalLinkedPoster = series.getLinkedPoster(connection);
+        if (optionalLinkedPoster.isPresent()) {
+          TVDBPoster tvdbPoster = optionalLinkedPoster.get();
+          tvdbPoster.cloud_poster.changeValue(cloudID);
+          tvdbPoster.commit(connection);
+        }
+
       } else {
         throw new ShowFailedException("Series poster not found: " + series.seriesTitle.getValue());
       }

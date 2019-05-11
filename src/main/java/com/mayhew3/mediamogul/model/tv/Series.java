@@ -264,6 +264,21 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
     return false;
   }
 
+  public Optional<TVDBPoster> getLinkedPoster(SQLConnection connection) throws SQLException {
+    String sql = "SELECT tp.* " +
+        "FROM tvdb_poster tp " +
+        "WHERE poster_path = ? " +
+        "AND retired = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, poster.getValue(), 0);
+    if (resultSet.next()) {
+      TVDBPoster tvdbPoster = new TVDBPoster();
+      tvdbPoster.initializeFromDBObject(resultSet);
+      return Optional.of(tvdbPoster);
+    } else {
+      return Optional.empty();
+    }
+  }
+
   @NotNull
   public Season getOrCreateSeason(SQLConnection connection, Integer seasonNumber) throws SQLException {
     Preconditions.checkNotNull(id.getValue(), "Cannot insert join entity until Series object is committed (id is non-null)");
