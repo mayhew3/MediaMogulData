@@ -389,17 +389,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.TVDBUpdateRunner (local/single)">
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <module name="media-mogul-data_main" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -2110,6 +2099,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <module name="media-mogul-data_main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MediaMogulData [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -2426,7 +2426,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MediaMogulData JAR (Heroku)" type="JarApplication">
+    <configuration name="MediaMogulData JAR (Heroku)" type="JarApplication" factoryName="JAR Application">
       <option name="JAR_PATH" value="$PROJECT_DIR$/build/libs/media-mogul-scheduler.jar" />
       <option name="WORKING_DIRECTORY" value="D:\Code\git\media-mogul-data" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -2434,7 +2434,7 @@
         <option name="Gradle.BeforeRunTask" enabled="true" tasks="stage" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
       </method>
     </configuration>
-    <configuration name="MediaMogulData JAR (Local)" type="JarApplication">
+    <configuration name="MediaMogulData JAR (Local)" type="JarApplication" factoryName="JAR Application">
       <option name="JAR_PATH" value="$PROJECT_DIR$/build/libs/media-mogul-scheduler.jar" />
       <option name="PROGRAM_PARAMETERS" value="-Dlog4j2.configurationFactory=com.mayhew3.mediamogul.logging.DebugConfigFactory" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -2446,7 +2446,7 @@
         <option name="Gradle.BeforeRunTask" enabled="true" tasks="stage" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
       </method>
     </configuration>
-    <configuration name="MediaMogulData JAR (Local/NoTests)" type="JarApplication">
+    <configuration name="MediaMogulData JAR (Local/NoTests)" type="JarApplication" factoryName="JAR Application">
       <option name="JAR_PATH" value="$PROJECT_DIR$/build/libs/media-mogul-scheduler.jar" />
       <option name="PROGRAM_PARAMETERS" value="-Dlog4j2.configurationFactory=com.mayhew3.mediamogul.logging.DebugConfigFactory" />
       <option name="ALTERNATIVE_JRE_PATH" />

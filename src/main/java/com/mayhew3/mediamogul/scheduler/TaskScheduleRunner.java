@@ -149,6 +149,8 @@ public class TaskScheduleRunner {
         24);
     addHourlyTask(new CloudinaryUploadRunner(connection, UpdateMode.FULL),
         24);
+    addHourlyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.FULL),
+        1000);
 
   }
 
