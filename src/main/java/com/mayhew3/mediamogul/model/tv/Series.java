@@ -160,10 +160,9 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
    * @param connection DB connection to use
    * @param genreName Name of new or existing genre
    * @return New SeriesGenrePostgres join entity, if a new one was created. Null otherwise.
-   * @throws SQLException
+   * @throws SQLException if db error occurs
    */
-  @Nullable
-  public SeriesGenre addGenre(SQLConnection connection, String genreName) throws SQLException {
+  public Optional<SeriesGenre> addGenre(SQLConnection connection, String genreName) throws SQLException {
     Preconditions.checkNotNull(id.getValue(), "Cannot insert join entity until Series object is committed (id is non-null)");
 
     Genre genre = Genre.findOrCreate(connection, genreName);
@@ -181,10 +180,10 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
       seriesGenre.genreId.changeValue(genre.id.getValue());
 
       seriesGenre.commit(connection);
-      return seriesGenre;
+      return Optional.of(seriesGenre);
     }
 
-    return null;
+    return Optional.empty();
   }
 
   public void addPossibleSeriesMatch(SQLConnection connection, PossibleSeriesMatch possibleSeriesMatch) throws SQLException {

@@ -100,6 +100,9 @@ public class TVDBSeriesUpdater {
     series.lastTVDBUpdate.changeValue(new Date());
     series.tvdbManualQueue.changeValue(false);
 
+    JSONArray genres = jsonReader.getArrayWithKey(seriesJson, "genre");
+    updateGenres(series, genres);
+
     series.commit(connection);
 
     debug("Finished series update.");
@@ -331,6 +334,18 @@ public class TVDBSeriesUpdater {
     }
 
     tvdbSeries.commit(connection);
+  }
+
+  private void updateGenres(Series series, JSONArray genreArray) throws SQLException {
+    List<String> added = new ArrayList<>();
+    for (int i = 0; i < genreArray.length(); i++) {
+      String genre = genreArray.getString(i);
+      Optional<SeriesGenre> seriesGenre = series.addGenre(connection, genre);
+      if (seriesGenre.isPresent()) {
+        added.add(genre);
+      }
+    }
+    logger.info(added + " genres added for series '" + series.seriesTitle.getValue() + "'");
   }
 
   private Optional<TVDBPoster> updatePosters(Integer tvdbID, TVDBSeries tvdbSeries)  {

@@ -4,12 +4,16 @@ import com.mayhew3.postgresobject.dataobject.DataObject;
 import com.mayhew3.postgresobject.dataobject.FieldValueString;
 import com.mayhew3.postgresobject.dataobject.Nullability;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Genre extends DataObject {
+
+  private static Logger logger = LogManager.getLogger(Genre.class);
 
   /* Data */
   public FieldValueString genreName = registerStringField("name", Nullability.NOT_NULL);
@@ -35,6 +39,7 @@ public class Genre extends DataObject {
     if (resultSet.next()) {
       genre.initializeFromDBObject(resultSet);
     } else {
+      logger.info("Adding new system-wide genre: '" + genreName + "'");
       genre.initializeForInsert();
       genre.genreName.changeValue(genreName);
       genre.commit(connection);
