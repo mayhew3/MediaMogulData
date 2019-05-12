@@ -41,72 +41,79 @@ public class MetacriticTVUpdater {
     String matchedTitle = series.metacriticConfirmed.getValue();
 
     List<Season> seasons = getSeasons(series);
-    Season firstSeason = seasons.get(0);
-
-    if (matchedTitle == null) {
-
-      List<String> stringsToTry = new ArrayList<>();
-
-      String hint = series.metacriticHint.getValue();
-
-      if (hint != null) {
-        stringsToTry.add(hint);
-      }
-
-      String formattedTitle =
-          title
-              .toLowerCase()
-              .replaceAll(" ", "-")
-              .replaceAll("'", "")
-              .replaceAll("\\.", "")
-              .replaceAll("\\(", "")
-              .replaceAll("\\)", "");
-
-      Optional<TVDBSeries> tvdbSeries = series.getTVDBSeries(connection);
-
-      Date dateToCheck = tvdbSeries.isPresent() ? tvdbSeries.get().firstAired.getValue() : new Date();
-
-      int year = new DateTime(dateToCheck).getYear();
-      String formattedTitleWithYear = formattedTitle + "-" + year;
-
-      stringsToTry.add(formattedTitleWithYear);
-      stringsToTry.add(formattedTitle);
-
-      matchedTitle = findMetacriticForStrings(stringsToTry, firstSeason);
+    if (seasons.size() > 0) {
+      Season firstSeason = seasons.get(0);
 
       if (matchedTitle == null) {
-        markFailed();
-        throw new MetacriticException("Couldn't find Metacritic page for series '" + title + "' with formatted '" + stringsToTry + "'");
-      }
-    } else {
-      try {
-        findMetacriticForString(matchedTitle, firstSeason);
-      } catch (IOException e) {
-        markFailed();
-        throw new MetacriticException("Had trouble finding metacritic page for Season 1 of series '" + title + "' even though formatted title was confirmed previously: '" + series.metacriticConfirmed.getValue() + "'");
-      } catch (MetacriticException e) {
-        logger.debug("Unable to find metacritic value for Season 1.");
-      }
-    }
 
-    for (Season season : seasons) {
-      Integer seasonNumber = season.seasonNumber.getValue();
-      if (seasonNumber > 1) {
+        List<String> stringsToTry = new ArrayList<>();
+
+        String hint = series.metacriticHint.getValue();
+
+        if (hint != null) {
+          stringsToTry.add(hint);
+        }
+
+        String formattedTitle =
+            title
+                .toLowerCase()
+                .replaceAll(" ", "-")
+                .replaceAll("'", "")
+                .replaceAll("\\.", "")
+                .replaceAll("\\(", "")
+                .replaceAll("\\)", "");
+
+        Optional<TVDBSeries> tvdbSeries = series.getTVDBSeries(connection);
+
+        Date dateToCheck = tvdbSeries.isPresent() ? tvdbSeries.get().firstAired.getValue() : new Date();
+
+        int year = new DateTime(dateToCheck).getYear();
+        String formattedTitleWithYear = formattedTitle + "-" + year;
+
+        stringsToTry.add(formattedTitleWithYear);
+        stringsToTry.add(formattedTitle);
+
+        matchedTitle = findMetacriticForStrings(stringsToTry, firstSeason);
+
+        if (matchedTitle == null) {
+          markFailed();
+          throw new MetacriticException("Couldn't find Metacritic page for series '" + title + "' with formatted '" + stringsToTry + "'");
+        }
+      } else {
         try {
-          findMetacriticForString(matchedTitle + "/season-" + seasonNumber, season);
+          findMetacriticForString(matchedTitle, firstSeason);
         } catch (IOException e) {
-          logger.debug("No metacritic page found for Season " + seasonNumber);
-        } catch (Exception e) {
-          logger.debug("Found metacritic page for Season " + seasonNumber + " but failed to get score: " + e.getLocalizedMessage());
+          markFailed();
+          throw new MetacriticException("Had trouble finding metacritic page for Season 1 of series '" + title + "' even though formatted title was confirmed previously: '" + series.metacriticConfirmed.getValue() + "'");
+        } catch (MetacriticException e) {
+          logger.debug("Unable to find metacritic value for Season 1.");
         }
       }
+
+      for (Season season : seasons) {
+        Integer seasonNumber = season.seasonNumber.getValue();
+        if (seasonNumber > 1) {
+          try {
+            findMetacriticForString(matchedTitle + "/season-" + seasonNumber, season);
+          } catch (IOException e) {
+            logger.debug("No metacritic page found for Season " + seasonNumber);
+          } catch (Exception e) {
+            logger.debug("Found metacritic page for Season " + seasonNumber + " but failed to get score: " + e.getLocalizedMessage());
+          }
+        }
+      }
+
+      if (series.metacritic.getValue() == null) {
+        markFailed();
+      } else {
+        markSucceeded();
+      }
+
+
+    } else {
+      markFailed();
     }
 
-    if (series.metacritic.getValue() == null) {
-      markFailed();
-    } else {
-      markSucceeded();
-    }
   }
 
   private void markSucceeded() throws SQLException {
