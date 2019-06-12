@@ -12,6 +12,7 @@ public class TVGroupBallot extends RetireableDataObject {
     registerTimestampField("voting_closed", Nullability.NULLABLE);
     registerIntegerField("last_episode", Nullability.NULLABLE);
     registerIntegerField("first_episode", Nullability.NULLABLE);
+    registerBooleanField("skip", Nullability.NOT_NULL).defaultValue(false);
   }
 
   @Override
