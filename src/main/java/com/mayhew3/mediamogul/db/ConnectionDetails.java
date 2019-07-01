@@ -11,7 +11,8 @@ public enum ConnectionDetails {
   HEROKU("heroku", "postgresURL_heroku"),
   STAGING("staging", "postgresURL_heroku_staging"),
   LOCAL("local", "postgresURL_local"),
-  TEST("test", "postgresURL_local_test");
+  TEST("test", "postgresURL_local_test"),
+  E2E("e2e", "postgresURL_local_e2e");
 
   private String dbUrl;
   private String nickname;
