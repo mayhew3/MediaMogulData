@@ -50,10 +50,12 @@ public class EndToEndDatabaseCreator {
   }
 
   private void addSystemVars() throws SQLException {
+    int year = 2019;
+
     SystemVars systemVars = new SystemVars();
     systemVars.initializeForInsert();
-    systemVars.ratingYear.changeValue(2019);
-    systemVars.ratingEndDate.changeValue(endOfYear(2019).toDate());
+    systemVars.ratingYear.changeValue(year);
+    systemVars.ratingEndDate.changeValue(endOfYear(year).toDate());
     systemVars.commit(connection);
   }
 

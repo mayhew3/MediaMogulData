@@ -24,7 +24,7 @@ public class DataBackupExecutor {
     }
 
     String env = args[0];
-    List<String> possibleEnvs = Lists.newArrayList("heroku", "heroku-staging", "local");
+    List<String> possibleEnvs = Lists.newArrayList("heroku", "heroku-staging", "local", "e2e");
     if (!possibleEnvs.contains(env)) {
       throw new IllegalArgumentException("Unexpected argument: '" + env +
           "'. Expected environment name to backup: (heroku, heroku-staging, local).");
@@ -48,6 +48,10 @@ public class DataBackupExecutor {
 
     } else if ("local".equals(env)) {
       db_url = EnvironmentChecker.getOrThrow("postgresURL_local_backup");
+      postgres_pgpass = EnvironmentChecker.getOrThrow("postgres_pgpass_local");
+
+    } else if ("e2e".equals(env)) {
+      db_url = EnvironmentChecker.getOrThrow("postgresURL_local_backup_e2e");
       postgres_pgpass = EnvironmentChecker.getOrThrow("postgres_pgpass_local");
 
     } else {
