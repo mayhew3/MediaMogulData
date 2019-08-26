@@ -17,6 +17,7 @@ public class MediaMogulSchema {
       new ExternalService(),
       new Genre(),
       new Movie(),
+      new PendingPoster(),
       new Person(),
       new PersonPoster(),
       new PersonSeries(),
