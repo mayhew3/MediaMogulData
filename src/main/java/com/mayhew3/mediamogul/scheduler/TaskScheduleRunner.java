@@ -96,7 +96,7 @@ public class TaskScheduleRunner {
   }
 
   private void createLocalTaskList() throws MissingEnvException {
-    addHourlyTask(new OldDataArchiveRunner(connection, "heroku"), 24);
+    addHourlyTask(new OldDataArchiveRunner(connection, "heroku"), 1);
   }
 
   private void createTaskList() throws MissingEnvException {

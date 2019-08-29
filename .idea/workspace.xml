@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e099498-ec9e-4703-ab18-cce3963e4d0c" name="Default" comment="Move annotation directory">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/PendingPoster.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/MediaMogulSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/MediaMogulSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,71 +48,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>person</find>
-      <find>Xmx</find>
-      <find>api</find>
-      <find>cloudinary_id</find>
-      <find>.json</find>
-      <find>Awesome</find>
-      <find>template</find>
-      <find>LogToFile</find>
-      <find>LogManager</find>
-      <find>getLogger</find>
-      <find>tvdbMatchStatus.changeValue</find>
-      <find>meta</find>
-      <find>new Season()</find>
-      <find>Unable to find metacritic</find>
-      <find>throw new</find>
-      <find>updating season</find>
-      <find>Updating Season</find>
-      <find>episode</find>
-      <find>episode.</find>
-      <find>last_tvdb_failure</find>
-      <find>last_tvdb</find>
-      <find>\n</find>
-      <find>suggestion</find>
-      <find>new TVDBPoster</find>
-      <find>tvdb_poster</find>
-      <find>genre</find>
-      <find>JSONArray</find>
-      <find>.join</find>
-      <find>new DateTime</find>
-      <find>tvdb_series_ext_id</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>&lt;module name=&quot;media-mogul-data_main&quot;</replace>
-      <replace>TVDBUpdateRunner</replace>
-      <replace>-mode</replace>
-      <replace>UpdateMode</replace>
-      <replace>PostgresConnectionFactory.createConnection(argumentChecker);</replace>
-      <replace>ArgumentChecker argumentChecker = new ArgumentChecker(args);</replace>
-      <replace>argumentChecker.getDBIdentifier()</replace>
-      <replace>-db Heroku</replace>
-      <replace>-db Test</replace>
-      <replace>registerTimestampOldField</replace>
-      <replace>game</replace>
-      <replace>steam_attribute</replace>
-      <replace>&quot;</replace>
-      <replace>assertions.api.Assertions</replace>
-      <replace>postgresobject.dataobject</replace>
-      <replace>postgresobject.db</replace>
-      <replace>postgresobject.ArgumentChecker</replace>
-      <replace>package com.mayhew3.mediamogul.db</replace>
-      <replace>package com.mayhew3.mediamogul.dataobject</replace>
-      <replace>com.mayhew3.mediamogul</replace>
-      <replace>debug</replace>
-      <replace>private void debug</replace>
-      <replace>private static void debug</replace>
-      <replace>logger.info</replace>
-      <replace />
-    </replaceStrings>
-    <dirStrings>
-      <dir>D:\OneDrive\Projects\MediaMogul\SQL</dir>
-      <dir>C:\Code\git\MediaMogulData\src\main\java\com\mayhew3\mediamogul\games</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -124,11 +59,6 @@
   </component>
   <component name="NamedScopeManager">
     <scope name="AllButLogs" pattern="!file[media-mogul-data]:logs//*" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1310" />
-    <option name="height" value="1417" />
   </component>
   <component name="ProjectId" id="1PwbFSrgJztKERSm3DLXO79B8Lz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -193,7 +123,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.SchemaLocalTest">
+  <component name="RunManager" selected="Gradle.media-mogul-data [assemble]">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -399,9 +329,7 @@
     </configuration>
     <configuration name="DataRestoreExecutor (staging from heroku)" type="Application" factoryName="Application" folderName="Backup and Restore">
       <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5432/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
+        <env name="DATABASE_URL" value="postgres://gqueoumplqghjg:929d69e8515bfe9b3866fc56176c023ddfa50a234f9b4171463d0a459f7c6336@ec2-23-21-234-53.compute-1.amazonaws.com:5432/dth93pp19nu8f" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.backup.DataRestoreExecutor" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
@@ -2131,7 +2059,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SchemaHerokuStagingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SchemaHerokuStagingTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaHerokuStagingTest" />
@@ -2173,27 +2101,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SchemaHerokuTest.testHerokuSchemaUpToDate" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaHerokuTest" />
-      <option name="METHOD_NAME" value="testHerokuSchemaUpToDate" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5432/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="DATABASE_URL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="SchemaLocalTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
@@ -2201,27 +2108,6 @@
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5432/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SchemaLocalTest.testHerokuTestUpToDate" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="media-mogul-data_test" />
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaLocalTest" />
-      <option name="METHOD_NAME" value="testHerokuTestUpToDate" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="TEST_SEARCH_SCOPE">
@@ -2423,21 +2309,18 @@
       <item itemvalue="JAR Application.MediaMogulData JAR (Heroku)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local/NoTests)" />
+      <item itemvalue="JUnit.SchemaLocalTest" />
+      <item itemvalue="JUnit.SchemaHerokuStagingTest" />
+      <item itemvalue="JUnit.SchemaHerokuTest" />
       <item itemvalue="JUnit.DatabaseRecreatorTest (Demo)" />
       <item itemvalue="JUnit.DatabaseRecreatorTest (Test)" />
-      <item itemvalue="JUnit.SchemaHerokuTest" />
-      <item itemvalue="JUnit.SchemaHerokuTest.testHerokuSchemaUpToDate" />
-      <item itemvalue="JUnit.SchemaLocalTest" />
-      <item itemvalue="JUnit.SchemaLocalTest.testHerokuTestUpToDate" />
       <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
       <item itemvalue="JUnit.IGDBUpdaterTest" />
-      <item itemvalue="JUnit.SchemaHerokuStagingTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.MediaMogulData [clean]" />
         <item itemvalue="Gradle.media-mogul-data [runTaskScheduleRunner]" />
-        <item itemvalue="JUnit.SchemaHerokuStagingTest" />
+        <item itemvalue="Gradle.MediaMogulData [clean]" />
         <item itemvalue="JUnit.IGDBUpdaterTest" />
         <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
       </list>
@@ -2536,6 +2419,16 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/db/ConnectionDetails.java</url>
           <line>42</line>
           <option name="timeStamp" value="138" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/DataRestoreExecutor.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="139" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/helper/ConnectionLogger.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="141" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
