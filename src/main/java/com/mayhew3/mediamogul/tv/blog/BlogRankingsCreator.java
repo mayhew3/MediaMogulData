@@ -54,12 +54,15 @@ public class BlogRankingsCreator {
 
   public static void main(String... args) throws URISyntaxException, SQLException, IOException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
-    Optional<String> templateFilePath = argumentChecker.getTemplateFilePath();
+    argumentChecker.addExpectedOption("template", true, "Template file name");
+    argumentChecker.addExpectedOption("blog", true, "Blog file name");
+
+    Optional<String> templateFilePath = argumentChecker.getOptionalIdentifier("template");
     if (templateFilePath.isEmpty()) {
       throw new IllegalStateException("No 'template' argument provided.");
     }
 
-    Optional<String> blogOutputFilePath = argumentChecker.getBlogOutputFilePath();
+    Optional<String> blogOutputFilePath = argumentChecker.getOptionalIdentifier("blog");
     if (blogOutputFilePath.isEmpty()) {
       throw new IllegalStateException("No 'blog' argument provided.");
     }
