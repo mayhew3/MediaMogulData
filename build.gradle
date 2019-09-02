@@ -31,7 +31,7 @@ dependencies {
     compile 'org.seleniumhq.selenium:selenium-server:3.141.59'
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
     compile group: 'org.jetbrains', name: 'annotations', version: '17+'
-    compile 'com.github.mayhew3:Postgres-Object:0.9.18'
+    compile 'com.github.mayhew3:Postgres-Object:0.9.19'
     compile 'com.github.igdb:api-java:2.0.1'
     compile 'com.cloudinary:cloudinary-http44:1.22.1'
     compile 'com.cloudinary:cloudinary-taglib:1.22.1'
@@ -45,7 +45,7 @@ dependencies {
     testCompile 'org.easytesting:fest-assert-core:2.0M10'
     testCompile 'org.assertj:assertj-joda-time:2.2.0'
     testCompile 'org.mockito:mockito-core:2.18.3'
-    testCompile 'com.github.mayhew3:Postgres-Object:0.9.18:tests'
+    testCompile 'com.github.mayhew3:Postgres-Object:0.9.19:tests'
 }
 
 jar {

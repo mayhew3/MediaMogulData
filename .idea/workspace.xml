@@ -4,9 +4,8 @@
     <list default="true" id="1e099498-ec9e-4703-ab18-cce3963e4d0c" name="Default" comment="Move annotation directory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/DataBackupExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulBackupExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/DataRestoreExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/blog/BlogRankingsCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/blog/BlogRankingsCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulBackupExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulBackupExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
