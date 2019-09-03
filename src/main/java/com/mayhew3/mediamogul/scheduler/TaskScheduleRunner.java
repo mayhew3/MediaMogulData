@@ -6,6 +6,7 @@ import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
+import com.mayhew3.mediamogul.backup.MediaMogulBackupExecutor;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.*;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
@@ -97,6 +98,7 @@ public class TaskScheduleRunner {
 
   private void createLocalTaskList() throws MissingEnvException {
     addHourlyTask(new OldDataArchiveRunner(connection, "heroku"), 1);
+    addHourlyTask(new MediaMogulBackupExecutor("heroku"), 24);
   }
 
   private void createTaskList() throws MissingEnvException {
