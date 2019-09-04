@@ -320,12 +320,15 @@ public class TVDBSeriesUpdater {
       tvdbSeries.commit(connection);
     }
 
+    String originalTVDBPoster = tvdbSeries.lastPoster.getValue();
     Optional<TVDBPoster> optionalLastAdded = updatePosters(tvdbID, tvdbSeries);
     if (optionalLastAdded.isPresent()) {
       TVDBPoster lastAdded = optionalLastAdded.get();
       tvdbSeries.lastPoster.changeValue(lastAdded.posterPath.getValue());
-      series.poster.changeValue(lastAdded.posterPath.getValue());
-      series.cloud_poster.changeValue(optionalLastAdded.get().cloud_poster.getValue());
+      if (series.poster.getValue() == null || series.poster.getValue().equals(originalTVDBPoster)) {
+        series.poster.changeValue(lastAdded.posterPath.getValue());
+        series.cloud_poster.changeValue(lastAdded.cloud_poster.getValue());
+      }
     }
 
     // only add change log if an existing series is changing, not for a new one.

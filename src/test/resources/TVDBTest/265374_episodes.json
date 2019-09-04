@@ -1,52 +1,163 @@
 {
   "data": [
     {
-      "dvdSeason": null,
-      "overview": "Amy raps for Lin-Manuel Miranda, avoids sex with her boyfriend and loses an eye.",
+      "id": 5578415,
+      "airedSeason": 4,
       "airedSeasonID": 660327,
-      "absoluteNumber": 31,
+      "airedEpisodeNumber": 1,
       "episodeName": "The World's Most Interesting Woman in the World",
       "firstAired": "2016-04-21",
-      "airedSeason": 4,
+      "guestStars": [
+        "Lin-Manuel Miranda",
+        "Rachel Dratch",
+        "Reg E. Cathey",
+        "Chris Parnell",
+        "Ahmir-Khalib Thompson"
+      ],
+      "director": "|Neal Brennan|Ryan McFaul|",
+      "directors": [
+        "Neal Brennan",
+        "Ryan McFaul"
+      ],
+      "writers": [
+        "Jessi Klein",
+        "Kurt Metzger",
+        "Daniel Powell",
+        "Amy Schumer",
+        "Kyle Dunnigan"
+      ],
+      "overview": "Amy raps for Lin-Manuel Miranda, avoids sex with her boyfriend and loses an eye.",
       "language": {
-        "overview": "en",
-        "episodeName": "en"
+        "episodeName": "en",
+        "overview": "en"
       },
+      "productionCode": "",
+      "showUrl": "",
+      "lastUpdated": 1470581572,
+      "dvdDiscid": "",
+      "dvdSeason": null,
       "dvdEpisodeNumber": null,
-      "id": 5578415,
-      "airedEpisodeNumber": 1
+      "dvdChapter": null,
+      "absoluteNumber": 31,
+      "filename": "episodes/265374/5578415.jpg",
+      "seriesId": 265374,
+      "lastUpdatedBy": 370917,
+      "airsAfterSeason": null,
+      "airsBeforeSeason": null,
+      "airsBeforeEpisode": null,
+      "thumbAuthor": 418257,
+      "thumbAdded": "2016-04-21 19:49:31",
+      "thumbWidth": "400",
+      "thumbHeight": "225",
+      "imdbId": "tt4844744",
+      "siteRating": 4,
+      "siteRatingCount": 2
     },
     {
-      "dvdSeason": null,
-      "overview": "Amy hosts a home shopping show for gun enthusiasts, faces the wrath of a new Twitter feature and lands a role on \"Game of Thrones.\"",
+      "id": 5580497,
+      "airedSeason": 4,
       "airedSeasonID": 660327,
-      "absoluteNumber": 33,
+      "airedEpisodeNumber": 2,
       "episodeName": "Welcome to the Gun Show",
       "firstAired": "2016-04-28",
-      "airedSeason": 4,
+      "guestStars": [
+        "Liam Neeson",
+        "David Spade"
+      ],
+      "director": "|Ryan McFaul|Neal Brennan|",
+      "directors": [
+        "Ryan McFaul",
+        "Neal Brennan"
+      ],
+      "writers": [
+        "Jessi Klein",
+        "Kurt Metzger",
+        "Daniel Powell",
+        "Amy Schumer",
+        "Kyle Dunnigan"
+      ],
+      "overview": "Amy hosts a home shopping show for gun enthusiasts, faces the wrath of a new Twitter feature and lands a role on \"Game of Thrones.\"",
       "language": {
-        "overview": "en",
-        "episodeName": "en"
+        "episodeName": "en",
+        "overview": "en"
       },
+      "productionCode": "",
+      "showUrl": "",
+      "lastUpdated": 1470581598,
+      "dvdDiscid": "",
+      "dvdSeason": null,
       "dvdEpisodeNumber": null,
-      "id": 5580497,
-      "airedEpisodeNumber": 2
+      "dvdChapter": null,
+      "absoluteNumber": 33,
+      "filename": "episodes/265374/5580497.jpg",
+      "seriesId": 265374,
+      "lastUpdatedBy": 370917,
+      "airsAfterSeason": null,
+      "airsBeforeSeason": null,
+      "airsBeforeEpisode": null,
+      "thumbAuthor": 411827,
+      "thumbAdded": "2016-04-28 11:47:31",
+      "thumbWidth": "400",
+      "thumbHeight": "225",
+      "imdbId": "tt5046600",
+      "siteRating": 5.5,
+      "siteRatingCount": 2
     },
     {
-      "dvdSeason": null,
-      "overview": "Amy wins an Oscar, finds out how to get what she wants and eats pasta from the garbage.",
+      "id": 5552985,
+      "airedSeason": 4,
       "airedSeasonID": 660327,
-      "absoluteNumber": 32,
+      "airedEpisodeNumber": 3,
       "episodeName": "Brave",
       "firstAired": "2016-05-05",
-      "airedSeason": 4,
+      "guestStars": [
+        "Julianne Moore",
+        "Maggie Gyllenhaal",
+        "Jennifer Hudson",
+        "Laura Linney",
+        "Vernon Davis",
+        "Michael Strahan",
+        "Tommy Bohanon",
+        "Greg Olsen"
+      ],
+      "director": "|Ryan McFaul|Neal Brennan|",
+      "directors": [
+        "Ryan McFaul",
+        "Neal Brennan"
+      ],
+      "writers": [
+        "Jessi Klein",
+        "Kurt Metzger",
+        "Daniel Powell",
+        "Amy Schumer",
+        "Kyle Dunnigan"
+      ],
+      "overview": "Amy wins an Oscar, finds out how to get what she wants and eats pasta from the garbage.",
       "language": {
-        "overview": "en",
-        "episodeName": "en"
+        "episodeName": "en",
+        "overview": "en"
       },
+      "productionCode": "",
+      "showUrl": "",
+      "lastUpdated": 1470581623,
+      "dvdDiscid": "",
+      "dvdSeason": null,
       "dvdEpisodeNumber": null,
-      "id": 5552985,
-      "airedEpisodeNumber": 3
+      "dvdChapter": null,
+      "absoluteNumber": 32,
+      "filename": "episodes/265374/5552985.jpg",
+      "seriesId": 265374,
+      "lastUpdatedBy": 370917,
+      "airsAfterSeason": null,
+      "airsBeforeSeason": null,
+      "airsBeforeEpisode": null,
+      "thumbAuthor": 411827,
+      "thumbAdded": "2016-05-06 13:03:58",
+      "thumbWidth": "400",
+      "thumbHeight": "225",
+      "imdbId": "tt5361692",
+      "siteRating": 6.7,
+      "siteRatingCount": 3
     }
   ],
   "links": {
