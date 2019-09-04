@@ -29,7 +29,7 @@ public class MediaMogulRestoreExecutor {
       DataRestoreExecutor dataRestoreExecutor = new DataRestoreLocalExecutor(
           restoreEnv,
           backupEnv,
-          9,
+          11,
           "MediaMogul",
           localDBName);
       dataRestoreExecutor.runUpdate();
@@ -39,7 +39,7 @@ public class MediaMogulRestoreExecutor {
       DataRestoreExecutor dataRestoreExecutor = new DataRestoreRemoteExecutor(
           restoreEnv,
           backupEnv,
-          9,
+          11,
           "MediaMogul",
           appNameFromEnv,
           databaseUrl);

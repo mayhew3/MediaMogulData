@@ -57,7 +57,7 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
 
     DataBackupExecutor executor = new DataBackupLocalExecutor(
         backupEnv,
-        9,
+        11,
         "MediaMogul",
         localDBName);
     executor.runUpdate();
@@ -67,7 +67,7 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
     String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
     DataBackupExecutor executor = new DataBackupRemoteExecutor(
         backupEnv,
-        9,
+        11,
         "MediaMogul",
         databaseUrl);
     executor.runUpdate();
