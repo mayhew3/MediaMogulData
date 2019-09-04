@@ -15,7 +15,7 @@ public class SchemaTestTest extends SchemaTest {
   @Override
   public String getDBConnectionString() {
     try {
-      return EnvironmentChecker.getOrThrow("postgresURL_test");
+      return EnvironmentChecker.getOrThrow("postgresURL_local_test");
     } catch (MissingEnvException e) {
       e.printStackTrace();
       throw new IllegalStateException(e);
