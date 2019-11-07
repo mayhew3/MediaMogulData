@@ -77,7 +77,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
     this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;
 
-    if (!methodMap.keySet().contains(updateMode)) {
+    if (!methodMap.containsKey(updateMode)) {
       throw new IllegalArgumentException("Update type '" + updateMode + "' is not applicable for this updater.");
     }
 
@@ -285,7 +285,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Homecoming"; // update for testing on a single series
+    String singleSeriesTitle = "The End of the F***ing World"; // update for testing on a single series
 
     String sql = "select * " +
         "from series " +

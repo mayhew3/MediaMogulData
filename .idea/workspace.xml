@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/TVDBTest/265374_episodes.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/TVDBTest/265374_episodes.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +46,18 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="media-mogul-data" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="media-mogul-data" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="media-mogul-data" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -142,18 +152,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TVDBSeriesUpdaterTest">
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <module name="media-mogul-data_main" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.TVDBUpdateRunner (local/single)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
@@ -1379,7 +1378,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Local -mode Single" />
+      <option name="PROGRAM_PARAMETERS" value="-db local -mode Single" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -1876,6 +1875,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <module name="media-mogul-data_main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TVDBSeriesUpdaterTest.testAirDateNew" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -2331,6 +2341,7 @@
       <item itemvalue="Gradle.media-mogul-data [build]" />
       <item itemvalue="Gradle.media-mogul-data [stage]" />
       <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testAirDateNew" />
+      <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testPosterOverride" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Heroku)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local/NoTests)" />
@@ -2342,7 +2353,6 @@
       <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
       <item itemvalue="JUnit.SchemaTestTest" />
       <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
-      <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testPosterOverride" />
     </list>
     <recent_temporary>
       <list>
@@ -2463,6 +2473,16 @@
           <url>file://$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdaterTest.java</url>
           <line>278</line>
           <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java</url>
+          <line>175</line>
+          <option name="timeStamp" value="154" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/db/ConnectionDetails.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="157" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
