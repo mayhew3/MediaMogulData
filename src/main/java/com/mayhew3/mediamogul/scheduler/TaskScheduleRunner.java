@@ -44,6 +44,8 @@ public class TaskScheduleRunner {
   private SteamProvider steamProvider;
   private ChromeProvider chromeProvider;
 
+  private String envName;
+
   private Integer person_id;
 
   private static Logger logger = LogManager.getLogger(TaskScheduleRunner.class);
@@ -51,7 +53,7 @@ public class TaskScheduleRunner {
   private TaskScheduleRunner(SQLConnection connection,
                              @Nullable TVDBJWTProvider tvdbjwtProvider,
                              JSONReader jsonReader,
-                             ExternalServiceHandler howLongServiceHandler, IGDBProvider igdbProvider, SteamProvider steamProvider, ChromeProvider chromeProvider, Integer person_id) {
+                             ExternalServiceHandler howLongServiceHandler, IGDBProvider igdbProvider, SteamProvider steamProvider, ChromeProvider chromeProvider, String envName, Integer person_id) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;
@@ -59,6 +61,7 @@ public class TaskScheduleRunner {
     this.igdbProvider = igdbProvider;
     this.steamProvider = steamProvider;
     this.chromeProvider = chromeProvider;
+    this.envName = envName;
     this.person_id = person_id;
   }
 
@@ -92,8 +95,9 @@ public class TaskScheduleRunner {
         igdbProvider,
         new SteamProviderImpl(),
         chromeProvider,
+        envName,
         person_id);
-    taskScheduleRunner.runUpdates(envName);
+    taskScheduleRunner.runUpdates();
   }
 
   private void createLocalTaskList() throws MissingEnvException {
@@ -164,12 +168,12 @@ public class TaskScheduleRunner {
         .withHoursBetween(hoursBetween));
   }
 
-  private void runUpdates(String envName) throws MissingEnvException {
+  private void runUpdates() throws MissingEnvException {
     if (tvdbjwtProvider == null) {
       throw new IllegalStateException("Can't currently run updater with no TVDB token. TVDB is the only thing it can handle yet.");
     }
 
-    if ("Heroku".equals(envName)) {
+    if (isRunningOnHeroku()) {
       createTaskList();
     } else {
       createLocalTaskList();
@@ -181,6 +185,10 @@ public class TaskScheduleRunner {
 
     runEligibleTasks();
 
+  }
+
+  private boolean isRunningOnHeroku() {
+    return "Heroku".equals(envName);
   }
 
   private void scheduleNextFutureTask() {
@@ -249,18 +257,26 @@ public class TaskScheduleRunner {
     runEligibleTasks();
   }
 
+  private boolean shouldDisplayInfoMessage(PeriodicTaskSchedule taskSchedule) {
+    return !isRunningOnHeroku() || taskSchedule.getMinutesBetween() > 1;
+  }
+
   private void runUpdateForSingleTask(PeriodicTaskSchedule taskSchedule) {
     UpdateRunner updateRunner = taskSchedule.getUpdateRunner();
     try {
       ConnectionLogger connectionLogger = new ConnectionLogger(connection);
 
-      info("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
+      if (shouldDisplayInfoMessage(taskSchedule)) {
+        info("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
+      }
 
       connectionLogger.logConnectionStart(updateRunner);
       updateRunner.runUpdate();
       connectionLogger.logConnectionEnd();
 
-      info("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
+      if (shouldDisplayInfoMessage(taskSchedule)) {
+        info("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
+      }
 
     } catch (Exception e) {
       logger.error("Exception encountered during run of update '" + updateRunner.getUniqueIdentifier() + "'.");

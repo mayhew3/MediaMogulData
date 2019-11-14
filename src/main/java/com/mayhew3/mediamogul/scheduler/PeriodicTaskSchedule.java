@@ -47,6 +47,10 @@ public class PeriodicTaskSchedule {
     return this;
   }
 
+  Integer getMinutesBetween() {
+    return minutesBetween;
+  }
+
   @NotNull Boolean isEligibleToRun() {
     if (this.minutesBetween == null) {
       throw new IllegalStateException("Cannot run PeriodicTask before initializing the periodicity via withMinutesBetween() or withHoursBetween().");
