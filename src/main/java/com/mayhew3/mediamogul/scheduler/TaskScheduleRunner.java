@@ -200,8 +200,10 @@ public class TaskScheduleRunner {
 
     long remainderSeconds = secondsUntilNextRun - (minutesUntilNextRun * 60);
 
-    logger.info("Scheduling next task '" + nextTask + "' to run in " + minutesUntilNextRun + " min " + remainderSeconds +
-        " sec.");
+    if (shouldDisplayInfoMessage(nextTask)) {
+      logger.info("Scheduling next task '" + nextTask + "' to run in " + minutesUntilNextRun + " min " + remainderSeconds +
+          " sec.");
+    }
 
     DelayedTask delayedTask = new DelayedTask(this, nextTask);
 
@@ -225,9 +227,13 @@ public class TaskScheduleRunner {
 
     @Override
     public void run() {
-      logger.info("Timer complete! Beginning delayed task: " + this.nextTask);
+      if (shouldDisplayInfoMessage(this.nextTask)) {
+        logger.info("Timer complete! Beginning delayed task: " + this.nextTask);
+      }
       runUpdateForSingleTask(this.nextTask);
-      logger.info("Finished delayed task. Throwing back to find eligible tasks.");
+      if (shouldDisplayInfoMessage(this.nextTask)) {
+        logger.info("Finished delayed task. Throwing back to find eligible tasks.");
+      }
       runner.runEligibleTasks();
     }
   }
