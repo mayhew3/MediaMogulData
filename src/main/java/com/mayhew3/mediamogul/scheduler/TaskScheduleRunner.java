@@ -200,10 +200,8 @@ public class TaskScheduleRunner {
 
     long remainderSeconds = secondsUntilNextRun - (minutesUntilNextRun * 60);
 
-    if (shouldDisplayInfoMessage(nextTask)) {
-      logger.info("Scheduling next task '" + nextTask + "' to run in " + minutesUntilNextRun + " min " + remainderSeconds +
-          " sec.");
-    }
+    logger.debug("Scheduling next task '" + nextTask + "' to run in " + minutesUntilNextRun + " min " + remainderSeconds +
+        " sec.");
 
     DelayedTask delayedTask = new DelayedTask(this, nextTask);
 
@@ -227,13 +225,9 @@ public class TaskScheduleRunner {
 
     @Override
     public void run() {
-      if (shouldDisplayInfoMessage(this.nextTask)) {
-        logger.info("Timer complete! Beginning delayed task: " + this.nextTask);
-      }
+      logger.debug("Timer complete! Beginning delayed task: " + this.nextTask);
       runUpdateForSingleTask(this.nextTask);
-      if (shouldDisplayInfoMessage(this.nextTask)) {
-        logger.info("Finished delayed task. Throwing back to find eligible tasks.");
-      }
+      logger.debug("Finished delayed task. Throwing back to find eligible tasks.");
       runner.runEligibleTasks();
     }
   }
@@ -245,7 +239,7 @@ public class TaskScheduleRunner {
         .collect(Collectors.toList());
 
     if (eligibleTasks.isEmpty()) {
-      logger.info("No eligible tasks. Scheduling next task.");
+      logger.debug("No eligible tasks. Scheduling next task.");
       scheduleNextFutureTask();
     } else {
       updateTasks(eligibleTasks);
@@ -253,13 +247,13 @@ public class TaskScheduleRunner {
   }
 
   private void updateTasks(List<PeriodicTaskSchedule> eligibleTasks) {
-    logger.info("Found " + eligibleTasks.size() + " tasks to run.");
+    logger.debug("Found " + eligibleTasks.size() + " tasks to run.");
 
     for (PeriodicTaskSchedule taskSchedule : eligibleTasks) {
       runUpdateForSingleTask(taskSchedule);
     }
 
-    logger.info("Finished current loop. Finding more eligible tasks.");
+    logger.debug("Finished current loop. Finding more eligible tasks.");
     runEligibleTasks();
   }
 
@@ -272,17 +266,13 @@ public class TaskScheduleRunner {
     try {
       ConnectionLogger connectionLogger = new ConnectionLogger(connection);
 
-      if (shouldDisplayInfoMessage(taskSchedule)) {
-        info("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
-      }
+      logger.debug("Starting update for '" + updateRunner.getUniqueIdentifier() + "'");
 
       connectionLogger.logConnectionStart(updateRunner);
       updateRunner.runUpdate();
       connectionLogger.logConnectionEnd();
 
-      if (shouldDisplayInfoMessage(taskSchedule)) {
-        info("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
-      }
+      logger.debug("Update complete for '" + updateRunner.getUniqueIdentifier() + "'");
 
     } catch (Exception e) {
       logger.error("Exception encountered during run of update '" + updateRunner.getUniqueIdentifier() + "'.");
