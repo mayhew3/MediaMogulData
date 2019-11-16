@@ -65,7 +65,7 @@ public class PeriodicTaskSchedule {
     Minutes minutes = Minutes.minutesBetween(new DateTime(lastRan), new DateTime());
     boolean periodExceeded = minutes.getMinutes() >= minutesBetween;
     if (periodExceeded) {
-      logger.info("Task '" + getUpdateRunner().getUniqueIdentifier() +
+      logger.debug("Task '" + getUpdateRunner().getUniqueIdentifier() +
           "' is eligible to be run: Period of " + minutesBetween + " minutes, last run: " +
           lastRan + " (" + minutes.getMinutes() + " minutes ago)");
     }
