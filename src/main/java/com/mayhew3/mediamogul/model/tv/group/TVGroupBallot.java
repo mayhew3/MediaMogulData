@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.model.tv.group;
 
+import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.postgresobject.dataobject.*;
 
 public class TVGroupBallot extends RetireableDataObject {
@@ -14,6 +15,7 @@ public class TVGroupBallot extends RetireableDataObject {
     registerIntegerField("season", Nullability.NULLABLE);
     registerIntegerField("first_episode", Nullability.NULLABLE);
     registerBooleanField("skip", Nullability.NOT_NULL).defaultValue(false);
+    registerForeignKey(new Person(), Nullability.NULLABLE);
   }
 
   @Override
