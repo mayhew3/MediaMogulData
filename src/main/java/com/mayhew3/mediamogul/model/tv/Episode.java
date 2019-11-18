@@ -195,7 +195,8 @@ public class Episode extends RetireableDataObject {
   }
 
   private boolean futureAirDateOrFirstAirTime(Timestamp airDate) {
-    return isInFuture(airTime.getValue()) || isInFuture(airDate) || airTime.getValue() == null;
+    return airTime.getValue() == null || isInFuture(airTime.getValue()) ||
+        airDate == null || isInFuture(airDate);
   }
 
   private Boolean isInFuture(Timestamp airDate) {

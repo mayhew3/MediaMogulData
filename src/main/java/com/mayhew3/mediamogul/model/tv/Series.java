@@ -372,14 +372,11 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   public List<TVDBEpisode> getTVDBEpisodes(SQLConnection connection) throws SQLException {
     String sql = "SELECT te.* " +
         "FROM tvdb_episode te " +
-        "INNER JOIN episode e " +
-        " ON e.tvdb_episode_id = te.id " +
-        "WHERE e.series_id = ? " +
-        "AND e.retired = ? " +
+        "WHERE te.tvdb_series_id = ? " +
         "AND te.retired = ? " +
-        "ORDER BY e.season, e.episode_number ";
+        "ORDER BY te.season_number, te.episode_number ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), 0, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, tvdbSeriesId.getValue(), 0);
     List<TVDBEpisode> tvdbEpisodes = new ArrayList<>();
 
     while (resultSet.next()) {
