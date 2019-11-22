@@ -48,6 +48,7 @@ public class IGDBUpdaterTest extends DatabaseTest {
         .isEqualTo(82090);
     assertThat(game.igdb_title.getValue())
         .isEqualTo(gameTitle);
+    //noinspection SpellCheckingInspection
     assertThat(game.igdb_poster.getValue())
         .isEqualTo("ogznieioyzvsiok1sl2m");
     assertThat(game.igdb_poster_w.getValue())
