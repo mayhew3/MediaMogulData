@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Series extends RetireableDataObject implements Comparable<Series> {
 
   /* Foreign Keys */
