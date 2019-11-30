@@ -124,7 +124,7 @@ public class TaskScheduleRunner {
     addMinutelyTask(new SteamPlaySessionGenerator(connection, person_id),
         10);
     addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY),
-        20);
+        4);
     addMinutelyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         30);
     addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
