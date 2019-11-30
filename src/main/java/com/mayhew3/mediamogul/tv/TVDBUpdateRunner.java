@@ -518,7 +518,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
         }
       }
 
-      debug("Update complete for series: " + i + " processed.");
+      debug("Update complete for series: " + (i-1) + " processed.");
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

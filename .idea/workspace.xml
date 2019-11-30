@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/TVDBEpisode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/TVDBEpisode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,6 +85,11 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -137,19 +139,7 @@
       <recent name="C:\Code\git\oscars-data\scripts" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Application.TVDBUpdateRunner (local/single)">
+  <component name="RunManager" selected="Application.TVDBUpdateRunner (local/smart)">
     <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
       <module name="media-mogul-data_main" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1262,20 +1252,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBUpdateRunner (demo)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
-        <env name="postgresURL_local_demo" value="jdbc:postgresql://localhost:5434/tv_demo?user=postgres&amp;password=m3mysql" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="Demo" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TVDBUpdateRunner (heroku/airtimes)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
         <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
@@ -1341,19 +1317,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBUpdateRunner (local)" type="Application" factoryName="Application" folderName="Local (Old)">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="Local" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TVDBUpdateRunner (local/quick)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
         <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
@@ -1369,8 +1332,6 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (local/sanity)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
@@ -1404,15 +1365,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBUpdateRunner (local/smart)" type="Application" factoryName="Application" folderName="Local (Old)">
+    <configuration name="TVDBUpdateRunner (local/smart)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="Local Smart" />
+      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
+      <option name="PROGRAM_PARAMETERS" value="-db local -mode Smart" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -1444,97 +1405,6 @@
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
       <option name="PROGRAM_PARAMETERS" value="-db Staging -mode Sanity" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBUpdateRunner (test)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBUpdateRunner (test/LogToFile)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test LogToFile" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBUpdateRunner (test/airtimes)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test -mode AirTimes" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBUpdateRunner (test/episodeMatch)" type="Application" factoryName="Application">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test -mode EpisodeMatch" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBUpdateRunner (test/fewerrors)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test -mode FewErrors" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBUpdateRunner (test/manual)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test -mode Manual" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBUpdateRunner (test/olderrors)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
-      <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test -mode OldErrors" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -2243,8 +2113,6 @@
       <item itemvalue="Application.IGDBUpdateRunner (local/smart)" />
       <item itemvalue="Application.SeriesDenormUpdater (local)" />
       <item itemvalue="Application.TVDBDuplicateDataFixer (local)" />
-      <item itemvalue="Application.TVDBUpdateRunner (local)" />
-      <item itemvalue="Application.TVDBUpdateRunner (local/smart)" />
       <item itemvalue="Application.TVRatingSpreadsheetCopier (local)" />
       <item itemvalue="Application.TiVoCommunicator (Local/Dev)" />
       <item itemvalue="Application.TiVoCommunicator (Local/Full)" />
@@ -2284,22 +2152,16 @@
       <item itemvalue="Application.TVDBUpdateProcessor (heroku)" />
       <item itemvalue="Application.TVDBUpdateProcessor (test/LogToFile)" />
       <item itemvalue="Application.TVDBUpdateProcessor (test)" />
-      <item itemvalue="Application.TVDBUpdateRunner (demo)" />
       <item itemvalue="Application.TVDBUpdateRunner (heroku/airtimes)" />
       <item itemvalue="Application.TVDBUpdateRunner (heroku/quick)" />
       <item itemvalue="Application.TVDBUpdateRunner (heroku/sanity)" />
       <item itemvalue="Application.TVDBUpdateRunner (heroku/single)" />
       <item itemvalue="Application.TVDBUpdateRunner (heroku/smart)" />
+      <item itemvalue="Application.TVDBUpdateRunner (staging/sanity)" />
       <item itemvalue="Application.TVDBUpdateRunner (local/quick)" />
       <item itemvalue="Application.TVDBUpdateRunner (local/sanity)" />
-      <item itemvalue="Application.TVDBUpdateRunner (staging/sanity)" />
       <item itemvalue="Application.TVDBUpdateRunner (local/single)" />
-      <item itemvalue="Application.TVDBUpdateRunner (test/LogToFile)" />
-      <item itemvalue="Application.TVDBUpdateRunner (test)" />
-      <item itemvalue="Application.TVDBUpdateRunner (test/airtimes)" />
-      <item itemvalue="Application.TVDBUpdateRunner (test/fewerrors)" />
-      <item itemvalue="Application.TVDBUpdateRunner (test/manual)" />
-      <item itemvalue="Application.TVDBUpdateRunner (test/olderrors)" />
+      <item itemvalue="Application.TVDBUpdateRunner (local/smart)" />
       <item itemvalue="Application.DaylightSavingCorrector (Heroku)" />
       <item itemvalue="Application.DaylightSavingCorrector (Test)" />
       <item itemvalue="Application.SeriesDeleter (heroku)" />
@@ -2321,7 +2183,6 @@
       <item itemvalue="Application.SeriesDenormUpdater (heroku)" />
       <item itemvalue="Application.SeriesDenormUpdater (test)" />
       <item itemvalue="Application.SteamAttributeUpdateRunner (local/single)" />
-      <item itemvalue="Application.TVDBUpdateRunner (test/episodeMatch)" />
       <item itemvalue="Application.TVGroupDataImporter (heroku)" />
       <item itemvalue="Application.TVGroupDataImporter (local)" />
       <item itemvalue="Application.TaskScheduleRunner (test/LogToFile)" />
@@ -2357,6 +2218,18 @@
         <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -2424,6 +2297,44 @@
     <MESSAGE value="Fix gradle config for finder/processor" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix gradle config for finder/processor" />
   </component>
+  <component name="WindowStateProjectService">
+    <state width="1877" height="290" key="GridCell.Tab.0.bottom" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.0.center" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.0.left" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.0.right" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1575082577871">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575082639153">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575082639153" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -2461,6 +2372,11 @@
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.mayhew3/Postgres-Object/0.10.2/e3fe3be91887d2a515ab3de8408fa1b568559371/Postgres-Object-0.10.2-tests.jar!/com/mayhew3/postgresobject/model/SchemaTest.class</url>
           <line>33</line>
           <option name="timeStamp" value="153" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java</url>
+          <line>175</line>
+          <option name="timeStamp" value="161" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
