@@ -46,7 +46,9 @@ public class CloudinaryUpdater {
     debug("Updating posters for series '" + series.seriesTitle.getValue() + "'...");
     String poster = series.poster.getValue();
     String cloud_poster = series.cloud_poster.getValue();
-    if (poster != null && cloud_poster == null) {
+    //noinspection ConstantConditions
+    if (poster != null && cloud_poster == null &&
+        !"".equals(poster) && !"".equals(cloud_poster)) {
       String url = "https://thetvdb.com/banners/" + poster;
       Optional<String> maybeCloudID = uploadToCloudinaryAndReturnPublicID(url);
       if (maybeCloudID.isPresent()) {
@@ -102,7 +104,9 @@ public class CloudinaryUpdater {
   private void updateTVDBPoster(TVDBPoster tvdbPoster) throws SQLException, ShowFailedException {
     String poster = tvdbPoster.posterPath.getValue();
     String cloud_poster = tvdbPoster.cloud_poster.getValue();
-    if (poster != null && cloud_poster == null) {
+    //noinspection ConstantConditions
+    if (poster != null && cloud_poster == null &&
+        !"".equals(poster) && !"".equals(cloud_poster)) {
       debug("Uploading poster '" + poster + "'...");
       String url = "https://thetvdb.com/banners/" + poster;
       Optional<String> maybeCloudID = uploadToCloudinaryAndReturnPublicID(url);
@@ -118,7 +122,7 @@ public class CloudinaryUpdater {
   private Optional<String> uploadToCloudinaryAndReturnPublicID(String url) {
     if (exists(url)) {
       try {
-        Map uploadResult = cloudinary.uploader().upload(url, ObjectUtils.emptyMap());
+        @SuppressWarnings("rawtypes") Map uploadResult = cloudinary.uploader().upload(url, ObjectUtils.emptyMap());
         return Optional.of(uploadResult.get("public_id").toString());
       } catch (Exception e) {
         e.printStackTrace();
