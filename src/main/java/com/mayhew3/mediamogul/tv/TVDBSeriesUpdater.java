@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TVDBSeriesUpdater {
 
@@ -190,7 +191,9 @@ public class TVDBSeriesUpdater {
     masterField.changeValue(newValue);
   }
 
-  private void updateAllEpisodes(Integer tvdbID) {
+  private void updateAllEpisodes(Integer tvdbID) throws SQLException {
+    Set<Integer> tvdb_ids = new HashSet<>();
+
     Integer pageNumber = 1;
     Integer lastPage;
 
@@ -207,6 +210,7 @@ public class TVDBSeriesUpdater {
 
         for (int i = 0; i < episodeArray.length(); i++) {
           JSONObject episode = episodeArray.getJSONObject(i);
+          tvdb_ids.add(episode.getInt("id"));
           updateEpisode(episode);
         }
       } catch (Exception e) {
@@ -217,7 +221,41 @@ public class TVDBSeriesUpdater {
       pageNumber++;
 
     } while (pageNumber <= lastPage);
+
+    retireRemovedEpisodes(tvdb_ids);
+
     debug("end updateAllEpisodes.");
+  }
+
+  private Optional<Episode> getEpisodeFromTVDBEpisode(TVDBEpisode tvdbEpisode) {
+    return episodes.stream()
+        .filter(episode -> episode.tvdbEpisodeId.getValue().equals(tvdbEpisode.id.getValue()))
+        .findAny();
+  }
+
+  private void retireRemovedEpisodes(Set<Integer> tvdb_ids) throws SQLException {
+    Set<TVDBEpisode> removed = tvdbEpisodes.stream()
+        .filter(tvdbEpisode -> !tvdb_ids.contains(tvdbEpisode.tvdbEpisodeExtId.getValue()))
+        .collect(Collectors.toSet());
+    if (!removed.isEmpty()) {
+      debug("Found " + removed.size() + " episodes for series '" + series.seriesTitle.getValue() + "' in database that are no longer present on TVDB. Retiring them.");
+    }
+    for (TVDBEpisode tvdbEpisode : removed) {
+      Optional<Episode> maybeEpisode = getEpisodeFromTVDBEpisode(tvdbEpisode);
+      if (maybeEpisode.isPresent()) {
+        Episode episode = maybeEpisode.get();
+        episode.retire();
+        episode.commit(connection);
+        episodes.remove(episode);
+      }
+      tvdbEpisode.retire();
+      tvdbEpisode.commit(connection);
+      tvdbEpisodes.remove(tvdbEpisode);
+
+      String episodeStr = maybeEpisode.map(episode -> " and Episode " + episode.toString()).orElse(" no Episode object.");
+
+      debug(" - TVDB " + tvdbEpisode.toString() + ", " + episodeStr);
+    }
   }
 
   @NotNull

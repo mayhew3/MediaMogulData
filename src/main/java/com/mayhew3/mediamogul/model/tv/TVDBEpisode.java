@@ -53,7 +53,7 @@ public class TVDBEpisode extends RetireableDataObject {
 
   @Override
   public String toString() {
-    return seriesName.getValue() + " " + episodeNumber.getValue() + ": " + name.getValue();
+    return seasonNumber.getValue() + "x" + episodeNumber.getValue() + ": '" + name.getValue() + "'";
   }
 
   @NotNull

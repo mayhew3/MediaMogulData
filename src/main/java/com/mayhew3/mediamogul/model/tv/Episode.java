@@ -67,7 +67,7 @@ public class Episode extends RetireableDataObject {
 
   @Override
   public String toString() {
-    return seriesTitle.getValue() + " " + season.getValue() + "x" + episodeNumber.getValue() + ": " + title.getValue();
+    return seriesTitle.getValue() + " " + season.getValue() + "x" + episodeNumber.getValue() + ": '" + title.getValue() + "'";
   }
 
   public void addToTiVoEpisodes(SQLConnection connection, @NotNull TiVoEpisode tiVoEpisode) throws SQLException {
