@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/recentUpdates.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateFinderRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateFinderRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +140,7 @@
       <recent name="C:\Code\git\oscars-data\scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DataBackupExecutor (heroku)">
+  <component name="RunManager" selected="Application.TVDBUpdateFinder (local)">
     <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
       <module name="media-mogul-data_main" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1187,15 +1188,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBUpdateFinder (test)" type="Application" factoryName="Application" folderName="TVDBUpdateFinder">
+    <configuration name="TVDBUpdateFinder (local)" type="Application" factoryName="Application" folderName="TVDBUpdateFinder">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateFinderRunner" />
-      <module name="media-mogul-data_main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Test" />
+      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
+      <option name="PROGRAM_PARAMETERS" value="-db Local" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -2148,7 +2149,7 @@
       <item itemvalue="Application.TVDBUpdateFinder (heroku)" />
       <item itemvalue="Application.TVDBUpdateFinder (heroku/lastweek)" />
       <item itemvalue="Application.TVDBUpdateFinder (test/LogToFile)" />
-      <item itemvalue="Application.TVDBUpdateFinder (test)" />
+      <item itemvalue="Application.TVDBUpdateFinder (local)" />
       <item itemvalue="Application.TVDBUpdateProcessor (heroku)" />
       <item itemvalue="Application.TVDBUpdateProcessor (test/LogToFile)" />
       <item itemvalue="Application.TVDBUpdateProcessor (test)" />
@@ -2298,46 +2299,58 @@
     <option name="LAST_COMMIT_MESSAGE" value="Fix gradle config for finder/processor" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="264" key="GridCell.Tab.0.bottom" timestamp="1575147298937">
+    <state x="677" y="183" key="#TVDBUpdateFinder_(heroku)" timestamp="1575157136989">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575147298937" />
-    <state width="1877" height="264" key="GridCell.Tab.0.center" timestamp="1575147298937">
+    <state x="677" y="183" key="#TVDBUpdateFinder_(heroku)/0.0.1920.1050@0.0.1920.1050" timestamp="1575157136989" />
+    <state x="677" y="183" key="#TVDBUpdateFinder_(local)" timestamp="1575157166384">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575147298937" />
-    <state width="1877" height="264" key="GridCell.Tab.0.left" timestamp="1575147298937">
+    <state x="677" y="183" key="#TVDBUpdateFinder_(local)/0.0.1920.1050@0.0.1920.1050" timestamp="1575157166384" />
+    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575157161005">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575147298937" />
-    <state width="1877" height="264" key="GridCell.Tab.0.right" timestamp="1575147298937">
+    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575157161005" />
+    <state width="1877" height="290" key="GridCell.Tab.0.bottom" timestamp="1575157897670">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575147298937" />
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1575082577871">
+    <state width="1877" height="290" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
+    <state width="1877" height="290" key="GridCell.Tab.0.center" timestamp="1575157897670">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
-    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1575082577871">
+    <state width="1877" height="290" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
+    <state width="1877" height="290" key="GridCell.Tab.0.left" timestamp="1575157897669">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
-    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1575082577871">
+    <state width="1877" height="290" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897669" />
+    <state width="1877" height="290" key="GridCell.Tab.0.right" timestamp="1575157897670">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
-    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1575082577871">
+    <state width="1877" height="290" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1575157897670">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575082577871" />
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
+    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1575157897670">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
+    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1575157897670">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
+    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1575157897670">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
     <state x="656" y="262" width="607" height="526" key="find.popup" timestamp="1575141007784">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="656" y="262" width="607" height="526" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575141007784" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575156647112">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575156888766">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575156647112" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575156888766" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
