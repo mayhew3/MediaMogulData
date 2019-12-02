@@ -109,6 +109,7 @@ test {
     exclude 'com/mayhew3/mediamogul/tv/TVDBSeriesUpdaterTest.class'
     exclude 'com/mayhew3/mediamogul/model/SchemaTestTest.class'
     exclude 'com/mayhew3/mediamogul/model/SchemaLocalTest.class'
+    exclude 'com/mayhew3/mediamogul/model/SchemaEndToEndTest.class'
     exclude 'com/mayhew3/mediamogul/games/SteamUpdaterTest.class'
     exclude 'com/mayhew3/mediamogul/games/IGDBUpdaterTest.class'
 }
