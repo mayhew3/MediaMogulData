@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/model/SchemaEndToEndTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/tv/TiVoDaylightSavingsTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +139,7 @@
       <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SteamUpdaterTest">
+  <component name="RunManager" selected="JUnit.SteamUpdaterTest.testNewSteamGame">
     <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
       <module name="media-mogul-data_main" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1753,26 +1752,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBSeriesUpdaterTest.testPosterOverride" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest.testPosterOverride&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="media-mogul-data [assemble]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -2015,6 +1994,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SteamUpdaterTest.testNewSteamGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mayhew3.mediamogul.games.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamUpdaterTest" />
+      <option name="METHOD_NAME" value="testNewSteamGame" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TVDBSeriesUpdaterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
@@ -2209,7 +2215,6 @@
       <item itemvalue="Gradle.media-mogul-data [assemble]" />
       <item itemvalue="Gradle.media-mogul-data [build]" />
       <item itemvalue="Gradle.media-mogul-data [stage]" />
-      <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testPosterOverride" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Heroku)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local/NoTests)" />
@@ -2222,14 +2227,15 @@
       <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
       <item itemvalue="JUnit.SteamUpdaterTest" />
       <item itemvalue="JUnit.SchemaEndToEndTest" />
+      <item itemvalue="JUnit.SteamUpdaterTest.testNewSteamGame" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SteamUpdaterTest" />
+        <item itemvalue="JUnit.SteamUpdaterTest.testNewSteamGame" />
         <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
+        <item itemvalue="JUnit.SteamUpdaterTest" />
         <item itemvalue="JUnit.SchemaEndToEndTest" />
         <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
-        <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testPosterOverride" />
       </list>
     </recent_temporary>
   </component>
@@ -2332,22 +2338,22 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575244043482" />
-    <state width="1877" height="473" key="GridCell.Tab.0.bottom" timestamp="1575245695141">
+    <state width="1877" height="320" key="GridCell.Tab.0.bottom" timestamp="1575301900343">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="473" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695141" />
-    <state width="1877" height="473" key="GridCell.Tab.0.center" timestamp="1575245695140">
+    <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
+    <state width="1877" height="320" key="GridCell.Tab.0.center" timestamp="1575301900343">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="473" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695140" />
-    <state width="1877" height="473" key="GridCell.Tab.0.left" timestamp="1575245695140">
+    <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
+    <state width="1877" height="320" key="GridCell.Tab.0.left" timestamp="1575301900343">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="473" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695140" />
-    <state width="1877" height="473" key="GridCell.Tab.0.right" timestamp="1575245695140">
+    <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
+    <state width="1877" height="320" key="GridCell.Tab.0.right" timestamp="1575301900343">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="473" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695140" />
+    <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
     <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1575216225185">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2368,10 +2374,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245320181" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575245143392">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575301549651">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245143392" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575301549651" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
