@@ -9,3 +9,4 @@ logging.properties
 build/
 classes/
 !/.idea/workspace.xml
+chromedriver.exe

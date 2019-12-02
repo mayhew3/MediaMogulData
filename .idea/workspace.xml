@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/recentUpdates.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/model/SchemaEndToEndTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateFinderRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateFinderRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +106,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml&#10;D:/Code/git/media-mogul-data/scripts/media-mogul-data CMD.lnk" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;XML" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../taskmaster/flutter/taskmaster" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29883382" />
@@ -115,22 +115,8 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
-      <recent name="C:\Code\git\MediaMogulData\resources" />
-      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
-      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
-      <recent name="D:\Code\git\media-mogul-data" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.mayhew3.mediamogul.games" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.mayhew3.mediamogul.games" />
-      <recent name="com.mayhew3.mediamogul.model.games" />
-      <recent name="com.mayhew3.mediamogul.dataobject" />
-      <recent name="com.mayhew3.mediamogul.model.tv.group" />
-      <recent name="com.mayhew3.mediamogul.model.tv" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Code\git\MediaMogulData\scripts" />
@@ -139,8 +125,22 @@
       <recent name="D:\Code\git\media-mogul-data" />
       <recent name="C:\Code\git\oscars-data\scripts" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.mayhew3.mediamogul.model" />
+      <recent name="com.mayhew3.mediamogul.games" />
+      <recent name="com.mayhew3.mediamogul.model.games" />
+      <recent name="com.mayhew3.mediamogul.dataobject" />
+      <recent name="com.mayhew3.mediamogul.model.tv.group" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
+      <recent name="C:\Code\git\MediaMogulData\resources" />
+      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
+      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
+      <recent name="D:\Code\git\media-mogul-data" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.TVDBUpdateFinder (local)">
+  <component name="RunManager" selected="JUnit.SteamUpdaterTest">
     <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
       <module name="media-mogul-data_main" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1753,26 +1753,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBSeriesUpdaterTest.testAirDateNew" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest.testAirDateNew&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="TVDBSeriesUpdaterTest.testPosterOverride" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -1920,6 +1900,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SchemaEndToEndTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mayhew3.mediamogul.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaEndToEndTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SchemaHerokuStagingTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
@@ -1981,10 +1988,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SchemaTestTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SteamUpdaterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaTestTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mayhew3.mediamogul.games.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamUpdaterTest" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -2196,7 +2209,6 @@
       <item itemvalue="Gradle.media-mogul-data [assemble]" />
       <item itemvalue="Gradle.media-mogul-data [build]" />
       <item itemvalue="Gradle.media-mogul-data [stage]" />
-      <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testAirDateNew" />
       <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testPosterOverride" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Heroku)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local)" />
@@ -2206,17 +2218,18 @@
       <item itemvalue="JUnit.SchemaHerokuTest" />
       <item itemvalue="JUnit.DatabaseRecreatorTest (Demo)" />
       <item itemvalue="JUnit.DatabaseRecreatorTest (Test)" />
-      <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
-      <item itemvalue="JUnit.SchemaTestTest" />
       <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
+      <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
+      <item itemvalue="JUnit.SteamUpdaterTest" />
+      <item itemvalue="JUnit.SchemaEndToEndTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SteamUpdaterTest" />
+        <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
+        <item itemvalue="JUnit.SchemaEndToEndTest" />
         <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
         <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testPosterOverride" />
-        <item itemvalue="Gradle.TVDBSeriesUpdaterTest.testAirDateNew" />
-        <item itemvalue="JUnit.SchemaTestTest" />
-        <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
       </list>
     </recent_temporary>
   </component>
@@ -2299,6 +2312,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Fix gradle config for finder/processor" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="183" key="#Notifications" timestamp="1575244031777">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="183" key="#Notifications/0.0.1920.1050@0.0.1920.1050" timestamp="1575244031777" />
     <state x="677" y="183" key="#TVDBUpdateFinder_(heroku)" timestamp="1575157136989">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2311,46 +2328,50 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575157161005" />
-    <state width="1877" height="290" key="GridCell.Tab.0.bottom" timestamp="1575157897670">
+    <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575244043482">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
-    <state width="1877" height="290" key="GridCell.Tab.0.center" timestamp="1575157897670">
+    <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575244043482" />
+    <state width="1877" height="473" key="GridCell.Tab.0.bottom" timestamp="1575245695141">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
-    <state width="1877" height="290" key="GridCell.Tab.0.left" timestamp="1575157897669">
+    <state width="1877" height="473" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695141" />
+    <state width="1877" height="473" key="GridCell.Tab.0.center" timestamp="1575245695140">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897669" />
-    <state width="1877" height="290" key="GridCell.Tab.0.right" timestamp="1575157897670">
+    <state width="1877" height="473" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695140" />
+    <state width="1877" height="473" key="GridCell.Tab.0.left" timestamp="1575245695140">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1575157897670">
+    <state width="1877" height="473" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695140" />
+    <state width="1877" height="473" key="GridCell.Tab.0.right" timestamp="1575245695140">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
-    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1575157897670">
+    <state width="1877" height="473" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575245695140" />
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1575216225185">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
-    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1575157897670">
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1575216225185">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
-    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1575157897670">
+    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1575216225184">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575157897670" />
-    <state x="656" y="262" width="607" height="526" key="find.popup" timestamp="1575141007784">
+    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225184" />
+    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1575216225185">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="262" width="607" height="526" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575141007784" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575156888766">
+    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state x="656" y="262" width="627" height="558" key="find.popup" timestamp="1575245320181">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575156888766" />
+    <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245320181" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575245143392">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245143392" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
