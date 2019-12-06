@@ -113,7 +113,7 @@ public class NewSeriesChecker implements UpdateRunner {
     CloudinaryUpdater cloudinaryUpdater = new CloudinaryUpdater(Singleton.getCloudinary(), series, connection);
 
     try {
-      cloudinaryUpdater.updateSeries(true);
+      cloudinaryUpdater.updateSeries();
     } catch (ShowFailedException e) {
 
       logger.warn("Series failed: " + e.getLocalizedMessage());

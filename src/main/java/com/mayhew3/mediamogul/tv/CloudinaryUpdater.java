@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,51 +42,74 @@ public class CloudinaryUpdater {
     this.connection = connection;
   }
 
-  public void updateSeries(Boolean otherPosters) throws SQLException, ShowFailedException {
+  public void updateSeries() throws SQLException, ShowFailedException {
     Preconditions.checkState(series != null, "Cannot call updateSeries without initializing series object.");
     debug("Updating posters for series '" + series.seriesTitle.getValue() + "'...");
-    String poster = series.poster.getValue();
-    String cloud_poster = series.cloud_poster.getValue();
-    //noinspection ConstantConditions
-    if (poster != null && cloud_poster == null &&
-        !"".equals(poster) && !"".equals(cloud_poster)) {
-      String url = "https://thetvdb.com/banners/" + poster;
-      Optional<String> maybeCloudID = uploadToCloudinaryAndReturnPublicID(url);
-      if (maybeCloudID.isPresent()) {
-        debug("Successfully uploaded poster for series '" + series.seriesTitle.getValue() + "'");
-        String cloudID = maybeCloudID.get();
 
-        series.cloud_poster.changeValue(cloudID);
-        series.commit(connection);
+    List<TVDBPoster> tvdbPosters = updateAllTVDBPosters();
+    Optional<TVDBSeries> maybeTVDBSeries = series.getTVDBSeries(connection);
+    Optional<TVDBPoster> maybeFirstWorkingPoster = tvdbPosters.stream()
+        .filter(tvdbPoster -> tvdbPoster.cloud_poster.getValue() != null)
+        .findFirst();
+    if (maybeFirstWorkingPoster.isPresent()) {
 
-        Optional<TVDBPoster> optionalLinkedPoster = series.getLinkedPoster(connection);
-        if (optionalLinkedPoster.isPresent()) {
-          TVDBPoster tvdbPoster = optionalLinkedPoster.get();
-          tvdbPoster.cloud_poster.changeValue(cloudID);
-          tvdbPoster.commit(connection);
+      TVDBPoster firstWorkingPoster = maybeFirstWorkingPoster.get();
+      if (maybeTVDBSeries.isPresent()) {
+        TVDBSeries tvdbSeries = maybeTVDBSeries.get();
+
+        boolean isOverridden = isOverridden(tvdbSeries);
+
+        tvdbSeries.firstPoster.changeValue(firstWorkingPoster.posterPath.getValue());
+        tvdbSeries.commit(connection);
+
+        if (!isOverridden) {
+          series.tvdbPosterId.changeValue(firstWorkingPoster.id.getValue());
+          series.commit(connection);
+        } else {
+          Optional<TVDBPoster> linkedPoster = series.getLinkedPoster(connection);
+          if (linkedPoster.isPresent()) {
+            series.tvdbPosterId.changeValue(linkedPoster.get().id.getValue());
+            series.commit(connection);
+          }
         }
-
-      } else {
-        throw new ShowFailedException("Series poster not found: " + series.seriesTitle.getValue());
       }
-    }
-    if (otherPosters) {
-      updateAllTVDBPosters();
+
+    } else {
+      throw new ShowFailedException("No working poster found for series: " + series.seriesTitle.getValue());
     }
   }
 
-  private void updateAllTVDBPosters() throws SQLException {
+  private boolean isOverridden(TVDBSeries tvdbSeries) throws SQLException {
+    Optional<TVDBPoster> optionalSeriesPoster = series.getTVDBPoster(connection);
+    String tvdbPoster;
+    String seriesPosterPath;
+    if (optionalSeriesPoster.isPresent()) {
+      tvdbPoster = tvdbSeries.firstPoster.getValue();
+      seriesPosterPath = optionalSeriesPoster.get().posterPath.getValue();
+    } else {
+      tvdbPoster = tvdbSeries.lastPoster.getValue();
+      seriesPosterPath = series.poster.getValue();
+    }
+    return tvdbPoster != null &&
+        !tvdbPoster.equals(seriesPosterPath);
+  }
+
+  private List<TVDBPoster> updateAllTVDBPosters() throws SQLException {
     Optional<TVDBSeries> maybeTVDBSeries = series.getTVDBSeries(connection);
+    List<TVDBPoster> posters = new ArrayList<>();
     if (maybeTVDBSeries.isPresent()) {
       TVDBSeries tvdbSeries = maybeTVDBSeries.get();
       String sql = "SELECT * " +
           "FROM tvdb_poster " +
           "WHERE tvdb_series_id = ? " +
-          "AND retired = ? ";
+          "AND retired = ? " +
+          "AND hidden IS NULL " +
+          "ORDER BY id ";
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, tvdbSeries.id.getValue(), 0);
       while (resultSet.next()) {
         TVDBPoster tvdbPoster = new TVDBPoster();
         tvdbPoster.initializeFromDBObject(resultSet);
+        posters.add(tvdbPoster);
         try {
           updateTVDBPoster(tvdbPoster);
         } catch (ShowFailedException e) {
@@ -94,6 +118,7 @@ public class CloudinaryUpdater {
         }
       }
     }
+    return posters;
   }
 
   public void updateTVDBPoster() throws SQLException, ShowFailedException {

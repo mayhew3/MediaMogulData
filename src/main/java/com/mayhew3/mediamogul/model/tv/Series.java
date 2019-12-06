@@ -19,6 +19,7 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
 
   /* Foreign Keys */
   public FieldValueForeignKey tvdbSeriesId = registerForeignKey(new TVDBSeries(), Nullability.NULLABLE);
+  public FieldValueForeignKey tvdbPosterId = registerForeignKey(new TVDBPoster(), Nullability.NULLABLE);
 
   /* Data */
   public FieldValueString seriesTitle = registerStringField("title", Nullability.NULLABLE);
@@ -270,6 +271,24 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
         "WHERE poster_path = ? " +
         "AND retired = ? ";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, poster.getValue(), 0);
+    if (resultSet.next()) {
+      TVDBPoster tvdbPoster = new TVDBPoster();
+      tvdbPoster.initializeFromDBObject(resultSet);
+      return Optional.of(tvdbPoster);
+    } else {
+      return Optional.empty();
+    }
+  }
+
+  public Optional<TVDBPoster> getTVDBPoster(SQLConnection connection) throws SQLException {
+    if (tvdbPosterId.getValue() == null) {
+      return Optional.empty();
+    }
+    String sql = "SELECT tp.* " +
+        "FROM tvdb_poster tp " +
+        "WHERE id = ? " +
+        "AND retired = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, tvdbPosterId.getValue(), 0);
     if (resultSet.next()) {
       TVDBPoster tvdbPoster = new TVDBPoster();
       tvdbPoster.initializeFromDBObject(resultSet);
