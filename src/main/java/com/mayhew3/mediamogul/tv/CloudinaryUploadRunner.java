@@ -48,7 +48,7 @@ public class CloudinaryUploadRunner implements UpdateRunner {
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
     methodMap.put(UpdateMode.FULL, this::runFullUpdate);
 
-    if (!methodMap.keySet().contains(updateMode)) {
+    if (!methodMap.containsKey(updateMode)) {
       throw new IllegalArgumentException("Update type '" + updateMode + "' is not applicable for this updater.");
     }
 
@@ -79,8 +79,8 @@ public class CloudinaryUploadRunner implements UpdateRunner {
             "WHERE title = ? ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, "You're the Worst");
-      runUpdateOnResultSet(resultSet, true);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, "Mad Men");
+      runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -88,21 +88,18 @@ public class CloudinaryUploadRunner implements UpdateRunner {
 
   private void runFullUpdate() {
     runUpdateOnAllSeries();
-    runUpdateOnAllUnmatchedPosters();
   }
 
   private void runUpdateOnAllSeries() {
-    logger.info("Running truncated version on other shows.");
+    logger.info("Running full version on all shows.");
 
     String sql = "SELECT s.* " +
             "FROM series s " +
-            "WHERE s.retired = ? " +
-            "AND s.poster IS NOT NULL " +
-            "AND s.cloud_poster IS NULL ";
+            "WHERE s.retired = ? ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
-      runUpdateOnResultSet(resultSet, false);
+      runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
@@ -115,6 +112,7 @@ public class CloudinaryUploadRunner implements UpdateRunner {
     String sql = "SELECT * " +
         "FROM tvdb_poster " +
         "WHERE cloud_poster IS NULL " +
+        "AND hidden IS NULL " +
         "AND retired = ? ";
 
     try {
@@ -126,7 +124,7 @@ public class CloudinaryUploadRunner implements UpdateRunner {
     }
   }
 
-  private void runUpdateOnResultSet(ResultSet resultSet, Boolean otherPosters) throws SQLException {
+  private void runUpdateOnResultSet(ResultSet resultSet) throws SQLException {
     int postersProcessed = 0;
     int postersFailed = 0;
 
@@ -140,7 +138,7 @@ public class CloudinaryUploadRunner implements UpdateRunner {
 
       CloudinaryUpdater cloudinaryUpdater = new CloudinaryUpdater(cloudinary, series, connection);
       try {
-        cloudinaryUpdater.updateSeries(otherPosters);
+        cloudinaryUpdater.updateSeries();
       } catch (ShowFailedException e) {
         postersFailed++;
       }
