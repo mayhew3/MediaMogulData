@@ -117,6 +117,18 @@ public class CloudinaryUpdater {
           logger.warn("Poster failed while updating series. Continuing on other posters.");
         }
       }
+
+      Optional<TVDBPoster> linkedPoster = series.getLinkedPoster(connection);
+      if (linkedPoster.isEmpty() && series.cloud_poster.getValue() != null) {
+        TVDBPoster tvdbPoster = new TVDBPoster();
+        tvdbPoster.initializeForInsert();
+        tvdbPoster.tvdb_series_id.changeValue(series.tvdbSeriesId.getValue());
+        tvdbPoster.posterPath.changeValue(series.poster.getValue());
+        tvdbPoster.cloud_poster.changeValue(series.cloud_poster.getValue());
+        tvdbPoster.commit(connection);
+
+        posters.add(tvdbPoster);
+      }
     }
     return posters;
   }

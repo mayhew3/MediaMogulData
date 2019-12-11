@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Series.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Series.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/TVDBSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/TVDBSeries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/TVDBPoster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/TVDBPoster.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUploadRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUploadRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/NewSeriesChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/NewSeriesChecker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +106,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml&#10;D:/Code/git/media-mogul-data/scripts/media-mogul-data CMD.lnk" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;XML" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../postgres-object" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29883382" />
@@ -142,7 +140,7 @@
       <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SteamUpdaterTest.testNewSteamGame">
+  <component name="RunManager" selected="Application.DataBackupExecutor (heroku)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
@@ -159,8 +157,6 @@
     <configuration name="CloudinaryUploader (heroku/full)" type="Application" factoryName="Application" folderName="Cloudinary">
       <envs>
         <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.CloudinaryUploadRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
@@ -215,7 +211,7 @@
     </configuration>
     <configuration name="CloudinaryUploader (local/full)" type="Application" factoryName="Application" folderName="Cloudinary">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -253,13 +249,30 @@
     </configuration>
     <configuration name="CloudinaryUploader (local/single)" type="Application" factoryName="Application" folderName="Cloudinary">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.CloudinaryUploadRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
       <option name="PROGRAM_PARAMETERS" value="-db Local -mode Single" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CloudinaryUploader (staging/full)" type="Application" factoryName="Application" folderName="Cloudinary">
+      <envs>
+        <env name="postgresURL_heroku" value="postgres://xuvjwhtzazdfvt:1692d538f098ce7539056db3a96f4a4eff806b833cb9ca32a067db716bb14611@ec2-23-21-156-171.compute-1.amazonaws.com:5432/d4hnu1is1bkfgj" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.CloudinaryUploadRunner" />
+      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
+      <option name="PROGRAM_PARAMETERS" value="-db Heroku -mode Full" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
@@ -2024,7 +2037,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBSeriesUpdaterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TVDBSeriesUpdaterTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
@@ -2110,6 +2123,7 @@
       <item itemvalue="Application.CloudinaryUploader (local/quick)" />
       <item itemvalue="Application.CloudinaryUploader (local/single)" />
       <item itemvalue="Application.CloudinaryUploader (local/full)" />
+      <item itemvalue="Application.CloudinaryUploader (staging/full)" />
       <item itemvalue="Application.GamePostgresMongoSyncer" />
       <item itemvalue="Application.GiantBombUpdater (Local\SingleGame)" />
       <item itemvalue="Application.GiantBombUpdater (SingleGame)" />
@@ -2238,7 +2252,6 @@
         <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
         <item itemvalue="JUnit.SteamUpdaterTest" />
         <item itemvalue="JUnit.SchemaEndToEndTest" />
-        <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
       </list>
     </recent_temporary>
   </component>
@@ -2333,54 +2346,76 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="677" y="183" key="#TVDBUpdateFinder_(local)/0.0.1920.1050@0.0.1920.1050" timestamp="1575157166384" />
-    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575157161005">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576100565310">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575157161005" />
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576100565310" />
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575244043482">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575244043482" />
-    <state width="1877" height="320" key="GridCell.Tab.0.bottom" timestamp="1575301900343">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog" timestamp="1576041537167">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576041537167" />
+    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1576040914022">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576040914022" />
+    <state width="2517" height="365" key="GridCell.Tab.0.bottom" timestamp="1576102338678">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="1877" height="320" key="GridCell.Tab.0.center" timestamp="1575301900343">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="365" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102338678" />
+    <state width="2517" height="365" key="GridCell.Tab.0.center" timestamp="1576102338678">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="1877" height="320" key="GridCell.Tab.0.left" timestamp="1575301900343">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="365" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102338678" />
+    <state width="2517" height="365" key="GridCell.Tab.0.left" timestamp="1576102338677">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="1877" height="320" key="GridCell.Tab.0.right" timestamp="1575301900343">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="365" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102338677" />
+    <state width="2517" height="365" key="GridCell.Tab.0.right" timestamp="1576102338678">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1575216225185">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="365" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102338678" />
+    <state width="2517" height="461" key="GridCell.Tab.1.bottom" timestamp="1576102274092">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
-    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1575216225185">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="461" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102274092" />
+    <state width="2517" height="461" key="GridCell.Tab.1.center" timestamp="1576102274092">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
-    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1575216225184">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="461" key="GridCell.Tab.1.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102274092" />
+    <state width="2517" height="461" key="GridCell.Tab.1.left" timestamp="1576102274092">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225184" />
-    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1575216225185">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="461" key="GridCell.Tab.1.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102274092" />
+    <state width="2517" height="461" key="GridCell.Tab.1.right" timestamp="1576102274092">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576102274092" />
+    <state x="1001" y="446" width="540" height="540" key="StructurePopup" timestamp="1576100521173">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1001" y="446" width="540" height="540" key="StructurePopup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576100521173" />
     <state x="656" y="262" width="627" height="558" key="find.popup" timestamp="1575245320181">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245320181" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1575302063442">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1576041005130">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575302063442" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576041005130" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
