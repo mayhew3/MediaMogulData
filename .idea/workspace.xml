@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Blog Templates/top1_template.html" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Blog Templates/top1_template.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Series.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Series.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/blog/BlogRankingsCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/blog/BlogRankingsCreator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +141,7 @@
   <component name="RunManager" selected="Application.EpisodeGroupUpdater (Heroku)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -157,7 +154,7 @@
     </configuration>
     <configuration name="CloudinaryUploader (heroku/full)" type="Application" factoryName="Application" folderName="Cloudinary">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.CloudinaryUploadRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
@@ -174,7 +171,7 @@
     </configuration>
     <configuration name="CloudinaryUploader (heroku/quick)" type="Application" factoryName="Application" folderName="Cloudinary">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -193,7 +190,7 @@
     </configuration>
     <configuration name="CloudinaryUploader (heroku/single)" type="Application" factoryName="Application" folderName="Cloudinary">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -231,7 +228,7 @@
     </configuration>
     <configuration name="CloudinaryUploader (local/quick)" type="Application" factoryName="Application" folderName="Cloudinary">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -330,7 +327,7 @@
     </configuration>
     <configuration name="DataRestoreExecutor (local from heroku)" type="Application" factoryName="Application" folderName="Backup and Restore">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -365,7 +362,7 @@
     </configuration>
     <configuration name="DaylightSavingCorrector (Heroku)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -378,7 +375,7 @@
     </configuration>
     <configuration name="DaylightSavingCorrector (Test)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -391,7 +388,7 @@
     </configuration>
     <configuration name="EndToEndDatabaseCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -404,7 +401,7 @@
     </configuration>
     <configuration name="EpisodeGroupUpdater (Heroku)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.EpisodeGroupUpdater" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
@@ -562,7 +559,7 @@
     </configuration>
     <configuration name="IGDBUpdateRunner (heroku/sanity)" type="Application" factoryName="Application" folderName="IGDBUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="igdb_key" value="091ddb68949a218c5e22c89479a622ab" />
@@ -576,7 +573,7 @@
     </configuration>
     <configuration name="IGDBUpdateRunner (heroku/single)" type="Application" factoryName="Application" folderName="IGDBUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="igdb_key" value="091ddb68949a218c5e22c89479a622ab" />
@@ -590,7 +587,7 @@
     </configuration>
     <configuration name="IGDBUpdateRunner (heroku/smart)" type="Application" factoryName="Application" folderName="IGDBUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="igdb_key" value="091ddb68949a218c5e22c89479a622ab" />
@@ -604,7 +601,7 @@
     </configuration>
     <configuration name="IGDBUpdateRunner (local/sanity)" type="Application" factoryName="Application" folderName="IGDBUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="igdb_key" value="091ddb68949a218c5e22c89479a622ab" />
@@ -618,7 +615,7 @@
     </configuration>
     <configuration name="IGDBUpdateRunner (local/single)" type="Application" factoryName="Application" folderName="IGDBUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="igdb_key" value="091ddb68949a218c5e22c89479a622ab" />
@@ -632,7 +629,7 @@
     </configuration>
     <configuration name="IGDBUpdateRunner (local/smart)" type="Application" factoryName="Application" folderName="IGDBUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="igdb_key" value="091ddb68949a218c5e22c89479a622ab" />
@@ -646,7 +643,7 @@
     </configuration>
     <configuration name="IGDBUpdateTestRunner" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -679,7 +676,7 @@
     </configuration>
     <configuration name="MetacriticTVUpdater (heroku/quick)" type="Application" factoryName="Application" folderName="MetacriticTV">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -692,7 +689,7 @@
     </configuration>
     <configuration name="MetacriticTVUpdater (heroku/single)" type="Application" factoryName="Application" folderName="MetacriticTV">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -705,7 +702,7 @@
     </configuration>
     <configuration name="MetacriticTVUpdater (local/chunked)" type="Application" factoryName="Application" folderName="MetacriticTV">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -718,7 +715,7 @@
     </configuration>
     <configuration name="MetacriticTVUpdater (local/full)" type="Application" factoryName="Application" folderName="MetacriticTV">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -731,7 +728,7 @@
     </configuration>
     <configuration name="MetacriticTVUpdater (local/quick)" type="Application" factoryName="Application" folderName="MetacriticTV">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -744,7 +741,7 @@
     </configuration>
     <configuration name="MetacriticTVUpdater (local/sanity)" type="Application" factoryName="Application" folderName="MetacriticTV">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -757,7 +754,7 @@
     </configuration>
     <configuration name="MetacriticTVUpdater (local/single)" type="Application" factoryName="Application" folderName="MetacriticTV">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user\=postgres&amp;password\=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -770,7 +767,7 @@
     </configuration>
     <configuration name="NewGameChecker (local)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -789,7 +786,7 @@
     </configuration>
     <configuration name="NewSeriesChecker (local)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -808,7 +805,7 @@
     </configuration>
     <configuration name="NewSeriesChecker (staging)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -827,7 +824,7 @@
     </configuration>
     <configuration name="OldDataArchiveRunner (Heroku)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -840,7 +837,7 @@
     </configuration>
     <configuration name="OldDataArchiveRunner (Local)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -853,7 +850,7 @@
     </configuration>
     <configuration name="QuickBatchUpdater (test)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -866,7 +863,7 @@
     </configuration>
     <configuration name="SeriesDeleter (heroku)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -879,7 +876,7 @@
     </configuration>
     <configuration name="SeriesDeleter (test)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -892,7 +889,7 @@
     </configuration>
     <configuration name="SeriesDenormUpdater (heroku)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.SeriesDenormUpdater" />
       <module name="media-mogul-data_main" />
@@ -903,7 +900,7 @@
     </configuration>
     <configuration name="SeriesDenormUpdater (local)" type="Application" factoryName="Application" folderName="Local (Old)">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.SeriesDenormUpdater" />
       <module name="media-mogul-data_main" />
@@ -925,7 +922,7 @@
     </configuration>
     <configuration name="SeriesMerger (test)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -993,7 +990,7 @@
     <configuration name="SteamGameUpdater (local)" type="Application" factoryName="Application" folderName="Games">
       <envs>
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-        <env name="DATABASE_URL" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="DATABASE_URL" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdateRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
@@ -1015,7 +1012,7 @@
     </configuration>
     <configuration name="SteamPlaySessionGenerator (heroku)" type="Application" factoryName="Application" folderName="Games">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1028,7 +1025,7 @@
     </configuration>
     <configuration name="SteamPlaySessionGenerator (local)" type="Application" factoryName="Application" folderName="Games">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1041,7 +1038,7 @@
     </configuration>
     <configuration name="TVDBDuplicateDataFixer (local)" type="Application" factoryName="Application" folderName="Local (Old)">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.utility.TVDBDuplicateDataFixer" />
       <module name="media-mogul-data_main" />
@@ -1063,7 +1060,7 @@
     </configuration>
     <configuration name="TVDBJSONFetcher (local)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1076,7 +1073,7 @@
     </configuration>
     <configuration name="TVDBSeriesMatchRunner (heroku/episodes)" type="Application" factoryName="Application" folderName="TVDBSeriesMatchRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1089,7 +1086,7 @@
     </configuration>
     <configuration name="TVDBSeriesMatchRunner (heroku/first pass) " type="Application" factoryName="Application" folderName="TVDBSeriesMatchRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1102,7 +1099,7 @@
     </configuration>
     <configuration name="TVDBSeriesMatchRunner (heroku/full)" type="Application" factoryName="Application" folderName="TVDBSeriesMatchRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1115,7 +1112,7 @@
     </configuration>
     <configuration name="TVDBSeriesMatchRunner (heroku/single)" type="Application" factoryName="Application" folderName="TVDBSeriesMatchRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1128,7 +1125,7 @@
     </configuration>
     <configuration name="TVDBSeriesMatchRunner (local/first pass)" type="Application" factoryName="Application" folderName="TVDBSeriesMatchRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1141,7 +1138,7 @@
     </configuration>
     <configuration name="TVDBSeriesMatchRunner (test/episodes)" type="Application" factoryName="Application" folderName="TVDBSeriesMatchRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1154,7 +1151,7 @@
     </configuration>
     <configuration name="TVDBSeriesMatchRunner (test/single)" type="Application" factoryName="Application" folderName="TVDBSeriesMatchRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1167,7 +1164,7 @@
     </configuration>
     <configuration name="TVDBUpdateFinder (heroku)" type="Application" factoryName="Application" folderName="TVDBUpdateFinder">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1180,7 +1177,7 @@
     </configuration>
     <configuration name="TVDBUpdateFinder (heroku/lastweek)" type="Application" factoryName="Application" folderName="TVDBUpdateFinder">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1206,7 +1203,7 @@
     </configuration>
     <configuration name="TVDBUpdateFinder (test/LogToFile)" type="Application" factoryName="Application" folderName="TVDBUpdateFinder">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1219,7 +1216,7 @@
     </configuration>
     <configuration name="TVDBUpdateProcessor (heroku)" type="Application" factoryName="Application" folderName="TVDBUpdateProcessor">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1232,7 +1229,7 @@
     </configuration>
     <configuration name="TVDBUpdateProcessor (test)" type="Application" factoryName="Application" folderName="TVDBUpdateProcessor">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1245,7 +1242,7 @@
     </configuration>
     <configuration name="TVDBUpdateProcessor (test/LogToFile)" type="Application" factoryName="Application" folderName="TVDBUpdateProcessor">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1258,7 +1255,7 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (heroku/airtimes)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1271,7 +1268,7 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (heroku/quick)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1284,7 +1281,7 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (heroku/sanity)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1297,7 +1294,7 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (heroku/single)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1310,7 +1307,7 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (heroku/smart)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1323,7 +1320,7 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (local/quick)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1358,7 +1355,7 @@
     </configuration>
     <configuration name="TVDBUpdateRunner (local/single)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1395,14 +1392,14 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="media-mogul-data_main" />
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
     </configuration>
     <configuration name="TVDBUpdateRunner (staging/sanity)" type="Application" factoryName="Application" folderName="TVDBUpdateRunner">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1415,7 +1412,7 @@
     </configuration>
     <configuration name="TVDBXMLFetcher (test)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1428,7 +1425,7 @@
     </configuration>
     <configuration name="TVGroupDataImporter (heroku)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1447,7 +1444,7 @@
     </configuration>
     <configuration name="TVGroupDataImporter (local)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1466,7 +1463,7 @@
     </configuration>
     <configuration name="TVRatingSpreadsheetCopier (local)" type="Application" factoryName="Application" folderName="Local (Old)">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1479,7 +1476,7 @@
     </configuration>
     <configuration name="TVRatingSpreadsheetCopier (test)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1492,7 +1489,7 @@
     </configuration>
     <configuration name="TaskScheduleRunner (heroku DB / Obsidian ENV)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="log4j.configurationFactory" value="com.mayhew3.mediamogul.logging.DebugConfigFactory" />
@@ -1509,7 +1506,7 @@
         <env name="log4j.configurationFactory" value="com.mayhew3.mediamogul.logging.DebugConfigFactory" />
         <env name="DATABASE_URL" value="$postgresURL_local$" />
         <env name="envName" value="Janet" />
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.scheduler.TaskScheduleRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
@@ -1520,7 +1517,7 @@
     </configuration>
     <configuration name="TaskScheduleRunner (test/LogToFile)" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1533,7 +1530,7 @@
     </configuration>
     <configuration name="TiVoCommunicator (Heroku/Quick)" type="Application" factoryName="Application" folderName="TiVoCommunicator">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_heroku" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoCommunicator" />
@@ -1545,7 +1542,7 @@
     </configuration>
     <configuration name="TiVoCommunicator (Local/Dev)" type="Application" factoryName="Application" folderName="Local (Old)">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoCommunicator" />
       <module name="media-mogul-data_main" />
@@ -1556,7 +1553,7 @@
     </configuration>
     <configuration name="TiVoCommunicator (Local/Full)" type="Application" factoryName="Application" folderName="Local (Old)">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoCommunicator" />
       <module name="media-mogul-data_main" />
@@ -1567,7 +1564,7 @@
     </configuration>
     <configuration name="TiVoCommunicator (Local/Quick)" type="Application" factoryName="Application" folderName="Local (Old)">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoCommunicator" />
       <module name="media-mogul-data_main" />
@@ -1645,7 +1642,7 @@
     </configuration>
     <configuration name="TiVoLibraryUpdater (Quick)" type="Application" factoryName="Application" folderName="Local (Old)">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoLibraryUpdater" />
       <module name="media-mogul-data_main" />
@@ -1656,7 +1653,7 @@
     </configuration>
     <configuration name="TiVoLibraryUpdater (heroku/quick)" type="Application" factoryName="Application" folderName="TiVoLibraryUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoLibraryUpdater" />
       <module name="media-mogul-data_main" />
@@ -1689,7 +1686,7 @@
     </configuration>
     <configuration name="TiVoLibraryUpdater (test/Quick)" type="Application" factoryName="Application" folderName="TiVoLibraryUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoLibraryUpdater" />
       <module name="media-mogul-data_main" />
@@ -1700,7 +1697,7 @@
     </configuration>
     <configuration name="TiVoLibraryUpdater (test/Quick/LogToFile)" type="Application" factoryName="Application" folderName="TiVoLibraryUpdater">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoLibraryUpdater" />
       <module name="media-mogul-data_main" />
@@ -1711,7 +1708,7 @@
     </configuration>
     <configuration name="TiVoLibraryUpdater" type="Application" factoryName="Application" folderName="Local (Old)" nameIsGenerated="true">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TiVoLibraryUpdater" />
       <module name="media-mogul-data_main" />
@@ -1734,7 +1731,7 @@
     </configuration>
     <configuration name="TimestampTimeZoneUpgrader (local)" type="Application" factoryName="Application" folderName="Utilities">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1747,7 +1744,7 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -1863,7 +1860,7 @@
         <value defaultName="moduleWithDependencies" />
       </option>
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="postgresURL_local_demo" value="jdbc:postgresql://localhost:5434/tv_demo?user=postgres&amp;password=m3mysql" />
@@ -1885,7 +1882,7 @@
         <value defaultName="moduleWithDependencies" />
       </option>
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="postgresURL_local_demo" value="jdbc:postgresql://localhost:5434/tv_demo?user=postgres&amp;password=m3mysql" />
@@ -1934,7 +1931,7 @@
         <value defaultName="moduleWithDependencies" />
       </option>
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
       </envs>
@@ -1955,7 +1952,7 @@
         <value defaultName="moduleWithDependencies" />
       </option>
       <envs>
-        <env name="postgresURL_local" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
@@ -2090,7 +2087,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <envs>
         <env name="envName" value="Janet" />
-        <env name="DATABASE_URL" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="DATABASE_URL" value="$postgresURL_local$" />
       </envs>
       <method v="2">
         <option name="Gradle.BeforeRunTask" enabled="true" tasks="stage" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
@@ -2102,7 +2099,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <envs>
         <env name="envName" value="Janet" />
-        <env name="DATABASE_URL" value="jdbc:postgresql://localhost:5432/tv?user=postgres&amp;password=m3mysql" />
+        <env name="DATABASE_URL" value="$postgresURL_local$" />
       </envs>
       <method v="2">
         <option name="Gradle.BeforeRunTask" enabled="false" tasks="assemble" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
@@ -2345,43 +2342,43 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="677" y="183" key="#TVDBUpdateFinder_(local)/0.0.1920.1050@0.0.1920.1050" timestamp="1575157166384" />
-    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576129600952">
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576131510306">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575157161005" />
-    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576129600952" />
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131510306" />
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575244043482">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575244043482" />
-    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog" timestamp="1576129283960">
+    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog" timestamp="1576131509265">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576129283960" />
+    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131509265" />
     <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1576040914022">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576040914022" />
-    <state width="2517" height="365" key="GridCell.Tab.0.bottom" timestamp="1576131131491">
+    <state width="2517" height="365" key="GridCell.Tab.0.bottom" timestamp="1576131391708">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="365" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131131491" />
-    <state width="2517" height="365" key="GridCell.Tab.0.center" timestamp="1576131131491">
+    <state width="2517" height="365" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
+    <state width="2517" height="365" key="GridCell.Tab.0.center" timestamp="1576131391708">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="365" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131131491" />
-    <state width="2517" height="365" key="GridCell.Tab.0.left" timestamp="1576131131491">
+    <state width="2517" height="365" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
+    <state width="2517" height="365" key="GridCell.Tab.0.left" timestamp="1576131391708">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="365" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131131491" />
-    <state width="2517" height="365" key="GridCell.Tab.0.right" timestamp="1576131131491">
+    <state width="2517" height="365" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
+    <state width="2517" height="365" key="GridCell.Tab.0.right" timestamp="1576131391708">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="365" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131131491" />
+    <state width="2517" height="365" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
     <state width="2517" height="461" key="GridCell.Tab.1.bottom" timestamp="1576111949341">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2411,11 +2408,11 @@
     </state>
     <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245320181" />
     <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576115831026" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1576115399633">
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1576131383066">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575302063442" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576115399633" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131383066" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
