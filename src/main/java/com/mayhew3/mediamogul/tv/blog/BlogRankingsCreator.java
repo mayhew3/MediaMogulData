@@ -35,9 +35,11 @@ public class BlogRankingsCreator {
 
   private final int viewingYear = 2018;
   @SuppressWarnings("FieldCanBeLocal")
-  private final int largePhotosUnder = 20;
+  private final int largePhotosUnder = 1;
+  @SuppressWarnings("FieldCanBeLocal")
+  private final int largestPhotosUnder = 1;
 
-  private List<Integer> postBoundaries = Lists.newArrayList(43, 20, 10, 0);
+  private List<Integer> postBoundaries = Lists.newArrayList(0);
 
   private static Logger logger = LogManager.getLogger(BlogRankingsCreator.class);
 
@@ -130,8 +132,9 @@ public class BlogRankingsCreator {
       EpisodeGroupRating episodeGroupRating = new EpisodeGroupRating();
       episodeGroupRating.initializeFromDBObject(resultSet);
 
-      BlogTemplatePrinter templateToUse = currentRanking > 20 ? standardTemplate :
-          currentRanking == 1 ? toppestTemplate : topTemplate;
+      @SuppressWarnings("ConstantConditions")
+      BlogTemplatePrinter templateToUse = currentRanking > largePhotosUnder ? standardTemplate :
+          currentRanking > largestPhotosUnder ? topTemplate : toppestTemplate;
 
       export.append(getExportForSeries(templateToUse, episodeGroupRating, currentRanking));
       export.append("<br>");
@@ -216,9 +219,22 @@ public class BlogRankingsCreator {
     return blogTemplatePrinter.createCombinedExport();
   }
 
+  private Optional<TVDBPoster> getPoster(Series series) throws SQLException {
+    Optional<TVDBPoster> personPoster = series.getPersonPoster(connection, 1);
+    if (personPoster.isPresent()) {
+      return personPoster;
+    } else {
+      Optional<TVDBPoster> tvdbPoster = series.getTVDBPoster(connection);
+      if (tvdbPoster.isPresent()) {
+        return tvdbPoster;
+      }
+    }
+    return Optional.empty();
+  }
+
   private String generatePosterName(Series series, Integer currentRanking) throws SQLException {
     if (currentRanking > largePhotosUnder) {
-      Optional<TVDBPoster> maybePoster = series.getTVDBPoster(connection);
+      Optional<TVDBPoster> maybePoster = getPoster(series);
       if (maybePoster.isEmpty()) {
         throw new IllegalStateException("No TVDB Poster for series: " + series);
       }

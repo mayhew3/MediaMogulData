@@ -298,6 +298,25 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
     }
   }
 
+  public Optional<TVDBPoster> getPersonPoster(SQLConnection connection, int person_id) throws SQLException {
+    String sql = "SELECT tp.* " +
+        "FROM tvdb_poster tp " +
+        "INNER JOIN person_poster pp " +
+        " ON pp.tvdb_poster_id = tp.id " +
+        "WHERE pp.series_id = ? " +
+        "AND pp.person_id = ? " +
+        "AND pp.retired = ? " +
+        "AND tp.retired = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), person_id, 0, 0);
+    if (resultSet.next()) {
+      TVDBPoster tvdbPoster = new TVDBPoster();
+      tvdbPoster.initializeFromDBObject(resultSet);
+      return Optional.of(tvdbPoster);
+    } else {
+      return Optional.empty();
+    }
+  }
+
   @NotNull
   public Season getOrCreateSeason(SQLConnection connection, Integer seasonNumber) throws SQLException {
     Preconditions.checkNotNull(id.getValue(), "Cannot insert join entity until Series object is committed (id is non-null)");
