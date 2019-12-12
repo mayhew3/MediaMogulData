@@ -15,10 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,6 +34,7 @@ public class BlogRankingsCreator {
   private String outputPath;
 
   private final int viewingYear = 2018;
+  @SuppressWarnings("FieldCanBeLocal")
   private final int largePhotosUnder = 20;
 
   private List<Integer> postBoundaries = Lists.newArrayList(43, 20, 10, 0);
@@ -170,7 +169,7 @@ public class BlogRankingsCreator {
 
     ResultSet resultSet1 = connection.prepareAndExecuteStatementFetch(countSql, viewingYear, 0, 0);
 
-    Integer totalShows = 0;
+    int totalShows = 0;
     if (resultSet1.next()) {
       totalShows = resultSet1.getInt("series_count");
     }
@@ -184,8 +183,6 @@ public class BlogRankingsCreator {
     Series series = getSeries(episodeGroupRating);
 
     debug(currentRanking + ": " + series.seriesTitle.getValue());
-
-//    tryToSavePosterLocally(series);
 
     BigDecimal effectiveRating = episodeGroupRating.rating.getValue() == null ?
         episodeGroupRating.suggestedRating.getValue() :
@@ -235,22 +232,6 @@ public class BlogRankingsCreator {
     }
   }
 
-  private void tryToSavePosterLocally(Series series) throws SQLException {
-    String seriesPosterFileName = series.getTVDBPoster(connection).get().cloud_poster.getValue();
-    if (seriesPosterFileName != null) {
-      try {
-        InputStream inputStream = new URL("https://res.cloudinary.com/media-mogul/image/upload/" + seriesPosterFileName).openStream();
-        String fullFilePath = outputPath + "/" + seriesPosterFileName;
-        if (!new File(fullFilePath).exists()) {
-          Files.copy(inputStream, Paths.get(fullFilePath));
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-  }
-
   private String getSeasonString(List<Integer> seasonList) {
     if (seasonList.size() == 1) {
       return "Season " + seasonList.get(0);
@@ -276,7 +257,7 @@ public class BlogRankingsCreator {
             episodeGroupRating.maxRating.getValue().equals(episodeInfo.episodeRating.ratingValue.getValue()))
         .findFirst();
 
-    if (!first.isPresent()) {
+    if (first.isEmpty()) {
       throw new IllegalStateException("No episode found with max rating!");
     }
 
@@ -339,7 +320,7 @@ public class BlogRankingsCreator {
     return episodeRatings;
   }
 
-  private List<EpisodeInfo> populateInfos(List<Episode> episodes, List<EpisodeRating> episodeRatings) throws SQLException {
+  private List<EpisodeInfo> populateInfos(List<Episode> episodes, List<EpisodeRating> episodeRatings) {
     List<EpisodeInfo> infos = new ArrayList<>();
     for (Episode episode : episodes) {
       EpisodeRating mostRecentRating = getMostRecentRating(episode, episodeRatings);
@@ -348,7 +329,7 @@ public class BlogRankingsCreator {
     return infos;
   }
 
-  private class EpisodeInfo {
+  private static class EpisodeInfo {
     Episode episode;
     @Nullable EpisodeRating episodeRating;
 
