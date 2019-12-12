@@ -3,10 +3,7 @@ package com.mayhew3.mediamogul.tv.blog;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mayhew3.mediamogul.model.tv.Episode;
-import com.mayhew3.mediamogul.model.tv.EpisodeGroupRating;
-import com.mayhew3.mediamogul.model.tv.EpisodeRating;
-import com.mayhew3.mediamogul.model.tv.Series;
+import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -37,6 +34,9 @@ public class BlogRankingsCreator {
   private BlogTemplatePrinter topTemplate;
   private BlogTemplatePrinter toppestTemplate;
   private String outputPath;
+
+  private final int viewingYear = 2018;
+  private final int largePhotosUnder = 20;
 
   private List<Integer> postBoundaries = Lists.newArrayList(43, 20, 10, 0);
 
@@ -121,7 +121,7 @@ public class BlogRankingsCreator {
         reusableJoins +
         "ORDER BY coalesce(rating, suggested_rating)  ASC ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(fullSql, 2017, 0, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(fullSql, viewingYear, 0, 0);
 
     Integer currentRanking = totalShows;
 
@@ -168,7 +168,7 @@ public class BlogRankingsCreator {
     String countSql = "SELECT COUNT(1) as series_count " +
         reusableJoins;
 
-    ResultSet resultSet1 = connection.prepareAndExecuteStatementFetch(countSql, 2017, 0, 0);
+    ResultSet resultSet1 = connection.prepareAndExecuteStatementFetch(countSql, viewingYear, 0, 0);
 
     Integer totalShows = 0;
     if (resultSet1.next()) {
@@ -185,7 +185,7 @@ public class BlogRankingsCreator {
 
     debug(currentRanking + ": " + series.seriesTitle.getValue());
 
-    tryToSavePosterLocally(series);
+//    tryToSavePosterLocally(series);
 
     BigDecimal effectiveRating = episodeGroupRating.rating.getValue() == null ?
         episodeGroupRating.suggestedRating.getValue() :
@@ -219,10 +219,13 @@ public class BlogRankingsCreator {
     return blogTemplatePrinter.createCombinedExport();
   }
 
-  private String generatePosterName(Series series, Integer currentRanking) {
-    if (currentRanking > 20) {
-      String fullPosterName = series.poster.getValue();
-      return fullPosterName.replace("posters/", "");
+  private String generatePosterName(Series series, Integer currentRanking) throws SQLException {
+    if (currentRanking > largePhotosUnder) {
+      Optional<TVDBPoster> maybePoster = series.getTVDBPoster(connection);
+      if (maybePoster.isEmpty()) {
+        throw new IllegalStateException("No TVDB Poster for series: " + series);
+      }
+      return maybePoster.get().cloud_poster.getValue();
     } else {
       String fullSeriesName = series.seriesTitle.getValue();
       fullSeriesName = fullSeriesName.replace(" ", "_");
@@ -232,11 +235,11 @@ public class BlogRankingsCreator {
     }
   }
 
-  private void tryToSavePosterLocally(Series series) {
-    String seriesPosterFileName = series.poster.getValue();
+  private void tryToSavePosterLocally(Series series) throws SQLException {
+    String seriesPosterFileName = series.getTVDBPoster(connection).get().cloud_poster.getValue();
     if (seriesPosterFileName != null) {
       try {
-        InputStream inputStream = new URL("https://www.thetvdb.com/banners/" + seriesPosterFileName).openStream();
+        InputStream inputStream = new URL("https://res.cloudinary.com/media-mogul/image/upload/" + seriesPosterFileName).openStream();
         String fullFilePath = outputPath + "/" + seriesPosterFileName;
         if (!new File(fullFilePath).exists()) {
           Files.copy(inputStream, Paths.get(fullFilePath));
@@ -319,11 +322,13 @@ public class BlogRankingsCreator {
         "and e.series_id = ? " +
         "and e.season <> ? " +
         "and e.retired = ? " +
+        "and er.retired = ? " +
+        "and er.person_id = ? " +
         "order by e.air_date";
 
     List<EpisodeRating> episodeRatings = new ArrayList<>();
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0, 0, 1);
 
     while (resultSet.next()) {
       EpisodeRating episodeRating = new EpisodeRating();
@@ -357,7 +362,7 @@ public class BlogRankingsCreator {
   @Nullable
   private EpisodeRating getMostRecentRating(Episode episode, List<EpisodeRating> episodeRatings) {
     Optional<EpisodeRating> mostRecent = episodeRatings.stream()
-        .filter(episodeRating -> episodeRating.episodeId.getValue().equals(episode.id.getValue()))
+        .filter(episodeRating -> episodeRating.episodeId.getValue().equals(episode.id.getValue()) && episodeRating.watchedDate.getValue() != null)
         .max(Comparator.comparing(rating -> rating.watchedDate.getValue()));
 
     return mostRecent
