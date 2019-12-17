@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.model.tv;
 
+import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.postgresobject.dataobject.FieldValueInteger;
 import com.mayhew3.postgresobject.dataobject.FieldValueString;
 import com.mayhew3.postgresobject.dataobject.Nullability;
@@ -15,6 +16,7 @@ public class TVDBPoster extends RetireableDataObject {
   public TVDBPoster() {
     super();
     registerTimestampField("hidden", Nullability.NULLABLE);
+    registerForeignKey(new Person(), Nullability.NULLABLE);
   }
 
   @Override
