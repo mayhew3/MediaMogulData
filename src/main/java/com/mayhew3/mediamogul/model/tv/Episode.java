@@ -30,7 +30,7 @@ public class Episode extends RetireableDataObject {
 
 
   /* Data */
-  private FieldValue<Integer> season = registerIntegerField("season", Nullability.NOT_NULL);
+  public FieldValue<Integer> season = registerIntegerField("season", Nullability.NOT_NULL);
   public FieldValue<Integer> episodeNumber = registerIntegerField("episode_number", Nullability.NOT_NULL);
   public FieldValue<Integer> absoluteNumber = registerIntegerField("absolute_number", Nullability.NULLABLE);
 
@@ -248,8 +248,16 @@ public class Episode extends RetireableDataObject {
     }
   }
 
+  public EpisodeRating getMostRecentRating(SQLConnection connection, @NotNull Timestamp ratingCutoff) throws SQLException {
+    return getMostRecentRating(connection, Optional.of(ratingCutoff));
+  }
+
+  public EpisodeRating getMostRecentRating(SQLConnection connection) throws SQLException {
+    return getMostRecentRating(connection, Optional.empty());
+  }
+
   @Nullable
-  public EpisodeRating getMostRecentRating(SQLConnection connection, Optional<Timestamp> ratingCutoff) throws SQLException {
+  private EpisodeRating getMostRecentRating(SQLConnection connection, Optional<Timestamp> ratingCutoff) throws SQLException {
     String cutoffClause = ratingCutoff.isPresent() ? "and date_added < ? " : "";
 
     String sql = "select *\n" +

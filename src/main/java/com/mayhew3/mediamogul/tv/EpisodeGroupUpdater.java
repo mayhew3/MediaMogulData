@@ -232,7 +232,7 @@ public class EpisodeGroupUpdater implements UpdateRunner {
 
     EpisodeInfo(Episode episode) throws SQLException {
       this.episode = episode;
-      this.episodeRating = episode.getMostRecentRating(connection, Optional.empty());
+      this.episodeRating = episode.getMostRecentRating(connection);
     }
 
   }
