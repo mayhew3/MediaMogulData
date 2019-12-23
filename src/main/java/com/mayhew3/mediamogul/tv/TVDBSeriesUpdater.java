@@ -197,6 +197,8 @@ public class TVDBSeriesUpdater {
     Integer pageNumber = 1;
     Integer lastPage;
 
+    boolean erroredOut = false;
+
     do {
 
       try {
@@ -216,13 +218,16 @@ public class TVDBSeriesUpdater {
       } catch (Exception e) {
         logger.warn("Error fetching episode data for series with TVDB ID: " + tvdbID);
         lastPage = 0;
+        erroredOut = true;
       }
 
       pageNumber++;
 
     } while (pageNumber <= lastPage);
 
-    retireRemovedEpisodes(tvdb_ids);
+    if (!erroredOut && !tvdb_ids.isEmpty()) {
+      retireRemovedEpisodes(tvdb_ids);
+    }
 
     debug("end updateAllEpisodes.");
   }

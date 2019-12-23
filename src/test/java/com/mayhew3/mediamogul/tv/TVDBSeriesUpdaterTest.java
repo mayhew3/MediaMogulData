@@ -3,23 +3,18 @@ package com.mayhew3.mediamogul.tv;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.DatabaseTest;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.model.tv.Episode;
-import com.mayhew3.mediamogul.model.tv.Series;
-import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
-import com.mayhew3.mediamogul.model.tv.TVDBSeries;
+import com.mayhew3.mediamogul.model.Person;
+import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBLocalJSONProvider;
-import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import org.apache.http.auth.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDate;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,7 +44,9 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   }
 
   @Test
-  public void testIDChangedForTVDBEpisode() throws SQLException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testIDChangedForTVDBEpisode() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    Person person = addPerson();
+
     createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
 
     Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
@@ -57,9 +54,12 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     // fake ID - use so that XML will find a different ID and change it and not add a new episode with same episode number.
     Integer originalID = 5;
 
-    addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
-    addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, originalID);
+    Episode firstEpisode = addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
+    Episode secondEpisode = addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, originalID);
     addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
+
+    EpisodeRating firstRating = addRating(firstEpisode, person.id.getValue());
+    EpisodeRating secondRating = addRating(secondEpisode, person.id.getValue());
 
     TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
     tvdbSeriesUpdater.updateSeries();
@@ -78,10 +78,18 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isEqualTo(4);
     assertThat(updatedEpisode.episodeNumber.getValue())
         .isEqualTo(2);
+
+    Episode foundFirst = firstRating.getEpisode(connection);
+    assertThat(foundFirst.retired.getValue())
+        .isEqualTo(0);
+
+    Episode foundSecond = secondRating.getEpisode(connection);
+    assertThat(foundSecond.retired.getValue())
+        .isEqualTo(0);
   }
 
   @Test
-  public void testEpisodeNumbersSwapped() throws SQLException, IOException, SAXException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testEpisodeNumbersSwapped() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
     createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
 
     Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
@@ -113,7 +121,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
 
 
   @Test
-  public void testAirDateDatesLinked() throws SQLException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testAirDateDatesLinked() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
     Series series = createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
 
     addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
@@ -152,7 +160,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
 
 
   @Test
-  public void testAirDateNew() throws SQLException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testAirDateNew() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
     Series series = createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
 
     Date xmlDate = new LocalDate(2016, 4, 28).toDate();
@@ -172,7 +180,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
 
 
   @Test
-  public void testAirDateOverride() throws SQLException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testAirDateOverride() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
     Series series = createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
 
     addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
@@ -210,7 +218,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   }
 
   @Test
-  public void testEpisodeNumberOverride() throws SQLException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testEpisodeNumberOverride() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
     Series series = createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
 
     addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
@@ -241,7 +249,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   }
 
   @Test
-  public void testSeasonNumberOverride() throws SQLException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testSeasonNumberOverride() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
     Series series = createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
 
     addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
@@ -274,7 +282,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   }
 
   @Test
-  public void testPosterOverride() throws SQLException, ShowFailedException, BadlyFormattedXMLException, UnirestException, AuthenticationException {
+  public void testPosterOverride() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
 
     String originalPoster =   "posters/override.jpg";
     String overriddenPoster = "posters/original.jpg";
@@ -308,6 +316,97 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .as("Expected change to tvdb_series with new value from XML.")
         .isNotEqualTo(originalPoster)
         .isEqualTo(changedPoster);
+  }
+
+  @Test
+  public void testEpisodeRemoved() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    String SCHUMER_EPISODE_NAME4 = "Not a Real Episode";
+    int SCHUMER_EPISODE_ID4 = 847209;
+
+    addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
+    addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2);
+    addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
+    Episode epFour = addEpisode(series, 4, 4, SCHUMER_EPISODE_NAME4, SCHUMER_EPISODE_ID4);
+    Integer originalId = epFour.id.getValue();
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    tvdbSeriesUpdater.updateSeries();
+
+    TVDBEpisode tvdbEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID4);
+    assertThat(tvdbEpisode)
+        .isNotNull();
+    //noinspection ConstantConditions
+    assertThat(tvdbEpisode.retired.getValue())
+        .isNotEqualTo(0);
+
+    Episode foundEpisode = getRetiredEpisode(originalId);
+
+    assertThat(foundEpisode.tvdbEpisodeId.getValue())
+        .isEqualTo(tvdbEpisode.id.getValue());
+    assertThat(foundEpisode.retired.getValue())
+        .isNotEqualTo(0);
+  }
+
+  @Test
+  public void testInvalidResponseDoesntRemoveEpisodes() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    TVDBLocalJSONProvider tvdbLocalJSONProvider = new TVDBLocalJSONProvider("src\\test\\resources\\TVDBBrokenTest\\");
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
+    addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2);
+    addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl());
+    tvdbSeriesUpdater.updateSeries();
+
+    TVDBEpisode tvdbEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID3);
+    assertThat(tvdbEpisode)
+        .isNotNull();
+    //noinspection ConstantConditions
+    assertThat(tvdbEpisode.retired.getValue())
+        .isEqualTo(0);
+
+    Episode episode = tvdbEpisode.getEpisode(connection);
+    assertThat(episode)
+        .isNotNull();
+    assertThat(episode.retired.getValue())
+        .isEqualTo(0);
+  }
+
+  @Test
+  public void testSuddenEmptyEpisodeList() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    TVDBLocalJSONProvider tvdbLocalJSONProvider = new TVDBLocalJSONProvider("src\\test\\resources\\TVDBEmptyTest\\");
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
+    addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2);
+    addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl());
+    tvdbSeriesUpdater.updateSeries();
+
+    TVDBEpisode tvdbEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID3);
+    assertThat(tvdbEpisode)
+        .isNotNull();
+    //noinspection ConstantConditions
+    assertThat(tvdbEpisode.retired.getValue())
+        .isEqualTo(0);
+
+    Episode episode = tvdbEpisode.getEpisode(connection);
+    assertThat(episode)
+        .isNotNull();
+    assertThat(episode.retired.getValue())
+        .isEqualTo(0);
   }
 
 
@@ -355,6 +454,47 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     episode.title.changeValue(episodeTitle);
     episode.commit(connection);
 
+    return episode;
+  }
+
+  private Person addPerson() throws SQLException {
+    Person person = new Person();
+    person.initializeForInsert();
+    person.email.changeValue("test@test.test");
+    person.firstName.changeValue("Kylo");
+    person.lastName.changeValue("Ren");
+    person.userRole.changeValue("admin");
+    person.commit(connection);
+    return person;
+  }
+
+  private EpisodeRating addRating(Episode episode, Integer personId) throws SQLException {
+    EpisodeRating episodeRating = new EpisodeRating();
+    episodeRating.initializeForInsert();
+    episodeRating.episodeId.changeValue(episode.id.getValue());
+    episodeRating.personId.changeValue(personId);
+    episodeRating.watched.changeValue(true);
+    episodeRating.watchedDate.changeValue(new Date());
+    episodeRating.ratingValue.changeValue(42.0);
+    episodeRating.commit(connection);
+    return episodeRating;
+  }
+
+  private Episode getRetiredEpisode(int episode_id) throws SQLException {
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(
+        "SELECT * " +
+            "FROM episode " +
+            "WHERE id = ? " +
+            "AND retired <> ?",
+        episode_id,
+        0
+    );
+
+    if (!resultSet.next()) {
+      throw new IllegalStateException("No episode found with id of " + episode_id);
+    }
+    Episode episode = new Episode();
+    episode.initializeFromDBObject(resultSet);
     return episode;
   }
 
