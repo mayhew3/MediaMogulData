@@ -41,9 +41,10 @@ public class RetiredEpisodeDataFixer {
         "where te1.id <> te2.id " +
         "and te1.retired <> ? " +
         "and te2.retired = ? " +
+        "and e1.series_title = ? " +
         "order by e1.series_title, e1.season, e1.episode_number";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 0, "Futurama");
     while (resultSet.next()) {
       Episode episode = new Episode();
       episode.initializeFromDBObject(resultSet);
@@ -81,8 +82,8 @@ public class RetiredEpisodeDataFixer {
     EpisodeRating duplicateRating = duplicate.getMostRecentRating(connection);
     return duplicateRating == null &&
         !hasGroupRating(duplicate) &&
-        original.seriesTitle.getValue().equals("Happy Valley") &&
-        original.dateAdded.getValue().before(duplicate.dateAdded.getValue()) &&
+        (original.dateAdded.getValue() == null ||
+            original.dateAdded.getValue().before(duplicate.dateAdded.getValue())) &&
         original.season.getValue().equals(duplicate.season.getValue()) &&
         original.episodeNumber.getValue().equals(duplicate.episodeNumber.getValue());
   }

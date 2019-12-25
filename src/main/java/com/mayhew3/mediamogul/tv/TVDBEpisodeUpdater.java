@@ -88,7 +88,13 @@ class TVDBEpisodeUpdater {
 
     Integer absoluteNumber = jsonReader.getNullableIntegerWithKey(episodeJson, "absoluteNumber");
 
-    tvdbEpisode.tvdbEpisodeExtId.changeValue(tvdbRemoteId);
+    if (tvdbEpisode.tvdbEpisodeExtId.getValue() == null ||
+        tvdbEpisode.tvdbEpisodeExtId.getValue().equals(tvdbRemoteId)) {
+      tvdbEpisode.tvdbEpisodeExtId.changeValue(tvdbRemoteId);
+    } else {
+      throw new RuntimeException("Incoming TVDB episode is changing non-null TVDB external ID, which we don't want.");
+    }
+    
     episode.seriesId.changeValue(seriesId);
 
     updateLinkedFieldsIfNotOverridden(episode.episodeNumber, tvdbEpisode.episodeNumber, episodenumber);

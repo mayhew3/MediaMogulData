@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/EpisodeGroupUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/EpisodeGroupUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +141,7 @@
       <recent name="C:\Code\git\MediaMogulData\src\test\resources\IGDBTest" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RetiredEpisodeDataFixer (heroku)">
+  <component name="RunManager" selected="Application.RetiredEpisodeDataFixer (local)">
     <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
       <module name="media-mogul-data_main" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -2434,10 +2433,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575244043482" />
-    <state x="837" y="142" width="831" height="671" key="#xdebugger.evaluate" timestamp="1577075152606">
+    <state x="837" y="142" width="831" height="671" key="#xdebugger.evaluate" timestamp="1577242227190">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="837" y="142" width="831" height="671" key="#xdebugger.evaluate/0.0.1920.1050@0.0.1920.1050" timestamp="1577075152606" />
+    <state x="837" y="142" width="831" height="671" key="#xdebugger.evaluate/0.0.1920.1050@0.0.1920.1050" timestamp="1577242227190" />
     <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog" timestamp="1576131509265">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2447,45 +2446,45 @@
     </state>
     <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1577084110592" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576040914022" />
-    <state width="1877" height="319" key="GridCell.Tab.0.bottom" timestamp="1577087410289">
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom" timestamp="1577245964111">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="319" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410289" />
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
     <state width="2517" height="365" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="319" key="GridCell.Tab.0.center" timestamp="1577087410289">
+    <state width="1877" height="266" key="GridCell.Tab.0.center" timestamp="1577245964111">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="319" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410289" />
+    <state width="1877" height="266" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
     <state width="2517" height="365" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="319" key="GridCell.Tab.0.left" timestamp="1577087410289">
+    <state width="1877" height="266" key="GridCell.Tab.0.left" timestamp="1577245964111">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="319" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410289" />
+    <state width="1877" height="266" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
     <state width="2517" height="365" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="319" key="GridCell.Tab.0.right" timestamp="1577087410289">
+    <state width="1877" height="266" key="GridCell.Tab.0.right" timestamp="1577245964111">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="319" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410289" />
+    <state width="1877" height="266" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
     <state width="2517" height="365" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.1.bottom" timestamp="1577087410285">
+    <state width="1877" height="266" key="GridCell.Tab.1.bottom" timestamp="1577245964112">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410285" />
+    <state width="1877" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964112" />
     <state width="2517" height="461" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949341" />
-    <state width="1877" height="266" key="GridCell.Tab.1.center" timestamp="1577087410285">
+    <state width="1877" height="266" key="GridCell.Tab.1.center" timestamp="1577245964111">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410285" />
+    <state width="1877" height="266" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
     <state width="2517" height="461" key="GridCell.Tab.1.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949340" />
-    <state width="1877" height="266" key="GridCell.Tab.1.left" timestamp="1577087410285">
+    <state width="1877" height="266" key="GridCell.Tab.1.left" timestamp="1577245964111">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410285" />
+    <state width="1877" height="266" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
     <state width="2517" height="461" key="GridCell.Tab.1.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949340" />
-    <state width="1877" height="266" key="GridCell.Tab.1.right" timestamp="1577087410285">
+    <state width="1877" height="266" key="GridCell.Tab.1.right" timestamp="1577245964112">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1577087410285" />
+    <state width="1877" height="266" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964112" />
     <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949340" />
     <state x="751" y="332" width="585" height="403" key="StructurePopup" timestamp="1577046316704">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -2505,10 +2504,10 @@
     </state>
     <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1577073575186" />
     <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576115831026" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1577084898286">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1577245950672">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1577084898286" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1577245950672" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131383066" />
   </component>
   <component name="XDebuggerManager">
@@ -2548,6 +2547,21 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java</url>
           <line>175</line>
           <option name="timeStamp" value="161" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="162" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java</url>
+          <line>260</line>
+          <option name="timeStamp" value="163" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="164" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
