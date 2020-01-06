@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/group/TVGroupEpisode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/group/TVGroupEpisode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -2446,25 +2446,25 @@
     </state>
     <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1577084110592" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576040914022" />
-    <state width="1877" height="266" key="GridCell.Tab.0.bottom" timestamp="1577245964111">
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom" timestamp="1578335718901">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1578335718901" />
     <state width="2517" height="365" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.0.center" timestamp="1577245964111">
+    <state width="1877" height="266" key="GridCell.Tab.0.center" timestamp="1578335718901">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
+    <state width="1877" height="266" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1578335718901" />
     <state width="2517" height="365" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.0.left" timestamp="1577245964111">
+    <state width="1877" height="266" key="GridCell.Tab.0.left" timestamp="1578335718901">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
+    <state width="1877" height="266" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1578335718901" />
     <state width="2517" height="365" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.0.right" timestamp="1577245964111">
+    <state width="1877" height="266" key="GridCell.Tab.0.right" timestamp="1578335718901">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1577245964111" />
+    <state width="1877" height="266" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1578335718901" />
     <state width="2517" height="365" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
     <state width="1877" height="266" key="GridCell.Tab.1.bottom" timestamp="1577245964112">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -2504,10 +2504,10 @@
     </state>
     <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1577073575186" />
     <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576115831026" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1577245950672">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1578334784305">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1577245950672" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1578334784305" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131383066" />
   </component>
   <component name="XDebuggerManager">
@@ -2549,18 +2549,13 @@
           <option name="timeStamp" value="161" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="162" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java</url>
-          <line>260</line>
+          <line>301</line>
           <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java</url>
-          <line>58</line>
+          <line>61</line>
           <option name="timeStamp" value="164" />
         </line-breakpoint>
       </breakpoints>

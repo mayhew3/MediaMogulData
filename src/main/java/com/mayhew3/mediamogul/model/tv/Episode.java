@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.model.tv;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.model.tv.group.TVGroupEpisode;
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
@@ -133,6 +134,46 @@ public class Episode extends RetireableDataObject {
       throw new ShowFailedException("Episode " + id.getValue() + " has tvdb_episode_id " + tvdbEpisodeId.getValue() + " that wasn't found.");
     }
   }
+
+  public List<EpisodeRating> getEpisodeRatings(SQLConnection connection) throws SQLException {
+    String sql = "select * " +
+        "from episode_rating " +
+        "where episode_id = ? " +
+        "and retired = ? " +
+        "order by id ";
+
+    List<EpisodeRating> episodeRatings = new ArrayList<>();
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), 0);
+
+    while (resultSet.next()) {
+      EpisodeRating episodeRating = new EpisodeRating();
+      episodeRating.initializeFromDBObject(resultSet);
+
+      episodeRatings.add(episodeRating);
+    }
+    return episodeRatings;
+  }
+
+  public List<TVGroupEpisode> getTVGroupEpisodes(SQLConnection connection) throws SQLException {
+    String sql = "select * " +
+        "from tv_group_episode " +
+        "where episode_id = ? " +
+        "and retired = ? ";
+
+    List<TVGroupEpisode> tvGroupEpisodes = new ArrayList<>();
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), 0);
+
+    while (resultSet.next()) {
+      TVGroupEpisode tvGroupEpisode = new TVGroupEpisode();
+      tvGroupEpisode.initializeFromDBObject(resultSet);
+
+      tvGroupEpisodes.add(tvGroupEpisode);
+    }
+    return tvGroupEpisodes;
+  }
+
 
   public Series getSeries(SQLConnection connection) throws SQLException, ShowFailedException {
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch("SELECT * FROM series WHERE id = ?", seriesId.getValue());

@@ -8,8 +8,8 @@ import com.mayhew3.mediamogul.model.tv.Episode;
 public class TVGroupEpisode extends RetireableDataObject {
 
   /* Data */
-  private FieldValueForeignKey tv_group_id = registerForeignKey(new TVGroup(), Nullability.NOT_NULL);
-  private FieldValueForeignKey episode_id = registerForeignKey(new Episode(), Nullability.NOT_NULL);
+  public FieldValueForeignKey tv_group_id = registerForeignKey(new TVGroup(), Nullability.NOT_NULL);
+  public FieldValueForeignKey episode_id = registerForeignKey(new Episode(), Nullability.NOT_NULL);
 
 
   public TVGroupEpisode() {

@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv.utility;
 import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.EpisodeRating;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
+import com.mayhew3.mediamogul.model.tv.group.TVGroupEpisode;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -13,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Objects;
 
 public class RetiredEpisodeDataFixer {
   private SQLConnection connection;
@@ -44,12 +47,12 @@ public class RetiredEpisodeDataFixer {
         "and e1.series_title = ? " +
         "order by e1.series_title, e1.season, e1.episode_number";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 0, "Futurama");
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 0, "Lost");
     while (resultSet.next()) {
       Episode episode = new Episode();
       episode.initializeFromDBObject(resultSet);
 
-      logger.debug("Un-retiring episode: " + episode);
+      logger.debug("Examining episode: " + episode);
 
       TVDBEpisode tvdbEpisode = getRetiredTVDBEpisode(episode.tvdbEpisodeId.getValue());
 
@@ -57,7 +60,12 @@ public class RetiredEpisodeDataFixer {
       TVDBEpisode dupeTVDBEpisode = duplicate.getTVDBEpisode(connection);
 
       if (shouldFix(episode, duplicate)) {
-        swapEpisodes(episode, tvdbEpisode, duplicate, dupeTVDBEpisode);
+        if (shouldUnRetire(tvdbEpisode, dupeTVDBEpisode)) {
+          swapEpisodes(episode, tvdbEpisode, duplicate, dupeTVDBEpisode);
+        } else {
+          moveRatings(episode, duplicate);
+        }
+
         logger.debug("Finished swapping!");
       } else {
         logger.debug("Skipping episode.");
@@ -78,6 +86,20 @@ public class RetiredEpisodeDataFixer {
     episode.commit(connection);
   }
 
+  private void moveRatings(Episode original, Episode duplicate) throws SQLException {
+    List<EpisodeRating> episodeRatings = original.getEpisodeRatings(connection);
+    List<TVGroupEpisode> tvGroupEpisodes = original.getTVGroupEpisodes(connection);
+
+    for (EpisodeRating episodeRating : episodeRatings) {
+      episodeRating.episodeId.changeValue(duplicate.id.getValue());
+      episodeRating.commit(connection);
+    }
+    for (TVGroupEpisode tvGroupEpisode : tvGroupEpisodes) {
+      tvGroupEpisode.episode_id.changeValue(duplicate.id.getValue());
+      tvGroupEpisode.commit(connection);
+    }
+  }
+
   private boolean shouldFix(Episode original, Episode duplicate) throws SQLException {
     EpisodeRating duplicateRating = duplicate.getMostRecentRating(connection);
     return duplicateRating == null &&
@@ -86,6 +108,10 @@ public class RetiredEpisodeDataFixer {
             original.dateAdded.getValue().before(duplicate.dateAdded.getValue())) &&
         original.season.getValue().equals(duplicate.season.getValue()) &&
         original.episodeNumber.getValue().equals(duplicate.episodeNumber.getValue());
+  }
+
+  private boolean shouldUnRetire(TVDBEpisode original, TVDBEpisode duplicate) {
+    return Objects.equals(original.tvdbEpisodeExtId.getValue(), duplicate.tvdbEpisodeExtId.getValue());
   }
 
   private boolean hasGroupRating(Episode episode) throws SQLException {
