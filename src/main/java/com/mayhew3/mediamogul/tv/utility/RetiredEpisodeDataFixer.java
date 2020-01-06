@@ -36,18 +36,12 @@ public class RetiredEpisodeDataFixer {
   }
 
   private void runUpdate() throws SQLException, ShowFailedException {
-    String sql = "select e1.* " +
-        "from episode e1 " +
-        "inner join tvdb_episode te1 on e1.tvdb_episode_id = te1.id " +
-        "inner join tvdb_episode te2 on te1.tvdb_episode_ext_id = te2.tvdb_episode_ext_id " +
-        "inner join episode e2 on e2.tvdb_episode_id = te2.id " +
-        "where te1.id <> te2.id " +
-        "and te1.retired <> ? " +
-        "and te2.retired = ? " +
-        "and e1.series_title = ? " +
-        "order by e1.series_title, e1.season, e1.episode_number";
+    String sql = "SELECT e.* " +
+        "FROM episode e " +
+        "WHERE e.retired <> ? " +
+        "AND e.id IN (SELECT episode_id FROM episode_rating WHERE retired = ?) ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 0, "Lost");
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 0);
     while (resultSet.next()) {
       Episode episode = new Episode();
       episode.initializeFromDBObject(resultSet);
@@ -133,7 +127,8 @@ public class RetiredEpisodeDataFixer {
     String sql = "select e2.* " +
         "from episode e1 " +
         "inner join tvdb_episode te1 on e1.tvdb_episode_id = te1.id " +
-        "inner join tvdb_episode te2 on te1.tvdb_episode_ext_id = te2.tvdb_episode_ext_id " +
+        "inner join tvdb_episode te2 on (te1.tvdb_episode_ext_id = te2.tvdb_episode_ext_id" +
+        "                               OR (te1.season_number = te2.season_number AND te1.episode_number = te2.episode_number AND te1.tvdb_series_id = te2.tvdb_series_id)) " +
         "inner join episode e2 on e2.tvdb_episode_id = te2.id " +
         "where te1.id <> te2.id " +
         "and te1.retired <> ? " +
@@ -144,6 +139,10 @@ public class RetiredEpisodeDataFixer {
     if (resultSet.next()) {
       Episode duplicate = new Episode();
       duplicate.initializeFromDBObject(resultSet);
+
+      if (resultSet.next()) {
+        throw new IllegalStateException("Found more than one duplicate for episode: " + episode);
+      }
       return duplicate;
     } else {
       throw new IllegalStateException("No duplicate found for episode " + episode);
