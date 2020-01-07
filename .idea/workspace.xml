@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/RetiredEpisodeDataFixer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUploadRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUploadRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,52 +107,41 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml&#10;D:/Code/git/media-mogul-data/scripts/media-mogul-data CMD.lnk" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;XML" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../postgresobject" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../postgres-object" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29883382" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Code\git\MediaMogulData\src\test\resources\TVDBBrokenTest" />
-      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
-      <recent name="C:\Code\git\MediaMogulData\resources" />
-      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
-      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.mayhew3.mediamogul.games" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Code\git\MediaMogulData\scripts" />
+      <recent name="C:\Code\git\MediaMogulData\src\test\resources\IGDBTest" />
+      <recent name="C:\Code\git\MediaMogulData\resources\localLogging" />
+      <recent name="D:\Code\git\media-mogul-data" />
+      <recent name="C:\Code\git\oscars-data\scripts" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.mayhew3.mediamogul.tv.provider" />
       <recent name="com.mayhew3.mediamogul.model" />
       <recent name="com.mayhew3.mediamogul.games" />
       <recent name="com.mayhew3.mediamogul.model.games" />
       <recent name="com.mayhew3.mediamogul.dataobject" />
+      <recent name="com.mayhew3.mediamogul.model.tv.group" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Code\git\MediaMogulData\src\test\resources" />
-      <recent name="C:\Code\git\MediaMogulData\src\test\resources\TVDBBrokenTest" />
-      <recent name="C:\Code\git\MediaMogulData\src\test\resources\TVDBTest" />
-      <recent name="C:\Code\git\MediaMogulData\scripts" />
-      <recent name="C:\Code\git\MediaMogulData\src\test\resources\IGDBTest" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
+      <recent name="C:\Code\git\MediaMogulData\resources" />
+      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
+      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
+      <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RetiredEpisodeDataFixer (heroku)">
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <module name="media-mogul-data_main" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.CloudinaryUploader (local/single)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -869,44 +860,6 @@
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.QuickBatchUpdater" />
       <module name="media-mogul-data_main" />
       <option name="PROGRAM_PARAMETERS" value="-db Test" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RetiredEpisodeDataFixer (heroku)" type="Application" factoryName="Application">
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.utility.RetiredEpisodeDataFixer" />
-      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Heroku" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mayhew3.mediamogul.tv.utility.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RetiredEpisodeDataFixer (local)" type="Application" factoryName="Application">
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.utility.RetiredEpisodeDataFixer" />
-      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Local" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mayhew3.mediamogul.tv.utility.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -1803,6 +1756,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <module name="media-mogul-data_main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="media-mogul-data [assemble]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -1865,6 +1829,27 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="All in com.mayhew3.mediamogul.media-mogul-data.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DatabaseRecreatorTest (Demo)" type="JUnit" factoryName="JUnit">
       <module name="media-mogul-data_test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.dataobject" />
@@ -1904,6 +1889,33 @@
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="postgresURL_local_demo" value="jdbc:postgresql://localhost:5434/tv_demo?user=postgres&amp;password=m3mysql" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchemaEndToEndTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mayhew3.mediamogul.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaEndToEndTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
       </envs>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -1970,6 +1982,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SteamUpdaterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mayhew3.mediamogul.games.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamUpdaterTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SteamUpdaterTest.testNewSteamGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
       <extension name="coverage">
@@ -2003,114 +2042,6 @@
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBSeriesUpdaterTest.testEpisodeRemoved" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
-      <option name="METHOD_NAME" value="testEpisodeRemoved" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
-      <option name="METHOD_NAME" value="testIDChangedForTVDBEpisode" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBSeriesUpdaterTest.testInvalidResponseDoesntRemoveEpisodes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
-      <option name="METHOD_NAME" value="testInvalidResponseDoesntRemoveEpisodes" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TVDBSeriesUpdaterTest.testSuddenEmptyEpisodeList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
-      <option name="METHOD_NAME" value="testSuddenEmptyEpisodeList" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -2297,8 +2228,6 @@
       <item itemvalue="Application.NewSeriesChecker (local)" />
       <item itemvalue="Application.NewSeriesChecker (staging)" />
       <item itemvalue="Application.EndToEndDatabaseCreator" />
-      <item itemvalue="Application.RetiredEpisodeDataFixer (local)" />
-      <item itemvalue="Application.RetiredEpisodeDataFixer (heroku)" />
       <item itemvalue="Gradle.media-mogul-data [assemble]" />
       <item itemvalue="Gradle.media-mogul-data [build]" />
       <item itemvalue="Gradle.media-mogul-data [stage]" />
@@ -2311,19 +2240,17 @@
       <item itemvalue="JUnit.DatabaseRecreatorTest (Demo)" />
       <item itemvalue="JUnit.DatabaseRecreatorTest (Test)" />
       <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
+      <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
+      <item itemvalue="JUnit.SteamUpdaterTest" />
+      <item itemvalue="JUnit.SchemaEndToEndTest" />
       <item itemvalue="JUnit.SteamUpdaterTest.testNewSteamGame" />
-      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" />
-      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeRemoved" />
-      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testInvalidResponseDoesntRemoveEpisodes" />
-      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testSuddenEmptyEpisodeList" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testSuddenEmptyEpisodeList" />
-        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testInvalidResponseDoesntRemoveEpisodes" />
-        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeRemoved" />
-        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" />
         <item itemvalue="JUnit.SteamUpdaterTest.testNewSteamGame" />
+        <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
+        <item itemvalue="JUnit.SteamUpdaterTest" />
+        <item itemvalue="JUnit.SchemaEndToEndTest" />
       </list>
     </recent_temporary>
   </component>
@@ -2410,10 +2337,6 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="183" key="#Notifications/0.0.1920.1050@0.0.1920.1050" timestamp="1575244031777" />
-    <state x="671" y="171" key="#RetiredEpisodeDataFixer" timestamp="1577084813807">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="671" y="171" key="#RetiredEpisodeDataFixer/0.0.1920.1050@0.0.1920.1050" timestamp="1577084813807" />
     <state x="677" y="183" key="#TVDBUpdateFinder_(heroku)" timestamp="1575157136989">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2422,91 +2345,81 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="677" y="183" key="#TVDBUpdateFinder_(local)/0.0.1920.1050@0.0.1920.1050" timestamp="1575157166384" />
-    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577087365860">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576131621915">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1577087365860" />
-    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131510306" />
+    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575157161005" />
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131621915" />
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575244043482">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575244043482" />
-    <state x="837" y="142" width="831" height="671" key="#xdebugger.evaluate" timestamp="1577242227190">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="837" y="142" width="831" height="671" key="#xdebugger.evaluate/0.0.1920.1050@0.0.1920.1050" timestamp="1577242227190" />
-    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog" timestamp="1576131509265">
+    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog" timestamp="1576131620346">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131509265" />
-    <state x="795" y="342" key="FileChooserDialogImpl" timestamp="1577084110592">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131620346" />
+    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1576040914022">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1577084110592" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576040914022" />
-    <state width="1877" height="266" key="GridCell.Tab.0.bottom" timestamp="1578343590014">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="461" key="GridCell.Tab.0.bottom" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1578343590014" />
-    <state width="2517" height="365" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.0.center" timestamp="1578343590014">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
+    <state width="2517" height="461" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state width="2517" height="461" key="GridCell.Tab.0.center" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1578343590014" />
-    <state width="2517" height="365" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.0.left" timestamp="1578343590014">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
+    <state width="2517" height="461" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state width="2517" height="461" key="GridCell.Tab.0.left" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1578343590014" />
-    <state width="2517" height="365" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.0.right" timestamp="1578343590014">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
+    <state width="2517" height="461" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state width="2517" height="461" key="GridCell.Tab.0.right" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1578343590014" />
-    <state width="2517" height="365" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131391708" />
-    <state width="1877" height="266" key="GridCell.Tab.1.bottom" timestamp="1578343577018">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
+    <state width="2517" height="461" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state width="2517" height="461" key="GridCell.Tab.1.bottom" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1578343577018" />
-    <state width="2517" height="461" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949341" />
-    <state width="1877" height="266" key="GridCell.Tab.1.center" timestamp="1578343577017">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="2517" height="461" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state width="2517" height="461" key="GridCell.Tab.1.center" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1578343577017" />
-    <state width="2517" height="461" key="GridCell.Tab.1.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949340" />
-    <state width="1877" height="266" key="GridCell.Tab.1.left" timestamp="1578343577017">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="2517" height="461" key="GridCell.Tab.1.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state width="2517" height="461" key="GridCell.Tab.1.left" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1578343577017" />
-    <state width="2517" height="461" key="GridCell.Tab.1.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949340" />
-    <state width="1877" height="266" key="GridCell.Tab.1.right" timestamp="1578343577017">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225184" />
+    <state width="2517" height="461" key="GridCell.Tab.1.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state width="2517" height="461" key="GridCell.Tab.1.right" timestamp="1578433588115">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="266" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1578343577017" />
-    <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576111949340" />
-    <state x="751" y="332" width="585" height="403" key="StructurePopup" timestamp="1577046316704">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state x="781" y="347" key="SettingsEditor" timestamp="1578432794374">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="751" y="332" width="585" height="403" key="StructurePopup/0.0.1920.1050@0.0.1920.1050" timestamp="1577046316704" />
-    <state x="1001" y="446" width="585" height="540" key="StructurePopup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576112592892" />
-    <state x="567" y="135" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1577083745178">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="781" y="347" key="SettingsEditor/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578432794374" />
+    <state x="1001" y="446" width="585" height="540" key="StructurePopup" timestamp="1578433238109">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="567" y="135" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1577083745178" />
-    <state x="690" y="269" key="extract.method.dialog" timestamp="1577085144608">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="1001" y="446" width="585" height="540" key="StructurePopup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433238109" />
+    <state x="875" y="352" width="836" height="750" key="find.popup" timestamp="1576115831026">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="690" y="269" key="extract.method.dialog/0.0.1920.1050@0.0.1920.1050" timestamp="1577085144608" />
-    <state x="656" y="262" width="627" height="558" key="find.popup" timestamp="1577073575186">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1577073575186" />
+    <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245320181" />
     <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576115831026" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1578334784305">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1578433232534">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1578334784305" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131383066" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575302063442" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433232534" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2537,6 +2450,11 @@
           <option name="timeStamp" value="148" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdaterTest.java</url>
+          <line>278</line>
+          <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.mayhew3/Postgres-Object/0.10.2/e3fe3be91887d2a515ab3de8408fa1b568559371/Postgres-Object-0.10.2-tests.jar!/com/mayhew3/postgresobject/model/SchemaTest.class</url>
           <line>33</line>
           <option name="timeStamp" value="153" />
@@ -2545,6 +2463,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java</url>
           <line>175</line>
           <option name="timeStamp" value="161" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="163" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

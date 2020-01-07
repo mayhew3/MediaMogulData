@@ -67,7 +67,7 @@ public class CloudinaryUpdater {
           series.commit(connection);
         } else {
           Optional<TVDBPoster> linkedPoster = series.getLinkedPoster(connection);
-          if (linkedPoster.isPresent()) {
+          if (linkedPoster.isPresent() && series.tvdbPosterId.getValue() == null) {
             series.tvdbPosterId.changeValue(linkedPoster.get().id.getValue());
             series.commit(connection);
           }
