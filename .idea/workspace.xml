@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUploadRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUploadRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -2402,24 +2400,28 @@
     </state>
     <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
     <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433588115" />
+    <state x="947" y="341" key="RollbackChangesDialog" timestamp="1578435820593">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="947" y="341" key="RollbackChangesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578435820593" />
     <state x="781" y="347" key="SettingsEditor" timestamp="1578432794374">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="781" y="347" key="SettingsEditor/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578432794374" />
-    <state x="1001" y="446" width="585" height="540" key="StructurePopup" timestamp="1578433238109">
+    <state x="1001" y="446" width="585" height="540" key="StructurePopup" timestamp="1578434066948">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1001" y="446" width="585" height="540" key="StructurePopup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433238109" />
-    <state x="875" y="352" width="836" height="750" key="find.popup" timestamp="1576115831026">
+    <state x="1001" y="446" width="585" height="540" key="StructurePopup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578434066948" />
+    <state x="875" y="352" width="836" height="750" key="find.popup" timestamp="1578434891397">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245320181" />
-    <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576115831026" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1578433232534">
+    <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578434891397" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1578435837101">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575302063442" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578433232534" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578435837101" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2463,11 +2465,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBUpdateRunner.java</url>
           <line>175</line>
           <option name="timeStamp" value="161" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/CloudinaryUpdater.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="163" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
