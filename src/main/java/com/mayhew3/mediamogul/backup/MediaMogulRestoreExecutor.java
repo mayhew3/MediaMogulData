@@ -7,10 +7,13 @@ import com.mayhew3.postgresobject.db.DataRestoreExecutor;
 import com.mayhew3.postgresobject.db.DataRestoreLocalExecutor;
 import com.mayhew3.postgresobject.db.DataRestoreRemoteExecutor;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 
 public class MediaMogulRestoreExecutor {
+
+  private static DateTime backupDate = new DateTime(2019, 12, 30, 0, 0, 0);
 
   private static String restoreEnv;
 
@@ -20,19 +23,34 @@ public class MediaMogulRestoreExecutor {
     argumentChecker.removeExpectedOption("db");
     argumentChecker.addExpectedOption("backupEnv", true, "Name of environment to backup (local, heroku, heroku-staging)");
     argumentChecker.addExpectedOption("restoreEnv", true, "Name of environment to restore (local, heroku, heroku-staging)");
+    argumentChecker.addExpectedOption("oldBackup", true, "Whether to restore older backup, using date above.");
 
     String backupEnv = argumentChecker.getRequiredValue("backupEnv");
     restoreEnv = argumentChecker.getRequiredValue("restoreEnv");
+    boolean oldBackup = Boolean.parseBoolean(argumentChecker.getRequiredValue("oldBackup"));
 
     if (isLocal()) {
       String localDBName = getLocalDBNameFromEnv(restoreEnv);
-      DataRestoreExecutor dataRestoreExecutor = new DataRestoreLocalExecutor(
-          restoreEnv,
-          backupEnv,
-          11,
-          "MediaMogul",
-          localDBName);
-      dataRestoreExecutor.runUpdate();
+
+      if (oldBackup) {
+        DataRestoreExecutor dataRestoreExecutor = new DataRestoreLocalExecutor(
+            restoreEnv,
+            backupEnv,
+            11,
+            "MediaMogul",
+            localDBName,
+            backupDate);
+        dataRestoreExecutor.runUpdate();
+      } else {
+        DataRestoreExecutor dataRestoreExecutor = new DataRestoreLocalExecutor(
+            restoreEnv,
+            backupEnv,
+            11,
+            "MediaMogul",
+            localDBName);
+        dataRestoreExecutor.runUpdate();
+      }
+
     } else {
       String appNameFromEnv = getAppNameFromEnv(restoreEnv);
       String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
