@@ -217,7 +217,8 @@ public class TVDBSeriesUpdater {
 
         for (int i = 0; i < episodeArray.length(); i++) {
           JSONObject episode = episodeArray.getJSONObject(i);
-          tvdb_ids.add(episode.getInt("id"));
+          int id = episode.getInt("id");
+          tvdb_ids.add(id);
           updateEpisode(episode);
         }
       } catch (Exception e) {
@@ -243,9 +244,27 @@ public class TVDBSeriesUpdater {
         .findAny();
   }
 
-  private Optional<TVDBEpisode> findReplacement(TVDBEpisode original) {
-    Set<TVDBEpisode> added = tvdbEpisodes.stream()
-        .filter(tvdbEpisode -> !originalTVDBIDs.contains(tvdbEpisode.tvdbEpisodeExtId.getValue()))
+  private TVDBEpisode getTVDBEpisodeFromExtID(Integer tvdb_episode_ext_id) {
+    // todo: fix retired pre-populate
+    List<TVDBEpisode> tvdbEpisodes = this.tvdbEpisodes.stream()
+        .filter(tvdbEpisode -> tvdb_episode_ext_id.equals(tvdbEpisode.tvdbEpisodeExtId.getValue()) && tvdbEpisode.retired.getValue() == null)
+        .collect(Collectors.toList());
+    if (tvdbEpisodes.size() == 1) {
+      return tvdbEpisodes.get(0);
+    } else {
+      throw new IllegalStateException("Expected exactly one un-retired tvdb_episode with ext_id: " + tvdb_episode_ext_id + ". Found " + tvdbEpisodes.size() + ".");
+    }
+  }
+
+  private Optional<TVDBEpisode> findReplacement(TVDBEpisode original, Set<Integer> tvdb_ids) {
+    /*
+    List<TVDBEpisode> withoutSelf = this.tvdbEpisodes.stream()
+        .filter(tvdbEpisode -> !original.id.getValue().equals(tvdbEpisode.id.getValue()))
+        .collect(Collectors.toList());
+    */
+    Set<TVDBEpisode> added = tvdb_ids.stream()
+        .filter(tvdb_id -> !originalTVDBIDs.contains(tvdb_id))
+        .map(this::getTVDBEpisodeFromExtID)
         .collect(Collectors.toSet());
     List<TVDBEpisode> matches = added.stream()
         .filter(tvdbEpisode -> original.seasonNumber.getValue().equals(tvdbEpisode.seasonNumber.getValue()) &&
@@ -273,7 +292,7 @@ public class TVDBSeriesUpdater {
         Episode episode = maybeEpisode.get();
 
         if (hasRatings(episode)) {
-          Optional<TVDBEpisode> replacement = findReplacement(tvdbEpisode);
+          Optional<TVDBEpisode> replacement = findReplacement(tvdbEpisode, tvdb_ids);
           if (replacement.isPresent()) {
             Optional<Episode> replacementEpisode = getEpisodeFromTVDBEpisode(replacement.get());
             if (replacementEpisode.isPresent()) {

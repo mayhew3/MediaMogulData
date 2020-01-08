@@ -135,8 +135,10 @@ class TVDBEpisodeUpdater {
 
     tvdbEpisode.apiVersion.changeValue(2);
 
+    if (tvdbEpisode.isForInsert()) {
+      tvdbEpisodes.add(tvdbEpisode);
+    }
     tvdbEpisode.commit(connection);
-
 
     episode.seriesTitle.changeValueFromString(series.seriesTitle.getValue());
     episode.tvdbEpisodeId.changeValue(tvdbEpisode.id.getValue());
@@ -150,6 +152,7 @@ class TVDBEpisodeUpdater {
     }
 
     episode.commit(connection);
+    episodes.add(episode);
 
     Integer episodeId = tvdbEpisode.id.getValue();
 
@@ -215,20 +218,7 @@ class TVDBEpisodeUpdater {
 
   private Optional<TVDBEpisode> findExistingTVDBEpisode() {
     int tvdbEpisodeExtId = episodeJson.getInt("id");
-    Optional<TVDBEpisode> existingTVDBEpisodeByTVDBID = findExistingTVDBEpisodeByTVDBID(tvdbEpisodeExtId);
-    if (existingTVDBEpisodeByTVDBID.isPresent()) {
-      return existingTVDBEpisodeByTVDBID;
-    } else {
-      @NotNull Integer episodeNumber = jsonReader.getIntegerWithKey(episodeJson, "airedEpisodeNumber");
-      @NotNull Integer seasonNumber = jsonReader.getIntegerWithKey(episodeJson, "airedSeason");
-
-      Optional<TVDBEpisode> existingTVDBEpisodeByEpisodeNumber = findExistingTVDBEpisodeByEpisodeNumber(episodeNumber, seasonNumber);
-      if (existingTVDBEpisodeByEpisodeNumber.isPresent()) {
-        return existingTVDBEpisodeByEpisodeNumber;
-      }
-    }
-
-    return Optional.empty();
+    return findExistingTVDBEpisodeByTVDBID(tvdbEpisodeExtId);
   }
 
   private Optional<TVDBEpisode> findExistingTVDBEpisodeByTVDBID(Integer tvdbEpisodeExtId) {
