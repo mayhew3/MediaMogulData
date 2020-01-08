@@ -247,7 +247,7 @@ public class TVDBSeriesUpdater {
   private TVDBEpisode getTVDBEpisodeFromExtID(Integer tvdb_episode_ext_id) {
     // todo: fix retired pre-populate
     List<TVDBEpisode> tvdbEpisodes = this.tvdbEpisodes.stream()
-        .filter(tvdbEpisode -> tvdb_episode_ext_id.equals(tvdbEpisode.tvdbEpisodeExtId.getValue()) && tvdbEpisode.retired.getValue() == null)
+        .filter(tvdbEpisode -> tvdb_episode_ext_id.equals(tvdbEpisode.tvdbEpisodeExtId.getValue()) && tvdbEpisode.retired.getValue() == 0)
         .collect(Collectors.toList());
     if (tvdbEpisodes.size() == 1) {
       return tvdbEpisodes.get(0);
@@ -257,11 +257,6 @@ public class TVDBSeriesUpdater {
   }
 
   private Optional<TVDBEpisode> findReplacement(TVDBEpisode original, Set<Integer> tvdb_ids) {
-    /*
-    List<TVDBEpisode> withoutSelf = this.tvdbEpisodes.stream()
-        .filter(tvdbEpisode -> !original.id.getValue().equals(tvdbEpisode.id.getValue()))
-        .collect(Collectors.toList());
-    */
     Set<TVDBEpisode> added = tvdb_ids.stream()
         .filter(tvdb_id -> !originalTVDBIDs.contains(tvdb_id))
         .map(this::getTVDBEpisodeFromExtID)
