@@ -55,7 +55,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     // fake ID - use so that XML will find a different ID and change it and not add a new episode with same episode number.
     Integer originalID = 5;
 
-    Episode firstEpisode = addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
+    addEpisode(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1);
     Episode secondEpisode = addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, originalID);
     addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
 
