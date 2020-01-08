@@ -19,6 +19,7 @@ import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -58,34 +59,45 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     Episode secondEpisode = addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, originalID);
     addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
 
-    EpisodeRating firstRating = addRating(firstEpisode, person.id.getValue());
     EpisodeRating secondRating = addRating(secondEpisode, person.id.getValue());
 
     TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
     tvdbSeriesUpdater.updateSeries();
 
-    TVDBEpisode retiredEpisode = findTVDBEpisodeWithTVDBID(originalID);
-    assertThat(retiredEpisode)
-        .isNull();
-
-    TVDBEpisode updatedEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID2);
-    assertThat(updatedEpisode)
+    TVDBEpisode retiredTVDBEpisode = findTVDBEpisodeWithTVDBID(originalID);
+    assertThat(retiredTVDBEpisode)
         .isNotNull();
     //noinspection ConstantConditions
-    assertThat(updatedEpisode.retired.getValue())
-        .isEqualTo(0);
-    assertThat(updatedEpisode.seasonNumber.getValue())
+    assertThat(retiredTVDBEpisode.retired.getValue())
+        .isNotEqualTo(0);
+    assertThat(retiredTVDBEpisode.seasonNumber.getValue())
         .isEqualTo(4);
-    assertThat(updatedEpisode.episodeNumber.getValue())
+    assertThat(retiredTVDBEpisode.episodeNumber.getValue())
         .isEqualTo(2);
 
-    Episode foundFirst = firstRating.getEpisode(connection);
-    assertThat(foundFirst.retired.getValue())
+    TVDBEpisode updatedTVDBEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID2);
+    assertThat(updatedTVDBEpisode)
+        .isNotNull();
+    //noinspection ConstantConditions
+    assertThat(updatedTVDBEpisode.retired.getValue())
         .isEqualTo(0);
+    assertThat(updatedTVDBEpisode.seasonNumber.getValue())
+        .isEqualTo(4);
+    assertThat(updatedTVDBEpisode.episodeNumber.getValue())
+        .isEqualTo(2);
 
-    Episode foundSecond = secondRating.getEpisode(connection);
-    assertThat(foundSecond.retired.getValue())
-        .isEqualTo(0);
+    Episode retiredEpisode = getRetiredEpisode(secondEpisode.id.getValue());
+    List<EpisodeRating> originalRatings = retiredEpisode.getEpisodeRatings(connection);
+    assertThat(originalRatings)
+        .isEmpty();
+
+    Episode updatedEpisode = updatedTVDBEpisode.getEpisode(connection);
+    List<EpisodeRating> updatedRatings = updatedEpisode.getEpisodeRatings(connection);
+    assertThat(updatedRatings)
+        .hasSize(1);
+    EpisodeRating episodeRating = updatedRatings.get(0);
+    assertThat(episodeRating.id.getValue())
+        .isEqualTo(secondRating.id.getValue());
   }
 
   @Test
