@@ -23,4 +23,14 @@ public class TVDBMigrationLogFactory extends ArchiveableFactory<TVDBMigrationLog
   public String dateColumnName() {
     return "date_added";
   }
+
+  @Override
+  public String otherColumnName() {
+    return null;
+  }
+
+  @Override
+  public Object otherColumnValue() {
+    return null;
+  }
 }

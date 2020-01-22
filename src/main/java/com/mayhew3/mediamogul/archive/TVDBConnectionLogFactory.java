@@ -23,4 +23,14 @@ public class TVDBConnectionLogFactory extends ArchiveableFactory<TVDBConnectionL
   public String dateColumnName() {
     return "start_time";
   }
+
+  @Override
+  public String otherColumnName() {
+    return null;
+  }
+
+  @Override
+  public Object otherColumnValue() {
+    return null;
+  }
 }
