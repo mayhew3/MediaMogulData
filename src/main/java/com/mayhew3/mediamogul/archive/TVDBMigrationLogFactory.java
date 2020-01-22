@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.archive;
 
 import com.mayhew3.mediamogul.model.tv.TVDBMigrationLog;
+import com.mayhew3.postgresobject.db.ArchiveableFactory;
 
 public class TVDBMigrationLogFactory extends ArchiveableFactory<TVDBMigrationLog> {
   @Override

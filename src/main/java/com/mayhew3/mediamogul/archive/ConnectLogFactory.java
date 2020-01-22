@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.archive;
 
 import com.mayhew3.mediamogul.model.tv.ConnectLog;
+import com.mayhew3.postgresobject.db.ArchiveableFactory;
 
 public class ConnectLogFactory extends ArchiveableFactory<ConnectLog> {
   @Override

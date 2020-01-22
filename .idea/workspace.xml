@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="" />
+    <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/ArchiveableFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/ConnectLogFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/ConnectLogFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/OldDataArchiveRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/OldDataArchiveRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/TVDBConnectionLogFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/TVDBConnectionLogFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/TVDBMigrationLogFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/archive/TVDBMigrationLogFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,8 +111,8 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml&#10;D:/Code/git/media-mogul-data/scripts/media-mogul-data CMD.lnk" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;XML" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../postgres-object" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../oscars-data" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29883382" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -136,7 +145,7 @@
       <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TVDBSeriesUpdaterTest">
+  <component name="RunManager" selected="Application.OldDataArchiveRunner (Local)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -366,7 +375,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.backup.MediaMogulRestoreExecutor" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
-      <option name="PROGRAM_PARAMETERS" value="-restoreEnv heroku-staging -backupEnv heroku" />
+      <option name="PROGRAM_PARAMETERS" value="-restoreEnv heroku-staging -backupEnv heroku -oldBackup false" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -2138,20 +2147,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.DataBackupExecutor (local)" />
       <item itemvalue="Application.DataBackupExecutor (e2e)" />
-      <item itemvalue="Application.DataBackupExecutor (staging)" />
       <item itemvalue="Application.DataBackupExecutor (heroku)" />
-      <item itemvalue="Application.DataRestoreExecutor (local from heroku)" />
+      <item itemvalue="Application.DataBackupExecutor (local)" />
+      <item itemvalue="Application.DataBackupExecutor (staging)" />
       <item itemvalue="Application.DataRestoreExecutor (local from heroku, PAST backup)" />
+      <item itemvalue="Application.DataRestoreExecutor (local from heroku)" />
       <item itemvalue="Application.DataRestoreExecutor (local from local)" />
       <item itemvalue="Application.DataRestoreExecutor (staging from heroku)" />
       <item itemvalue="Application.CloudinaryUploader (heroku/full)" />
       <item itemvalue="Application.CloudinaryUploader (heroku/quick)" />
       <item itemvalue="Application.CloudinaryUploader (heroku/single)" />
+      <item itemvalue="Application.CloudinaryUploader (local/full)" />
       <item itemvalue="Application.CloudinaryUploader (local/quick)" />
       <item itemvalue="Application.CloudinaryUploader (local/single)" />
-      <item itemvalue="Application.CloudinaryUploader (local/full)" />
       <item itemvalue="Application.CloudinaryUploader (staging/full)" />
       <item itemvalue="Application.GamePostgresMongoSyncer" />
       <item itemvalue="Application.GiantBombUpdater (Local\SingleGame)" />
@@ -2160,15 +2169,15 @@
       <item itemvalue="Application.GiantBombUpdater" />
       <item itemvalue="Application.HowLongToBeatUpdateRunner (Heroku/FullMode)" />
       <item itemvalue="Application.HowLongToBeatUpdateRunner (heroku/quick)" />
+      <item itemvalue="Application.HowLongToBeatUpdateRunner (heroku/single)" />
       <item itemvalue="Application.HowLongToBeatUpdateRunner (local/quick)" />
       <item itemvalue="Application.HowLongToBeatUpdateRunner (local/single)" />
-      <item itemvalue="Application.HowLongToBeatUpdateRunner (heroku/single)" />
       <item itemvalue="Application.MetacriticGameUpdateRunner" />
       <item itemvalue="Application.SteamAttributeUpdateRunner (local/full)" />
+      <item itemvalue="Application.SteamGameUpdateRunner" />
       <item itemvalue="Application.SteamGameUpdater (LogToFile)" />
       <item itemvalue="Application.SteamGameUpdater (local)" />
       <item itemvalue="Application.SteamGameUpdater (test/LogToFile)" />
-      <item itemvalue="Application.SteamGameUpdateRunner" />
       <item itemvalue="Application.SteamPlaySessionGenerator (heroku)" />
       <item itemvalue="Application.SteamPlaySessionGenerator (local)" />
       <item itemvalue="Application.IGDBUpdateRunner (heroku/sanity)" />
@@ -2185,13 +2194,13 @@
       <item itemvalue="Application.TiVoCommunicator (Local/Quick)" />
       <item itemvalue="Application.TiVoLibraryUpdater (Quick)" />
       <item itemvalue="Application.TiVoLibraryUpdater" />
+      <item itemvalue="Application.MetacriticTVUpdater (heroku/quick)" />
+      <item itemvalue="Application.MetacriticTVUpdater (heroku/single)" />
+      <item itemvalue="Application.MetacriticTVUpdater (local/chunked)" />
+      <item itemvalue="Application.MetacriticTVUpdater (local/full)" />
       <item itemvalue="Application.MetacriticTVUpdater (local/quick)" />
       <item itemvalue="Application.MetacriticTVUpdater (local/sanity)" />
-      <item itemvalue="Application.MetacriticTVUpdater (local/chunked)" />
-      <item itemvalue="Application.MetacriticTVUpdater (heroku/quick)" />
       <item itemvalue="Application.MetacriticTVUpdater (local/single)" />
-      <item itemvalue="Application.MetacriticTVUpdater (heroku/single)" />
-      <item itemvalue="Application.MetacriticTVUpdater (local/full)" />
       <item itemvalue="Application.TiVoCommunicator (Heroku/Quick)" />
       <item itemvalue="Application.TiVoCommunicator (demo/Full)" />
       <item itemvalue="Application.TiVoCommunicator (test/Full/Dev)" />
@@ -2213,8 +2222,8 @@
       <item itemvalue="Application.TVDBSeriesMatchRunner (test/single)" />
       <item itemvalue="Application.TVDBUpdateFinder (heroku)" />
       <item itemvalue="Application.TVDBUpdateFinder (heroku/lastweek)" />
-      <item itemvalue="Application.TVDBUpdateFinder (test/LogToFile)" />
       <item itemvalue="Application.TVDBUpdateFinder (local)" />
+      <item itemvalue="Application.TVDBUpdateFinder (test/LogToFile)" />
       <item itemvalue="Application.TVDBUpdateProcessor (heroku)" />
       <item itemvalue="Application.TVDBUpdateProcessor (test/LogToFile)" />
       <item itemvalue="Application.TVDBUpdateProcessor (test)" />
@@ -2223,26 +2232,30 @@
       <item itemvalue="Application.TVDBUpdateRunner (heroku/sanity)" />
       <item itemvalue="Application.TVDBUpdateRunner (heroku/single)" />
       <item itemvalue="Application.TVDBUpdateRunner (heroku/smart)" />
-      <item itemvalue="Application.TVDBUpdateRunner (staging/sanity)" />
       <item itemvalue="Application.TVDBUpdateRunner (local/quick)" />
       <item itemvalue="Application.TVDBUpdateRunner (local/sanity)" />
       <item itemvalue="Application.TVDBUpdateRunner (local/single)" />
       <item itemvalue="Application.TVDBUpdateRunner (local/smart)" />
+      <item itemvalue="Application.TVDBUpdateRunner (staging/sanity)" />
       <item itemvalue="Application.DaylightSavingCorrector (Heroku)" />
       <item itemvalue="Application.DaylightSavingCorrector (Test)" />
       <item itemvalue="Application.SeriesDeleter (heroku)" />
       <item itemvalue="Application.SeriesDeleter (test)" />
       <item itemvalue="Application.SeriesMerger (test)" />
       <item itemvalue="Application.TVDBDuplicateDataFixer (test)" />
+      <item itemvalue="Application.TVDBJSONFetcher (local)" />
       <item itemvalue="Application.TVDBXMLFetcher (test)" />
       <item itemvalue="Application.TVRatingSpreadsheetCopier (test)" />
       <item itemvalue="Application.TimestampTimeZoneUpgrader (heroku)" />
       <item itemvalue="Application.TimestampTimeZoneUpgrader (local)" />
-      <item itemvalue="Application.TVDBJSONFetcher (local)" />
       <item itemvalue="Application.BlogRankingsCreator" />
+      <item itemvalue="Application.EndToEndDatabaseCreator" />
       <item itemvalue="Application.EpisodeGroupUpdater (Heroku)" />
       <item itemvalue="Application.EpisodeGroupUpdater (local)" />
       <item itemvalue="Application.IGDBUpdateTestRunner" />
+      <item itemvalue="Application.NewGameChecker (local)" />
+      <item itemvalue="Application.NewSeriesChecker (local)" />
+      <item itemvalue="Application.NewSeriesChecker (staging)" />
       <item itemvalue="Application.OldDataArchiveRunner (Heroku)" />
       <item itemvalue="Application.OldDataArchiveRunner (Local)" />
       <item itemvalue="Application.QuickBatchUpdater (test)" />
@@ -2251,38 +2264,34 @@
       <item itemvalue="Application.SteamAttributeUpdateRunner (local/single)" />
       <item itemvalue="Application.TVGroupDataImporter (heroku)" />
       <item itemvalue="Application.TVGroupDataImporter (local)" />
-      <item itemvalue="Application.TaskScheduleRunner (test/LogToFile)" />
-      <item itemvalue="Application.TaskScheduleRunner (local)" />
       <item itemvalue="Application.TaskScheduleRunner (heroku DB / Obsidian ENV)" />
-      <item itemvalue="Application.NewGameChecker (local)" />
-      <item itemvalue="Application.NewSeriesChecker (local)" />
-      <item itemvalue="Application.NewSeriesChecker (staging)" />
-      <item itemvalue="Application.EndToEndDatabaseCreator" />
+      <item itemvalue="Application.TaskScheduleRunner (local)" />
+      <item itemvalue="Application.TaskScheduleRunner (test/LogToFile)" />
       <item itemvalue="Gradle.media-mogul-data [assemble]" />
       <item itemvalue="Gradle.media-mogul-data [build]" />
       <item itemvalue="Gradle.media-mogul-data [stage]" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Heroku)" />
-      <item itemvalue="JAR Application.MediaMogulData JAR (Local)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local/NoTests)" />
-      <item itemvalue="JUnit.SchemaLocalTest" />
-      <item itemvalue="JUnit.SchemaHerokuStagingTest" />
-      <item itemvalue="JUnit.SchemaHerokuTest" />
+      <item itemvalue="JAR Application.MediaMogulData JAR (Local)" />
       <item itemvalue="JUnit.DatabaseRecreatorTest (Demo)" />
       <item itemvalue="JUnit.DatabaseRecreatorTest (Test)" />
+      <item itemvalue="JUnit.SchemaHerokuStagingTest" />
+      <item itemvalue="JUnit.SchemaHerokuTest" />
+      <item itemvalue="JUnit.SchemaLocalTest" />
       <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
       <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
-      <item itemvalue="JUnit.SteamUpdaterTest" />
       <item itemvalue="JUnit.SchemaEndToEndTest" />
+      <item itemvalue="JUnit.SteamUpdaterTest" />
       <item itemvalue="JUnit.SteamUpdaterTest.testNewSteamGame" />
       <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" />
-        <item itemvalue="JUnit.SteamUpdaterTest.testNewSteamGame" />
         <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
-        <item itemvalue="JUnit.SteamUpdaterTest" />
+        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" />
         <item itemvalue="JUnit.SchemaEndToEndTest" />
+        <item itemvalue="JUnit.SteamUpdaterTest.testNewSteamGame" />
+        <item itemvalue="JUnit.SteamUpdaterTest" />
       </list>
     </recent_temporary>
   </component>
@@ -2377,11 +2386,12 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="677" y="183" key="#TVDBUpdateFinder_(local)/0.0.1920.1050@0.0.1920.1050" timestamp="1575157166384" />
-    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578445080784">
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579235729906">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575157161005" />
     <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578445080784" />
+    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579235729906" />
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1575244043482">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2390,72 +2400,86 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131620346" />
-    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1576040914022">
+    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1579309507382">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
+    <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1579054492060" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576040914022" />
-    <state width="2517" height="361" key="GridCell.Tab.0.bottom" timestamp="1578512817626">
+    <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579309507382" />
+    <state width="2517" height="520" key="GridCell.Tab.0.bottom" timestamp="1579727769032">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="361" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512817626" />
-    <state width="2517" height="361" key="GridCell.Tab.0.center" timestamp="1578512817625">
+    <state width="1877" height="360" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1579228892137" />
+    <state width="2517" height="361" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
+    <state width="2517" height="520" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579727769032" />
+    <state width="2517" height="520" key="GridCell.Tab.0.center" timestamp="1579727769032">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="361" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512817625" />
-    <state width="2517" height="361" key="GridCell.Tab.0.left" timestamp="1578512817625">
+    <state width="1877" height="360" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1579228892137" />
+    <state width="2517" height="361" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
+    <state width="2517" height="520" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579727769032" />
+    <state width="2517" height="520" key="GridCell.Tab.0.left" timestamp="1579727769032">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="361" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512817625" />
-    <state width="2517" height="361" key="GridCell.Tab.0.right" timestamp="1578512817625">
+    <state width="1877" height="360" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1579228892137" />
+    <state width="2517" height="361" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
+    <state width="2517" height="520" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579727769032" />
+    <state width="2517" height="520" key="GridCell.Tab.0.right" timestamp="1579727769032">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575301900343" />
-    <state width="2517" height="361" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512817625" />
-    <state width="2517" height="461" key="GridCell.Tab.1.bottom" timestamp="1578512664134">
+    <state width="1877" height="360" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1579228892137" />
+    <state width="2517" height="361" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
+    <state width="2517" height="520" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579727769032" />
+    <state width="1877" height="317" key="GridCell.Tab.1.bottom" timestamp="1579214865993">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="1877" height="317" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1579208515111" />
     <state width="2517" height="461" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="461" key="GridCell.Tab.1.center" timestamp="1578512664134">
+    <state width="1877" height="317" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579214865993" />
+    <state width="1877" height="317" key="GridCell.Tab.1.center" timestamp="1579214865993">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="1877" height="317" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1579208515111" />
     <state width="2517" height="461" key="GridCell.Tab.1.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="461" key="GridCell.Tab.1.left" timestamp="1578512664134">
+    <state width="1877" height="317" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579214865993" />
+    <state width="1877" height="317" key="GridCell.Tab.1.left" timestamp="1579214865993">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225184" />
+    <state width="1877" height="317" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1579208515111" />
     <state width="2517" height="461" key="GridCell.Tab.1.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="461" key="GridCell.Tab.1.right" timestamp="1578512664134">
+    <state width="1877" height="317" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579214865993" />
+    <state width="1877" height="317" key="GridCell.Tab.1.right" timestamp="1579214865993">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1575216225185" />
+    <state width="1877" height="317" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1579208515111" />
     <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
+    <state width="1877" height="317" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579214865993" />
     <state x="947" y="341" key="RollbackChangesDialog" timestamp="1578435820593">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="947" y="341" key="RollbackChangesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578435820593" />
-    <state x="781" y="347" key="SettingsEditor" timestamp="1578432794374">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="472" y="32" key="SettingsEditor" timestamp="1579054522250">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
+    <state x="472" y="32" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1579054522250" />
     <state x="781" y="347" key="SettingsEditor/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578432794374" />
-    <state x="1001" y="446" width="585" height="540" key="StructurePopup" timestamp="1578439204401">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="751" y="332" width="585" height="403" key="StructurePopup" timestamp="1579228614693">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
+    <state x="751" y="332" width="585" height="403" key="StructurePopup/0.0.1920.1050@0.0.1920.1050" timestamp="1579228614693" />
     <state x="1001" y="446" width="585" height="540" key="StructurePopup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578439204401" />
-    <state x="875" y="352" width="836" height="750" key="find.popup" timestamp="1578449034105">
+    <state x="875" y="352" width="836" height="763" key="find.popup" timestamp="1579725327741">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="656" y="262" width="627" height="558" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575245320181" />
+    <state x="656" y="262" width="627" height="568" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1579210219745" />
     <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578449034105" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1578512088125">
+    <state x="875" y="352" width="836" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579725327741" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1579726778435">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1575302063442" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512088125" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1579228611583" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578520024288" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579726778435" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
