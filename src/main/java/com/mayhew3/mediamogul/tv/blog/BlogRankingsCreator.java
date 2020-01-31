@@ -33,13 +33,13 @@ public class BlogRankingsCreator {
   private BlogTemplatePrinter toppestTemplate;
   private String outputPath;
 
-  private final int viewingYear = 2018;
+  private final int viewingYear = 2019;
   @SuppressWarnings("FieldCanBeLocal")
   private final int largePhotosUnder = 1;
   @SuppressWarnings("FieldCanBeLocal")
   private final int largestPhotosUnder = 1;
 
-  private List<Integer> postBoundaries = Lists.newArrayList(0);
+  private List<Integer> postBoundaries = Lists.newArrayList(43, 20, 10, 0);
 
   private static Logger logger = LogManager.getLogger(BlogRankingsCreator.class);
 
@@ -120,7 +120,7 @@ public class BlogRankingsCreator {
 
     String fullSql = "SELECT * " +
         reusableJoins +
-        "ORDER BY coalesce(rating, suggested_rating)  ASC ";
+        "ORDER BY coalesce(rating, suggested_rating)  ASC, series_id DESC ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(fullSql, viewingYear, 0, 0);
 
