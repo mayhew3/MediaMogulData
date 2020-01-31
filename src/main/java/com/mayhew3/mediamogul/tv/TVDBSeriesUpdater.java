@@ -295,6 +295,8 @@ public class TVDBSeriesUpdater {
             } else {
               okToRetire = false;
             }
+          } else {
+            okToRetire = false;
           }
         }
         if (okToRetire) {
