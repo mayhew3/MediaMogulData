@@ -27,7 +27,7 @@ public class ConnectionLogger {
   }
 
   private Optional<ConnectLog> findMostRecentLog() throws SQLException {
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch("SELECT * FROM connect_log ORDER BY id DESC");
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch("SELECT * FROM connect_log ORDER BY id DESC LIMIT 1 ");
 
     if (resultSet.next()) {
       ConnectLog connectLog = new ConnectLog();
