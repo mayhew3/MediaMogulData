@@ -61,7 +61,7 @@ class FirstTimeGameUpdater {
       howLongToBeatUpdater.runUpdater();
     } catch (GameFailedException e) {
       logger.warn("Game failed how long update: " + game.title.getValue());
-      e.printStackTrace();
+      logger.warn(e.getMessage());
     }
   }
 
@@ -72,7 +72,7 @@ class FirstTimeGameUpdater {
       metacriticGameUpdater.runUpdater();
     } catch (GameFailedException e) {
       logger.warn("Game failed metacritic update: " + game.title.getValue());
-      e.printStackTrace();
+      logger.warn(e.getMessage());
     }
   }
 

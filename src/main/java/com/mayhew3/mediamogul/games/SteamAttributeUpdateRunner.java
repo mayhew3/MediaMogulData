@@ -128,7 +128,7 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
         e.printStackTrace();
         logger.error("Game failed to load from DB.");
       } catch (GameFailedException e) {
-        e.printStackTrace();
+        logger.warn(e.getMessage());
         logger.warn("Game failed: " + game);
       }
 

@@ -143,7 +143,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
         MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id);
         metacriticGameUpdater.runUpdater();
       } catch (GameFailedException e) {
-        e.printStackTrace();
+        logger.warn(e.getMessage());
         logger.warn("Show failed: " + game.title.getValue());
         failures++;
       } catch (SQLException e) {

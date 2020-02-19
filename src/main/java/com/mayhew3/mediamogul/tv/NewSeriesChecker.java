@@ -95,7 +95,7 @@ public class NewSeriesChecker implements UpdateRunner {
     try {
       updater.updateSeries();
     } catch (ShowFailedException e) {
-      e.printStackTrace();
+      logger.warn(e.getMessage());
     }
   }
 
@@ -105,7 +105,7 @@ public class NewSeriesChecker implements UpdateRunner {
     try {
       metacriticTVUpdater.parseMetacritic();
     } catch (MetacriticException e) {
-      e.printStackTrace();
+      logger.warn(e.getMessage());
     }
   }
 

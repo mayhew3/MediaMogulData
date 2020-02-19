@@ -101,7 +101,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
           processSteamGame(unfoundGames, duplicateGames, jsonGame);
         } catch (GameFailedException e) {
           logger.error("Game failed: " + jsonGame);
-          e.printStackTrace();
+          logger.warn(e.getMessage());
         }
 
         jsonSteamIDs.add(jsonGame.getInt("appid"));

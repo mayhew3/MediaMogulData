@@ -175,7 +175,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
         howLongServiceHandler.connectionFailed();
         failures++;
       } catch (GameFailedException e) {
-        e.printStackTrace();
+        logger.warn(e.getMessage());
         logger.warn("Game failed: " + game);
         howLongServiceHandler.connectionFailed();
         logFailure(game);
