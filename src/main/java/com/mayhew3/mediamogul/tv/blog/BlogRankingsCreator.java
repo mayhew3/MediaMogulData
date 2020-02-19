@@ -35,7 +35,7 @@ public class BlogRankingsCreator {
 
   private final int viewingYear = 2019;
   @SuppressWarnings("FieldCanBeLocal")
-  private final int largePhotosUnder = 1;
+  private final int largePhotosUnder = 11;
   @SuppressWarnings("FieldCanBeLocal")
   private final int largestPhotosUnder = 1;
 
