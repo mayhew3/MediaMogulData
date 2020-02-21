@@ -266,6 +266,9 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   }
 
   public Optional<TVDBPoster> getLinkedPoster(SQLConnection connection) throws SQLException {
+    if (poster.getValue() == null) {
+      return Optional.empty();
+    }
     String sql = "SELECT tp.* " +
         "FROM tvdb_poster tp " +
         "WHERE poster_path = ? " +
