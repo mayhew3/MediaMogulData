@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/logfile.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2-local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/NewSeriesChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/NewSeriesChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,12 +43,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="media-mogul-data" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="media-mogul-data" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -96,6 +88,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -110,7 +103,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml&#10;D:/Code/git/media-mogul-data/scripts/media-mogul-data CMD.lnk" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;XML" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../oscars-data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29883382" />
@@ -123,11 +116,11 @@
       <recent name="com.mayhew3.mediamogul.games" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Code\git\media-mogul-data\src\main\resources" />
       <recent name="C:\Code\git\MediaMogulData\scripts" />
       <recent name="C:\Code\git\MediaMogulData\src\test\resources\IGDBTest" />
       <recent name="C:\Code\git\MediaMogulData\resources\localLogging" />
       <recent name="D:\Code\git\media-mogul-data" />
-      <recent name="C:\Code\git\oscars-data\scripts" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.mayhew3.mediamogul.model" />
@@ -144,7 +137,7 @@
       <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BlogRankingsCreator">
+  <component name="RunManager" selected="Gradle.media-mogul-data [assemble]">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -1515,7 +1508,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.scheduler.TaskScheduleRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Local -Dlog4j.configurationFactory=com.mayhew3.mediamogul.logging.DebugConfigFactory" />
+      <option name="PROGRAM_PARAMETERS" value="-db Local -Dlog4j.configurationFile=src/main/resources/log4j2-local.xml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -1523,13 +1516,12 @@
     <configuration name="TaskScheduleRunner (local)" type="Application" factoryName="Application">
       <envs>
         <env name="log4j.configurationFactory" value="com.mayhew3.mediamogul.logging.DebugConfigFactory" />
+        <env name="backupEnv" value="local" />
         <env name="DATABASE_URL" value="$postgresURL_local$" />
-        <env name="envName" value="Janet" />
-        <env name="postgresURL_local" value="$postgresURL_local$" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.scheduler.TaskScheduleRunner" />
       <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Local -Dlog4j.configurationFactory=com.mayhew3.mediamogul.logging.DebugConfigFactory" />
+      <option name="PROGRAM_PARAMETERS" value="-db Local " />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -1814,6 +1806,25 @@
         <option name="taskNames">
           <list>
             <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="media-mogul-data [runTaskScheduleRunner]" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="runTaskScheduleRunner" />
           </list>
         </option>
         <option name="vmOptions" value="" />
@@ -2269,6 +2280,7 @@
       <item itemvalue="Gradle.media-mogul-data [assemble]" />
       <item itemvalue="Gradle.media-mogul-data [build]" />
       <item itemvalue="Gradle.media-mogul-data [stage]" />
+      <item itemvalue="Gradle.media-mogul-data [runTaskScheduleRunner]" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Heroku)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local/NoTests)" />
       <item itemvalue="JAR Application.MediaMogulData JAR (Local)" />
@@ -2369,6 +2381,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Fix gradle config for finder/processor" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix gradle config for finder/processor" />
   </component>
@@ -2385,12 +2398,12 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="677" y="183" key="#TVDBUpdateFinder_(local)/0.0.1920.1050@0.0.1920.1050" timestamp="1575157166384" />
-    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580256412438">
+    <state x="941" y="695" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582251757093">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575157161005" />
     <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578445080784" />
-    <state x="552" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1580256412438" />
+    <state x="941" y="695" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582251757093" />
     <state x="1085" y="409" key="#com.intellij.ide.util.MemberChooser" timestamp="1579730505864">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2399,68 +2412,74 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="640" y="252" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1575244043482" />
-    <state x="272" y="194" key="#xdebugger.evaluate" timestamp="1580496081905">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="1634" y="352" key="#media-mogul-data_[runTaskScheduleRunner]" timestamp="1582251787319">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1634" y="352" key="#media-mogul-data_[runTaskScheduleRunner]/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582251787319" />
+    <state x="363" y="261" key="#xdebugger.evaluate" timestamp="1582252145052">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="272" y="194" key="#xdebugger.evaluate/0.0.1920.1050@0.0.1920.1050" timestamp="1580496081905" />
-    <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog" timestamp="1576131620346">
+    <state x="363" y="261" key="#xdebugger.evaluate/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252145052" />
+    <state x="832" y="333" width="1178" height="868" key="EnvironmentVariablesDialog" timestamp="1582171135159">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="832" y="333" width="1223" height="1044" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576131620346" />
-    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1579309507382">
+    <state x="832" y="333" width="1178" height="868" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582171135159" />
+    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1582246559873">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1579054492060" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1576040914022" />
-    <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1579309507382" />
-    <state width="2517" height="514" key="GridCell.Tab.0.bottom" timestamp="1581549838576">
+    <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582246559873" />
+    <state width="1236" height="456" key="GridCell.Tab.0.bottom" timestamp="1582252208417">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343660" />
     <state width="2517" height="361" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="514" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581549838576" />
-    <state width="2517" height="514" key="GridCell.Tab.0.center" timestamp="1581549838576">
+    <state width="1236" height="456" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208417" />
+    <state width="1236" height="456" key="GridCell.Tab.0.center" timestamp="1582252208417">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343659" />
     <state width="2517" height="361" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="514" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581549838576" />
-    <state width="2517" height="514" key="GridCell.Tab.0.left" timestamp="1581549838576">
+    <state width="1236" height="456" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208417" />
+    <state width="1236" height="456" key="GridCell.Tab.0.left" timestamp="1582252208417">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343658" />
     <state width="2517" height="361" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="514" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581549838576" />
-    <state width="2517" height="514" key="GridCell.Tab.0.right" timestamp="1581549838576">
+    <state width="1236" height="456" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208417" />
+    <state width="1236" height="456" key="GridCell.Tab.0.right" timestamp="1582252208417">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343660" />
     <state width="2517" height="361" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="514" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581549838576" />
-    <state width="2517" height="460" key="GridCell.Tab.1.bottom" timestamp="1581134585979">
+    <state width="1236" height="456" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208417" />
+    <state width="1236" height="456" key="GridCell.Tab.1.bottom" timestamp="1582252208418">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="460" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581134585979" />
-    <state width="2517" height="460" key="GridCell.Tab.1.center" timestamp="1581134585978">
+    <state width="1236" height="456" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208418" />
+    <state width="1236" height="456" key="GridCell.Tab.1.center" timestamp="1582252208418">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="460" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581134585978" />
-    <state width="2517" height="460" key="GridCell.Tab.1.left" timestamp="1581134585978">
+    <state width="1236" height="456" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208418" />
+    <state width="1236" height="456" key="GridCell.Tab.1.left" timestamp="1582252208417">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="460" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581134585978" />
-    <state width="2517" height="460" key="GridCell.Tab.1.right" timestamp="1581134585978">
+    <state width="1236" height="456" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208417" />
+    <state width="1236" height="456" key="GridCell.Tab.1.right" timestamp="1582252208418">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="460" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1581134585978" />
+    <state width="1236" height="456" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252208418" />
     <state x="947" y="341" key="RollbackChangesDialog" timestamp="1578435820593">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2475,18 +2494,22 @@
     </state>
     <state x="751" y="332" width="585" height="403" key="StructurePopup/0.0.1920.1050@0.0.1920.1050" timestamp="1579228614693" />
     <state x="1001" y="446" width="585" height="540" key="StructurePopup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578439204401" />
-    <state x="875" y="352" width="836" height="763" key="find.popup" timestamp="1582081530549">
+    <state x="99" y="100" width="2369" height="1210" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1582252390047">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="99" y="100" width="2369" height="1210" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252390047" />
+    <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1582250581239">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="656" y="262" width="627" height="568" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1579210219745" />
     <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578449034105" />
-    <state x="875" y="352" width="836" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582081530549" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1582081446156">
+    <state x="875" y="352" width="884" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582250581239" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1582170677978">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1579228611583" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578520024288" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582081446156" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582170677978" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2535,6 +2558,21 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java</url>
           <line>275</line>
           <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.mayhew3/Postgres-Object/0.10.9/5130f3379627e850f3e4c7ce74d167bdaa1c1204/Postgres-Object-0.10.9-sources.jar!/com/mayhew3/postgresobject/db/DataRestoreLocalExecutor.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="183" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.mayhew3/Postgres-Object/0.10.9/5130f3379627e850f3e4c7ce74d167bdaa1c1204/Postgres-Object-0.10.9-sources.jar!/com/mayhew3/postgresobject/db/DataRestoreExecutor.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="184" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulBackupExecutor.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="190" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

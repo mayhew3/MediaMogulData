@@ -101,8 +101,9 @@ public class TaskScheduleRunner {
   }
 
   private void createLocalTaskList() throws MissingEnvException {
-    addHourlyTask(new OldDataArchiveRunner(connection, "heroku"), 1);
-    addHourlyTask(new MediaMogulBackupExecutor("heroku"), 24);
+    String backupEnv = EnvironmentChecker.getOrThrow("backupEnv");
+    addHourlyTask(new OldDataArchiveRunner(connection, backupEnv), 1);
+    addHourlyTask(new MediaMogulBackupExecutor(backupEnv), 24);
   }
 
   private void createTaskList() throws MissingEnvException {

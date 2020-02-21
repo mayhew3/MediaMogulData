@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d (%p) [%c{1}] %m%n"/>
+        </Console>
+        <File name="FileAppender"
+              fileName="${env:MediaMogulLogs}/TaskScheduleRunner_${date:yyyyMMdd}_Heroku.log">
+            <PatternLayout
+                    pattern="%d (%p) [%c{1}] %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
