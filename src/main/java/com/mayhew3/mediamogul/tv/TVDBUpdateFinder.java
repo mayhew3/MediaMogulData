@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 import java.util.TimeZone;
 
 public class TVDBUpdateFinder implements UpdateRunner {
@@ -153,16 +154,29 @@ public class TVDBUpdateFinder implements UpdateRunner {
     return lastUpdated == null ? getLastUpdateTimeFromDB() : lastUpdated;
   }
 
+  public static Optional<Timestamp> latest(Timestamp t1, Timestamp t2) {
+    if (t1 == null && t2 == null) {
+      return Optional.empty();
+    } else if (t1 == null) {
+      return Optional.of(t2);
+    } else if (t2 == null) {
+      return Optional.of(t1);
+    } else if (t1.before(t2)) {
+      return Optional.of(t2);
+    } else {
+      return Optional.of(t1);
+    }
+  }
+  
   @NotNull
   private Timestamp getLastUpdateTimeFromDB() throws SQLException {
     Timestamp mostRecentSuccessfulUpdate = getMostRecentSuccessfulUpdate();
     Timestamp mostRecentPeriodicCheck = getMostRecentPeriodicCheck();
 
-    // todo: after series match is found, check that we haven't updated it more recently.
-    if (mostRecentPeriodicCheck != null) {
-      return mostRecentPeriodicCheck;
-    } else if (mostRecentSuccessfulUpdate != null) {
-      return mostRecentSuccessfulUpdate;
+    Optional<Timestamp> latest = latest(mostRecentPeriodicCheck, mostRecentSuccessfulUpdate);
+
+    if (latest.isPresent()) {
+      return latest.get();
     } else {
       throw new IllegalStateException("No update time found in tvdb_connection_log or tvdb_work_item.");
     }
