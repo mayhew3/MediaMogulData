@@ -474,7 +474,9 @@ public class TVDBSeriesUpdater {
         added.add(genre);
       }
     }
-    logger.info(added + " genres added for series '" + series.seriesTitle.getValue() + "'");
+    if (added.size() > 0) {
+      logger.info(added + " genres added for series '" + series.seriesTitle.getValue() + "'");
+    }
   }
 
   private Optional<TVDBPoster> updatePosters(Integer tvdbID, TVDBSeries tvdbSeries)  {

@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/scheduler/TaskScheduleRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdater.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +134,7 @@
       <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DataRestoreExecutor (local from heroku, PAST backup)">
+  <component name="RunManager" selected="Gradle.media-mogul-data [assemble]">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -2496,12 +2495,12 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="99" y="100" width="2369" height="1210" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252390047" />
-    <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1582311466420">
+    <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1582323372831">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="656" y="262" width="627" height="568" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1579210219745" />
     <state x="875" y="352" width="836" height="750" key="find.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578449034105" />
-    <state x="875" y="352" width="884" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582311466420" />
+    <state x="875" y="352" width="884" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582323372831" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1582319296702">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>

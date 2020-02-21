@@ -210,7 +210,7 @@ public class TaskScheduleRunner {
 
     if (minutesUntilNextRun > 5) {
       try {
-        logger.debug("Next task is " + minutesUntilNextRun + " minutes away. Closing DB connection temporarily.");
+        logger.info("Next task is " + minutesUntilNextRun + " minutes away. Closing DB connection temporarily.");
         connection.closeConnection();
       } catch (SQLException e) {
         logger.info("Failed to close connection: " + e.getLocalizedMessage());
