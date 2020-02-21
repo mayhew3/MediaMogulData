@@ -208,6 +208,15 @@ public class TaskScheduleRunner {
       millisUntilNextRun = 1L;
     }
 
+    if (minutesUntilNextRun > 5) {
+      try {
+        logger.debug("Next task is " + minutesUntilNextRun + " minutes away. Closing DB connection temporarily.");
+        connection.closeConnection();
+      } catch (SQLException e) {
+        logger.info("Failed to close connection: " + e.getLocalizedMessage());
+      }
+    }
+
     Timer timer = new Timer();
     timer.schedule(delayedTask, millisUntilNextRun);
   }
@@ -256,10 +265,6 @@ public class TaskScheduleRunner {
     runEligibleTasks();
   }
 
-  private boolean shouldDisplayInfoMessage(PeriodicTaskSchedule taskSchedule) {
-    return !isRunningOnHeroku() || taskSchedule.getMinutesBetween() > 1;
-  }
-
   private void runUpdateForSingleTask(PeriodicTaskSchedule taskSchedule) {
     UpdateRunner updateRunner = taskSchedule.getUpdateRunner();
     try {
@@ -285,19 +290,10 @@ public class TaskScheduleRunner {
   private PeriodicTaskSchedule getNextTask() {
     Optional<PeriodicTaskSchedule> taskSchedule = taskSchedules.stream()
         .min(Comparator.comparing(PeriodicTaskSchedule::getMillisUntilNextRun));
-    if (!taskSchedule.isPresent()) {
+    if (taskSchedule.isEmpty()) {
       throw new RuntimeException("No tasks found!");
     }
     return taskSchedule.get();
-  }
-
-  private static void maybeSetDriverPath() throws MissingEnvException {
-    String envName = EnvironmentChecker.getOrThrow("envName");
-
-    if (!"Heroku".equals(envName)) {
-      String driverPath = System.getProperty("user.dir") + "\\resources\\chromedriver.exe";
-      System.setProperty("webdriver.chrome.driver", driverPath);
-    }
   }
 
   private static void info(Object message) {
