@@ -26,6 +26,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.*;
@@ -106,6 +107,20 @@ public class TaskScheduleRunner {
     addHourlyTask(new MediaMogulBackupExecutor(backupEnv), 24);
   }
 
+  private void redirectOutputToLogger() {
+    System.setOut(createLoggingProxy(System.out));
+    System.setErr(createLoggingProxy(System.err));
+  }
+
+  public static PrintStream createLoggingProxy(final PrintStream realPrintStream) {
+    return new PrintStream(realPrintStream) {
+      public void print(final String string) {
+        realPrintStream.print(string);
+        logger.info(string);
+      }
+    };
+  }
+
   private void createTaskList() throws MissingEnvException {
 
     // MINUTELY
@@ -175,6 +190,7 @@ public class TaskScheduleRunner {
     if (isRunningOnHeroku()) {
       createTaskList();
     } else {
+      redirectOutputToLogger();
       createLocalTaskList();
     }
 
