@@ -4,12 +4,12 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 
-public class BlogTemplatePrinter {
+public class TemplatePrinter {
 
   private Map<String, String> tagMappings;
   private String inputTemplate;
 
-  BlogTemplatePrinter(String inputTemplate) {
+  public TemplatePrinter(String inputTemplate) {
     this.tagMappings = Maps.newHashMap();
     this.inputTemplate = inputTemplate;
   }

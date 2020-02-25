@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="https://dungeons.mayhew3.com/adguild.rss" rel="self" type="application/rss+xml" />
+        <title>Adventurers Guild</title>
+        <link>https://dungeons.mayhew3.com/</link>
+        <language>en-us</language>
+        <itunes:subtitle>A large party adventure</itunes:subtitle>
+        <itunes:author>Howe Productions</itunes:author>
+        <itunes:summary>All the episodes of Adventurer's Guild, right here for your listening!</itunes:summary>
+        <description>All the episodes of Adventurer's Guild, right here for your listening!</description>
+        <itunes:owner>
+            <itunes:name>Howe Productions</itunes:name>
+            <itunes:email>mayhew3@gmail.com</itunes:email>
+        </itunes:owner>
+        <itunes:explicit>no</itunes:explicit>
+        <itunes:image href="https://dungeons.mayhew3.com/images/logo2.png" />
+        <itunes:category text="Games &amp; Hobbies"/>
+
+        $ITEMS
+
+    </channel>
+</rss>

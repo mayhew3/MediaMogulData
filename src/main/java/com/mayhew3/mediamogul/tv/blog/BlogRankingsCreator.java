@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 public class BlogRankingsCreator {
 
   private SQLConnection connection;
-  private BlogTemplatePrinter standardTemplate;
-  private BlogTemplatePrinter topTemplate;
-  private BlogTemplatePrinter toppestTemplate;
+  private TemplatePrinter standardTemplate;
+  private TemplatePrinter topTemplate;
+  private TemplatePrinter toppestTemplate;
   private String outputPath;
 
   private final int viewingYear = 2019;
@@ -74,10 +74,10 @@ public class BlogRankingsCreator {
     blogRankingsCreator.execute();
   }
 
-  private BlogTemplatePrinter createTemplate(String fileName) throws IOException {
+  private TemplatePrinter createTemplate(String fileName) throws IOException {
     Path templateFile = Paths.get(fileName);
     String template = new String(Files.readAllBytes(templateFile));
-    return new BlogTemplatePrinter(template);
+    return new TemplatePrinter(template);
   }
 
   private void execute() throws IOException, SQLException {
@@ -133,7 +133,7 @@ public class BlogRankingsCreator {
       episodeGroupRating.initializeFromDBObject(resultSet);
 
       @SuppressWarnings("ConstantConditions")
-      BlogTemplatePrinter templateToUse = currentRanking > largePhotosUnder ? standardTemplate :
+      TemplatePrinter templateToUse = currentRanking > largePhotosUnder ? standardTemplate :
           currentRanking > largestPhotosUnder ? topTemplate : toppestTemplate;
 
       export.append(getExportForSeries(templateToUse, episodeGroupRating, currentRanking));
@@ -180,8 +180,8 @@ public class BlogRankingsCreator {
   }
 
   @SuppressWarnings("ConstantConditions")
-  private String getExportForSeries(BlogTemplatePrinter blogTemplatePrinter, EpisodeGroupRating episodeGroupRating, Integer currentRanking) throws SQLException {
-    blogTemplatePrinter.clearMappings();
+  private String getExportForSeries(TemplatePrinter templatePrinter, EpisodeGroupRating episodeGroupRating, Integer currentRanking) throws SQLException {
+    templatePrinter.clearMappings();
 
     Series series = getSeries(episodeGroupRating);
 
@@ -201,22 +201,22 @@ public class BlogRankingsCreator {
 
     BigDecimal bestEpisodeRating = bestEpisode.episodeRating.ratingValue.getValue();
 
-    blogTemplatePrinter.addMapping("POSTER_FILENAME", generatePosterName(series, currentRanking));
-    blogTemplatePrinter.addMapping("RANKING_VALUE", Integer.toString(currentRanking));
-    blogTemplatePrinter.addMapping("RATING_COLOR", getHSLAMethod(effectiveRating));
-    blogTemplatePrinter.addMapping("RATING_VALUE", effectiveRating.toString());
-    blogTemplatePrinter.addMapping("SERIES_NAME", series.seriesTitle.getValue());
-    blogTemplatePrinter.addMapping("SEASONS_TEXT", getSeasonString(getSeasons(episodeInfos)));
-    blogTemplatePrinter.addMapping("EPISODE_COUNT", Integer.toString(episodeGroupRating.aired.getValue()));
-    blogTemplatePrinter.addMapping("FEATURED_RATING_COLOR", getHSLAMethod(bestEpisodeRating));
-    blogTemplatePrinter.addMapping("FEATURED_RATING_VALUE", bestEpisodeRating.toString());
-    blogTemplatePrinter.addMapping("FEATURED_EPISODE_NUMBER", bestEpisode.episode.getSeason() + "x" + bestEpisode.episode.episodeNumber.getValue());
-    blogTemplatePrinter.addMapping("FEATURED_EPISODE_TITLE", bestEpisode.episode.title.getValue());
-    blogTemplatePrinter.addMapping("REVIEW_TEXT", episodeGroupRating.review.getValue());
+    templatePrinter.addMapping("POSTER_FILENAME", generatePosterName(series, currentRanking));
+    templatePrinter.addMapping("RANKING_VALUE", Integer.toString(currentRanking));
+    templatePrinter.addMapping("RATING_COLOR", getHSLAMethod(effectiveRating));
+    templatePrinter.addMapping("RATING_VALUE", effectiveRating.toString());
+    templatePrinter.addMapping("SERIES_NAME", series.seriesTitle.getValue());
+    templatePrinter.addMapping("SEASONS_TEXT", getSeasonString(getSeasons(episodeInfos)));
+    templatePrinter.addMapping("EPISODE_COUNT", Integer.toString(episodeGroupRating.aired.getValue()));
+    templatePrinter.addMapping("FEATURED_RATING_COLOR", getHSLAMethod(bestEpisodeRating));
+    templatePrinter.addMapping("FEATURED_RATING_VALUE", bestEpisodeRating.toString());
+    templatePrinter.addMapping("FEATURED_EPISODE_NUMBER", bestEpisode.episode.getSeason() + "x" + bestEpisode.episode.episodeNumber.getValue());
+    templatePrinter.addMapping("FEATURED_EPISODE_TITLE", bestEpisode.episode.title.getValue());
+    templatePrinter.addMapping("REVIEW_TEXT", episodeGroupRating.review.getValue());
 
     debug("Mappings added. Creating export...");
 
-    return blogTemplatePrinter.createCombinedExport();
+    return templatePrinter.createCombinedExport();
   }
 
   private Optional<TVDBPoster> getPoster(Series series) throws SQLException {

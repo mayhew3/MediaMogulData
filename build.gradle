@@ -19,6 +19,7 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
     maven { url 'https://jitpack.io' }
+    maven { url 'https://dl.bintray.com/ijabz/maven' }
 }
 
 
@@ -37,6 +38,7 @@ dependencies {
     compile 'com.cloudinary:cloudinary-http44:1.22.1'
     compile 'com.cloudinary:cloudinary-taglib:1.22.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile 'net.jthink:jaudiotagger:2.2.3'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'

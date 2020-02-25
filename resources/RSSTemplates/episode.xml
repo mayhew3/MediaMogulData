@@ -1,0 +1,11 @@
+<item>
+    <title>$TITLE</title>
+    <itunes:summary>$SUMMARY</itunes:summary>
+    <description>$DESCRIPTION</description>
+    <enclosure url="https://dungeons.mayhew3.com/audio/$FILENAME" type="audio/m4a" length="$LENGTH"/>
+    <pubDate>$PUBDATE</pubDate>
+    <itunes:author>Howe Productions</itunes:author>
+    <itunes:duration>$DURATION</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <guid>https://dungeons.mayhew3.com/audio/$GUID</guid>
+</item>
