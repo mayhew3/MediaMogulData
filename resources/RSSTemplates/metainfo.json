@@ -1,20 +1,136 @@
 [
   {
-    "title": "Session Zero 1",
-    "date": "2019/11/23",
-    "duration": "01:04:38 19:30",
-    "summary": "Flynn, Arianne, Fuzzy, and Kaas fight Goblins."
+    "title": "Session Zero",
+    "summary": "Everyone meets each other and hazes a wizard.",
+    "sessions": [
+      {
+        "date": "2019/11/23",
+        "files": [
+          {
+            "filename": "Session Zero 1",
+            "duration": "01:04:38"
+          }
+        ]
+      }
+    ]
   },
   {
-    "title": "Gobs of Trouble 1",
-    "date": "2019/12/13",
-    "duration": "02:26:04 19:30",
-    "summary": "Flynn, Arianne, Fuzzy, and Kaas fight Goblins."
+    "title": "Whispers from the Grave",
+    "summary": "Peridot, Plea, Elizabethe, and Lantus fight Zombies.",
+    "sessions": [
+      {
+        "date": "2019/12/06",
+        "files": [
+          {
+            "filename": "Shadows of the Grave 1",
+            "duration": "01:33:03"
+          },
+          {
+            "filename": "Shadows of the Grave 2",
+            "duration": "01:56:14"
+          }
+        ]
+      },
+      {
+        "date": "2020/01/03",
+        "files": [
+          {
+            "filename": "Shadows of the Grave 3",
+            "duration": "01:10:53"
+          },
+          {
+            "filename": "Shadows of the Grave 4",
+            "duration": "02:41:01"
+          }
+        ]
+      }
+    ]
   },
   {
-    "title": "Gobs of Trouble 2",
-    "date": "2019/12/13",
-    "duration": "01:29:52 21:30",
-    "summary": "Flynn, Arianne, Fuzzy, and Kaas fight Goblins."
+    "title": "Gobs of Trouble",
+    "summary": "Flynn, Arianne, Fuzzy, and Kaas fight Goblins.",
+    "sessions": [
+      {
+        "date": "2019/12/13",
+        "files": [
+          {
+            "filename": "Gobs of Trouble 1",
+            "duration": "02:26:04"
+          },
+          {
+            "filename": "Gobs of Trouble 2",
+            "duration": "01:29:52"
+          }
+        ]
+      },
+      {
+        "date": "2020/01/11",
+        "files": [
+          {
+            "filename": "Gobs of Trouble 3",
+            "duration": "01:36:53"
+          },
+          {
+            "filename": "Gobs of Trouble 4",
+            "duration": "02:00:12"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "The Princess Games",
+    "summary": "Flynn, Arianne, Peridot, and Plea do something.",
+    "sessions": [
+      {
+        "date": "2020/01/25",
+        "files": [
+          {
+            "filename": "Princess Games 1",
+            "duration": "01:53:31"
+          },
+          {
+            "filename": "Princess Games 2",
+            "duration": "01:21:48"
+          }
+        ]
+      },
+      {
+        "date": "2020/02/07",
+        "files": [
+          {
+            "filename": "Princess Games 3",
+            "duration": "00:03:51"
+          },
+          {
+            "filename": "Princess Games 4",
+            "duration": "01:53:45"
+          },
+          {
+            "filename": "Princess Games 5",
+            "duration": "02:06:29"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Let's Get Kraken!",
+    "summary": "Lantus, Elizabethe, Fuzzy, and Kaas go on a deadly voyage.",
+    "sessions": [
+      {
+        "date": "2020/02/01",
+        "files": [
+          {
+            "filename": "Lets Get Kraken 1",
+            "duration": "01:55:03"
+          },
+          {
+            "filename": "Lets Get Kraken 2",
+            "duration": "01:44:25"
+          }
+        ]
+      }
+    ]
   }
 ]

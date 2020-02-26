@@ -1,11 +1,12 @@
 package com.mayhew3.mediamogul.podcast;
 
-import com.google.common.net.UrlEscapers;
 import com.mayhew3.mediamogul.tv.blog.TemplatePrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.util.UriUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,7 +50,7 @@ public class PodcastFeedExporter {
   }
 
   private void execute() throws IOException, ParseException {
-    File outputFile = new File(outputPath + "/adguild2.rss.xml");
+    File outputFile = new File(outputPath + "/podcast.rss.xml");
     FileOutputStream outputStream = new FileOutputStream(outputFile, false);
 
     StringBuilder stringBuilder = new StringBuilder();
@@ -68,54 +69,76 @@ public class PodcastFeedExporter {
     outputStream.close();
   }
 
-  private String getAllEpisodes() throws IOException, ParseException {
+  private String getAllEpisodes() throws ParseException {
     JSONArray jsonArray = parseJSONObject(templatePath + "/metainfo.json");
-
-    Path path = Paths.get(audioDirectory);
 
     logger.info("Looking at audio files...");
 
     StringBuilder stringBuilder = new StringBuilder();
 
     for (Object obj : jsonArray) {
-      JSONObject episode = (JSONObject) obj;
-      String episodeInfo = getEpisodeInfo(episode);
-      stringBuilder.append(episodeInfo);
+      JSONObject arc = (JSONObject) obj;
+      String arcInfo = getArcInfo(arc);
+      stringBuilder.append(arcInfo);
     }
 
     return stringBuilder.toString();
   }
 
-  private String getEpisodeInfo(JSONObject episode) throws ParseException {
-    String title = episode.getString("title");
-    String filePath = audioDirectory + "/" + title + ".m4a";
-    File audioFile = new File(filePath);
+  private String getArcInfo(JSONObject arc) throws ParseException {
+    String title = arc.getString("title");
+    String summary = arc.getString("summary");
 
-    String date = episode.getString("date");
-    String duration = episode.getString("duration");
-    String summary = episode.getString("summary");
+    StringBuilder stringBuilder = new StringBuilder();
 
-    SimpleDateFormat originalDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-    Date realDate = originalDateFormat.parse(date);
+    JSONArray sessions = arc.getJSONArray("sessions");
+    int sessionFileNumber = 1;
+    for (Object obj : sessions) {
+      JSONObject session = (JSONObject) obj;
+      String date = session.getString("date");
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
-    dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
-    String formattedDate = dateFormat.format(realDate);
+      SimpleDateFormat originalDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+      Date realDate = originalDateFormat.parse(date);
 
-    String fileNameFormatted = UrlEscapers.urlFragmentEscaper().escape(audioFile.getName());
-    long lengthInBytes = audioFile.length();
+      JSONArray files = session.getJSONArray("files");
+      int fileNum = 1;
+      for (Object obj2 : files) {
+        JSONObject file = (JSONObject) obj2;
+        String filename = file.getString("filename");
+        String duration = file.getString("duration");
 
-    innerTemplate.clearMappings();
-    innerTemplate.addMapping("TITLE", title);
-    innerTemplate.addMapping("FILENAME", fileNameFormatted);
-    innerTemplate.addMapping("GUID", fileNameFormatted);
-    innerTemplate.addMapping("SUMMARY", summary);
-    innerTemplate.addMapping("DESCRIPTION", summary);
-    innerTemplate.addMapping("PUBDATE", formattedDate);
-    innerTemplate.addMapping("DURATION", duration);
-    innerTemplate.addMapping("LENGTH", String.valueOf(lengthInBytes));
+        String filePath = audioDirectory + "/" + filename + ".m4a";
+        File audioFile = new File(filePath);
+        long lengthInBytes = audioFile.length();
 
-    return innerTemplate.createCombinedExport();
+        String fileNameFormatted = UriUtils.encodePath(filename, "UTF-8");
+
+        DateTime dateWithTime = new DateTime(realDate).plusHours(17 + 2 * fileNum);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+        String formattedDate = dateFormat.format(dateWithTime.toDate());
+
+        String fileTitle = title + " (Part " + sessionFileNumber + ")";
+
+        innerTemplate.clearMappings();
+        innerTemplate.addMapping("TITLE", fileTitle);
+        innerTemplate.addMapping("FILENAME", fileNameFormatted);
+        innerTemplate.addMapping("GUID", fileNameFormatted);
+        innerTemplate.addMapping("SUMMARY", summary);
+        innerTemplate.addMapping("DESCRIPTION", summary);
+        innerTemplate.addMapping("PUBDATE", formattedDate);
+        innerTemplate.addMapping("DURATION", duration);
+        innerTemplate.addMapping("LENGTH", String.valueOf(lengthInBytes));
+
+        stringBuilder.append(innerTemplate.createCombinedExport());
+
+        fileNum++;
+        sessionFileNumber++;
+      }
+    }
+
+    return stringBuilder.toString();
   }
 
   private TemplatePrinter createTemplate(String fileName) throws IOException {
