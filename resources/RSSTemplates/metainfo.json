@@ -48,7 +48,7 @@
   },
   {
     "title": "Gobs of Trouble",
-    "summary": "Flynn, Arianne, Fuzzy, and Kaas fight Goblins.",
+    "summary": "Flynn, Alrianne, Fuzzy, and Kaas fight Goblins.",
     "sessions": [
       {
         "date": "2019/12/13",
@@ -80,7 +80,7 @@
   },
   {
     "title": "The Princess Games",
-    "summary": "Flynn, Arianne, Peridot, and Plea do something.",
+    "summary": "Flynn, Alrianne, Peridot, and Plea do something.",
     "sessions": [
       {
         "date": "2020/01/25",
@@ -128,6 +128,25 @@
           {
             "filename": "Lets Get Kraken 2",
             "duration": "01:44:25"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Broken Alchemy: Infiltration",
+    "summary": "Flynn, Elizabethe, Alrianne, and Peridot go spelunking.",
+    "sessions": [
+      {
+        "date": "2020/03/06",
+        "files": [
+          {
+            "filename": "Broken Alchemy Infiltration 1",
+            "duration": "01:10:51"
+          },
+          {
+            "filename": "Broken Alchemy Infiltration 2",
+            "duration": "01:36:32"
           }
         ]
       }
