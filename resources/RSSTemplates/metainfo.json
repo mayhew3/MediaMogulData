@@ -9,6 +9,10 @@
           {
             "filename": "Session Zero 1",
             "duration": "01:04:38"
+          },
+          {
+            "filename": "Session Zero 2",
+            "duration": "01:44:41"
           }
         ]
       }
@@ -160,6 +164,25 @@
           {
             "filename": "Broken Alchemy Infiltration 2",
             "duration": "01:36:32"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Broken Alchemy: Siege",
+    "summary": "Plea, Fuzzy, Kaas, and Lantus play with matches and virtual backgrounds.",
+    "sessions": [
+      {
+        "date": "2020/03/20",
+        "files": [
+          {
+            "filename": "Broken Alchemy Siege 1",
+            "duration": "02:20:37"
+          },
+          {
+            "filename": "Broken Alchemy Siege 2",
+            "duration": "01:04:45"
           }
         ]
       }
