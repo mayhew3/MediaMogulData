@@ -50,6 +50,8 @@ public class Episode extends RetireableDataObject {
 
   public FieldValueTimestamp lastTVDBError = registerTimestampField("last_tvdb_error", Nullability.NULLABLE);
 
+  public FieldValueString tvdbApproval = registerStringField("tvdb_approval", Nullability.NOT_NULL);
+
   public Episode() {
     registerTimestampField("last_tvdb_update", Nullability.NULLABLE);
     registerTimestampField("last_tvdb_sanity_check", Nullability.NULLABLE);

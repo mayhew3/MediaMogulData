@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/RSSTemplates/metainfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/RSSTemplates/metainfo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +139,18 @@
       <recent name="C:\Code\git\MediaMogulData\src\test\resources\IGDBTest" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PodcastFeedExporter">
+  <component name="RunManager" selected="JUnit.SchemaLocalTest">
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <module name="media-mogul-data_main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -1778,17 +1790,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <module name="media-mogul-data_main" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="media-mogul-data [assemble]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -2399,31 +2400,31 @@
     </state>
     <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1579054492060" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="1236" height="712" key="GridCell.Tab.0.bottom" timestamp="1584827882062">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1877" height="319" key="GridCell.Tab.0.bottom" timestamp="1584908476392">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="914" height="511" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1584241178264" />
+    <state width="1877" height="319" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="712" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
-    <state width="1236" height="712" key="GridCell.Tab.0.center" timestamp="1584827882062">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1877" height="319" key="GridCell.Tab.0.center" timestamp="1584908476392">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="914" height="511" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1584241178264" />
+    <state width="1877" height="319" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="712" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
-    <state width="1236" height="712" key="GridCell.Tab.0.left" timestamp="1584827882062">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1877" height="319" key="GridCell.Tab.0.left" timestamp="1584908476392">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="914" height="511" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1584241178264" />
+    <state width="1877" height="319" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
     <state width="2517" height="361" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="712" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
-    <state width="1236" height="712" key="GridCell.Tab.0.right" timestamp="1584827882062">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state width="1877" height="319" key="GridCell.Tab.0.right" timestamp="1584908476392">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="914" height="511" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1584241178264" />
+    <state width="1877" height="319" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="712" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
@@ -2524,11 +2525,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/utility/TVDBDuplicateDataFixer.java</url>
           <line>183</line>
           <option name="timeStamp" value="163" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="168" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.mayhew3/Postgres-Object/0.10.9/5130f3379627e850f3e4c7ce74d167bdaa1c1204/Postgres-Object-0.10.9-sources.jar!/com/mayhew3/postgresobject/db/DataRestoreLocalExecutor.java</url>

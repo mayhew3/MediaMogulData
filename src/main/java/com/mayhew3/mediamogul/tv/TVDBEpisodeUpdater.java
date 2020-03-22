@@ -48,6 +48,10 @@ class TVDBEpisodeUpdater {
     this.episodeJson = episodeJSON;
   }
 
+  private boolean shouldFlagPastEpisode(Episode episode) {
+    return false;
+  }
+
   /**
    * @return Whether a new episode was added, or episode was found and updated.
    * @throws SQLException If DB query error
@@ -149,6 +153,10 @@ class TVDBEpisodeUpdater {
 
     if (episode.hasChanged()) {
       changed = true;
+    }
+
+    if (shouldFlagPastEpisode(episode)) {
+      episode.tvdbApproval.changeValue("pending");
     }
 
     episode.commit(connection);
