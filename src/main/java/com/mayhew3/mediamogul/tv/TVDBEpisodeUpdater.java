@@ -11,8 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -48,8 +50,40 @@ class TVDBEpisodeUpdater {
     this.episodeJson = episodeJSON;
   }
 
-  private boolean shouldFlagPastEpisode(Episode episode) {
-    return false;
+  private boolean hasSeriesViewers(Episode episode) throws SQLException {
+    String sql = "SELECT 1 " +
+        "FROM episode_rating er " +
+        "INNER JOIN episode e " +
+        "  ON er.episode_id = e.id " +
+        "WHERE e.series_id = ? " +
+        "AND e.air_time IS NOT NULL " +
+        "AND e.season <> ? " +
+        "AND e.air_time > ? " +
+        "AND er.watched = ? " +
+        "AND e.retired = ? " +
+        "AND er.retired = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql,
+        episode.seriesId.getValue(),
+        0,
+        episode.airTime.getValue(),
+        true,
+        0,
+        0);
+    return resultSet.next();
+  }
+
+  private boolean shouldFlagPastEpisode(Episode episode) throws SQLException {
+    DateTime now = new DateTime();
+    DateTime airTime = new DateTime(episode.airDate.getValue());
+    Integer season = episode.season.getValue();
+    if (episode.isForInsert() &&
+        airTime.isBefore(now) &&
+        season != null &&
+        season != 0) {
+      return hasSeriesViewers(episode);
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -155,9 +189,8 @@ class TVDBEpisodeUpdater {
       changed = true;
     }
 
-    if (shouldFlagPastEpisode(episode)) {
-      episode.tvdbApproval.changeValue("pending");
-    }
+    String approvalStatus = shouldFlagPastEpisode(episode) ? "pending" : "approved";
+    episode.tvdbApproval.changeValue(approvalStatus);
 
     episode.commit(connection);
     episodes.add(episode);
