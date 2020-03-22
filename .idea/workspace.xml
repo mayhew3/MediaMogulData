@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Episode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/TVDBEpisodeUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/tv/TVDBSeriesUpdaterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,18 +139,7 @@
       <recent name="C:\Code\git\MediaMogulData\src\test\resources\IGDBTest" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SchemaLocalTest">
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <module name="media-mogul-data_main" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.TVDBSeriesUpdaterTest (1)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -1790,6 +1779,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <module name="media-mogul-data_main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="media-mogul-data [assemble]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -1890,27 +1890,6 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="All in com.mayhew3.mediamogul.media-mogul-data.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="DatabaseRecreatorTest (Demo)" type="JUnit" factoryName="JUnit">
       <module name="media-mogul-data_test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.dataobject" />
@@ -1950,33 +1929,6 @@
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
         <env name="postgresURL_local_demo" value="jdbc:postgresql://localhost:5434/tv_demo?user=postgres&amp;password=m3mysql" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SchemaEndToEndTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mayhew3.mediamogul.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaEndToEndTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
       </envs>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -2025,7 +1977,8 @@
       </method>
     </configuration>
     <configuration name="SchemaLocalTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
+      <module name="media-mogul-data.test" />
+      <useClassPathOnly />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.model" />
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.model.SchemaLocalTest" />
       <option name="METHOD_NAME" value="" />
@@ -2038,6 +1991,27 @@
       </option>
       <envs>
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TVDBSeriesUpdaterTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="media-mogul-data.test" />
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
       </envs>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -2064,11 +2038,53 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="com.mayhew3.mediamogul.media-mogul-data.test" />
+    <configuration name="TVDBSeriesUpdaterTest.testEpisodeFlaggedWhenRatingExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
-      <option name="METHOD_NAME" value="testIDChangedForTVDBEpisode" />
+      <option name="METHOD_NAME" value="testEpisodeFlaggedWhenRatingExists" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TVDBSeriesUpdaterTest.testEpisodeNotFlaggedWhenNoRatingsExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="media-mogul-data.test" />
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
+      <option name="METHOD_NAME" value="testEpisodeNotFlaggedWhenNoRatingsExists" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TVDBSeriesUpdaterTest.testEpisodeNotFlaggedWhenOnlyEarlierRatingsExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="media-mogul-data.test" />
+      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.tv" />
+      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBSeriesUpdaterTest" />
+      <option name="METHOD_NAME" value="testEpisodeNotFlaggedWhenOnlyEarlierRatingsExists" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" value="" />
@@ -2272,16 +2288,18 @@
       <item itemvalue="JUnit.SchemaHerokuTest" />
       <item itemvalue="JUnit.SchemaLocalTest" />
       <item itemvalue="JUnit.TVDBSeriesUpdaterTest" />
-      <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
-      <item itemvalue="JUnit.SchemaEndToEndTest" />
-      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" />
+      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeFlaggedWhenRatingExists" />
+      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeNotFlaggedWhenNoRatingsExists" />
+      <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeNotFlaggedWhenOnlyEarlierRatingsExists" />
+      <item itemvalue="JUnit.TVDBSeriesUpdaterTest (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TVDBSeriesUpdaterTest (1)" />
+        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeNotFlaggedWhenOnlyEarlierRatingsExists" />
+        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeNotFlaggedWhenNoRatingsExists" />
+        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testEpisodeFlaggedWhenRatingExists" />
         <item itemvalue="Gradle.media-mogul-data [clean]" />
-        <item itemvalue="JUnit.All in com.mayhew3.mediamogul.media-mogul-data.test" />
-        <item itemvalue="JUnit.TVDBSeriesUpdaterTest.testIDChangedForTVDBEpisode" />
-        <item itemvalue="JUnit.SchemaEndToEndTest" />
       </list>
     </recent_temporary>
   </component>
@@ -2365,6 +2383,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Fix gradle config for finder/processor" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1524" y="346" key="#SchemaLocalTest" timestamp="1584908903109">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1524" y="346" key="#SchemaLocalTest/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584908903109" />
     <state x="941" y="695" width="1092" height="707" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583780703305">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2386,11 +2408,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1634" y="352" key="#media-mogul-data_[runTaskScheduleRunner]/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582251787319" />
-    <state x="363" y="261" key="#xdebugger.evaluate" timestamp="1582252145052">
+    <state x="363" y="261" key="#xdebugger.evaluate" timestamp="1584911986403">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="272" y="194" key="#xdebugger.evaluate/0.0.1920.1050@0.0.1920.1050" timestamp="1580496081905" />
-    <state x="363" y="261" key="#xdebugger.evaluate/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582252145052" />
+    <state x="363" y="261" key="#xdebugger.evaluate/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584911986403" />
     <state x="832" y="333" width="1178" height="868" key="EnvironmentVariablesDialog" timestamp="1583561562896">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2400,58 +2422,58 @@
     </state>
     <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1579054492060" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="1877" height="319" key="GridCell.Tab.0.bottom" timestamp="1584908476392">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="380" key="GridCell.Tab.0.bottom" timestamp="1584913292009">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="319" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="1236" height="712" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
-    <state width="1877" height="319" key="GridCell.Tab.0.center" timestamp="1584908476392">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="380" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584913292009" />
+    <state width="1236" height="380" key="GridCell.Tab.0.center" timestamp="1584913292009">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="319" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="1236" height="712" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
-    <state width="1877" height="319" key="GridCell.Tab.0.left" timestamp="1584908476392">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="380" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584913292009" />
+    <state width="1236" height="380" key="GridCell.Tab.0.left" timestamp="1584913292008">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="319" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
     <state width="2517" height="361" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="1236" height="712" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
-    <state width="1877" height="319" key="GridCell.Tab.0.right" timestamp="1584908476392">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="380" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584913292008" />
+    <state width="1236" height="380" key="GridCell.Tab.0.right" timestamp="1584913292009">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="319" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1584908476392" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="1236" height="712" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584827882062" />
-    <state width="2517" height="455" key="GridCell.Tab.1.bottom" timestamp="1582680095699">
+    <state width="1236" height="380" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584913292009" />
+    <state width="1236" height="451" key="GridCell.Tab.1.bottom" timestamp="1584912608502">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="455" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582680095699" />
-    <state width="2517" height="455" key="GridCell.Tab.1.center" timestamp="1582680095699">
+    <state width="1236" height="451" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584912608502" />
+    <state width="1236" height="451" key="GridCell.Tab.1.center" timestamp="1584912608502">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="455" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582680095699" />
-    <state width="2517" height="455" key="GridCell.Tab.1.left" timestamp="1582680095699">
+    <state width="1236" height="451" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584912608502" />
+    <state width="1236" height="451" key="GridCell.Tab.1.left" timestamp="1584912608502">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="455" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582680095699" />
-    <state width="2517" height="455" key="GridCell.Tab.1.right" timestamp="1582680095699">
+    <state width="1236" height="451" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584912608502" />
+    <state width="1236" height="451" key="GridCell.Tab.1.right" timestamp="1584912608502">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="266" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580504343661" />
     <state width="2517" height="461" key="GridCell.Tab.1.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578512664134" />
-    <state width="2517" height="455" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582680095699" />
+    <state width="1236" height="451" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584912608502" />
     <state x="947" y="341" key="RollbackChangesDialog" timestamp="1578435820593">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2481,12 +2503,12 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1629" y="329" key="refactoring.ChangeSignatureDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582672597509" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1583561324614">
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1584910319718">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1579228611583" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578520024288" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1583561324614" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1584910319718" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
