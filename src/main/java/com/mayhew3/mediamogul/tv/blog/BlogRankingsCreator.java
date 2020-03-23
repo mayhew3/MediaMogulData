@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mayhew3.mediamogul.model.tv.*;
+import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -289,17 +290,18 @@ public class BlogRankingsCreator {
 
   @NotNull
   private List<Episode> getEpisodes(EpisodeGroupRating groupRating) throws SQLException {
-    String sql = "select *\n" +
-        "from episode\n" +
-        "where air_date between ? and ?\n" +
-        "and series_id = ?\n" +
-        "and season <> ? \n" +
-        "and retired = ?\n" +
+    String sql = "select * " +
+        "from episode " +
+        "where air_date between ? and ? " +
+        "and series_id = ? " +
+        "and season <> ?  " +
+        "and retired = ? " +
+        "and tvdb_approval = ? " +
         "order by air_date";
 
     List<Episode> episodes = new ArrayList<>();
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0, TVDBApprovalStatus.APPROVED.getTypeKey());
 
     while (resultSet.next()) {
       Episode episode = new Episode();
@@ -321,11 +323,12 @@ public class BlogRankingsCreator {
         "and e.retired = ? " +
         "and er.retired = ? " +
         "and er.person_id = ? " +
+        "and e.tvdb_approval = ? " +
         "order by e.air_date";
 
     List<EpisodeRating> episodeRatings = new ArrayList<>();
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0, 0, 1);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0, 0, 1, TVDBApprovalStatus.APPROVED.getTypeKey());
 
     while (resultSet.next()) {
       EpisodeRating episodeRating = new EpisodeRating();
