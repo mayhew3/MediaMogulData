@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
+import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -53,24 +54,25 @@ public class EpisodeGroupUpdater implements UpdateRunner {
     Integer currentYear = systemVars.ratingYear.getValue();
     Timestamp ratingEndDate = systemVars.ratingEndDate.getValue();
 
-    String sql = "select s.*\n" +
-        "from episode e\n" +
-        "inner join series s\n" +
-        " on e.series_id = s.id\n" +
+    String sql = "select s.* " +
+        "from episode e " +
+        "inner join series s " +
+        " on e.series_id = s.id " +
         "inner join episode_rating er " +
         " on er.episode_id = e.id " +
-        "where e.air_date between ? and ?\n" +
-        "and er.watched = ?\n" +
-//        "and er.watched_date < ?\n" +
-        "and e.retired = ?\n" +
+        "where e.air_date between ? and ? " +
+        "and er.watched = ? " +
+//        "and er.watched_date < ? " +
+        "and e.retired = ? " +
         "and er.retired = ? " +
         "and er.person_id = ? " +
+        "and e.tvdb_approval = ? " +
         "group by s.id";
 
     Timestamp startDate = new Timestamp(beginningOfYear(currentYear).toDate().getTime());
     Timestamp endDate = new Timestamp(endOfYear(currentYear).toDate().getTime());
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, startDate, endDate, true, 0, 0, 1);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, startDate, endDate, true, 0, 0, 1, TVDBApprovalStatus.APPROVED.getTypeKey());
 
     while (resultSet.next()) {
       Series series = new Series();
@@ -172,17 +174,18 @@ public class EpisodeGroupUpdater implements UpdateRunner {
   }
 
   private List<EpisodeInfo> getEligibleEpisodeInfos(EpisodeGroupRating groupRating) throws SQLException {
-    String sql = "select *\n" +
-        "from episode\n" +
-        "where air_date between ? and ?\n" +
-        "and series_id = ?\n" +
-        "and season <> ? \n" +
-        "and retired = ?\n" +
+    String sql = "select * " +
+        "from episode " +
+        "where air_date between ? and ? " +
+        "and series_id = ? " +
+        "and season <> ?  " +
+        "and retired = ? " +
+        "and tvdb_approval = ? " +
         "order by air_date";
 
     List<Episode> episodes = new ArrayList<>();
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0, TVDBApprovalStatus.APPROVED.getTypeKey());
 
     while (resultSet.next()) {
       Episode episode = new Episode();
@@ -406,9 +409,9 @@ public class EpisodeGroupUpdater implements UpdateRunner {
   }
 
   private Optional<EpisodeGroupRating> findRatingForSeriesAndYear(Series series, Integer year) throws SQLException {
-    String sql = "select *\n" +
-        "from episode_group_rating\n" +
-        "where series_id = ?\n" +
+    String sql = "select * " +
+        "from episode_group_rating " +
+        "where series_id = ? " +
         "and year = ?";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, series.id.getValue(), year);
