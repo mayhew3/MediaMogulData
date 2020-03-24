@@ -53,21 +53,17 @@ class TVDBEpisodeUpdater {
   private boolean hasSeriesViewers(Episode episode) throws SQLException {
     String sql = "SELECT 1 " +
         "FROM episode_rating er " +
-        "INNER JOIN episode e " +
+        "INNER JOIN regular_episode e " +
         "  ON er.episode_id = e.id " +
         "WHERE e.series_id = ? " +
         "AND e.air_time IS NOT NULL " +
-        "AND e.season <> ? " +
         "AND e.air_time > ? " +
         "AND er.watched = ? " +
-        "AND e.retired = ? " +
         "AND er.retired = ? ";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql,
         episode.seriesId.getValue(),
-        0,
         episode.airTime.getValue(),
         true,
-        0,
         0);
     return resultSet.next();
   }

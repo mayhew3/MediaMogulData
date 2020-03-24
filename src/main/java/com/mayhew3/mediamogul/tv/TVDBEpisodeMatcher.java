@@ -43,13 +43,12 @@ public class TVDBEpisodeMatcher {
 
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(
           "SELECT te.* " +
-              "FROM episode e " +
+              "FROM valid_episode e " +
               "INNER JOIN tvdb_episode te " +
               "  ON e.tvdb_episode_id = te.id " +
               "WHERE e.series_id = ? " +
-              "AND te.retired = ? " +
-              "AND e.retired = ? ",
-          seriesId, 0, 0
+              "AND te.retired = ? ",
+          seriesId, 0
       );
 
       while (resultSet.next()) {
