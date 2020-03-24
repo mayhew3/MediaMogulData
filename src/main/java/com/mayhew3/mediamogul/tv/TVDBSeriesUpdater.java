@@ -10,6 +10,7 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +35,8 @@ public class TVDBSeriesUpdater {
   private TVDBJWTProvider tvdbDataProvider;
   private JSONReader jsonReader;
 
+  final private Socket socket;
+
   private Set<Integer> foundEpisodeIds;
   private Set<Integer> erroredEpisodeIds;
 
@@ -46,11 +49,13 @@ public class TVDBSeriesUpdater {
   TVDBSeriesUpdater(SQLConnection connection,
                     @NotNull Series series,
                     TVDBJWTProvider tvdbWebProvider,
-                    JSONReader jsonReader) {
+                    JSONReader jsonReader,
+                    Socket socket) {
     this.series = series;
     this.connection = connection;
     this.tvdbDataProvider = tvdbWebProvider;
     this.jsonReader = jsonReader;
+    this.socket = socket;
     this.foundEpisodeIds = new HashSet<>();
     this.erroredEpisodeIds = new HashSet<>();
   }
@@ -382,7 +387,8 @@ public class TVDBSeriesUpdater {
           new JSONReaderImpl(),
           episodes,
           tvdbEpisodes,
-          episode);
+          episode,
+          socket);
       TVDBEpisodeUpdater.EPISODE_RESULT episodeResult = tvdbEpisodeUpdater.updateSingleEpisode();
 
       if (episodeResult == TVDBEpisodeUpdater.EPISODE_RESULT.ADDED) {

@@ -5,6 +5,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.MySocketFactory;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -15,6 +16,7 @@ import com.mayhew3.mediamogul.tv.provider.RemoteFileDownloader;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import io.socket.client.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,6 +41,8 @@ public class TiVoLibraryUpdater {
     Boolean tiVoOnly = argList.contains("TiVoOnly");
     Boolean logToFile = argList.contains("LogToFile");
     Boolean saveTiVoXML = argList.contains("SaveTiVoXML");
+
+    Socket socket = new MySocketFactory().createSocket();
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateType = nightly ? UpdateMode.FULL : UpdateMode.QUICK;
@@ -82,7 +86,7 @@ public class TiVoLibraryUpdater {
     if (!tiVoOnly) {
       try {
         ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
-        TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), UpdateMode.SMART);
+        TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), socket, UpdateMode.SMART);
         tvdbUpdateRunner.runUpdate();
       } catch (SQLException e) {
         debug("Error downloading info from TVDB service.");
@@ -121,7 +125,7 @@ public class TiVoLibraryUpdater {
     if (nightly) {
       try {
         ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
-        TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), UpdateMode.SANITY);
+        TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), socket, UpdateMode.SANITY);
         tvdbUpdateRunner.runUpdate();
       } catch (UnirestException e) {
         debug("Uncaught exception during TVDB sanity check.");

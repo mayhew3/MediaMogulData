@@ -4,6 +4,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.MySocketFactory;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Episode;
@@ -19,6 +20,7 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,6 +51,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
   private TVDBJWTProvider tvdbjwtProvider;
   private JSONReader jsonReader;
+  private final Socket socket;
 
   private TVDBConnectionLog tvdbConnectionLog;
   private UpdateMode updateMode;
@@ -59,7 +62,8 @@ public class TVDBUpdateRunner implements UpdateRunner {
   private final Integer ERROR_FOLLOW_UP_THRESHOLD_IN_DAYS = 7;
   private final Integer ERROR_THRESHOLD = 5;
 
-  public TVDBUpdateRunner(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, @NotNull UpdateMode updateMode) {
+  public TVDBUpdateRunner(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, Socket socket, @NotNull UpdateMode updateMode) {
+    this.socket = socket;
 
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.FULL, this::runFullUpdate);
@@ -93,8 +97,31 @@ public class TVDBUpdateRunner implements UpdateRunner {
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
 
-    TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), updateMode);
+    Socket socket = new MySocketFactory().createSocket();
+
+    TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(
+        connection,
+        new TVDBJWTProviderImpl(tvdbServiceHandler),
+        new JSONReaderImpl(),
+        socket,
+        updateMode);
     tvdbUpdateRunner.runUpdate();
+/*
+
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("id", 71646);
+    jsonObject.put("series_title", "The Good Place");
+    jsonObject.put("series_id", 574);
+    jsonObject.put("title", "Everything is Great! (2)");
+    jsonObject.put("season", 2);
+    jsonObject.put("episode_number", 2);
+    jsonObject.put("air_time", "2017-09-21 03:30:00.000000");
+    jsonObject.put("date_added", "2019-06-20 12:33:43.698000");
+
+    socket.emit("tvdb_pending", jsonObject);
+*/
+
+    socket.disconnect();
   }
 
   public void runUpdate() throws SQLException {
@@ -673,7 +700,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
   }
 
   private void updateTVDB(Series series) throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
-    TVDBSeriesUpdater updater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, jsonReader);
+    TVDBSeriesUpdater updater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, jsonReader, socket);
     updater.updateSeries();
 
     episodesAdded += updater.getEpisodesAdded();
