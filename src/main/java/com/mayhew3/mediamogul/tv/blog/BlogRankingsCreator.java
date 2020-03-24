@@ -4,7 +4,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mayhew3.mediamogul.model.tv.*;
-import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -291,17 +290,14 @@ public class BlogRankingsCreator {
   @NotNull
   private List<Episode> getEpisodes(EpisodeGroupRating groupRating) throws SQLException {
     String sql = "select * " +
-        "from episode " +
+        "from regular_episode " +
         "where air_date between ? and ? " +
         "and series_id = ? " +
-        "and season <> ?  " +
-        "and retired = ? " +
-        "and tvdb_approval = ? " +
         "order by air_date";
 
     List<Episode> episodes = new ArrayList<>();
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0, TVDBApprovalStatus.APPROVED.getTypeKey());
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue());
 
     while (resultSet.next()) {
       Episode episode = new Episode();
@@ -314,21 +310,18 @@ public class BlogRankingsCreator {
 
   private List<EpisodeRating> getEpisodeRatings(EpisodeGroupRating groupRating) throws SQLException {
     String sql = "select er.* " +
-        "from episode e " +
+        "from regular_episode e " +
         "inner join episode_rating er " +
         "  on er.episode_id = e.id " +
         "where e.air_date between ? and ? " +
         "and e.series_id = ? " +
-        "and e.season <> ? " +
-        "and e.retired = ? " +
         "and er.retired = ? " +
         "and er.person_id = ? " +
-        "and e.tvdb_approval = ? " +
         "order by e.air_date";
 
     List<EpisodeRating> episodeRatings = new ArrayList<>();
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 0, 0, 1, TVDBApprovalStatus.APPROVED.getTypeKey());
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, groupRating.startDate.getValue(), groupRating.endDate.getValue(), groupRating.seriesId.getValue(), 0, 1);
 
     while (resultSet.next()) {
       EpisodeRating episodeRating = new EpisodeRating();

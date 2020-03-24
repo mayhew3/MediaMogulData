@@ -5,7 +5,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupEpisode;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
-import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
@@ -170,12 +169,10 @@ public class TVDBSeriesUpdater {
   private void updateOnlyAbsoluteNumbers() throws SQLException {
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(
         "SELECT e.* " +
-            "FROM episode e " +
+            "FROM regular_episode e " +
             "WHERE e.series_id = ? " +
-            "AND e.retired = ? " +
             "AND e.air_time IS NOT NULL " +
-            "AND e.tvdb_approval = ? " +
-            "ORDER BY e.season, e.episode_number ", series.id.getValue(), 0, TVDBApprovalStatus.APPROVED.getTypeKey());
+            "ORDER BY e.season, e.episode_number ", series.id.getValue());
 
     int i = 1;
     while (resultSet.next()) {
@@ -508,7 +505,7 @@ public class TVDBSeriesUpdater {
 
   private void updateEpisodeLastError(Integer tvdbEpisodeExtId) {
     String sql = "SELECT e.* " +
-        "FROM episode e " +
+        "FROM valid_episode e " +
         "INNER JOIN tvdb_episode te " +
         " ON te.id = e.tvdb_episode_id " +
         "WHERE te.tvdb_episode_ext_id = ? " +
