@@ -7,6 +7,7 @@ import com.mayhew3.mediamogul.model.tv.TVDBMigrationLog;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import io.socket.client.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +29,8 @@ class TVDBEpisodeUpdater {
 
   private JSONObject episodeJson;
 
+  final private Socket socket;
+
   private SQLConnection connection;
   private Integer tvdbRemoteId;
   private JSONReader jsonReader;
@@ -40,7 +43,8 @@ class TVDBEpisodeUpdater {
                      JSONReader jsonReader,
                      List<Episode> episodes,
                      List<TVDBEpisode> tvdbEpisodes,
-                     JSONObject episodeJSON) {
+                     JSONObject episodeJSON,
+                     Socket socket) {
     this.series = series;
     this.connection = connection;
     this.tvdbRemoteId = tvdbEpisodeId;
@@ -48,6 +52,7 @@ class TVDBEpisodeUpdater {
     this.episodes = episodes;
     this.tvdbEpisodes = tvdbEpisodes;
     this.episodeJson = episodeJSON;
+    this.socket = socket;
   }
 
   private boolean hasSeriesViewers(Episode episode) throws SQLException {
@@ -185,11 +190,17 @@ class TVDBEpisodeUpdater {
       changed = true;
     }
 
-    String approvalStatus = shouldFlagPastEpisode(episode) ? "pending" : "approved";
+    boolean shouldFlagPastEpisode = shouldFlagPastEpisode(episode);
+    String approvalStatus = shouldFlagPastEpisode ? "pending" : "approved";
     episode.tvdbApproval.changeValue(approvalStatus);
 
     episode.commit(connection);
     episodes.add(episode);
+
+    if (shouldFlagPastEpisode) {
+      JSONObject pendingReturnObj = createPendingReturnObj(episode);
+      socket.emit("tvdb_pending", pendingReturnObj);
+    }
 
     Integer episodeId = tvdbEpisode.id.getValue();
 
@@ -204,6 +215,19 @@ class TVDBEpisodeUpdater {
     } else {
       return EPISODE_RESULT.NONE;
     }
+  }
+
+  private JSONObject createPendingReturnObj(Episode episode) {
+    JSONObject episodeObj = new JSONObject();
+    episodeObj.put("id", episode.id.getValue());
+    episodeObj.put("series_title", episode.seriesTitle.getValue());
+    episodeObj.put("series_id", episode.seriesId.getValue());
+    episodeObj.put("title", episode.title.getValue());
+    episodeObj.put("season", episode.season.getValue());
+    episodeObj.put("episode_number", episode.episodeNumber.getValue());
+    episodeObj.put("air_time", episode.airTime.getValue());
+    episodeObj.put("date_added", episode.dateAdded.getValue());
+    return episodeObj;
   }
 
   private void addChangeLogs(TVDBEpisode tvdbEpisode) throws SQLException {

@@ -1,10 +1,7 @@
 package com.mayhew3.mediamogul.scheduler;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mayhew3.mediamogul.ChromeProvider;
-import com.mayhew3.mediamogul.EnvironmentChecker;
-import com.mayhew3.mediamogul.ExternalServiceHandler;
-import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.*;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
 import com.mayhew3.mediamogul.backup.MediaMogulBackupExecutor;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
@@ -22,6 +19,7 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import io.socket.client.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -45,6 +43,8 @@ public class TaskScheduleRunner {
   private SteamProvider steamProvider;
   private ChromeProvider chromeProvider;
 
+
+  private final Socket socket;
   private String envName;
 
   private Integer person_id;
@@ -54,7 +54,12 @@ public class TaskScheduleRunner {
   private TaskScheduleRunner(SQLConnection connection,
                              @Nullable TVDBJWTProvider tvdbjwtProvider,
                              JSONReader jsonReader,
-                             ExternalServiceHandler howLongServiceHandler, IGDBProvider igdbProvider, SteamProvider steamProvider, ChromeProvider chromeProvider, String envName, Integer person_id) {
+                             ExternalServiceHandler howLongServiceHandler,
+                             IGDBProvider igdbProvider,
+                             SteamProvider steamProvider,
+                             ChromeProvider chromeProvider,
+                             Socket socket, String envName,
+                             Integer person_id) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;
@@ -62,6 +67,7 @@ public class TaskScheduleRunner {
     this.igdbProvider = igdbProvider;
     this.steamProvider = steamProvider;
     this.chromeProvider = chromeProvider;
+    this.socket = socket;
     this.envName = envName;
     this.person_id = person_id;
   }
@@ -78,6 +84,8 @@ public class TaskScheduleRunner {
     Integer person_id = Integer.parseInt(mediaMogulPersonID);
 
     String envName = EnvironmentChecker.getOrThrow("envName");
+
+    Socket socket = new MySocketFactory().createSocket();
 
     ChromeProvider chromeProvider = new ChromeProvider();
 
@@ -96,6 +104,7 @@ public class TaskScheduleRunner {
         igdbProvider,
         new SteamProviderImpl(),
         chromeProvider,
+        socket,
         envName,
         person_id);
     taskScheduleRunner.runUpdates();
@@ -125,25 +134,25 @@ public class TaskScheduleRunner {
 
     // MINUTELY
 
-    addMinutelyTask(new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader),
+    addMinutelyTask(new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader, socket),
         1);
     addMinutelyTask(new NewGameChecker(connection, jsonReader, igdbProvider, chromeProvider, howLongServiceHandler, person_id),
         1);
-    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.MANUAL),
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, socket, UpdateMode.MANUAL),
         1);
     addMinutelyTask(new SeriesDenormUpdater(connection),
         30);
-    addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader),
+    addMinutelyTask(new TVDBUpdateProcessor(connection, tvdbjwtProvider, jsonReader, socket),
         1);
     addMinutelyTask(new TVDBUpdateFinder(connection, tvdbjwtProvider, jsonReader),
         2);
     addMinutelyTask(new SteamPlaySessionGenerator(connection, person_id),
         10);
-    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SANITY),
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, socket, UpdateMode.SANITY),
         4);
     addMinutelyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SMART),
         30);
-    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, UpdateMode.SMART),
+    addMinutelyTask(new TVDBUpdateRunner(connection, tvdbjwtProvider, jsonReader, socket, UpdateMode.SMART),
         30);
     addMinutelyTask(new MetacriticTVUpdateRunner(connection, UpdateMode.CHUNKED),
         7);

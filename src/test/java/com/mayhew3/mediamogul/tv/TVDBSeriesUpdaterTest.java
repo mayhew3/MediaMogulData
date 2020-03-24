@@ -9,11 +9,14 @@ import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBLocalJSONProvider;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
+import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDate;
+import org.json.JSONObject;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
@@ -26,6 +29,7 @@ import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.*;
 
 @SuppressWarnings({"SameParameterValue", "OptionalGetWithoutIsPresent"})
 public class TVDBSeriesUpdaterTest extends DatabaseTest {
@@ -38,6 +42,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   private int SCHUMER_EPISODE_ID1 = 5578415;
   private int SCHUMER_EPISODE_ID2 = 5580497;
   private int SCHUMER_EPISODE_ID3 = 5552985;
+
+  private Socket socket;
 
   private Date SCHUMER_EPISODE_AIR1;
   private Date SCHUMER_EPISODE_AIR3;
@@ -55,6 +61,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
       throw new RuntimeException(e);
     }
     tvdbjwtProvider = new TVDBLocalJSONProvider("src\\test\\resources\\TVDBTest\\");
+    socket = mock(Socket.class);
   }
 
   @Test
@@ -74,7 +81,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
 
     EpisodeRating secondRating = addRating(secondEpisode, person.id.getValue());
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     TVDBEpisode retiredTVDBEpisode = findTVDBEpisodeWithTVDBID(originalID);
@@ -111,6 +118,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     EpisodeRating episodeRating = updatedRatings.get(0);
     assertThat(episodeRating.id.getValue())
         .isEqualTo(secondRating.id.getValue());
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -127,7 +136,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     addRating(firstEpisode, person.id.getValue());
     addRating(thirdEpisode, person.id.getValue());
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
@@ -140,6 +149,13 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isEqualToIgnoringCase("pending");
     assertThat(thirdEpisode.tvdbApproval.getValue())
         .isEqualToIgnoringCase("approved");
+
+    ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
+    verify(socket).emit(stringCaptor.capture(), any(JSONObject.class));
+
+    String capturedChannel = stringCaptor.getValue();
+
+    assertThat(capturedChannel).isEqualToIgnoringCase("tvdb_pending");
   }
 
   @Test
@@ -151,7 +167,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     addEpisodeWithAirTime(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1, SCHUMER_EPISODE_AIR1);
     addEpisodeWithAirTime(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3, SCHUMER_EPISODE_AIR3);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     Episode firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
@@ -164,6 +180,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isEqualToIgnoringCase("approved");
     assertThat(thirdEpisode.tvdbApproval.getValue())
         .isEqualToIgnoringCase("approved");
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -179,7 +197,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
 
     addRating(firstEpisode, person.id.getValue());
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
@@ -192,6 +210,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isEqualToIgnoringCase("approved");
     assertThat(thirdEpisode.tvdbApproval.getValue())
         .isEqualToIgnoringCase("approved");
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -204,7 +224,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
     addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     TVDBEpisode tvdbEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID3);
@@ -222,6 +242,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     //noinspection ConstantConditions
     assertThat(thirdEpisode.episodeNumber.getValue())
         .isEqualTo(2);
+
+    verifyZeroInteractions(socket);
   }
 
 
@@ -247,7 +269,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     secondEpisode.airDate.changeValue(originalDate);
     secondEpisode.commit(connection);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     @NotNull Episode episode = findEpisodeWithID(episodeID);
@@ -261,6 +283,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isNotEqualTo(originalDate.getTime())
         .isEqualTo(xmlDate.getTime());
 
+    verifyZeroInteractions(socket);
   }
 
 
@@ -271,7 +294,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
 
     Date xmlDate = new LocalDate(2016, 4, 28).toDate();
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     @NotNull Episode episode = findEpisode(SCHUMER_SERIES_NAME, 4, 2);
@@ -282,6 +305,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
 
     assertThat(episode.airDate.getValue().getTime())
         .isEqualTo(xmlDate.getTime());
+
+    verifyZeroInteractions(socket);
   }
 
 
@@ -307,7 +332,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     secondEpisode.airDate.changeValue(overriddenDate);
     secondEpisode.commit(connection);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     @NotNull Episode episode = findEpisodeWithID(episodeID);
@@ -321,6 +346,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isNotEqualTo(xmlDate.getTime())
         .isEqualTo(overriddenDate.getTime());
 
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -339,7 +365,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     secondEpisode.episodeNumber.changeValue(overriddenEpisodeNumber);
     secondEpisode.commit(connection);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     @NotNull Episode episode = findEpisodeWithID(episodeID);
@@ -352,6 +378,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     assertThat(episode.episodeNumber.getValue())
             .isNotEqualTo(originalEpisodeNumber)
             .isEqualTo(overriddenEpisodeNumber);
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -372,7 +400,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     secondEpisode.setSeason(overriddenSeasonNumber, connection);
     secondEpisode.commit(connection);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     @NotNull Episode episode = findEpisodeWithID(episodeID);
@@ -385,6 +413,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     assertThat(episode.getSeason())
             .isNotEqualTo(originalSeasonNumber)
             .isEqualTo(overriddenSeasonNumber);
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -409,7 +439,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     series.poster.changeValue(overriddenPoster);
     series.commit(connection);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     Series foundSeries = findSeriesWithTitle("Inside Amy Schumer");
@@ -422,6 +452,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .as("Expected change to tvdb_series with new value from XML.")
         .isNotEqualTo(originalPoster)
         .isEqualTo(changedPoster);
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -439,7 +471,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     Episode epFour = addEpisode(series, 4, 4, SCHUMER_EPISODE_NAME4, SCHUMER_EPISODE_ID4);
     Integer originalId = epFour.id.getValue();
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     TVDBEpisode tvdbEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID4);
@@ -455,6 +487,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isEqualTo(tvdbEpisode.id.getValue());
     assertThat(foundEpisode.retired.getValue())
         .isNotEqualTo(0);
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -469,7 +503,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2);
     addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     TVDBEpisode tvdbEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID3);
@@ -484,6 +518,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isNotNull();
     assertThat(episode.retired.getValue())
         .isEqualTo(0);
+
+    verifyZeroInteractions(socket);
   }
 
   @Test
@@ -498,7 +534,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     addEpisode(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2);
     addEpisode(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3);
 
-    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl());
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl(), socket);
     tvdbSeriesUpdater.updateSeries();
 
     TVDBEpisode tvdbEpisode = findTVDBEpisodeWithTVDBID(SCHUMER_EPISODE_ID3);
@@ -513,6 +549,8 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
         .isNotNull();
     assertThat(episode.retired.getValue())
         .isEqualTo(0);
+
+    verifyZeroInteractions(socket);
   }
 
 
