@@ -20,7 +20,7 @@ public class MySocketFactory {
     HashMap<String, String> socketUrls = new HashMap<>();
     socketUrls.put("Obsidian", "http://localhost:5000");
     socketUrls.put("Janet", "http://localhost:5000");
-    socketUrls.put("heroku", "https://mediamogul.mayhew3.com/");
+    socketUrls.put("Heroku", "https://mediamogul.mayhew3.com/");
 
     String uri = socketUrls.get(envName);
     if (uri == null) {
