@@ -106,20 +106,6 @@ public class TVDBUpdateRunner implements UpdateRunner {
         socket,
         updateMode);
     tvdbUpdateRunner.runUpdate();
-/*
-
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.put("id", 71646);
-    jsonObject.put("series_title", "The Good Place");
-    jsonObject.put("series_id", 574);
-    jsonObject.put("title", "Everything is Great! (2)");
-    jsonObject.put("season", 2);
-    jsonObject.put("episode_number", 2);
-    jsonObject.put("air_time", "2017-09-21 03:30:00.000000");
-    jsonObject.put("date_added", "2019-06-20 12:33:43.698000");
-
-    socket.emit("tvdb_pending", jsonObject);
-*/
 
     socket.disconnect();
   }
