@@ -17,6 +17,7 @@
         </RollingFile>
     </Appenders>
     <Loggers>
+        <Logger name="org.apache.http.impl.conn" level="INFO" />
         <Root level="DEBUG">
             <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="FileAppender"/>

@@ -1,6 +1,5 @@
 package com.mayhew3.mediamogul;
 
-import com.mayhew3.mediamogul.exception.MissingEnvException;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import org.apache.logging.log4j.LogManager;
@@ -15,16 +14,14 @@ public class MySocketFactory {
 
   private static int MAXIMUM_ATTEMPTS = 3;
 
-  public Socket createSocket() throws MissingEnvException {
-    String envName = EnvironmentChecker.getOrThrow("envName");
+  public Socket createSocket(String socketEnv) {
     HashMap<String, String> socketUrls = new HashMap<>();
-    socketUrls.put("Obsidian", "http://localhost:5000");
-    socketUrls.put("Janet", "http://localhost:5000");
-    socketUrls.put("Heroku", "https://mediamogul.mayhew3.com/");
+    socketUrls.put("local", "http://localhost:5000");
+    socketUrls.put("heroku", "https://mediamogul.mayhew3.com/");
 
-    String uri = socketUrls.get(envName);
+    String uri = socketUrls.get(socketEnv);
     if (uri == null) {
-      throw new RuntimeException("Invalid envName: " + envName);
+      throw new RuntimeException("Invalid envName: " + socketEnv);
     }
 
     try {

@@ -74,6 +74,10 @@ public class TaskScheduleRunner {
 
   public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
+    ArgumentChecker argumentChecker = new ArgumentChecker(args);
+    argumentChecker.addExpectedOption("socketEnv", true, "Socket environment to connect to.");
+
+    String socketEnv = argumentChecker.getRequiredValue("socketEnv");
 
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(databaseUrl);
     JSONReader jsonReader = new JSONReaderImpl();
@@ -85,7 +89,7 @@ public class TaskScheduleRunner {
 
     String envName = EnvironmentChecker.getOrThrow("envName");
 
-    Socket socket = new MySocketFactory().createSocket();
+    Socket socket = new MySocketFactory().createSocket(socketEnv);
 
     ChromeProvider chromeProvider = new ChromeProvider();
 

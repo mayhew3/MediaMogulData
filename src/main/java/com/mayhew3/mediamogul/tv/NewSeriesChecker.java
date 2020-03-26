@@ -47,6 +47,9 @@ public class NewSeriesChecker implements UpdateRunner {
 
   public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException, UnirestException, AuthenticationException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
+    argumentChecker.addExpectedOption("socketEnv", true, "Socket environment to connect to.");
+
+    String socketEnv = argumentChecker.getRequiredValue("socketEnv");
 
     ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
@@ -54,7 +57,7 @@ public class NewSeriesChecker implements UpdateRunner {
     ExternalServiceHandler externalServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
     TVDBJWTProvider tvdbjwtProvider = new TVDBJWTProviderImpl(externalServiceHandler);
     JSONReaderImpl jsonReader = new JSONReaderImpl();
-    Socket socket = new MySocketFactory().createSocket();
+    Socket socket = new MySocketFactory().createSocket(socketEnv);
 
     NewSeriesChecker newSeriesChecker = new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader, socket);
     newSeriesChecker.runUpdate();

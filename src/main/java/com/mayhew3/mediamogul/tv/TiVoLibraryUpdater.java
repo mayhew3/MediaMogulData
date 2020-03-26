@@ -42,10 +42,14 @@ public class TiVoLibraryUpdater {
     Boolean logToFile = argList.contains("LogToFile");
     Boolean saveTiVoXML = argList.contains("SaveTiVoXML");
 
-    Socket socket = new MySocketFactory().createSocket();
-
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateType = nightly ? UpdateMode.FULL : UpdateMode.QUICK;
+
+    argumentChecker.addExpectedOption("socketEnv", true, "Socket environment to connect to.");
+
+    String socketEnv = argumentChecker.getRequiredValue("socketEnv");
+
+    Socket socket = new MySocketFactory().createSocket(socketEnv);
 
     if (logToFile) {
       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
