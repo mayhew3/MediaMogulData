@@ -5,7 +5,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
-import com.mayhew3.mediamogul.MySocketFactory;
+import com.mayhew3.mediamogul.socket.MySocketFactory;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;

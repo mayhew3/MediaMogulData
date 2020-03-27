@@ -5,7 +5,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
-import com.mayhew3.mediamogul.MySocketFactory;
+import com.mayhew3.mediamogul.socket.MySocketFactory;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;

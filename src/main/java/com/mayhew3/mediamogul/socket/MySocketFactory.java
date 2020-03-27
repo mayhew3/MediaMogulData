@@ -1,4 +1,4 @@
-package com.mayhew3.mediamogul;
+package com.mayhew3.mediamogul.socket;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;

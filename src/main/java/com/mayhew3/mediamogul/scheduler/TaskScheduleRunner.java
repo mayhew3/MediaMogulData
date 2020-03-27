@@ -10,6 +10,7 @@ import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.games.provider.SteamProvider;
 import com.mayhew3.mediamogul.games.provider.SteamProviderImpl;
+import com.mayhew3.mediamogul.socket.MySocketFactory;
 import com.mayhew3.mediamogul.tv.*;
 import com.mayhew3.mediamogul.tv.helper.ConnectionLogger;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
