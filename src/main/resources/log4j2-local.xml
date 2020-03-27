@@ -6,14 +6,12 @@
                     pattern="%d (%p) [%c{1}] %m%n"/>
         </Console>
         <RollingFile name="FileAppender"
-                     fileName="${env:MediaMogulLogs}/TaskScheduleRunner_Heroku.log"
                      filePattern="${env:MediaMogulLogs}/TaskScheduleRunner_%d{yyyyMMdd}_Heroku.log"
                      ignoreExceptions="false">
             <PatternLayout pattern="%d (%p) [%c{1}] %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1"/>
             </Policies>
-            <DefaultRolloverStrategy max="5"/>
         </RollingFile>
     </Appenders>
     <Loggers>
