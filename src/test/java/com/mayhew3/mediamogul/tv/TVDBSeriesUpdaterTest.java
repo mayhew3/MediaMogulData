@@ -6,6 +6,7 @@ import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
+import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBLocalJSONProvider;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
@@ -13,6 +14,7 @@ import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -21,6 +23,7 @@ import org.mockito.ArgumentCaptor;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,6 +49,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   private Socket socket;
 
   private Date SCHUMER_EPISODE_AIR1;
+  private Date SCHUMER_EPISODE_AIR2;
   private Date SCHUMER_EPISODE_AIR3;
 
   private TVDBJWTProvider tvdbjwtProvider;
@@ -56,6 +60,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.m");
     try {
       SCHUMER_EPISODE_AIR1 = dateFormat.parse("2016-04-21 22:00:00.0");
+      SCHUMER_EPISODE_AIR2 = dateFormat.parse("2016-04-28 22:00:00.0");
       SCHUMER_EPISODE_AIR3 = dateFormat.parse("2016-05-05 22:00:00.0");
     } catch (ParseException e) {
       throw new RuntimeException(e);
@@ -131,6 +136,201 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
     Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
 
     Episode firstEpisode = addEpisodeWithAirTime(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1, SCHUMER_EPISODE_AIR1);
+    Episode thirdEpisode = addEpisodeWithAirTime(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3, SCHUMER_EPISODE_AIR3);
+
+    addRating(firstEpisode, person.id.getValue());
+    addRating(thirdEpisode, person.id.getValue());
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
+    tvdbSeriesUpdater.updateSeries();
+
+    firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
+    Episode secondEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 2);
+    thirdEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 3);
+
+    assertThat(firstEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+    assertThat(secondEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("pending");
+    assertThat(thirdEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+
+    ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
+    verify(socket).emit(stringCaptor.capture(), any(JSONObject.class));
+
+    String capturedChannel = stringCaptor.getValue();
+
+    assertThat(capturedChannel).isEqualToIgnoringCase("tvdb_pending");
+  }
+
+  @Test
+  public void testEpisodeNotUnflaggedOnUpdate() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    Person person = addPerson();
+
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    Episode firstEpisode = addEpisodeWithAirTime(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1, SCHUMER_EPISODE_AIR1);
+    Episode secondEpisode = addEpisodeWithAirTime(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2, SCHUMER_EPISODE_AIR2);
+    Episode thirdEpisode = addEpisodeWithAirTime(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3, SCHUMER_EPISODE_AIR3);
+
+    secondEpisode.tvdbApproval.changeValue(TVDBApprovalStatus.PENDING.getTypeKey());
+    secondEpisode.commit(connection);
+
+    addRating(firstEpisode, person.id.getValue());
+    addRating(thirdEpisode, person.id.getValue());
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
+    tvdbSeriesUpdater.updateSeries();
+
+    firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
+    secondEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 2);
+    thirdEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 3);
+
+    assertThat(firstEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+    assertThat(secondEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("pending");
+    assertThat(thirdEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+
+    verifyZeroInteractions(socket);
+  }
+
+  @Test
+  public void testEpisodeUnFlaggedWhenSeasonChanged() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    Person person = addPerson();
+
+    TVDBLocalJSONProvider tvdbLocalJSONProvider = new TVDBLocalJSONProvider("src\\test\\resources\\TVDBSeasonZero\\");
+
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    Episode firstEpisode = addEpisodeWithAirTime(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1, SCHUMER_EPISODE_AIR1);
+    Episode secondEpisode = addEpisodeWithAirTime(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2, SCHUMER_EPISODE_AIR2);
+    Episode thirdEpisode = addEpisodeWithAirTime(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3, SCHUMER_EPISODE_AIR3);
+
+    addRating(firstEpisode, person.id.getValue());
+    addRating(thirdEpisode, person.id.getValue());
+
+    secondEpisode.tvdbApproval.changeValue(TVDBApprovalStatus.PENDING.getTypeKey());
+    secondEpisode.commit(connection);
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl(), socket);
+    tvdbSeriesUpdater.updateSeries();
+
+    firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
+    secondEpisode = findEpisode(SCHUMER_SERIES_NAME, 0, 8);
+    thirdEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 3);
+
+    assertThat(firstEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+    assertThat(secondEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+    assertThat(thirdEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+
+    ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
+    verify(socket).emit(stringCaptor.capture(), any(JSONObject.class));
+
+    String capturedChannel = stringCaptor.getValue();
+
+    assertThat(capturedChannel).isEqualToIgnoringCase("tvdb_episode_resolve");
+  }
+
+  @Test
+  public void testEpisodeUnFlaggedWhenAirDateChanged() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    Person person = addPerson();
+
+    TVDBLocalJSONProvider tvdbLocalJSONProvider = new TVDBLocalJSONProvider("src\\test\\resources\\TVDBFutureDate\\");
+
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    Episode firstEpisode = addEpisodeWithAirTime(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1, SCHUMER_EPISODE_AIR1);
+    Episode secondEpisode = addEpisodeWithAirTime(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2, SCHUMER_EPISODE_AIR2);
+    Episode thirdEpisode = addEpisodeWithAirTime(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3, SCHUMER_EPISODE_AIR3);
+
+    addRating(firstEpisode, person.id.getValue());
+    addRating(thirdEpisode, person.id.getValue());
+
+    secondEpisode.tvdbApproval.changeValue(TVDBApprovalStatus.PENDING.getTypeKey());
+    secondEpisode.commit(connection);
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbLocalJSONProvider, new JSONReaderImpl(), socket);
+    tvdbSeriesUpdater.updateSeries();
+
+    firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
+    secondEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 2);
+    thirdEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 3);
+
+    assertThat(firstEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+    assertThat(secondEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+    assertThat(thirdEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+
+    ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
+    verify(socket).emit(stringCaptor.capture(), any(JSONObject.class));
+
+    String capturedChannel = stringCaptor.getValue();
+
+    assertThat(capturedChannel).isEqualToIgnoringCase("tvdb_episode_resolve");
+  }
+
+  @Test
+  public void testEpisodeReFlaggedWhenSeasonChanged() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    Person person = addPerson();
+
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    Episode firstEpisode = addEpisodeWithAirTime(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1, SCHUMER_EPISODE_AIR1);
+    addEpisodeWithAirTime(series, 0, 8, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2, SCHUMER_EPISODE_AIR2);
+    Episode thirdEpisode = addEpisodeWithAirTime(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3, SCHUMER_EPISODE_AIR3);
+
+    addRating(firstEpisode, person.id.getValue());
+    addRating(thirdEpisode, person.id.getValue());
+
+    TVDBSeriesUpdater tvdbSeriesUpdater = new TVDBSeriesUpdater(connection, series, tvdbjwtProvider, new JSONReaderImpl(), socket);
+    tvdbSeriesUpdater.updateSeries();
+
+    firstEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 1);
+    Episode secondEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 2);
+    thirdEpisode = findEpisode(SCHUMER_SERIES_NAME, 4, 3);
+
+    assertThat(firstEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+    assertThat(secondEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("pending");
+    assertThat(thirdEpisode.tvdbApproval.getValue())
+        .isEqualToIgnoringCase("approved");
+
+    ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
+    verify(socket).emit(stringCaptor.capture(), any(JSONObject.class));
+
+    String capturedChannel = stringCaptor.getValue();
+
+    assertThat(capturedChannel).isEqualToIgnoringCase("tvdb_pending");
+  }
+
+  @Test
+  public void testEpisodeReFlaggedWhenAirDateChanged() throws SQLException, ShowFailedException, UnirestException, AuthenticationException {
+    Person person = addPerson();
+
+    Timestamp futureDate = new Timestamp(DateTime.now().plusDays(7).toDate().getTime());
+
+    createSeries(SCHUMER_SERIES_NAME, SCHUMER_SERIES_ID);
+
+    Series series = findSeriesWithTitle(SCHUMER_SERIES_NAME);
+
+    Episode firstEpisode = addEpisodeWithAirTime(series, 4, 1, SCHUMER_EPISODE_NAME1, SCHUMER_EPISODE_ID1, SCHUMER_EPISODE_AIR1);
+    addEpisodeWithAirTime(series, 4, 2, SCHUMER_EPISODE_NAME2, SCHUMER_EPISODE_ID2, futureDate);
     Episode thirdEpisode = addEpisodeWithAirTime(series, 4, 3, SCHUMER_EPISODE_NAME3, SCHUMER_EPISODE_ID3, SCHUMER_EPISODE_AIR3);
 
     addRating(firstEpisode, person.id.getValue());

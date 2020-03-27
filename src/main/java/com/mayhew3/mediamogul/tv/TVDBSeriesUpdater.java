@@ -281,7 +281,7 @@ public class TVDBSeriesUpdater {
         .filter(tvdbEpisode -> !tvdb_ids.contains(tvdbEpisode.tvdbEpisodeExtId.getValue()))
         .collect(Collectors.toSet());
     if (!removed.isEmpty()) {
-      debug("Found " + removed.size() + " episodes for series '" + series.seriesTitle.getValue() + "' in database that are no longer present on TVDB. Retiring them.");
+      logger.info("Found " + removed.size() + " episodes for series '" + series.seriesTitle.getValue() + "' in database that are no longer present on TVDB. Retiring them.");
     }
     for (TVDBEpisode tvdbEpisode : removed) {
       boolean okToRetire = true;

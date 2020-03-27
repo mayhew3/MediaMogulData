@@ -4,6 +4,7 @@ import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
 import com.mayhew3.mediamogul.model.tv.TVDBMigrationLog;
+import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -17,7 +18,9 @@ import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 class TVDBEpisodeUpdater {
@@ -75,9 +78,10 @@ class TVDBEpisodeUpdater {
 
   private boolean shouldFlagPastEpisode(Episode episode) throws SQLException {
     DateTime now = new DateTime();
-    DateTime airTime = new DateTime(episode.airDate.getValue());
+    Timestamp airValue = episode.airTime.getValue();
+    DateTime airTime = airValue == null ? null : new DateTime(airValue);
     Integer season = episode.season.getValue();
-    if (episode.isForInsert() &&
+    if (airTime != null &&
         airTime.isBefore(now) &&
         season != null &&
         season != 0) {
@@ -85,6 +89,38 @@ class TVDBEpisodeUpdater {
     } else {
       return false;
     }
+  }
+
+  private boolean shouldUnflagEpisode(Episode episode) {
+    DateTime now = new DateTime();
+    Timestamp airValue = episode.airTime.getValue();
+    DateTime airTime = airValue == null ? null : new DateTime(airValue);
+
+    boolean airedInPast = airTime != null && airTime.isBefore(now);
+
+    return episode.season.getValue() == 0 || !airedInPast || episode.retired.getValue() != 0;
+  }
+
+  private boolean usedToBeSpecialOrFuture(Episode episode) {
+    Integer oldSeason = episode.season.getOriginalValue();
+    Timestamp originalAirValue = episode.airTime.getOriginalValue();
+    DateTime originalAir = originalAirValue == null ? null : new DateTime(originalAirValue);
+
+    return oldSeason == null || oldSeason == 0 || originalAir == null || originalAir.isAfter(new DateTime());
+  }
+
+  private boolean shouldFlagExistingEpisode(Episode episode) throws SQLException {
+    Integer newSeason = episode.season.getChangedValue();
+    Integer oldSeason = episode.season.getOriginalValue();
+
+    boolean seasonChanged = !Objects.equals(newSeason, oldSeason);
+
+    Timestamp changedAirValue = episode.airTime.getChangedValue();
+    Timestamp originalAirValue = episode.airTime.getOriginalValue();
+
+    boolean airTimeChanged = !Objects.equals(changedAirValue, originalAirValue);
+
+    return (seasonChanged || airTimeChanged) && usedToBeSpecialOrFuture(episode) && shouldFlagPastEpisode(episode);
   }
 
   /**
@@ -186,13 +222,33 @@ class TVDBEpisodeUpdater {
 
     episode.updateAirTime(series.airTime.getValue());
 
+    String approvedKey = TVDBApprovalStatus.APPROVED.getTypeKey();
+    String pendingKey = TVDBApprovalStatus.PENDING.getTypeKey();
+
+    boolean shouldFlagPastEpisode = false;
+    boolean shouldUnFlagEpisode = false;
+
+    if (episode.isForInsert()) {
+      shouldFlagPastEpisode = shouldFlagPastEpisode(episode);
+      String approvalStatus = shouldFlagPastEpisode ? pendingKey : approvedKey;
+      episode.tvdbApproval.changeValue(approvalStatus);
+    } else if (episode.tvdbApproval.getValue().equals(pendingKey)) {
+      shouldUnFlagEpisode = shouldUnflagEpisode(episode);
+      if (shouldUnFlagEpisode) {
+        logger.info("Episode changed from TVDB and changed to approved: " + episode);
+        episode.tvdbApproval.changeValue(approvedKey);
+      }
+    } else if (episode.tvdbApproval.getValue().equals(approvedKey)) {
+      shouldFlagPastEpisode = shouldFlagExistingEpisode(episode);
+      if (shouldFlagPastEpisode) {
+        logger.info("Episode changed from TVDB and changed to pending: " + episode);
+        episode.tvdbApproval.changeValue(pendingKey);
+      }
+    }
+
     if (episode.hasChanged()) {
       changed = true;
     }
-
-    boolean shouldFlagPastEpisode = shouldFlagPastEpisode(episode);
-    String approvalStatus = shouldFlagPastEpisode ? "pending" : "approved";
-    episode.tvdbApproval.changeValue(approvalStatus);
 
     episode.commit(connection);
     episodes.add(episode);
@@ -200,6 +256,10 @@ class TVDBEpisodeUpdater {
     if (shouldFlagPastEpisode) {
       JSONObject pendingReturnObj = createPendingReturnObj(episode);
       socket.emit("tvdb_pending", pendingReturnObj);
+    }
+    if (shouldUnFlagEpisode) {
+      JSONObject pendingReturnObj = createResolveReturnObj(episode);
+      socket.emit("tvdb_episode_resolve", pendingReturnObj);
     }
 
     Integer episodeId = tvdbEpisode.id.getValue();
@@ -227,6 +287,13 @@ class TVDBEpisodeUpdater {
     episodeObj.put("episode_number", episode.episodeNumber.getValue());
     episodeObj.put("air_time", episode.airTime.getValue());
     episodeObj.put("date_added", episode.dateAdded.getValue());
+    return episodeObj;
+  }
+
+  private JSONObject createResolveReturnObj(Episode episode) {
+    JSONObject episodeObj = new JSONObject();
+    episodeObj.put("episode_id", episode.id.getValue());
+    episodeObj.put("resolution", TVDBApprovalStatus.APPROVED.getTypeKey());
     return episodeObj;
   }
 
