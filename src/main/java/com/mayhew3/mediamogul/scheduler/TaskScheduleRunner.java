@@ -75,6 +75,7 @@ public class TaskScheduleRunner {
   public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
+    argumentChecker.removeExpectedOption("db");
     argumentChecker.addExpectedOption("socketEnv", true, "Socket environment to connect to.");
 
     String socketEnv = argumentChecker.getRequiredValue("socketEnv");
