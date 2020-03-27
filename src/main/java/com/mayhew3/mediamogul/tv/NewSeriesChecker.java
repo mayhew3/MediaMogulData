@@ -5,11 +5,12 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
-import com.mayhew3.mediamogul.socket.MySocketFactory;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
+import com.mayhew3.mediamogul.socket.MySocketFactory;
+import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
@@ -19,7 +20,6 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,11 +34,11 @@ public class NewSeriesChecker implements UpdateRunner {
   private SQLConnection connection;
   private TVDBJWTProvider tvdbjwtProvider;
   private JSONReader jsonReader;
-  private final Socket socket;
+  private final SocketWrapper socket;
 
   private static Logger logger = LogManager.getLogger(NewSeriesChecker.class);
 
-  public NewSeriesChecker(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, Socket socket) {
+  public NewSeriesChecker(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, SocketWrapper socket) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;
@@ -57,7 +57,7 @@ public class NewSeriesChecker implements UpdateRunner {
     ExternalServiceHandler externalServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
     TVDBJWTProvider tvdbjwtProvider = new TVDBJWTProviderImpl(externalServiceHandler);
     JSONReaderImpl jsonReader = new JSONReaderImpl();
-    Socket socket = new MySocketFactory().createSocket(socketEnv);
+    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv);
 
     NewSeriesChecker newSeriesChecker = new NewSeriesChecker(connection, tvdbjwtProvider, jsonReader, socket);
     newSeriesChecker.runUpdate();

@@ -11,6 +11,7 @@ import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.games.provider.SteamProvider;
 import com.mayhew3.mediamogul.games.provider.SteamProviderImpl;
 import com.mayhew3.mediamogul.socket.MySocketFactory;
+import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.*;
 import com.mayhew3.mediamogul.tv.helper.ConnectionLogger;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
@@ -20,7 +21,6 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import io.socket.client.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -45,7 +45,7 @@ public class TaskScheduleRunner {
   private ChromeProvider chromeProvider;
 
 
-  private final Socket socket;
+  private final SocketWrapper socket;
   private String envName;
 
   private Integer person_id;
@@ -59,7 +59,8 @@ public class TaskScheduleRunner {
                              IGDBProvider igdbProvider,
                              SteamProvider steamProvider,
                              ChromeProvider chromeProvider,
-                             Socket socket, String envName,
+                             SocketWrapper socket,
+                             String envName,
                              Integer person_id) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
@@ -91,7 +92,7 @@ public class TaskScheduleRunner {
 
     String envName = EnvironmentChecker.getOrThrow("envName");
 
-    Socket socket = new MySocketFactory().createSocket(socketEnv);
+    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv);
 
     ChromeProvider chromeProvider = new ChromeProvider();
 

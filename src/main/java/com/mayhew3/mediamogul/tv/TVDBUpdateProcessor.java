@@ -7,13 +7,13 @@ import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBUpdateError;
 import com.mayhew3.mediamogul.model.tv.TVDBWorkItem;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
+import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +36,7 @@ public class TVDBUpdateProcessor implements UpdateRunner {
   private SQLConnection connection;
   private TVDBJWTProvider tvdbjwtProvider;
   private JSONReader jsonReader;
-  private final Socket socket;
+  private final SocketWrapper socket;
 
   private TVDBConnectionLog tvdbConnectionLog;
 
@@ -46,7 +46,7 @@ public class TVDBUpdateProcessor implements UpdateRunner {
 
   private static Logger logger = LogManager.getLogger(TVDBUpdateProcessor.class);
 
-  public TVDBUpdateProcessor(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, Socket socket) {
+  public TVDBUpdateProcessor(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, SocketWrapper socket) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
     this.jsonReader = jsonReader;

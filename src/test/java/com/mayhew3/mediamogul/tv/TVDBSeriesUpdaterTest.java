@@ -5,12 +5,12 @@ import com.mayhew3.mediamogul.DatabaseTest;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.*;
+import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBLocalJSONProvider;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
-import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,7 +46,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
   private int SCHUMER_EPISODE_ID2 = 5580497;
   private int SCHUMER_EPISODE_ID3 = 5552985;
 
-  private Socket socket;
+  private SocketWrapper socket;
 
   private Date SCHUMER_EPISODE_AIR1;
   private Date SCHUMER_EPISODE_AIR2;
@@ -66,7 +66,7 @@ public class TVDBSeriesUpdaterTest extends DatabaseTest {
       throw new RuntimeException(e);
     }
     tvdbjwtProvider = new TVDBLocalJSONProvider("src\\test\\resources\\TVDBTest\\");
-    socket = mock(Socket.class);
+    socket = mock(SocketWrapper.class);
   }
 
   @Test

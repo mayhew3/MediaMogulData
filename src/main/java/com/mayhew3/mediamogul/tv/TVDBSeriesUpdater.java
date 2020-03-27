@@ -4,13 +4,13 @@ import com.google.common.base.Preconditions;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupEpisode;
+import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +35,7 @@ public class TVDBSeriesUpdater {
   private TVDBJWTProvider tvdbDataProvider;
   private JSONReader jsonReader;
 
-  final private Socket socket;
+  final private SocketWrapper socket;
 
   private Set<Integer> foundEpisodeIds;
   private Set<Integer> erroredEpisodeIds;
@@ -50,7 +50,7 @@ public class TVDBSeriesUpdater {
                     @NotNull Series series,
                     TVDBJWTProvider tvdbWebProvider,
                     JSONReader jsonReader,
-                    Socket socket) {
+                    SocketWrapper socket) {
     this.series = series;
     this.connection = connection;
     this.tvdbDataProvider = tvdbWebProvider;

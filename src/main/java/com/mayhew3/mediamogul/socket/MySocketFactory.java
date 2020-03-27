@@ -14,7 +14,12 @@ public class MySocketFactory {
 
   private static int MAXIMUM_ATTEMPTS = 3;
 
-  public Socket createSocket(String socketEnv) {
+  public SocketWrapper createSocket(String socketEnv) {
+
+    if (socketEnv.equals("mock")) {
+      return new SocketWrapper(true, null);
+    }
+
     HashMap<String, String> socketUrls = new HashMap<>();
     socketUrls.put("local", "http://localhost:5000");
     socketUrls.put("heroku", "https://mediamogul.mayhew3.com/");
@@ -46,7 +51,8 @@ public class MySocketFactory {
       });
 
       socket.connect();
-      return socket;
+
+      return new SocketWrapper(false, socket);
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }

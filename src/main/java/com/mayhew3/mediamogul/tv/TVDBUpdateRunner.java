@@ -4,7 +4,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
-import com.mayhew3.mediamogul.socket.MySocketFactory;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.tv.Episode;
@@ -12,6 +11,8 @@ import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBUpdateError;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
+import com.mayhew3.mediamogul.socket.MySocketFactory;
+import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
@@ -20,7 +21,6 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import io.socket.client.Socket;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,7 +51,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
   private TVDBJWTProvider tvdbjwtProvider;
   private JSONReader jsonReader;
-  private final Socket socket;
+  private final SocketWrapper socket;
 
   private TVDBConnectionLog tvdbConnectionLog;
   private UpdateMode updateMode;
@@ -62,7 +62,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
   private final Integer ERROR_FOLLOW_UP_THRESHOLD_IN_DAYS = 7;
   private final Integer ERROR_THRESHOLD = 5;
 
-  public TVDBUpdateRunner(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, Socket socket, @NotNull UpdateMode updateMode) {
+  public TVDBUpdateRunner(SQLConnection connection, TVDBJWTProvider tvdbjwtProvider, JSONReader jsonReader, SocketWrapper socket, @NotNull UpdateMode updateMode) {
     this.socket = socket;
 
     methodMap = new HashMap<>();
@@ -100,7 +100,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
 
-    Socket socket = new MySocketFactory().createSocket(socketEnv);
+    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv);
 
     TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(
         connection,

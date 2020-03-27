@@ -4,6 +4,7 @@ import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
 import com.mayhew3.mediamogul.model.tv.TVDBMigrationLog;
+import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
@@ -32,7 +33,7 @@ class TVDBEpisodeUpdater {
 
   private JSONObject episodeJson;
 
-  final private Socket socket;
+  final private SocketWrapper socket;
 
   private SQLConnection connection;
   private Integer tvdbRemoteId;
@@ -47,7 +48,7 @@ class TVDBEpisodeUpdater {
                      List<Episode> episodes,
                      List<TVDBEpisode> tvdbEpisodes,
                      JSONObject episodeJSON,
-                     Socket socket) {
+                     SocketWrapper socket) {
     this.series = series;
     this.connection = connection;
     this.tvdbRemoteId = tvdbEpisodeId;
