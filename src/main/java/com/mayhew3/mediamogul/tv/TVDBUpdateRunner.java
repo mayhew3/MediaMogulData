@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ArgumentChecker;
+import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
@@ -100,7 +101,9 @@ public class TVDBUpdateRunner implements UpdateRunner {
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
 
-    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv);
+    String envName = EnvironmentChecker.getOrThrow("envName");
+
+    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv, envName);
 
     TVDBUpdateRunner tvdbUpdateRunner = new TVDBUpdateRunner(
         connection,
