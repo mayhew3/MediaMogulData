@@ -49,7 +49,9 @@ public class TiVoLibraryUpdater {
 
     String socketEnv = argumentChecker.getRequiredValue("socketEnv");
 
-    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv);
+    String envName = EnvironmentChecker.getOrThrow("envName");
+
+    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv, envName);
 
     if (logToFile) {
       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");

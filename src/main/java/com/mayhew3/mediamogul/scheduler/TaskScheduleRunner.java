@@ -92,7 +92,7 @@ public class TaskScheduleRunner {
 
     String envName = EnvironmentChecker.getOrThrow("envName");
 
-    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv);
+    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv, envName);
 
     ChromeProvider chromeProvider = new ChromeProvider();
 
