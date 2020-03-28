@@ -17,7 +17,7 @@ public class MySocketFactory {
   public SocketWrapper createSocket(String socketEnv) {
 
     if (socketEnv.equals("mock")) {
-      return new SocketWrapper(true, null);
+      return new MockSocket();
     }
 
     HashMap<String, String> socketUrls = new HashMap<>();
@@ -52,7 +52,7 @@ public class MySocketFactory {
 
       socket.connect();
 
-      return new SocketWrapper(false, socket);
+      return new SocketWrapperImpl(socket);
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }
