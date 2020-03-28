@@ -1,5 +1,7 @@
 package com.mayhew3.mediamogul.scheduler;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.*;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
@@ -79,8 +81,12 @@ public class TaskScheduleRunner {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.removeExpectedOption("db");
     argumentChecker.addExpectedOption("socketEnv", true, "Socket environment to connect to.");
+    argumentChecker.addExpectedOption("appRole", false, "Role to connect to socket as.");
 
     String socketEnv = argumentChecker.getRequiredValue("socketEnv");
+    Optional<String> maybeAppRole = argumentChecker.getOptionalIdentifier("appRole");
+
+    List<String> acceptableRoles = Lists.newArrayList("updater", "backup");
 
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(databaseUrl);
     JSONReader jsonReader = new JSONReaderImpl();
@@ -92,7 +98,12 @@ public class TaskScheduleRunner {
 
     String envName = EnvironmentChecker.getOrThrow("envName");
 
-    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv, envName);
+    String appRole;
+    appRole = maybeAppRole.orElseGet(() -> envName.equalsIgnoreCase("heroku") ? "updater" : "backup");
+
+    Preconditions.checkArgument(acceptableRoles.contains(appRole));
+
+    SocketWrapper socket = new MySocketFactory().createSocket(socketEnv, appRole);
 
     ChromeProvider chromeProvider = new ChromeProvider();
 

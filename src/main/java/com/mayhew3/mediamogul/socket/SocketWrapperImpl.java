@@ -17,12 +17,10 @@ public class SocketWrapperImpl implements SocketWrapper {
   private static int MAXIMUM_ATTEMPTS = 3;
   private static Logger logger = LogManager.getLogger(SocketWrapperImpl.class);
 
-  protected SocketWrapperImpl(String socketEnv, String envName) {
-    String clientMod = envName.equalsIgnoreCase("heroku") ? "updater" : "backup";
-
+  protected SocketWrapperImpl(String socketEnv, String appRole) {
     HashMap<String, String> socketUrls = new HashMap<>();
-    socketUrls.put("local", "http://localhost:5000/?" + clientMod + "=true");
-    socketUrls.put("heroku", "https://mediamogul.mayhew3.com/?" + clientMod + "=true");
+    socketUrls.put("local", "http://localhost:5000/?" + appRole + "=true");
+    socketUrls.put("heroku", "https://mediamogul.mayhew3.com/?" + appRole + "=true");
 
     Preconditions.checkArgument(socketUrls.containsKey(socketEnv));
 
