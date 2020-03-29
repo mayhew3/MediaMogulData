@@ -27,7 +27,9 @@ public class SocketWrapperImpl implements SocketWrapper {
     String uri = socketUrls.get(socketEnv);
 
     try {
-      Socket socket = IO.socket(uri);
+      IO.Options opts = new IO.Options();
+      opts.transports = new String[]{"websocket"};
+      Socket socket = IO.socket(uri, opts);
 
       socket.on(Socket.EVENT_CONNECT_ERROR, args -> info("Error connecting to socket server! Args: " + Arrays.toString(args)));
 
