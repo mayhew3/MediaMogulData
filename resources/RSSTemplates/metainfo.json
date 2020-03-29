@@ -187,5 +187,20 @@
         ]
       }
     ]
+  },
+  {
+    "title": "Broken Alchemy: Confrontation",
+    "summary": "All of our heroes take on a god-like foe.",
+    "sessions": [
+      {
+        "date": "2020/03/28",
+        "files": [
+          {
+            "filename": "Broken Alchemy Confrontation",
+            "duration": "03:34:15"
+          }
+        ]
+      }
+    ]
   }
 ]
