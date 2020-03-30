@@ -119,7 +119,8 @@ public class PodcastFeedExporter {
         dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
         String formattedDate = dateFormat.format(dateWithTime.toDate());
 
-        String fileTitle = title + " (Part " + sessionFileNumber + ")";
+        String partPart = files.length() > 1 ? " (Part " + sessionFileNumber + ")" : "";
+        String fileTitle = title + partPart;
 
         innerTemplate.clearMappings();
         innerTemplate.addMapping("TITLE", fileTitle);
