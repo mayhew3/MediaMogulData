@@ -91,16 +91,16 @@ public class TVDBUpdateRunner implements UpdateRunner {
   public static void main(String... args) throws URISyntaxException, SQLException, UnirestException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.addExpectedOption("socketEnv", true, "Socket environment to connect to.");
+    argumentChecker.addExpectedOption("appRole", true, "Environment for socket.");
 
     String socketEnv = argumentChecker.getRequiredValue("socketEnv");
+    String appRole = argumentChecker.getRequiredValue("appRole");
 
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.SMART);
     ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
 
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
-
-    String appRole = argumentChecker.getRequiredValue("appRole");
 
     SocketWrapper socket = new MySocketFactory().createSocket(socketEnv, appRole);
 

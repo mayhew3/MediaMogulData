@@ -14,7 +14,6 @@ import java.util.HashMap;
 public class SocketWrapperImpl implements SocketWrapper {
   private Socket socket;
 
-  private static int MAXIMUM_ATTEMPTS = 3;
   private static Logger logger = LogManager.getLogger(SocketWrapperImpl.class);
 
   protected SocketWrapperImpl(String socketEnv, String appRole) {
@@ -29,6 +28,8 @@ public class SocketWrapperImpl implements SocketWrapper {
     try {
       IO.Options opts = new IO.Options();
       opts.transports = new String[]{"websocket"};
+      opts.reconnectionDelay = 1000;
+      opts.reconnectionDelayMax = 60000;
       Socket socket = IO.socket(uri, opts);
 
       socket.on(Socket.EVENT_CONNECT_ERROR, args -> info("Error connecting to socket server! Args: " + Arrays.toString(args)));
@@ -40,9 +41,6 @@ public class SocketWrapperImpl implements SocketWrapper {
       socket.on(Socket.EVENT_RECONNECT_ATTEMPT, args -> {
         Integer attemptNumber = (Integer)args[0];
         info("Reconnect Attempt event! Attempt #" + attemptNumber);
-        if (attemptNumber > MAXIMUM_ATTEMPTS) {
-          throw new IllegalStateException("Maximum connection attempts exceeded. Quitting.");
-        }
       });
 
       socket.on(Socket.EVENT_CONNECT, args -> {
