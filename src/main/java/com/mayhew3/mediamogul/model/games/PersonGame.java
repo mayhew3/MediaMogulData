@@ -2,8 +2,11 @@ package com.mayhew3.mediamogul.model.games;
 
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.mediamogul.model.Person;
+import com.mayhew3.postgresobject.db.SQLConnection;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class PersonGame extends RetireableDataObject {
@@ -36,5 +39,16 @@ public class PersonGame extends RetireableDataObject {
   @Override
   public String toString() {
     return "Person ID: " + person_id.getValue() + ", Game ID: " + game_id.getValue();
+  }
+
+  public Game getGame(SQLConnection connection) throws SQLException {
+    String sql = "SELECT * FROM game WHERE id = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, game_id.getValue());
+    if (resultSet.next()) {
+      Game game = new Game();
+      game.initializeFromDBObject(resultSet);
+      return game;
+    }
+    throw new IllegalStateException("PersonGame is attached to Game that doesn't exist!");
   }
 }
