@@ -3,23 +3,23 @@ package com.mayhew3.mediamogul.model.games;
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Optional;
 
 public class Game extends DataObject {
 
-  public FieldValue<Timestamp> giantbomb_release_date = registerTimestampField("giantbomb_release_date", Nullability.NULLABLE);
-  public FieldValue<Timestamp> howlong_updated = registerTimestampField("howlong_updated", Nullability.NULLABLE);
-  public FieldValue<Timestamp> howlong_failed = registerTimestampField("howlong_failed", Nullability.NULLABLE);
+  public FieldValueTimestamp giantbomb_release_date = registerTimestampField("giantbomb_release_date", Nullability.NULLABLE);
+  public FieldValueTimestamp howlong_updated = registerTimestampField("howlong_updated", Nullability.NULLABLE);
+  public FieldValueTimestamp howlong_failed = registerTimestampField("howlong_failed", Nullability.NULLABLE);
 
-  public FieldValue<BigDecimal> metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
-  public FieldValue<BigDecimal> howlong_main = registerBigDecimalField("howlong_main", Nullability.NULLABLE);
-  public FieldValue<BigDecimal> howlong_extras = registerBigDecimalField("howlong_extras", Nullability.NULLABLE);
-  public FieldValue<BigDecimal> howlong_completionist = registerBigDecimalField("howlong_completionist", Nullability.NULLABLE);
-  public FieldValue<BigDecimal> howlong_all = registerBigDecimalField("howlong_all", Nullability.NULLABLE);
+  public FieldValueBigDecimal metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
+  public FieldValueBigDecimal howlong_main = registerBigDecimalField("howlong_main", Nullability.NULLABLE);
+  public FieldValueBigDecimal howlong_extras = registerBigDecimalField("howlong_extras", Nullability.NULLABLE);
+  public FieldValueBigDecimal howlong_completionist = registerBigDecimalField("howlong_completionist", Nullability.NULLABLE);
+  public FieldValueBigDecimal howlong_all = registerBigDecimalField("howlong_all", Nullability.NULLABLE);
+  public FieldValueBigDecimal timetotal = registerBigDecimalField("timetotal", Nullability.NULLABLE);
+  public FieldValueBoolean naturalEnd = registerBooleanField("natural_end", Nullability.NOT_NULL).defaultValue(true);
 
   public FieldValueInteger steam_attribute_count = registerIntegerField("steam_attribute_count", Nullability.NULLABLE);
 
@@ -72,16 +72,17 @@ public class Game extends DataObject {
   public FieldValueBoolean steam_controller = registerBooleanFieldAllowingNulls("steam_controller", Nullability.NULLABLE);
   public FieldValueBoolean steam_local_coop = registerBooleanFieldAllowingNulls("steam_local_coop", Nullability.NULLABLE);
 
-  public FieldValue<Timestamp> metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
-  public FieldValue<Timestamp> steam_attributes = registerTimestampField("steam_attributes", Nullability.NULLABLE);
-  public FieldValue<Timestamp> steam_page_gone = registerTimestampField("steam_page_gone", Nullability.NULLABLE);
+  public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
+  public FieldValueTimestamp steam_attributes = registerTimestampField("steam_attributes", Nullability.NULLABLE);
+  public FieldValueTimestamp steam_page_gone = registerTimestampField("steam_page_gone", Nullability.NULLABLE);
+
 
 
   public Game() {
     // DB fields that aren't needed in java can be initialized in the constructor without a class member.
 
-    registerBooleanField("natural_end", Nullability.NOT_NULL).defaultValue(true);
-    registerBigDecimalField("timetotal", Nullability.NULLABLE);
+
+
   }
 
   @Override

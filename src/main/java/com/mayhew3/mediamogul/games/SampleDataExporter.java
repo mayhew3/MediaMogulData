@@ -56,6 +56,17 @@ public class SampleDataExporter {
       PersonGame personGame = new PersonGame();
       personGame.initializeFromDBObject(resultSet);
 
+      JSONObject personGameJSON = new JSONObject();
+      personGameJSON.put("lastPlayed", JSONObject.wrap(personGame.last_played.getValue()));
+      personGameJSON.put("rating", JSONObject.wrap(personGame.rating.getValue()));
+      personGameJSON.put("tier", JSONObject.wrap(personGame.tier.getValue()));
+      personGameJSON.put("id", JSONObject.wrap(personGame.id.getValue()));
+      personGameJSON.put("finalScore", JSONObject.wrap(personGame.final_score.getValue()));
+      personGameJSON.put("finishedDate", JSONObject.wrap(personGame.finished_date.getValue()));
+      personGameJSON.put("replayScore", JSONObject.wrap(personGame.replay_score.getValue()));
+      personGameJSON.put("replayReason", JSONObject.wrap(personGame.replay_reason.getValue()));
+      personGameJSON.put("dateAdded", JSONObject.wrap(personGame.dateAdded.getValue()));
+
       Game game = personGame.getGame(connection);
 
       JSONObject gameJSON = new JSONObject();
@@ -65,8 +76,14 @@ public class SampleDataExporter {
       gameJSON.put("logo", JSONObject.wrap(game.logo.getValue()));
       gameJSON.put("giantBombMedium", JSONObject.wrap(game.giantbomb_medium_url.getValue()));
       gameJSON.put("steamID", JSONObject.wrap(game.steamID.getValue()));
-      gameJSON.put("brokenImage", JSONObject.wrap(false));
-      gameJSON.put("lastPlayed", JSONObject.wrap(personGame.last_played.getValue()));
+      gameJSON.put("dateAdded", JSONObject.wrap(game.dateAdded.getValue()));
+      gameJSON.put("platform", JSONObject.wrap(game.platform.getValue()));
+      gameJSON.put("metacritic", JSONObject.wrap(game.metacritic.getValue()));
+      gameJSON.put("timeTotal", JSONObject.wrap(game.timetotal.getValue()));
+      gameJSON.put("howlongExtras", JSONObject.wrap(game.howlong_extras.getValue()));
+      gameJSON.put("naturalEnd", JSONObject.wrap(game.naturalEnd.getValue()));
+
+      gameJSON.put("personGame", personGameJSON);
 
       gamesJSON.put(gameJSON);
     }
