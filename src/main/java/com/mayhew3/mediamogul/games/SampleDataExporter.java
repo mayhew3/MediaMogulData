@@ -57,40 +57,44 @@ public class SampleDataExporter {
       personGame.initializeFromDBObject(resultSet);
 
       JSONObject personGameJSON = new JSONObject();
-      personGameJSON.put("lastPlayed", JSONObject.wrap(personGame.last_played.getValue()));
+      personGameJSON.put("last_played", JSONObject.wrap(personGame.last_played.getValue()));
       personGameJSON.put("rating", JSONObject.wrap(personGame.rating.getValue()));
       personGameJSON.put("tier", JSONObject.wrap(personGame.tier.getValue()));
       personGameJSON.put("id", JSONObject.wrap(personGame.id.getValue()));
-      personGameJSON.put("finalScore", JSONObject.wrap(personGame.final_score.getValue()));
-      personGameJSON.put("finishedDate", JSONObject.wrap(personGame.finished_date.getValue()));
-      personGameJSON.put("replayScore", JSONObject.wrap(personGame.replay_score.getValue()));
-      personGameJSON.put("replayReason", JSONObject.wrap(personGame.replay_reason.getValue()));
-      personGameJSON.put("dateAdded", JSONObject.wrap(personGame.dateAdded.getValue()));
+      personGameJSON.put("final_score", JSONObject.wrap(personGame.final_score.getValue()));
+      personGameJSON.put("finished_date", JSONObject.wrap(personGame.finished_date.getValue()));
+      personGameJSON.put("replay_score", JSONObject.wrap(personGame.replay_score.getValue()));
+      personGameJSON.put("replay_reason", JSONObject.wrap(personGame.replay_reason.getValue()));
+      personGameJSON.put("date_added", JSONObject.wrap(personGame.dateAdded.getValue()));
+      personGameJSON.put("minutes_played", JSONObject.wrap(personGame.minutes_played.getValue()));
 
       Game game = personGame.getGame(connection);
 
       JSONObject gameJSON = new JSONObject();
       gameJSON.put("id", game.id.getValue());
       gameJSON.put("title", JSONObject.wrap(game.title.getValue()));
-      gameJSON.put("igdbPoster", JSONObject.wrap(game.igdb_poster.getValue()));
+      gameJSON.put("igdb_poster", JSONObject.wrap(game.igdb_poster.getValue()));
       gameJSON.put("logo", JSONObject.wrap(game.logo.getValue()));
-      gameJSON.put("giantBombMedium", JSONObject.wrap(game.giantbomb_medium_url.getValue()));
-      gameJSON.put("steamID", JSONObject.wrap(game.steamID.getValue()));
-      gameJSON.put("dateAdded", JSONObject.wrap(game.dateAdded.getValue()));
+      gameJSON.put("giantbomb_medium_url", JSONObject.wrap(game.giantbomb_medium_url.getValue()));
+      gameJSON.put("steamid", JSONObject.wrap(game.steamID.getValue()));
+      gameJSON.put("date_added", JSONObject.wrap(game.dateAdded.getValue()));
       gameJSON.put("platform", JSONObject.wrap(game.platform.getValue()));
       gameJSON.put("metacritic", JSONObject.wrap(game.metacritic.getValue()));
-      gameJSON.put("timeTotal", JSONObject.wrap(game.timetotal.getValue()));
+      gameJSON.put("timetotal", JSONObject.wrap(game.timetotal.getValue()));
       gameJSON.put("howlongExtras", JSONObject.wrap(game.howlong_extras.getValue()));
       gameJSON.put("naturalEnd", JSONObject.wrap(game.naturalEnd.getValue()));
 
-      gameJSON.put("personGame", personGameJSON);
+      JSONArray personGamesJSON = new JSONArray();
+      personGamesJSON.put(personGameJSON);
+
+      gameJSON.put("person_games", personGamesJSON);
 
       gamesJSON.put(gameJSON);
     }
 
     logger.info("Exported " + gamesJSON.length() + " games.");
 
-    writeResultToFile("json/json_test_games", gamesJSON);
+    writeResultToFile("json/json_test_games.json", gamesJSON);
   }
 
   @SuppressWarnings({"ResultOfMethodCallIgnored", "SameParameterValue"})
