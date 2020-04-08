@@ -42,13 +42,14 @@ public class SampleDataExporter {
         "INNER JOIN person_game pg " +
         "  ON pg.game_id = g.id " +
         "WHERE pg.last_played > ? " +
+        "AND pg.person_id = ? " +
         "AND pg.last_played IS NOT NULL " +
         "ORDER BY pg.last_played DESC";
 
     DateTime oneYearAgo = DateTime.now().minusMonths(36);
 
     Timestamp timestamp = new Timestamp(oneYearAgo.toDate().getTime());
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, timestamp);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, timestamp, 1);
 
     JSONArray gamesJSON = new JSONArray();
 

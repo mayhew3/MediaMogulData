@@ -1,6 +1,32 @@
 [
   {
     "timetotal": null,
+    "howlongExtras": 46.25,
+    "metacritic": 61,
+    "title": "No Man's Sky",
+    "platform": "Steam",
+    "steamid": 275850,
+    "date_added": "2017-08-11 20:02:44.787",
+    "giantbomb_medium_url": "https://www.giantbomb.com/api/image/scale_medium/2927125-no%20man%27s%20sky.jpg",
+    "igdb_poster": "co1k01",
+    "logo": "cba0b86aa959a8c63eeda8f5f6d19ef986262b67",
+    "id": 721,
+    "naturalEnd": true,
+    "person_games": [{
+      "replay_score": null,
+      "final_score": null,
+      "date_added": "2017-08-11 20:02:44.787",
+      "tier": 2,
+      "replay_reason": null,
+      "minutes_played": 2552,
+      "last_played": "2020-04-07 00:00:00.0",
+      "rating": 99,
+      "finished_date": null,
+      "id": 134
+    }]
+  },
+  {
+    "timetotal": null,
     "howlongExtras": null,
     "metacritic": null,
     "title": "Half-Life: Alyx",
@@ -309,32 +335,6 @@
       "rating": null,
       "finished_date": null,
       "id": 1468
-    }]
-  },
-  {
-    "timetotal": null,
-    "howlongExtras": 46.25,
-    "metacritic": 61,
-    "title": "No Man's Sky",
-    "platform": "Steam",
-    "steamid": 275850,
-    "date_added": "2017-08-11 20:02:44.787",
-    "giantbomb_medium_url": "https://www.giantbomb.com/api/image/scale_medium/2927125-no%20man%27s%20sky.jpg",
-    "igdb_poster": "co1k01",
-    "logo": "cba0b86aa959a8c63eeda8f5f6d19ef986262b67",
-    "id": 721,
-    "naturalEnd": true,
-    "person_games": [{
-      "replay_score": null,
-      "final_score": null,
-      "date_added": "2017-08-11 20:02:44.787",
-      "tier": 2,
-      "replay_reason": null,
-      "minutes_played": 2407,
-      "last_played": "2020-01-15 17:41:27.382",
-      "rating": 99,
-      "finished_date": null,
-      "id": 134
     }]
   },
   {
@@ -1162,7 +1162,7 @@
       "date_added": "2019-02-13 11:48:35.556977",
       "tier": 2,
       "replay_reason": null,
-      "minutes_played": 1020,
+      "minutes_played": 1050,
       "last_played": "2019-02-25 00:00:00.0",
       "rating": 97,
       "finished_date": null,
@@ -1427,32 +1427,6 @@
       "rating": 99,
       "finished_date": "2018-11-02 00:00:00.0",
       "id": 654
-    }]
-  },
-  {
-    "timetotal": null,
-    "howlongExtras": 15.1833,
-    "metacritic": 94,
-    "title": "Uncharted 4: A Thief's End",
-    "platform": "PS4",
-    "steamid": null,
-    "date_added": "2016-05-10 01:14:29.369",
-    "giantbomb_medium_url": "http://static.giantbomb.com/uploads/scale_medium/8/82063/2848570-uc4boxclean.jpg",
-    "igdb_poster": "co1r7h",
-    "logo": null,
-    "id": 500,
-    "naturalEnd": true,
-    "person_games": [{
-      "replay_score": null,
-      "final_score": null,
-      "date_added": "2018-10-25 16:11:09.234554",
-      "tier": 1,
-      "replay_reason": null,
-      "minutes_played": 180,
-      "last_played": "2018-10-25 00:00:00.0",
-      "rating": 99,
-      "finished_date": null,
-      "id": 772
     }]
   },
   {
