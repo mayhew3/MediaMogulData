@@ -82,8 +82,11 @@ public class SampleDataExporter {
       gameJSON.put("platform", JSONObject.wrap(game.platform.getValue()));
       gameJSON.put("metacritic", JSONObject.wrap(game.metacritic.getValue()));
       gameJSON.put("timetotal", JSONObject.wrap(game.timetotal.getValue()));
-      gameJSON.put("howlongExtras", JSONObject.wrap(game.howlong_extras.getValue()));
-      gameJSON.put("naturalEnd", JSONObject.wrap(game.naturalEnd.getValue()));
+      gameJSON.put("howlong_extras", JSONObject.wrap(game.howlong_extras.getValue()));
+      gameJSON.put("natural_end", JSONObject.wrap(game.naturalEnd.getValue()));
+      gameJSON.put("metacritic_hint", JSONObject.wrap(game.metacriticHint.getValue()));
+      gameJSON.put("howlong_id", JSONObject.wrap(game.howlong_id.getValue()));
+      gameJSON.put("giantbomb_id", JSONObject.wrap(game.giantbomb_id.getValue()));
 
       JSONArray personGamesJSON = new JSONArray();
       personGamesJSON.put(personGameJSON);
