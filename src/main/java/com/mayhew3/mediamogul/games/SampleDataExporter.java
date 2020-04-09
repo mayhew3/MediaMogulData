@@ -88,10 +88,7 @@ public class SampleDataExporter {
       gameJSON.put("howlong_id", JSONObject.wrap(game.howlong_id.getValue()));
       gameJSON.put("giantbomb_id", JSONObject.wrap(game.giantbomb_id.getValue()));
 
-      JSONArray personGamesJSON = new JSONArray();
-      personGamesJSON.put(personGameJSON);
-
-      gameJSON.put("person_games", personGamesJSON);
+      gameJSON.put("personGame", personGameJSON);
 
       gamesJSON.put(gameJSON);
     }
