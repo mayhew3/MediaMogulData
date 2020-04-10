@@ -31,10 +31,10 @@ public class IGDBTestProviderImpl implements IGDBProvider {
   }
 
   @Override
-  public Optional<JSONObject> getCoverInfo(Integer igdb_cover_id) {
-    String filepath = filePrefix + "cover_id_" + igdb_cover_id + ".json";
+  public Optional<JSONObject> getCoverInfo(Integer game_id) {
+    String filepath = filePrefix + "cover_id_" + game_id + ".json";
     @NotNull JSONArray jsonArrayFromFile = jsonReader.parseJSONArray(filepath);
-    return jsonArrayFromFile.getJSONObject(0);
+    return Optional.of(jsonArrayFromFile.getJSONObject(0));
   }
 
 }
