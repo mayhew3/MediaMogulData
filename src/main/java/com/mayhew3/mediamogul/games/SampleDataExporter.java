@@ -37,6 +37,13 @@ public class SampleDataExporter {
   }
 
   private void runExport() throws SQLException, IOException {
+    JSONArray gamesJSON = new JSONArray();
+    exportMyGames(gamesJSON);
+    exportNotMyGames(gamesJSON);
+    writeResultToFile("json/json_test_games.json", gamesJSON);
+  }
+
+  private void exportMyGames(JSONArray gamesJSON) throws SQLException {
     String sql = "SELECT pg.* " +
         "FROM game g " +
         "INNER JOIN person_game pg " +
@@ -50,8 +57,6 @@ public class SampleDataExporter {
 
     Timestamp timestamp = new Timestamp(oneYearAgo.toDate().getTime());
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, timestamp, 1);
-
-    JSONArray gamesJSON = new JSONArray();
 
     while (resultSet.next()) {
       PersonGame personGame = new PersonGame();
@@ -94,8 +99,42 @@ public class SampleDataExporter {
     }
 
     logger.info("Exported " + gamesJSON.length() + " games.");
+  }
 
-    writeResultToFile("json/json_test_games.json", gamesJSON);
+  private void exportNotMyGames(JSONArray gamesJSON) throws SQLException {
+    String sql = "SELECT g.* " +
+        "FROM game g " +
+        "WHERE g.id NOT IN (SELECT game_id FROM person_game WHERE person_id = ?) " +
+        "ORDER BY g.date_added DESC ";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 1);
+
+    while (resultSet.next()) {
+      Game game = new Game();
+      game.initializeFromDBObject(resultSet);
+
+      JSONObject gameJSON = new JSONObject();
+      gameJSON.put("id", game.id.getValue());
+      gameJSON.put("title", JSONObject.wrap(game.title.getValue()));
+      gameJSON.put("igdb_poster", JSONObject.wrap(game.igdb_poster.getValue()));
+      gameJSON.put("logo", JSONObject.wrap(game.logo.getValue()));
+      gameJSON.put("giantbomb_medium_url", JSONObject.wrap(game.giantbomb_medium_url.getValue()));
+      gameJSON.put("steamid", JSONObject.wrap(game.steamID.getValue()));
+      gameJSON.put("date_added", JSONObject.wrap(game.dateAdded.getValue()));
+      gameJSON.put("platform", JSONObject.wrap(game.platform.getValue()));
+      gameJSON.put("metacritic", JSONObject.wrap(game.metacritic.getValue()));
+      gameJSON.put("timetotal", JSONObject.wrap(game.timetotal.getValue()));
+      gameJSON.put("howlong_extras", JSONObject.wrap(game.howlong_extras.getValue()));
+      gameJSON.put("natural_end", JSONObject.wrap(game.naturalEnd.getValue()));
+      gameJSON.put("metacritic_hint", JSONObject.wrap(game.metacriticHint.getValue()));
+      gameJSON.put("howlong_id", JSONObject.wrap(game.howlong_id.getValue()));
+      gameJSON.put("giantbomb_id", JSONObject.wrap(game.giantbomb_id.getValue()));
+
+      gamesJSON.put(gameJSON);
+    }
+
+    logger.info("Exported " + gamesJSON.length() + " unowned games.");
+
   }
 
   @SuppressWarnings({"ResultOfMethodCallIgnored", "SameParameterValue"})
