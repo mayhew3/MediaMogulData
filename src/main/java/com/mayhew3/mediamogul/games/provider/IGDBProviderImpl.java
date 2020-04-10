@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games.provider;
 
+import com.google.common.base.Joiner;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -13,8 +14,7 @@ import org.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class IGDBProviderImpl implements IGDBProvider {
 
@@ -34,8 +34,8 @@ public class IGDBProviderImpl implements IGDBProvider {
 
     String url = api_url_base + "/games/";
     HashMap<String, Object> queryVars = new HashMap<>();
-    queryVars.put("search", gameTitleEncoded);
-    queryVars.put("fields", "name,cover");
+    queryVars.put("search", "\"" + gameTitle + "\"");
+    queryVars.put("fields", "name");
     queryVars.put("limit", "5");
     queryVars.put("offset", "0");
 
@@ -44,24 +44,26 @@ public class IGDBProviderImpl implements IGDBProvider {
 
   @Override
   public JSONArray getUpdatedInfo(Integer igdb_id) {
-    String url = api_url_base + "/games/" + igdb_id;
+    String url = api_url_base + "/games";
     HashMap<String, Object> queryVars = new HashMap<>();
-    queryVars.put("fields", "name,cover");
+    queryVars.put("where", "id = " + igdb_id);
+    queryVars.put("fields", "name");
 
     return getArrayData(url, queryVars);
   }
 
   @Override
-  public JSONObject getCoverInfo(Integer igdb_cover_id) {
-    String url = api_url_base + "/covers/" + igdb_cover_id;
+  public Optional<JSONObject> getCoverInfo(Integer game_id) {
+    String url = api_url_base + "/covers";
     HashMap<String, Object> queryVars = new HashMap<>();
-    queryVars.put("fields", "image_id,width,height");
+    queryVars.put("where", "game = " + game_id);
+    queryVars.put("fields", "image_id,width,height,game");
 
     JSONArray arrayData = getArrayData(url, queryVars);
-    if (arrayData.length() == 1) {
-      return arrayData.getJSONObject(0);
+    if (arrayData.length() > 0) {
+      return Optional.of(arrayData.getJSONObject(0));
     } else {
-      throw new IllegalStateException("No array data found for cover with id: " + igdb_cover_id);
+      return Optional.empty();
     }
   }
 
@@ -75,11 +77,21 @@ public class IGDBProviderImpl implements IGDBProvider {
 
   // utilities
 
+  private String createBodyFromParams(Map<String, Object> queryParams) {
+    List<String> paramStrings = new ArrayList<>();
+    for (String key : queryParams.keySet()) {
+      String paramString = key + " " + queryParams.get(key) + ";";
+      paramStrings.add(paramString);
+    }
+    return Joiner.on(" ").join(paramStrings);
+  }
+
   private HttpResponse<String> getDataInternal(String url, Map<String, Object> queryParams) throws UnirestException {
-    return Unirest.get(url)
+    String body = createBodyFromParams(queryParams);
+    return Unirest.post(url)
         .header("user-key", igdb_key)
         .header("Accept", "application/json")
-        .queryString(queryParams)
+        .body(body)
         .asString();
   }
 

@@ -8,7 +8,6 @@ import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -186,9 +185,10 @@ class IGDBUpdater {
 
     incrementNextUpdate();
 
-    @Nullable Integer optionalCover = jsonReader.getNullableIntegerWithKey(exactMatch, "cover");
-    if (optionalCover != null) {
-      JSONObject cover = igdbProvider.getCoverInfo(optionalCover);
+    Optional<JSONObject> maybeCover = igdbProvider.getCoverInfo(id);
+
+    if (maybeCover.isPresent()) {
+      JSONObject cover = maybeCover.get();
 
       @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
       @NotNull Integer width = jsonReader.getIntegerWithKey(cover, "width");
@@ -221,10 +221,11 @@ class IGDBUpdater {
     possibleGameMatch.igdbGameExtId.changeValue(id);
     possibleGameMatch.igdbGameTitle.changeValue(name);
 
-    @Nullable Integer optionalCover = jsonReader.getNullableIntegerWithKey(possibleMatch, "cover");
+    Optional<JSONObject> maybeCover = igdbProvider.getCoverInfo(id);
 
-    if (optionalCover != null) {
-      JSONObject cover = igdbProvider.getCoverInfo(optionalCover);
+    if (maybeCover.isPresent()) {
+      JSONObject cover = maybeCover.get();
+
       @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
       @NotNull Integer width = jsonReader.getIntegerWithKey(cover, "width");
       @NotNull Integer height = jsonReader.getIntegerWithKey(cover, "height");
