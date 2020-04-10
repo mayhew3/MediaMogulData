@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/json/json_test_games.json" beforeDir="false" afterPath="$PROJECT_DIR$/json/json_test_games.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SampleDataExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SampleDataExporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,17 +142,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.SampleDataExporter">
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <module name="media-mogul-data_main" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -909,7 +899,7 @@
         <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SampleDataExporter" />
-      <module name="com.mayhew3.mediamogul.media-mogul-data.main" />
+      <module name="media-mogul-data.main" />
       <option name="PROGRAM_PARAMETERS" value="-db Local" />
       <extension name="coverage">
         <pattern>
@@ -1837,6 +1827,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <module name="media-mogul-data_main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="media-mogul-data [assemble]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -2332,18 +2333,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="" />
@@ -2384,9 +2373,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -2405,6 +2392,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -2437,11 +2425,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="994" y="347" width="601" height="715" key="#PodcastFeedExporter/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1585603004904" />
-    <state x="746" y="258" width="601" height="554" key="#SampleDataExporter" timestamp="1586500949760">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="994" y="347" width="616" height="715" key="#SampleDataExporter" timestamp="1586558299348">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="746" y="258" width="601" height="554" key="#SampleDataExporter/0.0.1920.1050@0.0.1920.1050" timestamp="1586500949760" />
-    <state x="994" y="347" width="601" height="715" key="#SampleDataExporter/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1585949654140" />
+    <state x="994" y="347" width="616" height="715" key="#SampleDataExporter/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586558299348" />
     <state x="1524" y="346" key="#SchemaLocalTest" timestamp="1584908903109">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2502,34 +2490,34 @@
     </state>
     <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1579054492060" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="1877" height="322" key="GridCell.Tab.0.bottom" timestamp="1586497007000">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="328" key="GridCell.Tab.0.bottom" timestamp="1586558345160">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1586497007000" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="326" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586479722443" />
-    <state width="1877" height="322" key="GridCell.Tab.0.center" timestamp="1586497007000">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="328" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586558345160" />
+    <state width="1236" height="328" key="GridCell.Tab.0.center" timestamp="1586558345160">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1586497007000" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="326" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586479722443" />
-    <state width="1877" height="322" key="GridCell.Tab.0.left" timestamp="1586497007000">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="328" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586558345160" />
+    <state width="1236" height="328" key="GridCell.Tab.0.left" timestamp="1586558345160">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1586497007000" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
     <state width="2517" height="361" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="326" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586479722442" />
-    <state width="1877" height="322" key="GridCell.Tab.0.right" timestamp="1586497007000">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1236" height="328" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586558345160" />
+    <state width="1236" height="328" key="GridCell.Tab.0.right" timestamp="1586558345160">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1586497007000" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="361" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
-    <state width="2517" height="326" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586479722443" />
+    <state width="1236" height="328" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586558345160" />
     <state width="1236" height="456" key="GridCell.Tab.1.bottom" timestamp="1586473709497">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2593,12 +2581,12 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1629" y="329" key="refactoring.ChangeSignatureDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586466761182" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1586479257357">
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1586557928939">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1585945537700" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578520024288" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586479257357" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586557928939" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

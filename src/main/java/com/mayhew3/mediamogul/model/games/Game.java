@@ -5,6 +5,8 @@ import com.mayhew3.postgresobject.db.SQLConnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Game extends DataObject {
@@ -98,6 +100,24 @@ public class Game extends DataObject {
       msg += " (Steam: " + steamID + ")";
     }
     return msg;
+  }
+
+  public List<PersonGame> getPersonGames(SQLConnection connection) throws SQLException {
+    String sql = "SELECT * FROM person_game " +
+        "WHERE game_id = ? " +
+        "AND retired = ? ";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), 0);
+
+    List<PersonGame> personGames = new ArrayList<>();
+
+    while (resultSet.next()) {
+      PersonGame personGame = new PersonGame();
+      personGame.initializeFromDBObject(resultSet);
+      personGames.add(personGame);
+    }
+
+    return personGames;
   }
 
   public Optional<PersonGame> getPersonGame(Integer person_id, SQLConnection connection) throws SQLException {
