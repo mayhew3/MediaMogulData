@@ -43,7 +43,8 @@ public class SampleDataExporter {
 
   private void exportMyGames(JSONArray gamesJSON) throws SQLException {
     String sql = "SELECT g.* " +
-        "FROM game g ";
+        "FROM game g " +
+        "ORDER BY g.id ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
 
@@ -67,6 +68,7 @@ public class SampleDataExporter {
       gameJSON.put("metacritic_hint", JSONObject.wrap(game.metacriticHint.getValue()));
       gameJSON.put("howlong_id", JSONObject.wrap(game.howlong_id.getValue()));
       gameJSON.put("giantbomb_id", JSONObject.wrap(game.giantbomb_id.getValue()));
+      gameJSON.put("steam_cloud", JSONObject.wrap(game.steam_cloud.getValue()));
 
       addPersonGamesToGame(game, gameJSON);
 
