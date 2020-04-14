@@ -16,6 +16,7 @@ public class MediaMogulSchema {
       new ErrorLog(),
       new ExternalService(),
       new Genre(),
+      new IGDBPoster(),
       new Movie(),
       new PendingPoster(),
       new Person(),

@@ -79,7 +79,6 @@ public class Game extends DataObject {
   public FieldValueTimestamp steam_page_gone = registerTimestampField("steam_page_gone", Nullability.NULLABLE);
 
 
-
   public Game() {
     // DB fields that aren't needed in java can be initialized in the constructor without a class member.
 
