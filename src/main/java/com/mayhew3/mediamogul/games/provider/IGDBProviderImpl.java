@@ -67,6 +67,16 @@ public class IGDBProviderImpl implements IGDBProvider {
     }
   }
 
+  @Override
+  public JSONArray getCovers(Integer igdb_game_id) {
+    String url = api_url_base + "/covers";
+    HashMap<String, Object> queryVars = new HashMap<>();
+    queryVars.put("where", "game = " + igdb_game_id);
+    queryVars.put("fields", "image_id,width,height,game,url");
+
+    return getArrayData(url, queryVars);
+  }
+
   private String encodeGameTitle(String gameTitle) {
     String gameTitleEncoded;
     gameTitleEncoded = gameTitle.replace(":", "");
