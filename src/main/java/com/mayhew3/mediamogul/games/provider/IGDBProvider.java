@@ -12,4 +12,6 @@ public interface IGDBProvider {
   JSONArray getUpdatedInfo(Integer igdb_id);
 
   Optional<JSONObject> getCoverInfo(Integer igdb_cover_id);
+
+  JSONArray getCovers(Integer igdb_game_id);
 }

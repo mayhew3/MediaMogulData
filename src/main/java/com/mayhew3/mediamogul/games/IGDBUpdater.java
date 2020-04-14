@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.model.games.Game;
+import com.mayhew3.mediamogul.model.games.IGDBPoster;
 import com.mayhew3.mediamogul.model.games.PossibleGameMatch;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -16,18 +17,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 class IGDBUpdater {
-  private Game game;
-  private String titleToSearch;
+  private final Game game;
+  private final String titleToSearch;
 
-  private SQLConnection connection;
-  private IGDBProvider igdbProvider;
-  private JSONReader jsonReader;
+  private final SQLConnection connection;
+  private final IGDBProvider igdbProvider;
+  private final JSONReader jsonReader;
 
-  private Set<Integer> existingGameMatches = new HashSet<>();
+  private final Set<Integer> existingGameMatches = new HashSet<>();
 
-  private static Logger logger = LogManager.getLogger(IGDBUpdater.class);
+  private static final Logger logger = LogManager.getLogger(IGDBUpdater.class);
 
   IGDBUpdater(@NotNull Game game, SQLConnection connection, IGDBProvider igdbProvider, JSONReader jsonReader) {
     this.game = game;
@@ -185,21 +187,78 @@ class IGDBUpdater {
 
     incrementNextUpdate();
 
-    Optional<JSONObject> maybeCover = igdbProvider.getCoverInfo(id);
+    if (game.id.getValue() != null) {
 
-    if (maybeCover.isPresent()) {
-      JSONObject cover = maybeCover.get();
+      JSONArray covers = igdbProvider.getCovers(id);
+      List<IGDBPoster> posters = new ArrayList<>();
 
-      @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
-      @NotNull Integer width = jsonReader.getIntegerWithKey(cover, "width");
-      @NotNull Integer height = jsonReader.getIntegerWithKey(cover, "height");
+      for (Object coverObj : covers) {
+        IGDBPoster igdbPoster = updateIGDBPoster(id, (JSONObject) coverObj);
+        posters.add(igdbPoster);
+      }
 
-      game.igdb_poster.changeValue(image_id);
-      game.igdb_poster_w.changeValue(width);
-      game.igdb_poster_h.changeValue(height);
+      updateDefaultPoster(posters);
+
+    } else {
+      logger.error("Trying to update IGDB Posters on game that hasn't been committed yet: " + game.title.getValue());
+    }
+  }
+
+  private IGDBPoster updateIGDBPoster(@NotNull Integer id, JSONObject cover) throws SQLException {
+    @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
+    @NotNull String url = jsonReader.getStringWithKey(cover, "url");
+    @NotNull Integer width = jsonReader.getIntegerWithKey(cover, "width");
+    @NotNull Integer height = jsonReader.getIntegerWithKey(cover, "height");
+
+    IGDBPoster igdbPoster = getOrCreateIGDBPoster(id, image_id);
+    igdbPoster.igdb_game_id.changeValue(id);
+    igdbPoster.image_id.changeValue(image_id);
+    igdbPoster.width.changeValue(width);
+    igdbPoster.height.changeValue(height);
+    igdbPoster.url.changeValue(url);
+
+    if (igdbPoster.default_for_game.getValue() == null) {
+      igdbPoster.default_for_game.changeValue(false);
     }
 
-    game.commit(connection);
+    igdbPoster.game_id.changeValue(game.id.getValue());
+
+    igdbPoster.commit(connection);
+
+    return igdbPoster;
+  }
+
+  private void updateDefaultPoster(List<IGDBPoster> posters) throws SQLException {
+    List<IGDBPoster> defaultPosters = posters.stream()
+        .filter(igdbPoster -> igdbPoster.default_for_game.getValue())
+        .collect(Collectors.toList());
+
+    if (defaultPosters.size() == 0) {
+      IGDBPoster firstPoster = posters.get(0);
+      firstPoster.default_for_game.changeValue(true);
+      firstPoster.commit(connection);
+    } else if (defaultPosters.size() > 1) {
+      throw new IllegalStateException("Found multiple default posters for game: " + game.title.getValue());
+    }
+  }
+
+  private IGDBPoster getOrCreateIGDBPoster(Integer igdb_game_id, String image_id) throws SQLException {
+    String sql = "SELECT * " +
+        "FROM igdb_poster " +
+        "WHERE igdb_game_id = ? " +
+        "AND image_id = ? ";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_game_id, image_id);
+
+    IGDBPoster igdbPoster = new IGDBPoster();
+
+    if (resultSet.next()) {
+      igdbPoster.initializeFromDBObject(resultSet);
+    } else {
+      igdbPoster.initializeForInsert();
+    }
+
+    return igdbPoster;
   }
 
   private void incrementNextUpdate() {
