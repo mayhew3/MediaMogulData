@@ -23,26 +23,27 @@ import java.util.Map;
 
 public class IGDBUpdateRunner implements UpdateRunner {
 
-  private SQLConnection connection;
-  private IGDBProvider igdbProvider;
-  private JSONReader jsonReader;
-  private UpdateMode updateMode;
+  private final SQLConnection connection;
+  private final IGDBProvider igdbProvider;
+  private final JSONReader jsonReader;
+  private final UpdateMode updateMode;
 
   private final Map<UpdateMode, Runnable> methodMap;
 
-  private static Logger logger = LogManager.getLogger(IGDBUpdateRunner.class);
+  private static final Logger logger = LogManager.getLogger(IGDBUpdateRunner.class);
 
   public IGDBUpdateRunner(SQLConnection connection, IGDBProvider igdbProvider, JSONReader jsonReader, UpdateMode updateMode) {
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.SMART, this::runUpdateSmart);
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
     methodMap.put(UpdateMode.SANITY, this::runUpdateSanity);
+    methodMap.put(UpdateMode.FULL, this::runUpdateOnAll);
 
     this.connection = connection;
     this.igdbProvider = igdbProvider;
     this.jsonReader = jsonReader;
 
-    if (!methodMap.keySet().contains(updateMode)) {
+    if (!methodMap.containsKey(updateMode)) {
       throw new IllegalArgumentException("Update type '" + updateMode + "' is not applicable for this updater.");
     }
 
@@ -135,6 +136,18 @@ public class IGDBUpdateRunner implements UpdateRunner {
     }
   }
 
+  private void runUpdateOnAll() {
+    String sql = "SELECT * " +
+        "FROM game ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
+
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   private void runUpdateOnResultSet(ResultSet resultSet) throws SQLException {
     debug("Starting update.");
