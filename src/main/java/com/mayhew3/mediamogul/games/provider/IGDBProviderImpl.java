@@ -35,9 +35,9 @@ public class IGDBProviderImpl implements IGDBProvider {
     String url = api_url_base + "/games/";
     HashMap<String, Object> queryVars = new HashMap<>();
     queryVars.put("search", "\"" + gameTitle + "\"");
-    queryVars.put("fields", "name");
-    queryVars.put("limit", "5");
+    queryVars.put("fields", "name,category,collection,cover,franchise,keywords,parent_game,version_parent,time_to_beat");
     queryVars.put("offset", "0");
+    queryVars.put("where", "version_parent = null");
 
     return getArrayData(url, queryVars);
   }

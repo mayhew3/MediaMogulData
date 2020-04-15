@@ -88,6 +88,7 @@ class IGDBUpdater {
   private String getFormattedTitle() {
     String formattedTitle = titleToSearch;
     formattedTitle = formattedTitle.replace("™", "");
+    formattedTitle = formattedTitle.replace("®", "");
     return formattedTitle;
   }
 
@@ -99,11 +100,13 @@ class IGDBUpdater {
     if (exactMatch.isPresent()) {
       debug(" - Exact match found!");
       saveExactMatch(exactMatch.get());
+      incrementNextUpdate(30);
     } else {
       debug(" - No exact match.");
       List<PossibleGameMatch> possibleMatches = getPossibleMatches(results);
       tryAlternateTitles(possibleMatches);
       savePossibleMatches(possibleMatches);
+      incrementNextUpdate(7);
     }
   }
 
@@ -164,7 +167,7 @@ class IGDBUpdater {
 
     jsonReader.forEach(results, possibleMatch -> possibleGameMatches.add(createPossibleMatch(possibleMatch)));
 
-    return possibleGameMatches;
+    return possibleGameMatches.stream().limit(5).collect(Collectors.toList());
   }
 
   private void maybeUpdateGameWithBestMatch(List<PossibleGameMatch> matches) {
@@ -185,7 +188,7 @@ class IGDBUpdater {
     game.igdb_success.changeValue(new Date());
     game.igdb_failed.changeValue(null);
 
-    incrementNextUpdate();
+    incrementNextUpdate(30);
 
     if (game.id.getValue() != null) {
 
@@ -261,12 +264,11 @@ class IGDBUpdater {
     return igdbPoster;
   }
 
-  private void incrementNextUpdate() {
-    Timestamp nextUpdate = game.igdb_next_update.getValue();
-    if (nextUpdate != null) {
-      DateTime nextScheduled = new DateTime(nextUpdate).plusDays(30);
-      game.igdb_next_update.changeValue(nextScheduled.toDate());
-    }
+  private void incrementNextUpdate(int days) throws SQLException {
+    Timestamp now = new Timestamp(new Date().getTime());
+    DateTime nextScheduled = new DateTime(now).plusDays(days);
+    game.igdb_next_update.changeValue(nextScheduled.toDate());
+    game.commit(connection);
   }
 
   private PossibleGameMatch createPossibleMatch(JSONObject possibleMatch) {
