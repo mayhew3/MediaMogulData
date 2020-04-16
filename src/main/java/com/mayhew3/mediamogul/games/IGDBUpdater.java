@@ -236,7 +236,7 @@ class IGDBUpdater {
         .filter(igdbPoster -> igdbPoster.default_for_game.getValue())
         .collect(Collectors.toList());
 
-    if (defaultPosters.size() == 0) {
+    if (defaultPosters.size() == 0 && !posters.isEmpty()) {
       IGDBPoster firstPoster = posters.get(0);
       firstPoster.default_for_game.changeValue(true);
       firstPoster.commit(connection);
