@@ -196,7 +196,7 @@ class IGDBUpdater {
       List<IGDBPoster> posters = new ArrayList<>();
 
       for (Object coverObj : covers) {
-        IGDBPoster igdbPoster = updateIGDBPoster(id, (JSONObject) coverObj);
+        IGDBPoster igdbPoster = updateIGDBPoster(id, (JSONObject) coverObj, game.id.getValue());
         posters.add(igdbPoster);
       }
 
@@ -207,13 +207,13 @@ class IGDBUpdater {
     }
   }
 
-  private IGDBPoster updateIGDBPoster(@NotNull Integer id, JSONObject cover) throws SQLException {
+  private IGDBPoster updateIGDBPoster(@NotNull Integer id, JSONObject cover, Integer game_id) throws SQLException {
     @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
     @NotNull String url = jsonReader.getStringWithKey(cover, "url");
     @NotNull Integer width = jsonReader.getIntegerWithKey(cover, "width");
     @NotNull Integer height = jsonReader.getIntegerWithKey(cover, "height");
 
-    IGDBPoster igdbPoster = getOrCreateIGDBPoster(id, image_id);
+    IGDBPoster igdbPoster = getOrCreateIGDBPoster(game_id, id, image_id);
     igdbPoster.igdb_game_id.changeValue(id);
     igdbPoster.image_id.changeValue(image_id);
     igdbPoster.width.changeValue(width);
@@ -245,13 +245,14 @@ class IGDBUpdater {
     }
   }
 
-  private IGDBPoster getOrCreateIGDBPoster(Integer igdb_game_id, String image_id) throws SQLException {
+  private IGDBPoster getOrCreateIGDBPoster(Integer game_id, Integer igdb_game_id, String image_id) throws SQLException {
     String sql = "SELECT * " +
         "FROM igdb_poster " +
         "WHERE igdb_game_id = ? " +
+        "AND game_id = ? " +
         "AND image_id = ? ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_game_id, image_id);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_game_id, game_id, image_id);
 
     IGDBPoster igdbPoster = new IGDBPoster();
 

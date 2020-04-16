@@ -108,7 +108,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateSingle() {
-    String gameTitle = "Assassin's Creed Odyssey";
+    String gameTitle = "Dream";
     String sql = "select * " +
         "from game " +
         "where title = ? ";
@@ -138,7 +138,11 @@ public class IGDBUpdateRunner implements UpdateRunner {
 
   private void runUpdateOnAll() {
     String sql = "SELECT * " +
-        "FROM game ";
+        "FROM game " +
+        "WHERE igdb_ignored IS NULL " +
+        "AND igdb_id IS NOT NULL " +
+        "AND id NOT IN (SELECT game_id FROM igdb_poster) " +
+        "ORDER BY id DESC ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
