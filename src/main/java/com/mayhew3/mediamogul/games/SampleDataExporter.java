@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.model.games.Game;
+import com.mayhew3.mediamogul.model.games.IGDBPoster;
 import com.mayhew3.mediamogul.model.games.PersonGame;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
@@ -55,7 +56,6 @@ public class SampleDataExporter {
       JSONObject gameJSON = new JSONObject();
       gameJSON.put("id", game.id.getValue());
       gameJSON.put("title", JSONObject.wrap(game.title.getValue()));
-      gameJSON.put("igdb_poster", JSONObject.wrap(game.igdb_poster.getValue()));
       gameJSON.put("logo", JSONObject.wrap(game.logo.getValue()));
       gameJSON.put("giantbomb_medium_url", JSONObject.wrap(game.giantbomb_medium_url.getValue()));
       gameJSON.put("steamid", JSONObject.wrap(game.steamID.getValue()));
@@ -71,6 +71,7 @@ public class SampleDataExporter {
       gameJSON.put("steam_cloud", JSONObject.wrap(game.steam_cloud.getValue()));
 
       addPersonGamesToGame(game, gameJSON);
+      attachIGDBPoster(game, gameJSON);
 
       gamesJSON.put(gameJSON);
     }
@@ -101,6 +102,22 @@ public class SampleDataExporter {
     }
 
     gameJSON.put("person_games", personGamesJSON);
+  }
+
+  private void attachIGDBPoster(Game game, JSONObject gameJSON) throws SQLException {
+    String sql = "SELECT * " +
+        "FROM igdb_poster " +
+        "WHERE game_id = ? " +
+        "AND default_for_game = ? ";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, game.id.getValue(), true);
+    if (resultSet.next()) {
+      IGDBPoster igdbPoster = new IGDBPoster();
+      igdbPoster.initializeFromDBObject(resultSet);
+      gameJSON.put("igdb_poster", igdbPoster.image_id.getValue());
+    } else {
+      gameJSON.put("igdb_poster", JSONObject.wrap(null));
+    }
   }
 
   @SuppressWarnings({"ResultOfMethodCallIgnored", "SameParameterValue"})
