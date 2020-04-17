@@ -108,7 +108,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateSingle() {
-    String gameTitle = "Dream";
+    String gameTitle = "Half-Life: Alyx";
     String sql = "select * " +
         "from game " +
         "where title = ? ";
