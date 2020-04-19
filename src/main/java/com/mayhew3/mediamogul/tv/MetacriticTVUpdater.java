@@ -1,5 +1,7 @@
 package com.mayhew3.mediamogul.tv;
 
+import com.mayhew3.mediamogul.MetacriticUpdater;
+import com.mayhew3.mediamogul.games.SingleFailedException;
 import com.mayhew3.mediamogul.model.tv.Season;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBSeries;
@@ -9,12 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,16 +20,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class MetacriticTVUpdater {
-  private Series series;
+public class MetacriticTVUpdater extends MetacriticUpdater {
+  private final Series series;
 
-  private SQLConnection connection;
-
-  private static Logger logger = LogManager.getLogger(MetacriticTVUpdater.class);
+  private static final Logger logger = LogManager.getLogger(MetacriticTVUpdater.class);
 
   MetacriticTVUpdater(Series series, SQLConnection connection) {
+    super(connection);
     this.series = series;
-    this.connection = connection;
   }
 
   void parseMetacritic() throws MetacriticException, SQLException {
@@ -54,14 +50,7 @@ public class MetacriticTVUpdater {
           stringsToTry.add(hint);
         }
 
-        String formattedTitle =
-            title
-                .toLowerCase()
-                .replaceAll(" ", "-")
-                .replaceAll("'", "")
-                .replaceAll("\\.", "")
-                .replaceAll("\\(", "")
-                .replaceAll("\\)", "");
+        String formattedTitle = formatTitle(title, hint);
 
         Optional<TVDBSeries> tvdbSeries = series.getTVDBSeries(connection);
 
@@ -82,11 +71,9 @@ public class MetacriticTVUpdater {
       } else {
         try {
           findMetacriticForString(matchedTitle, firstSeason);
-        } catch (IOException e) {
+        } catch (SingleFailedException e) {
           markFailed();
           throw new MetacriticException("Had trouble finding metacritic page for Season 1 of series '" + title + "' even though formatted title was confirmed previously: '" + series.metacriticConfirmed.getValue() + "'");
-        } catch (MetacriticException e) {
-          logger.debug("Unable to find metacritic value for Season 1.");
         }
       }
 
@@ -95,7 +82,7 @@ public class MetacriticTVUpdater {
         if (seasonNumber > 1) {
           try {
             findMetacriticForString(matchedTitle + "/season-" + seasonNumber, season);
-          } catch (IOException e) {
+          } catch (SingleFailedException e) {
             logger.debug("No metacritic page found for Season " + seasonNumber);
           } catch (Exception e) {
             logger.debug("Found metacritic page for Season " + seasonNumber + " but failed to get score: " + e.getLocalizedMessage());
@@ -159,11 +146,9 @@ public class MetacriticTVUpdater {
     return null;
   }
 
-  private void findMetacriticForString(String formattedTitle, Season season) throws IOException, SQLException, MetacriticException {
-    Document document = Jsoup.connect("http://www.metacritic.com/tv/" + formattedTitle)
-        .timeout(10000)
-        .userAgent("Mozilla")
-        .get();
+  private void findMetacriticForString(String formattedTitle, Season season) throws SQLException, SingleFailedException {
+    String prefix = "tv/" + formattedTitle;
+    Document document = getDocument(prefix, series.seriesTitle.getValue());
 
     Integer seasonNumber = season.seasonNumber.getValue();
 
@@ -174,22 +159,7 @@ public class MetacriticTVUpdater {
       series.commit(connection);
     }
 
-    Element first;
-    try {
-      Element primaryBabyItemDiv = document.select(".primary_baby_item").first();
-      first = primaryBabyItemDiv.select(".metascore_w").first();
-    } catch (Exception e) {
-      throw new MetacriticException("Page found, but no element found with 'primary_baby_item' id.");
-    }
-
-    Node metacriticValue = first.childNodes().get(0);
-
-    Integer metaCritic;
-    try {
-      metaCritic = Integer.valueOf(metacriticValue.toString());
-    } catch (NumberFormatException e) {
-      throw new MetacriticException("Found metacritic score element, but it had non-numeric value.");
-    }
+    Integer metaCritic = getMetacriticFromDocument(document);
 
     logger.debug("Found Metacritic value for Season " + seasonNumber + " (" + metaCritic + ")");
 

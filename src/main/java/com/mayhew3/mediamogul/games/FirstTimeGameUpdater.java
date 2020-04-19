@@ -70,7 +70,7 @@ class FirstTimeGameUpdater {
     MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id);
     try {
       metacriticGameUpdater.runUpdater();
-    } catch (GameFailedException e) {
+    } catch (SingleFailedException e) {
       logger.warn("Game failed metacritic update: " + game.title.getValue());
       logger.warn(e.getMessage());
     }
