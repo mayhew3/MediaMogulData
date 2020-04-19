@@ -1,9 +1,10 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Maps;
-import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;
+import com.mayhew3.postgresobject.db.SQLConnection;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,9 +20,9 @@ import java.util.Map;
 
 public class MetacriticGameUpdater {
 
-  private Game game;
-  private SQLConnection connection;
-  private Integer person_id;
+  private final Game game;
+  private final SQLConnection connection;
+  private final Integer person_id;
 
   public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id) {
     this.game = game;
@@ -77,7 +78,7 @@ public class MetacriticGameUpdater {
 
       game.metacriticPage.changeValue(true);
 
-      Elements elements = document.select("[itemprop=ratingValue]");
+      Elements elements = document.select("script[type*=application/ld+json]");
       Element first = elements.first();
 
       if (first == null) {
@@ -85,9 +86,18 @@ public class MetacriticGameUpdater {
         throw new GameFailedException("Page found, but no element found with 'ratingValue' id.");
       }
 
-      Node metacriticValue = first.childNodes().get(0);
+      Node metaJSON = first.childNodes().get(0);
 
-      Integer metaCritic = Integer.valueOf(metacriticValue.toString());
+      int metaCritic;
+      try {
+        JSONObject jsonObject = new JSONObject(metaJSON.toString());
+        JSONObject aggregateRating = jsonObject.getJSONObject("aggregateRating");
+        String ratingValue = aggregateRating.getString("ratingValue");
+
+        metaCritic = Integer.parseInt(ratingValue);
+      } catch (Exception e) {
+        throw new GameFailedException(e.getLocalizedMessage());
+      }
 
       game.metacriticMatched.changeValue(new Timestamp(new Date().getTime()));
 

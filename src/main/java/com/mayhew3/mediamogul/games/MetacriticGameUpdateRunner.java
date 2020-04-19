@@ -26,25 +26,26 @@ import java.util.Map;
 
 public class MetacriticGameUpdateRunner implements UpdateRunner {
 
-  private UpdateMode updateMode;
-  private Integer person_id;
+  private final UpdateMode updateMode;
+  private final Integer person_id;
 
   private final Map<UpdateMode, Runnable> methodMap;
 
-  private SQLConnection connection;
+  private final SQLConnection connection;
 
-  private static Logger logger = LogManager.getLogger(MetacriticGameUpdateRunner.class);
+  private static final Logger logger = LogManager.getLogger(MetacriticGameUpdateRunner.class);
 
   public MetacriticGameUpdateRunner(SQLConnection connection, UpdateMode updateMode, Integer person_id) {
     this.person_id = person_id;
     methodMap = new HashMap<>();
     methodMap.put(UpdateMode.FULL, this::updateAllGames);
     methodMap.put(UpdateMode.UNMATCHED, this::updateUnmatchedGames);
+    methodMap.put(UpdateMode.OLD_ERRORS, this::updateMatchGamesWithNoValue);
     methodMap.put(UpdateMode.SINGLE, this::updateSingleGame);
 
     this.connection = connection;
 
-    if (!methodMap.keySet().contains(updateMode)) {
+    if (!methodMap.containsKey(updateMode)) {
       throw new IllegalArgumentException("Update mode '" + updateMode + "' is not applicable for this updater.");
     }
 
@@ -53,7 +54,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
   public static void main(String[] args) throws FileNotFoundException, SQLException, URISyntaxException, MissingEnvException {
     List<String> argList = Lists.newArrayList(args);
-    Boolean logToFile = argList.contains("LogToFile");
+    boolean logToFile = argList.contains("LogToFile");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.UNMATCHED);
 
@@ -91,7 +92,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateSingleGame() {
-    String nameOfSingleGame = "DOOM";
+    String nameOfSingleGame = "Half-Life: Alyx";
 
     String sql = "SELECT * FROM game"
         + " WHERE title = ?";
@@ -122,6 +123,20 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     try {
       ResultSet resultSet = connection.executeQuery(sql);
+
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void updateMatchGamesWithNoValue() {
+    String sql = "SELECT * FROM game"
+     + " WHERE metacritic_page = ? " +
+        "AND metacritic IS NULL ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, true);
 
       runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {
