@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdater.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -2556,28 +2554,24 @@
     </state>
     <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1587071351501" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="361" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="322" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587258201916" />
     <state width="1236" height="322" key="GridCell.Tab.0.center" timestamp="1587258201916">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1587071351501" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="361" key="GridCell.Tab.0.center/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="322" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587258201916" />
     <state width="1236" height="322" key="GridCell.Tab.0.left" timestamp="1587258201916">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1587071351500" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
-    <state width="2517" height="361" key="GridCell.Tab.0.left/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="322" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587258201916" />
     <state width="1236" height="322" key="GridCell.Tab.0.right" timestamp="1587258201916">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1587071351501" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="361" key="GridCell.Tab.0.right/0.0.2560.1410/2560.429.1600.1170@0.0.2560.1410" timestamp="1578541951968" />
     <state width="1236" height="322" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587258201916" />
     <state width="1236" height="462" key="GridCell.Tab.1.bottom" timestamp="1587258201913">
       <screen x="0" y="0" width="2560" height="1410" />
@@ -2621,11 +2615,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="887" y="316" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1585086739761" />
-    <state x="920" y="381" key="extract.method.dialog" timestamp="1586903860278">
+    <state x="920" y="381" key="extract.method.dialog" timestamp="1587259039375">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="690" y="284" key="extract.method.dialog/0.0.1920.1050@0.0.1920.1050" timestamp="1586500520127" />
-    <state x="920" y="381" key="extract.method.dialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586903860278" />
+    <state x="920" y="381" key="extract.method.dialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587259039374" />
     <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1586902307898">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
