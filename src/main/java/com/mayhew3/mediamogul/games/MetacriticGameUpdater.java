@@ -149,7 +149,7 @@ public class MetacriticGameUpdater {
 
       return Integer.parseInt(ratingValue);
     } catch (Exception e) {
-      throw new GameFailedException(e.getLocalizedMessage());
+      throw new GameFailedException("Error parsing Metacritic page: " + e.getLocalizedMessage());
     }
   }
 
