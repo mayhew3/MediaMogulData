@@ -202,5 +202,37 @@
         ]
       }
     ]
+  },
+  {
+    "title": "Into the Wild",
+    "summary": "I haven't listened yet.",
+    "multipart": true,
+    "sessions": [
+      {
+        "date": "2020/04/12",
+        "files": [
+          {
+            "filename": "Into the Wild 1",
+            "duration": "03:01:33"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Echoes in the Pillar",
+    "summary": "Lantus, Elizabethe, Alrianne, Flynn, and Kaas take their first venture into the deadly pillar!",
+    "multipart": true,
+    "sessions": [
+      {
+        "date": "2020/04/19",
+        "files": [
+          {
+            "filename": "Echoes in the Pillar 1",
+            "duration": "04:10:24"
+          }
+        ]
+      }
+    ]
   }
 ]

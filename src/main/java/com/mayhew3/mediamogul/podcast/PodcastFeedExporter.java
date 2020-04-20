@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.util.UriUtils;
 
@@ -85,12 +86,21 @@ public class PodcastFeedExporter {
     return stringBuilder.toString();
   }
 
+  private boolean getMultipart(JSONObject arc) {
+    try {
+      return arc.getBoolean("multipart");
+    } catch (JSONException e) {
+      return false;
+    }
+  }
+
   private String getArcInfo(JSONObject arc) throws ParseException {
     String title = arc.getString("title");
     String summary = arc.getString("summary");
 
     StringBuilder stringBuilder = new StringBuilder();
 
+    boolean multipart = getMultipart(arc);
     JSONArray sessions = arc.getJSONArray("sessions");
     int sessionFileNumber = 1;
     for (Object obj : sessions) {
@@ -119,7 +129,7 @@ public class PodcastFeedExporter {
         dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
         String formattedDate = dateFormat.format(dateWithTime.toDate());
 
-        String partPart = files.length() > 1 ? " (Part " + sessionFileNumber + ")" : "";
+        String partPart = (files.length() > 1 || multipart) ? " (Part " + sessionFileNumber + ")" : "";
         String fileTitle = title + partPart;
 
         innerTemplate.clearMappings();
