@@ -69,6 +69,7 @@ public class SampleDataExporter {
       gameJSON.put("howlong_id", JSONObject.wrap(game.howlong_id.getValue()));
       gameJSON.put("giantbomb_id", JSONObject.wrap(game.giantbomb_id.getValue()));
       gameJSON.put("steam_cloud", JSONObject.wrap(game.steam_cloud.getValue()));
+      gameJSON.put("igdb_id", JSONObject.wrap(game.igdb_id.getValue()));
 
       addPersonGamesToGame(game, gameJSON);
       attachIGDBPoster(game, gameJSON);
