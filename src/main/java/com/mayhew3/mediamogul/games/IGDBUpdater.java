@@ -187,13 +187,25 @@ class IGDBUpdater {
     }
   }
 
+  private Date getEarliestReleaseDate(JSONArray release_datesJSON) {
+    List<Integer> releaseDates = new ArrayList<>();
+    for (Object release_dateJSON : release_datesJSON) {
+      Integer releaseDate = jsonReader.getNullableIntegerWithKey((JSONObject) release_dateJSON, "date");
+      releaseDates.add(releaseDate);
+    }
+
+    Optional<Integer> maybeEarliestDate = releaseDates.stream()
+        .filter(Objects::nonNull)
+        .min(Comparator.naturalOrder());
+    return maybeEarliestDate.map(this::convertFromUnixTimestamp).orElse(null);
+  }
+
   private void saveExactMatch(JSONObject exactMatch) throws SQLException {
     @NotNull Integer id = jsonReader.getIntegerWithKey(exactMatch, "id");
     @NotNull String name = jsonReader.getStringWithKey(exactMatch, "name");
 
     Double igdb_rating = jsonReader.getNullableDoubleWithKey(exactMatch, "rating");
     Integer igdb_rating_count = jsonReader.getNullableIntegerWithKey(exactMatch, "rating_count");
-    Integer igdb_release_date = jsonReader.getNullableIntegerWithKey(exactMatch, "first_release_date");
     Double igdb_popularity = jsonReader.getNullableDoubleWithKey(exactMatch, "popularity");
     String igdb_slug = jsonReader.getNullableStringWithKey(exactMatch, "slug");
     String igdb_summary = jsonReader.getNullableStringWithKey(exactMatch, "summary");
@@ -202,9 +214,11 @@ class IGDBUpdater {
     game.igdb_id.changeValue(id);
     game.igdb_title.changeValue(name);
 
+    JSONArray release_datesJSON = jsonReader.getArrayWithKey(exactMatch, "release_dates");
+
     game.igdb_rating.changeValue(igdb_rating);
     game.igdb_rating_count.changeValue(igdb_rating_count);
-    game.igdb_release_date.changeValue(convertFromUnixTimestamp(igdb_release_date));
+    game.igdb_release_date.changeValue(getEarliestReleaseDate(release_datesJSON));
     game.igdb_popularity.changeValue(igdb_popularity);
     game.igdb_slug.changeValue(igdb_slug);
     game.igdb_summary.changeValue(igdb_summary);
