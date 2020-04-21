@@ -179,12 +179,37 @@ class IGDBUpdater {
     }
   }
 
+  private Date convertFromUnixTimestamp(Integer unixTimestamp) {
+    if (unixTimestamp == null) {
+      return null;
+    } else {
+      return new java.util.Date((long)unixTimestamp*1000);
+    }
+  }
+
   private void saveExactMatch(JSONObject exactMatch) throws SQLException {
     @NotNull Integer id = jsonReader.getIntegerWithKey(exactMatch, "id");
-    String name = jsonReader.getStringWithKey(exactMatch, "name");
+    @NotNull String name = jsonReader.getStringWithKey(exactMatch, "name");
+
+    Double igdb_rating = jsonReader.getNullableDoubleWithKey(exactMatch, "rating");
+    Integer igdb_rating_count = jsonReader.getNullableIntegerWithKey(exactMatch, "rating_count");
+    Integer igdb_release_date = jsonReader.getNullableIntegerWithKey(exactMatch, "first_release_date");
+    Double igdb_popularity = jsonReader.getNullableDoubleWithKey(exactMatch, "popularity");
+    String igdb_slug = jsonReader.getNullableStringWithKey(exactMatch, "slug");
+    String igdb_summary = jsonReader.getNullableStringWithKey(exactMatch, "summary");
+    Integer igdb_updated = jsonReader.getNullableIntegerWithKey(exactMatch, "updated_at");
 
     game.igdb_id.changeValue(id);
     game.igdb_title.changeValue(name);
+
+    game.igdb_rating.changeValue(igdb_rating);
+    game.igdb_rating_count.changeValue(igdb_rating_count);
+    game.igdb_release_date.changeValue(convertFromUnixTimestamp(igdb_release_date));
+    game.igdb_popularity.changeValue(igdb_popularity);
+    game.igdb_slug.changeValue(igdb_slug);
+    game.igdb_summary.changeValue(igdb_summary);
+    game.igdb_updated.changeValue(convertFromUnixTimestamp(igdb_updated));
+
     game.igdb_success.changeValue(new Date());
     game.igdb_failed.changeValue(null);
 
