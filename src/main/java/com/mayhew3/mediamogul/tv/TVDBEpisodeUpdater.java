@@ -9,7 +9,6 @@ import com.mayhew3.mediamogul.tv.helper.TVDBApprovalStatus;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import io.socket.client.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -184,7 +183,7 @@ class TVDBEpisodeUpdater {
     tvdbEpisode.tvdbSeriesId.changeValue(series.tvdbSeriesId.getValue());
     tvdbEpisode.overview.changeValue(jsonReader.getNullableStringWithKey(episodeJson, "overview"));
     tvdbEpisode.productionCode.changeValue(jsonReader.getNullableStringWithKey(episodeJson, "productionCode"));
-    tvdbEpisode.rating.changeValue(episodeJson.getDouble("siteRating"));
+    tvdbEpisode.rating.changeValue(jsonReader.getNullableDoubleWithKey(episodeJson, "siteRating"));
     tvdbEpisode.ratingCount.changeValue(jsonReader.getNullableIntegerWithKey(episodeJson, "siteRatingCount"));
     tvdbEpisode.director.changeValue(jsonReader.getNullableStringWithKey(episodeJson, "director"));
 

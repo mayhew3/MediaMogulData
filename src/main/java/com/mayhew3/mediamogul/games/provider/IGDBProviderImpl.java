@@ -12,16 +12,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class IGDBProviderImpl implements IGDBProvider {
 
-  private String igdb_key;
-  private String api_url_base = "https://api-v3.igdb.com";
+  private final String igdb_key;
+  private final String api_url_base = "https://api-v3.igdb.com";
 
-  private static Logger logger = LogManager.getLogger(IGDBProviderImpl.class);
+  private static final Logger logger = LogManager.getLogger(IGDBProviderImpl.class);
 
   public IGDBProviderImpl() throws MissingEnvException {
     igdb_key = EnvironmentChecker.getOrThrow("igdb_v3_key");
@@ -30,14 +28,15 @@ public class IGDBProviderImpl implements IGDBProvider {
   @Override
   public JSONArray findGameMatches(String gameTitle) {
 
-    String gameTitleEncoded = encodeGameTitle(gameTitle);
-
     String url = api_url_base + "/games/";
     HashMap<String, Object> queryVars = new HashMap<>();
     queryVars.put("search", "\"" + gameTitle + "\"");
-    queryVars.put("fields", "age_ratings,aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,collection,cover,created_at,dlcs,expansions,external_games,first_release_date,follows,franchise,franchises,game_engines,game_modes,genres,hypes,involved_companies,keywords,multiplayer_modes,name,parent_game,platforms,player_perspectives,popularity,pulse_count,rating,rating_count,release_dates,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,time_to_beat,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites");
+    queryVars.put("fields", "name, platforms.name, cover.image_id, cover.width, cover.height, keywords.name, aggregated_rating, " +
+        "    aggregated_rating_count, version_parent, first_release_date, genres.name, involved_companies.company.name, " +
+        "    player_perspectives.name, popularity,pulse_count, rating, rating_count, release_dates.date, release_dates.platform.name, " +
+        "    slug, summary, tags, updated_at, url");
     queryVars.put("offset", "0");
-    queryVars.put("where", "version_parent = null");
+    queryVars.put("where", "(version_parent = null & release_dates.region = (2,8))");
 
     return getArrayData(url, queryVars);
   }
@@ -46,8 +45,11 @@ public class IGDBProviderImpl implements IGDBProvider {
   public JSONArray getUpdatedInfo(Integer igdb_id) {
     String url = api_url_base + "/games";
     HashMap<String, Object> queryVars = new HashMap<>();
+    queryVars.put("fields", "name, platforms.name, cover.image_id, cover.width, cover.height, keywords.name, aggregated_rating, " +
+        "    aggregated_rating_count, version_parent, first_release_date, genres.name, involved_companies.company.name, " +
+        "    player_perspectives.name, popularity,pulse_count, rating, rating_count, release_dates.date, release_dates.platform.name, " +
+        "    slug, summary, tags, updated_at, url");
     queryVars.put("where", "id = " + igdb_id);
-    queryVars.put("fields", "name");
 
     return getArrayData(url, queryVars);
   }
@@ -75,13 +77,6 @@ public class IGDBProviderImpl implements IGDBProvider {
     queryVars.put("fields", "image_id,width,height,game,url");
 
     return getArrayData(url, queryVars);
-  }
-
-  private String encodeGameTitle(String gameTitle) {
-    String gameTitleEncoded;
-    gameTitleEncoded = gameTitle.replace(":", "");
-    gameTitleEncoded = URLEncoder.encode(gameTitleEncoded, StandardCharsets.UTF_8);
-    return gameTitleEncoded;
   }
 
 
