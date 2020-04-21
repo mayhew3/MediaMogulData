@@ -66,6 +66,14 @@ public class Game extends DataObject {
   public FieldValueInteger igdb_poster_h = registerIntegerField("igdb_poster_h", Nullability.NULLABLE);
   public FieldValueString igdb_hint = registerStringField("igdb_hint", Nullability.NULLABLE);
 
+  public FieldValueBigDecimal igdb_rating = registerBigDecimalField("igdb_rating", Nullability.NULLABLE);
+  public FieldValueInteger igdb_rating_count = registerIntegerField("igdb_rating_count", Nullability.NULLABLE);
+  public FieldValueTimestamp igdb_release_date = registerTimestampField("igdb_release_date", Nullability.NULLABLE);
+  public FieldValueBigDecimal igdb_popularity = registerBigDecimalField("igdb_popularity", Nullability.NULLABLE);
+  public FieldValueString igdb_slug = registerStringField("igdb_slug", Nullability.NULLABLE);
+  public FieldValueString igdb_summary = registerStringField("igdb_summary", Nullability.NULLABLE);
+  public FieldValueTimestamp igdb_updated = registerTimestampField("igdb_updated", Nullability.NULLABLE);
+
   public FieldValueBoolean giantbomb_guess_confirmed = registerBooleanFieldAllowingNulls("giantbomb_guess_confirmed", Nullability.NULLABLE);
 
   public FieldValueString metacriticHint = registerStringField("metacritic_hint", Nullability.NULLABLE);

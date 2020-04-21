@@ -16,7 +16,6 @@ public class MediaMogulSchema {
       new ErrorLog(),
       new ExternalService(),
       new Genre(),
-      new IGDBPoster(),
       new Movie(),
       new PendingPoster(),
       new Person(),
@@ -49,12 +48,17 @@ public class MediaMogulSchema {
       new TVDBUpdateError(),
       new TVDBWorkItem(),
       new ViewingLocation(),
+      // GAMES
+      new AvailableGamePlatform(),
       new Game(),
       new GameLog(),
+      new GamePlatform(),
       new GameplaySession(),
-      new SteamAttribute(),
+      new IGDBPoster(),
+      new MyGamePlatform(),
       new PossibleGameMatch(),
-      new PersonGame()
+      new PersonGame(),
+      new SteamAttribute()
   );
 
 }

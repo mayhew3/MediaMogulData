@@ -20,8 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/AvailableGamePlatform.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/GamePlatform.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/MyGamePlatform.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json/json_test_games.json" beforeDir="false" afterPath="$PROJECT_DIR$/json/json_test_games.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/MediaMogulSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/MediaMogulSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,22 +125,8 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
-      <recent name="C:\Code\git\MediaMogulData\resources" />
-      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
-      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
-      <recent name="D:\Code\git\media-mogul-data" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.mayhew3.mediamogul.games" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.mayhew3.mediamogul.games" />
-      <recent name="com.mayhew3.mediamogul" />
-      <recent name="com.mayhew3.mediamogul.model.games" />
-      <recent name="com.mayhew3.mediamogul.socket" />
-      <recent name="com.mayhew3.mediamogul.tv" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Code\git\media-mogul-data\src\main\resources" />
@@ -145,8 +135,22 @@
       <recent name="D:\Code\1and1\dungeons" />
       <recent name="D:\Code\git\media-mogul-data\resources\RSSTemplates" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.mayhew3.mediamogul.model.games" />
+      <recent name="com.mayhew3.mediamogul.games" />
+      <recent name="com.mayhew3.mediamogul" />
+      <recent name="com.mayhew3.mediamogul.socket" />
+      <recent name="com.mayhew3.mediamogul.tv" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
+      <recent name="C:\Code\git\MediaMogulData\resources" />
+      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
+      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
+      <recent name="D:\Code\git\media-mogul-data" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.DataBackupExecutor (heroku)">
+  <component name="RunManager" selected="JUnit.SchemaLocalTest">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -2589,30 +2593,30 @@
     </state>
     <state x="795" y="342" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1579054492060" />
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="2517" height="322" key="GridCell.Tab.0.bottom" timestamp="1587434864468">
+    <state width="2517" height="322" key="GridCell.Tab.0.bottom" timestamp="1587507694012">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="336" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1587262853619" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="322" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587434864468" />
-    <state width="2517" height="322" key="GridCell.Tab.0.center" timestamp="1587434864468">
+    <state width="2517" height="322" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587507694012" />
+    <state width="2517" height="322" key="GridCell.Tab.0.center" timestamp="1587507694011">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="336" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1587262853619" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="322" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587434864468" />
-    <state width="2517" height="322" key="GridCell.Tab.0.left" timestamp="1587434864468">
+    <state width="2517" height="322" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587507694011" />
+    <state width="2517" height="322" key="GridCell.Tab.0.left" timestamp="1587507694011">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="336" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1587262853619" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
-    <state width="2517" height="322" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587434864468" />
-    <state width="2517" height="322" key="GridCell.Tab.0.right" timestamp="1587434864468">
+    <state width="2517" height="322" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587507694011" />
+    <state width="2517" height="322" key="GridCell.Tab.0.right" timestamp="1587507694012">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="336" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1587262853619" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="322" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587434864468" />
+    <state width="2517" height="322" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587507694012" />
     <state width="1877" height="320" key="GridCell.Tab.1.bottom" timestamp="1587259520360">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2669,11 +2673,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1629" y="329" key="refactoring.ChangeSignatureDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586901361067" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1587423370985">
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1587507372609">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1587262348665" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587423370985" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587507372609" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
