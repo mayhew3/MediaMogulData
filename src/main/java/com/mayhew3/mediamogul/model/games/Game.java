@@ -160,4 +160,40 @@ public class Game extends DataObject {
       return personGame;
     }
   }
+
+  public List<AvailableGamePlatform> getAvailableGamePlatforms(SQLConnection connection) throws SQLException {
+    String sql = "SELECT * " +
+        "FROM available_game_platform " +
+        "WHERE game_id = ? ";
+
+    List<AvailableGamePlatform> platforms = new ArrayList<>();
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue());
+    while (resultSet.next()) {
+      AvailableGamePlatform availableGamePlatform = new AvailableGamePlatform();
+      availableGamePlatform.initializeFromDBObject(resultSet);
+      platforms.add(availableGamePlatform);
+    }
+
+    return platforms;
+  }
+
+  public List<MyGamePlatform> getAllPersonGamePlatforms(SQLConnection connection) throws SQLException {
+    String sql = "SELECT mgp.* " +
+        "FROM my_game_platform mgp " +
+        "INNER JOIN available_game_platform agp " +
+        " ON mgp.available_game_platform_id = agp.id " +
+        "WHERE agp.game_id = ? ";
+
+    List<MyGamePlatform> platforms = new ArrayList<>();
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue());
+    while (resultSet.next()) {
+      MyGamePlatform myGamePlatform = new MyGamePlatform();
+      myGamePlatform.initializeFromDBObject(resultSet);
+      platforms.add(myGamePlatform);
+    }
+
+    return platforms;
+  }
 }

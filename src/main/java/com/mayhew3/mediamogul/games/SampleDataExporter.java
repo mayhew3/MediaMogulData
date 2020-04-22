@@ -20,9 +20,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SampleDataExporter {
-  private SQLConnection connection;
+  private final SQLConnection connection;
 
-  private static Logger logger = LogManager.getLogger(SampleDataExporter.class);
+  private static final Logger logger = LogManager.getLogger(SampleDataExporter.class);
 
   private SampleDataExporter(SQLConnection connection) {
     this.connection = connection;
