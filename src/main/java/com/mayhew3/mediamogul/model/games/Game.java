@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Game extends DataObject {
+public class Game extends RetireableDataObject {
 
   public FieldValueTimestamp giantbomb_release_date = registerTimestampField("giantbomb_release_date", Nullability.NULLABLE);
   public FieldValueTimestamp howlong_updated = registerTimestampField("howlong_updated", Nullability.NULLABLE);
