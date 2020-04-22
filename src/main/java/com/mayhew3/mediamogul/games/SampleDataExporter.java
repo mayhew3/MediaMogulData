@@ -74,6 +74,9 @@ public class SampleDataExporter {
       addPersonGamesToGame(game, gameJSON);
       attachIGDBPoster(game, gameJSON);
 
+      JSONArray platforms = new JSONArray();
+      gameJSON.put("availablePlatforms", platforms);
+
       gamesJSON.put(gameJSON);
     }
 
