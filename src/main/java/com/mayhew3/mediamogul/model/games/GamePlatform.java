@@ -13,6 +13,11 @@ public class GamePlatform extends DataObject {
   public FieldValueString igdbName = registerStringField("igdb_name", Nullability.NULLABLE);
   public FieldValueInteger parentPlatformID = registerIntegerField("parent_id", Nullability.NULLABLE);
 
+  public GamePlatform() {
+    super();
+    addUniqueConstraint(fullName);
+  }
+
   @Override
   public String getTableName() {
     return "game_platform";
