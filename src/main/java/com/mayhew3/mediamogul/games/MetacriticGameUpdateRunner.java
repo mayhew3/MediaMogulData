@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.games;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
@@ -155,8 +156,11 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         debug("Updating game: " + game.title.getValue());
 
-        MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id);
-        metacriticGameUpdater.runUpdater();
+        List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+        for (AvailableGamePlatform platform : availableGamePlatforms) {
+          MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform);
+          metacriticGameUpdater.runUpdater();
+        }
       } catch (SingleFailedException e) {
         logger.warn(e.getMessage());
         logger.warn("Show failed: " + game.title.getValue());
