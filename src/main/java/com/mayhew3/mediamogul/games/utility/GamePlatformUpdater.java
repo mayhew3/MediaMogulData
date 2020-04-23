@@ -36,15 +36,17 @@ public class GamePlatformUpdater {
   private void runUpdate() throws SQLException {
     populateAllPlatforms();
 
-    String sql = "SELECT DISTINCT igdb_id " +
+    String sql = "SELECT igdb_id, title " +
         "FROM game " +
         "WHERE igdb_success IS NOT NULL " +
-        "AND igdb_ignored IS NULL ";
+        "AND igdb_ignored IS NULL " +
+        "GROUP BY igdb_id, title ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
     while (resultSet.next()) {
       Integer igdb_id = resultSet.getInt("igdb_id");
-      handleIGDBID(igdb_id);
+      String title = resultSet.getString("title");
+      handleGame(igdb_id, title);
     }
   }
 
@@ -77,14 +79,15 @@ public class GamePlatformUpdater {
     }
   }
 
-  private void handleIGDBID(Integer igdb_id) throws SQLException {
+  private void handleGame(Integer igdb_id, String title) throws SQLException {
     logger.info("Splitting platforms for IGDB_ID " + igdb_id);
 
     String sql = "SELECT * " +
         "FROM game " +
         "WHERE igdb_id = ? " +
+        "AND title = ? " +
         "ORDER BY id ";
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_id);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_id, title);
 
     List<Game> matchingGames = new ArrayList<>();
 
@@ -112,14 +115,19 @@ public class GamePlatformUpdater {
     List<Game> dupes = new ArrayList<>(matchingGames);
     dupes.remove(masterGame);
     for (Game dupe : dupes) {
-      dupe.retire();
-      dupe.commit(connection);
+      if (!dupe.platform.getValue().equalsIgnoreCase(masterGame.platform.getValue())) {
+        dupe.retire();
+        dupe.commit(connection);
+      }
     }
 
   }
 
   private Game chooseMainGame(List<Game> games) {
-    return games.get(0);
+    Optional<Game> steamVersion = games.stream()
+        .filter(game -> game.platform.getValue().equalsIgnoreCase("Steam"))
+        .findFirst();
+    return steamVersion.orElseGet(() -> games.get(0));
   }
 
   private AvailableGamePlatform createAvailablePlatformFrom(Game masterGame, Game platformGame, List<AvailableGamePlatform> allAvailablePlatforms) throws SQLException {
@@ -138,6 +146,10 @@ public class GamePlatformUpdater {
       availableGamePlatform.initializeForInsert();
       availableGamePlatform.gameID.changeValue(gameID);
       availableGamePlatform.gamePlatformID.changeValue(platformID);
+      availableGamePlatform.platformName.changeValue(platform.fullName.getValue());
+      availableGamePlatform.metacritic.changeValue(platformGame.metacritic.getValue());
+      availableGamePlatform.metacriticPage.changeValue(platformGame.metacriticPage.getValue());
+      availableGamePlatform.metacriticMatched.changeValue(platformGame.metacriticMatched.getValue());
       availableGamePlatform.commit(connection);
 
       return availableGamePlatform;
