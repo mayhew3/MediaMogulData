@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
+import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.sql.SQLException;
+import java.util.List;
 
 class FirstTimeGameUpdater {
   private Game game;
@@ -67,6 +69,7 @@ class FirstTimeGameUpdater {
 
   private void updateMetacritic() throws SQLException {
     logger.info("Updating Metacritic...");
+    List<AvailableGamePlatform> platforms = game.getAvailableGamePlatforms(connection);
     MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id);
     try {
       metacriticGameUpdater.runUpdater();

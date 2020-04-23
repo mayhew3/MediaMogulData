@@ -1,13 +1,16 @@
 package com.mayhew3.mediamogul.model.games;
 
-import com.mayhew3.postgresobject.dataobject.DataObject;
-import com.mayhew3.postgresobject.dataobject.FieldValueForeignKey;
-import com.mayhew3.postgresobject.dataobject.Nullability;
+import com.mayhew3.postgresobject.dataobject.*;
 
-public class AvailableGamePlatform extends DataObject {
+public class AvailableGamePlatform extends RetireableDataObject {
 
   public FieldValueForeignKey gameID = registerForeignKey(new Game(), Nullability.NOT_NULL);
   public FieldValueForeignKey gamePlatformID = registerForeignKey(new GamePlatform(), Nullability.NOT_NULL);
+  public FieldValueString platformName = registerStringField("platform_name", Nullability.NOT_NULL);
+
+  public FieldValueBigDecimal metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
+  public FieldValueBoolean metacriticPage = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
+  public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
 
   @Override
   public String getTableName() {
