@@ -1,11 +1,17 @@
 package com.mayhew3.mediamogul.games.utility;
 
+import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.model.games.*;
+import com.mayhew3.mediamogul.xml.JSONReader;
+import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
@@ -20,12 +26,13 @@ public class GamePlatformUpdater {
   private static final Logger logger = LogManager.getLogger(GamePlatformUpdater.class);
 
   private final List<GamePlatform> allPlatforms = new ArrayList<>();
+  private final JSONReader jsonReader = new JSONReaderImpl();
 
   private GamePlatformUpdater(SQLConnection connection) {
     this.connection = connection;
   }
 
-  public static void main(String[] args) throws URISyntaxException, SQLException {
+  public static void main(String[] args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
@@ -33,7 +40,7 @@ public class GamePlatformUpdater {
     updater.runUpdate();
   }
 
-  private void runUpdate() throws SQLException {
+  private void runUpdate() throws SQLException, MissingEnvException {
     populateAllPlatforms();
 
     String sql = "SELECT igdb_id, title " +
@@ -50,7 +57,10 @@ public class GamePlatformUpdater {
     }
   }
 
-  private void populateAllPlatforms() throws SQLException {
+  private void populateAllPlatforms() throws SQLException, MissingEnvException {
+    IGDBProviderImpl igdbProvider = new IGDBProviderImpl();
+    JSONArray igdbPlatforms = igdbProvider.getAllPlatforms();
+
     String sql = "SELECT * " +
         "FROM game_platform ";
 
@@ -59,8 +69,58 @@ public class GamePlatformUpdater {
     while (resultSet.next()) {
       GamePlatform gamePlatform = new GamePlatform();
       gamePlatform.initializeFromDBObject(resultSet);
-      allPlatforms.add(gamePlatform);
+      this.allPlatforms.add(gamePlatform);
     }
+
+    List<String> unregisteredPlatforms = getUnregisteredPlatforms();
+    for (String unregisteredPlatform : unregisteredPlatforms) {
+      createPlatformFromIGDB(igdbPlatforms, unregisteredPlatform);
+    }
+  }
+
+  private void createPlatformFromIGDB(JSONArray igdbPlatforms, String unregisteredPlatform) throws SQLException {
+    GamePlatform gamePlatform = new GamePlatform();
+    gamePlatform.initializeForInsert();
+    gamePlatform.fullName.changeValue(unregisteredPlatform);
+    gamePlatform.shortName.changeValue(unregisteredPlatform);
+
+    Optional<JSONObject> maybeIGDBPlatform = findIGDBPlatformFromAbbreviation(igdbPlatforms, unregisteredPlatform);
+    if (maybeIGDBPlatform.isPresent()) {
+      JSONObject igdbPlatform = maybeIGDBPlatform.get();
+      String igdbName = igdbPlatform.getString("name");
+      Integer igdbID = igdbPlatform.getInt("id");
+
+      gamePlatform.igdbName.changeValue(igdbName);
+      gamePlatform.igdbPlatformId.changeValue(igdbID);
+    }
+
+    gamePlatform.commit(connection);
+    allPlatforms.add(gamePlatform);
+  }
+
+  private List<String> getUnregisteredPlatforms() throws SQLException {
+    String sql = "SELECT DISTINCT g.platform " +
+        "FROM game g " +
+        "WHERE g.platform NOT IN (SELECT full_name FROM game_platform) ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
+    List<String> platforms = new ArrayList<>();
+    while(resultSet.next()) {
+      String platform = resultSet.getString("platform");
+      platforms.add(platform);
+    }
+    return platforms;
+  }
+
+  private Optional<JSONObject> findIGDBPlatformFromAbbreviation(JSONArray igdbPlatforms, String abbreviation) {
+    for (Object igdbPlatformObj : igdbPlatforms) {
+      JSONObject igdbPlatform = (JSONObject)igdbPlatformObj;
+      String igdbAbbr = jsonReader.getNullableStringWithKey(igdbPlatform,"abbreviation");
+      String igdbName = jsonReader.getNullableStringWithKey(igdbPlatform,"name");
+      if (abbreviation.equalsIgnoreCase(igdbAbbr) || abbreviation.equalsIgnoreCase(igdbName)) {
+        return Optional.of(igdbPlatform);
+      }
+    }
+    return Optional.empty();
   }
 
   private GamePlatform getOrCreatePlatform(String platformName) throws SQLException {
