@@ -1,14 +1,11 @@
 package com.mayhew3.mediamogul.model.games;
 
+import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
-import com.mayhew3.mediamogul.games.GameFailedException;
-import com.mayhew3.mediamogul.model.Person;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Optional;
 
 public class GameLog extends DataObject {
@@ -31,6 +28,7 @@ public class GameLog extends DataObject {
   public FieldValueForeignKey gameplaySessionID = registerForeignKey(new GameplaySession(), Nullability.NULLABLE);
 
   public FieldValueForeignKey person_id = registerForeignKey(new Person(), Nullability.NOT_NULL);
+  public FieldValueForeignKey availableGamePlatform = registerForeignKey(new AvailableGamePlatform(), Nullability.NULLABLE);
 
   @Override
   public String getTableName() {
