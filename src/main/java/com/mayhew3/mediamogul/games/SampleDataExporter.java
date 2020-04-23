@@ -154,6 +154,8 @@ public class SampleDataExporter {
       personGameJSON.put("date_added", JSONObject.wrap(personGame.dateAdded.getValue()));
       personGameJSON.put("minutes_played", JSONObject.wrap(personGame.minutes_played.getValue()));
 
+      attachMyPlatformsToPersonGame(personGame, personGameJSON);
+
       personGamesJSON.put(personGameJSON);
     }
 
@@ -161,7 +163,22 @@ public class SampleDataExporter {
   }
 
   private void attachMyPlatformsToPersonGame(PersonGame personGame, JSONObject personGameJSON) throws SQLException {
+    List<GamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
 
+    JSONArray myPlatformsJSON = new JSONArray();
+
+    for (GamePlatform platform : myPlatforms) {
+      JSONObject platformJSON = new JSONObject();
+      platformJSON.put("id", platform.id.getValue());
+      platformJSON.put("full_name", platform.fullName.getValue());
+      platformJSON.put("short_name", platform.shortName.getValue());
+      platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
+      platformJSON.put("igdb_name", platform.igdbName.getValue());
+
+      myPlatformsJSON.put(platformJSON);
+    }
+
+    personGameJSON.put("myPlatforms", myPlatformsJSON);
   }
 
   private void attachIGDBPoster(Game game, JSONObject gameJSON) throws SQLException {
