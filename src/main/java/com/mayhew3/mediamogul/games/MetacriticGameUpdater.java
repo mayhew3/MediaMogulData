@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Maps;
 import com.mayhew3.mediamogul.MetacriticUpdater;
+import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -17,11 +18,13 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
 
   private final Game game;
   private final Integer person_id;
+  private final AvailableGamePlatform platform;
 
-  public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id) {
+  public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id, AvailableGamePlatform platform) {
     super(connection);
     this.game = game;
     this.person_id = person_id;
+    this.platform = platform;
   }
 
   public void runUpdater() throws SingleFailedException, SQLException {
@@ -31,31 +34,31 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
   private void parseMetacritic() throws SingleFailedException, SQLException {
     String title = game.title.getValue();
     String hint = game.metacriticHint.getValue();
-    String platform = game.platform.getValue();
+    String platformName = platform.platformName.getValue();
     String formattedTitle = formatTitle(title, hint);
-    String formattedPlatform = formatPlatform(platform);
+    String formattedPlatform = formatPlatform(platformName);
 
     String prefix = "game/" + formattedPlatform + "/" + formattedTitle;
 
     Document document = getDocument(prefix, title);
 
-    game.metacriticPage.changeValue(true);
+    platform.metacriticPage.changeValue(true);
     game.commit(connection);
 
     int metaCritic = getMetacriticFromDocument(document);
 
-    game.metacriticMatched.changeValue(new Timestamp(new Date().getTime()));
+    platform.metacriticMatched.changeValue(new Timestamp(new Date().getTime()));
 
-    BigDecimal previousValue = game.metacritic.getValue();
+    BigDecimal previousValue = platform.metacritic.getValue();
     BigDecimal updatedValue = new BigDecimal(metaCritic);
 
-    game.metacritic.changeValue(updatedValue);
+    platform.metacritic.changeValue(updatedValue);
 
     if (previousValue == null || previousValue.compareTo(updatedValue) != 0) {
-      createGameLog(title, platform, previousValue, updatedValue);
+      createGameLog(title, platformName, previousValue, updatedValue);
     }
 
-    game.commit(connection);
+    platform.commit(connection);
   }
 
   private void createGameLog(String title, String platform, BigDecimal previousValue, BigDecimal updatedValue) throws SQLException {

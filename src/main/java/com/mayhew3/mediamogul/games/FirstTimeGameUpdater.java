@@ -70,13 +70,16 @@ class FirstTimeGameUpdater {
   private void updateMetacritic() throws SQLException {
     logger.info("Updating Metacritic...");
     List<AvailableGamePlatform> platforms = game.getAvailableGamePlatforms(connection);
-    MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id);
-    try {
-      metacriticGameUpdater.runUpdater();
-    } catch (SingleFailedException e) {
-      logger.warn("Game failed metacritic update: " + game.title.getValue());
-      logger.warn(e.getMessage());
+    for (AvailableGamePlatform platform : platforms) {
+      MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform);
+      try {
+        metacriticGameUpdater.runUpdater();
+      } catch (SingleFailedException e) {
+        logger.warn("Game failed metacritic update: " + game.title.getValue());
+        logger.warn(e.getMessage());
+      }
     }
+
   }
 
   private void updateGiantBomb() throws SQLException {

@@ -113,6 +113,10 @@ public class GamePlatformUpdater {
   }
 
   private Optional<JSONObject> findIGDBPlatformFromAbbreviation(JSONArray igdbPlatforms, String abbreviation) {
+    // don't want to match to SteamOS.
+    if (abbreviation.equalsIgnoreCase("Steam")) {
+      return Optional.empty();
+    }
     for (Object igdbPlatformObj : igdbPlatforms) {
       JSONObject igdbPlatform = (JSONObject)igdbPlatformObj;
       String igdbAbbr = jsonReader.getNullableStringWithKey(igdbPlatform,"abbreviation");

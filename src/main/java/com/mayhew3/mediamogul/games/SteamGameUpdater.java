@@ -50,6 +50,8 @@ class SteamGameUpdater {
 
     boolean needsPlaytimeUpdate = playtime > 0;
 
+    // todo: find existing game
+
     game.platform.changeValue("Steam");
     game.owned.changeValue("owned");
     game.title.changeValue(name);
@@ -69,6 +71,8 @@ class SteamGameUpdater {
     personGame.minutes_played.changeValue(playtime);
 
     personGame.commit(connection);
+
+    // todo: create AvailableGamePlatform for Steam
 
     if (needsPlaytimeUpdate) {
       logUpdateToPlaytime(name, steamID, BigDecimal.ZERO, new BigDecimal(playtime), game.id.getValue());

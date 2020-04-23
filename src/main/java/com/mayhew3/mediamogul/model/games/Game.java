@@ -15,7 +15,6 @@ public class Game extends RetireableDataObject {
   public FieldValueTimestamp howlong_updated = registerTimestampField("howlong_updated", Nullability.NULLABLE);
   public FieldValueTimestamp howlong_failed = registerTimestampField("howlong_failed", Nullability.NULLABLE);
 
-  public FieldValueBigDecimal metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
   public FieldValueBigDecimal howlong_main = registerBigDecimalField("howlong_main", Nullability.NULLABLE);
   public FieldValueBigDecimal howlong_extras = registerBigDecimalField("howlong_extras", Nullability.NULLABLE);
   public FieldValueBigDecimal howlong_completionist = registerBigDecimalField("howlong_completionist", Nullability.NULLABLE);
@@ -77,15 +76,17 @@ public class Game extends RetireableDataObject {
   public FieldValueBoolean giantbomb_guess_confirmed = registerBooleanFieldAllowingNulls("giantbomb_guess_confirmed", Nullability.NULLABLE);
 
   public FieldValueString metacriticHint = registerStringField("metacritic_hint", Nullability.NULLABLE);
-  public FieldValueBoolean metacriticPage = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueBoolean steam_cloud = registerBooleanFieldAllowingNulls("steam_cloud", Nullability.NULLABLE);
   public FieldValueBoolean steam_controller = registerBooleanFieldAllowingNulls("steam_controller", Nullability.NULLABLE);
   public FieldValueBoolean steam_local_coop = registerBooleanFieldAllowingNulls("steam_local_coop", Nullability.NULLABLE);
 
-  public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
   public FieldValueTimestamp steam_attributes = registerTimestampField("steam_attributes", Nullability.NULLABLE);
   public FieldValueTimestamp steam_page_gone = registerTimestampField("steam_page_gone", Nullability.NULLABLE);
 
+  // todo: remove
+  public FieldValueBigDecimal metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
+  public FieldValueBoolean metacriticPage = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
+  public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
 
   public Game() {
     // DB fields that aren't needed in java can be initialized in the constructor without a class member.
