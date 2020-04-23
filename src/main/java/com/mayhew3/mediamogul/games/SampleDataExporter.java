@@ -113,10 +113,6 @@ public class SampleDataExporter {
       GamePlatform platform = getPlatformWithID(gamePlatform.gamePlatformID.getValue());
       JSONObject platformJSON = new JSONObject();
       platformJSON.put("id", platform.id.getValue());
-      platformJSON.put("full_name", platform.fullName.getValue());
-      platformJSON.put("short_name", platform.shortName.getValue());
-      platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
-      platformJSON.put("igdb_name", platform.igdbName.getValue());
 
       platformsJSON.put(platformJSON);
     }
@@ -170,10 +166,6 @@ public class SampleDataExporter {
     for (GamePlatform platform : myPlatforms) {
       JSONObject platformJSON = new JSONObject();
       platformJSON.put("id", platform.id.getValue());
-      platformJSON.put("full_name", platform.fullName.getValue());
-      platformJSON.put("short_name", platform.shortName.getValue());
-      platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
-      platformJSON.put("igdb_name", platform.igdbName.getValue());
 
       myPlatformsJSON.put(platformJSON);
     }

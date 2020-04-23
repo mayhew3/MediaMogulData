@@ -36,7 +36,6 @@ public class Game extends RetireableDataObject {
   public FieldValueInteger howlong_all_confidence = registerIntegerField("howlong_all_confidence", Nullability.NULLABLE);
 
   public FieldValueString title = registerStringField("title", Nullability.NOT_NULL);
-  public FieldValueString platform = registerStringField("platform", Nullability.NOT_NULL);
   public FieldValueString owned = registerStringField("owned", Nullability.NULLABLE);
   public FieldValueString icon = registerStringField("icon", Nullability.NULLABLE);
   public FieldValueString logo = registerStringField("logo", Nullability.NULLABLE);
@@ -87,6 +86,7 @@ public class Game extends RetireableDataObject {
   public FieldValueBigDecimal metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
   public FieldValueBoolean metacriticPage = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
+  public FieldValueString platform = registerStringField("platform", Nullability.NULLABLE);
 
   public Game() {
     // DB fields that aren't needed in java can be initialized in the constructor without a class member.
