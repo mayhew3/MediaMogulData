@@ -160,6 +160,10 @@ public class SampleDataExporter {
     gameJSON.put("person_games", personGamesJSON);
   }
 
+  private void attachMyPlatformsToPersonGame(PersonGame personGame, JSONObject personGameJSON) throws SQLException {
+
+  }
+
   private void attachIGDBPoster(Game game, JSONObject gameJSON) throws SQLException {
     String sql = "SELECT * " +
         "FROM igdb_poster " +
