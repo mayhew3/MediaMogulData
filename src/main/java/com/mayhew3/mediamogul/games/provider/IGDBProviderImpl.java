@@ -54,6 +54,14 @@ public class IGDBProviderImpl implements IGDBProvider {
     return getArrayData(url, queryVars);
   }
 
+  public JSONArray getAllPlatforms() {
+    String url = api_url_base + "/platforms";
+    HashMap<String, Object> queryVars = new HashMap<>();
+    queryVars.put("fields", "*");
+    queryVars.put("limit", "500");
+    return getArrayData(url, queryVars);
+  }
+
   @Override
   public Optional<JSONObject> getCoverInfo(Integer game_id) {
     String url = api_url_base + "/covers";
