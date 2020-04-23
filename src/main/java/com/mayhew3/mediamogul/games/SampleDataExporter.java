@@ -1,8 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
-import com.mayhew3.mediamogul.model.games.Game;
-import com.mayhew3.mediamogul.model.games.IGDBPoster;
-import com.mayhew3.mediamogul.model.games.PersonGame;
+import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -18,11 +16,14 @@ import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class SampleDataExporter {
   private final SQLConnection connection;
 
   private static final Logger logger = LogManager.getLogger(SampleDataExporter.class);
+
+  private List<GamePlatform> allPlatforms;
 
   private SampleDataExporter(SQLConnection connection) {
     this.connection = connection;
@@ -37,17 +38,41 @@ public class SampleDataExporter {
   }
 
   private void runExport() throws SQLException, IOException {
+    updateAllPlatforms();
     JSONArray gamesJSON = new JSONArray();
     exportMyGames(gamesJSON);
     writeResultToFile("json/json_test_games.json", gamesJSON);
+    exportAllPlatforms();
+  }
+
+  private void updateAllPlatforms() throws SQLException {
+    this.allPlatforms = GamePlatform.getAllPlatforms(connection);
+  }
+
+  private void exportAllPlatforms() throws IOException {
+    JSONArray platformsJSON = new JSONArray();
+
+    for (GamePlatform platform : allPlatforms) {
+      JSONObject platformJSON = new JSONObject();
+      platformJSON.put("id", platform.id.getValue());
+      platformJSON.put("full_name", platform.fullName.getValue());
+      platformJSON.put("short_name", platform.shortName.getValue());
+      platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
+      platformJSON.put("igdb_name", platform.igdbName.getValue());
+
+      platformsJSON.put(platformJSON);
+    }
+
+    writeResultToFile("json/json_test_platforms.json", platformsJSON);
   }
 
   private void exportMyGames(JSONArray gamesJSON) throws SQLException {
     String sql = "SELECT g.* " +
         "FROM game g " +
+        "WHERE retired = ? " +
         "ORDER BY g.id ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
 
     while (resultSet.next()) {
       Game game = new Game();
@@ -60,7 +85,6 @@ public class SampleDataExporter {
       gameJSON.put("giantbomb_medium_url", JSONObject.wrap(game.giantbomb_medium_url.getValue()));
       gameJSON.put("steamid", JSONObject.wrap(game.steamID.getValue()));
       gameJSON.put("date_added", JSONObject.wrap(game.dateAdded.getValue()));
-      gameJSON.put("platform", JSONObject.wrap(game.platform.getValue()));
       gameJSON.put("metacritic", JSONObject.wrap(game.metacritic.getValue()));
       gameJSON.put("timetotal", JSONObject.wrap(game.timetotal.getValue()));
       gameJSON.put("howlong_extras", JSONObject.wrap(game.howlong_extras.getValue()));
@@ -73,14 +97,42 @@ public class SampleDataExporter {
 
       addPersonGamesToGame(game, gameJSON);
       attachIGDBPoster(game, gameJSON);
-
-      JSONArray platforms = new JSONArray();
-      gameJSON.put("availablePlatforms", platforms);
+      addPlatformsToGame(game, gameJSON);
 
       gamesJSON.put(gameJSON);
     }
 
     logger.info("Exported " + gamesJSON.length() + " games.");
+  }
+
+  private void addPlatformsToGame(Game game, JSONObject gameJSON) throws SQLException {
+    List<AvailableGamePlatform> platforms = game.getAvailableGamePlatforms(connection);
+    JSONArray platformsJSON = new JSONArray();
+
+    for (AvailableGamePlatform gamePlatform : platforms) {
+      GamePlatform platform = getPlatformWithID(gamePlatform.gamePlatformID.getValue());
+      JSONObject platformJSON = new JSONObject();
+      platformJSON.put("id", platform.id.getValue());
+      platformJSON.put("full_name", platform.fullName.getValue());
+      platformJSON.put("short_name", platform.shortName.getValue());
+      platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
+      platformJSON.put("igdb_name", platform.igdbName.getValue());
+
+      platformsJSON.put(platformJSON);
+    }
+
+    gameJSON.put("availablePlatforms", platformsJSON);
+  }
+
+  private GamePlatform getPlatformWithID(Integer platformID) {
+    Optional<GamePlatform> maybePlatform = allPlatforms.stream()
+        .filter(gamePlatform -> gamePlatform.id.getValue().equals(platformID))
+        .findFirst();
+    if (maybePlatform.isPresent()) {
+      return maybePlatform.get();
+    } else {
+      throw new IllegalStateException("No platform found with id " + platformID);
+    }
   }
 
   private void addPersonGamesToGame(Game game, JSONObject gameJSON) throws SQLException {
