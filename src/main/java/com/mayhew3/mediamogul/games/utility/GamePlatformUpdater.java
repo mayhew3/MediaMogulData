@@ -100,11 +100,20 @@ public class GamePlatformUpdater {
     List<MyGamePlatform> allPersonGamePlatforms = masterGame.getAllPersonGamePlatforms(connection);
 
     for (Game matchingGame : matchingGames) {
+      String platformName = matchingGame.platform.getValue();
       AvailableGamePlatform availablePlatform = createAvailablePlatformFrom(masterGame, matchingGame, availableGamePlatforms);
       List<PersonGame> personGames = matchingGame.getPersonGames(connection);
       for (PersonGame personGame : personGames) {
         addToMyPlatforms(availablePlatform, personGame, allPersonGamePlatforms);
       }
+      moveForeignKeys(matchingGame, masterGame, availablePlatform, platformName);
+    }
+
+    List<Game> dupes = new ArrayList<>(matchingGames);
+    dupes.remove(masterGame);
+    for (Game dupe : dupes) {
+      dupe.retire();
+      dupe.commit(connection);
     }
 
   }
@@ -157,10 +166,35 @@ public class GamePlatformUpdater {
     }
   }
 
-  private void moveForeignKeys(Game oldGame, Game newGame) {
-    // game logs
-    // gameplay sessions
-    // igdb posters?
-    // steam attribute
+  private void moveForeignKeys(Game oldGame, Game newGame, AvailableGamePlatform availableGamePlatform, String platformName) throws SQLException {
+    Integer oldGameID = oldGame.id.getValue();
+    Integer newGameID = newGame.id.getValue();
+    Integer platformID = availableGamePlatform.id.getValue();
+    moveGameLogs(oldGameID, newGameID, platformID, platformName);
+    moveGameplaySessions(oldGameID, newGameID, platformID);
+    moveSteamAttributes(oldGameID, newGameID);
   }
+
+  private void moveGameLogs(Integer oldGameID, Integer newGameID, Integer platformID, String platformName) throws SQLException {
+    String sql = "UPDATE game_log " +
+        "SET game_id = ?, available_game_platform_id = ?, platform = ? " +
+        "WHERE game_id = ? ";
+    connection.prepareAndExecuteStatementUpdate(sql, newGameID, platformID, platformName, oldGameID);
+  }
+
+  private void moveGameplaySessions(Integer oldGameID, Integer newGameID, Integer platformID) throws SQLException {
+    String sql = "UPDATE gameplay_session " +
+        "SET game_id = ?, available_game_platform_id = ? " +
+        "WHERE game_id = ? ";
+    connection.prepareAndExecuteStatementUpdate(sql, newGameID, platformID, oldGameID);
+  }
+
+  private void moveSteamAttributes(Integer oldGameID, Integer newGameID) throws SQLException {
+    String sql = "UPDATE steam_attribute " +
+        "SET game_id = ? " +
+        "WHERE game_id = ? ";
+    connection.prepareAndExecuteStatementUpdate(sql, newGameID,oldGameID);
+  }
+
+
 }

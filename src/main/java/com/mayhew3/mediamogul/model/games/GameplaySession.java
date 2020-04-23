@@ -14,6 +14,8 @@ public class GameplaySession extends RetireableDataObject {
   public FieldValueInteger manualAdjustment = registerIntegerField("manual_adjustment", Nullability.NOT_NULL).defaultValue(0);
 
   public FieldValueForeignKey person_id = registerForeignKey(new Person(), Nullability.NOT_NULL);
+  public FieldValueForeignKey availableGamePlatform = registerForeignKey(new AvailableGamePlatform(), Nullability.NULLABLE);
+
 
   @Override
   public String getTableName() {
