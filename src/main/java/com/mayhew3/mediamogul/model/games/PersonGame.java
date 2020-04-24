@@ -11,21 +11,24 @@ import java.util.List;
 
 public class PersonGame extends RetireableDataObject {
 
-  public FieldValueTimestamp finished_date = registerTimestampField("finished_date", Nullability.NULLABLE);
-  public FieldValueTimestamp last_played = registerTimestampField("last_played", Nullability.NULLABLE);
-
-  public FieldValueInteger minutes_played = registerIntegerField("minutes_played", Nullability.NOT_NULL);
-  public FieldValueBigDecimal final_score = registerBigDecimalField("final_score", Nullability.NULLABLE);
-  public FieldValueBigDecimal replay_score = registerBigDecimalField("replay_score", Nullability.NULLABLE);
-
-  public FieldValueString replay_reason = registerStringField("replay_reason", Nullability.NULLABLE);
-
+  // FKs
   public FieldValueForeignKey game_id = registerForeignKey(new Game(), Nullability.NOT_NULL);
   public FieldValueForeignKey person_id = registerForeignKey(new Person(), Nullability.NOT_NULL);
 
+  // Ratings
   public FieldValueBigDecimal rating = registerBigDecimalField("rating", Nullability.NULLABLE);
-
   public FieldValueInteger tier = registerIntegerField("tier", Nullability.NOT_NULL);
+
+  // Playtime
+  public FieldValueTimestamp last_played = registerTimestampField("last_played", Nullability.NULLABLE);
+  public FieldValueInteger minutes_played = registerIntegerField("minutes_played", Nullability.NOT_NULL);
+
+  // Finished
+  public FieldValueTimestamp finished_date = registerTimestampField("finished_date", Nullability.NULLABLE);
+  public FieldValueBigDecimal final_score = registerBigDecimalField("final_score", Nullability.NULLABLE);
+  public FieldValueBigDecimal replay_score = registerBigDecimalField("replay_score", Nullability.NULLABLE);
+  public FieldValueString replay_reason = registerStringField("replay_reason", Nullability.NULLABLE);
+
 
   public PersonGame() {
     addUniqueConstraint(game_id, person_id, retired);

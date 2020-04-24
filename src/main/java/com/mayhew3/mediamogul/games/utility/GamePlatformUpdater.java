@@ -163,28 +163,32 @@ public class GamePlatformUpdater {
       matchingGames.add(game);
     }
 
-    Game masterGame = chooseMainGame(matchingGames);
+    if (matchingGames.size() == 1) {
 
-    List<AvailableGamePlatform> availableGamePlatforms = masterGame.getAvailableGamePlatforms(connection);
-    List<MyGamePlatform> allPersonGamePlatforms = masterGame.getAllPersonGamePlatforms(connection);
+      Game masterGame = chooseMainGame(matchingGames);
 
-    for (Game matchingGame : matchingGames) {
-      String platformName = matchingGame.platform.getValue();
-      AvailableGamePlatform availablePlatform = createAvailablePlatformFrom(masterGame, matchingGame, availableGamePlatforms);
-      List<PersonGame> personGames = matchingGame.getPersonGames(connection);
-      for (PersonGame personGame : personGames) {
-        addToMyPlatforms(availablePlatform, personGame, allPersonGamePlatforms);
+      List<AvailableGamePlatform> availableGamePlatforms = masterGame.getAvailableGamePlatforms(connection);
+      List<MyGamePlatform> allPersonGamePlatforms = masterGame.getAllPersonGamePlatforms(connection);
+
+      for (Game matchingGame : matchingGames) {
+        String platformName = matchingGame.platform.getValue();
+        AvailableGamePlatform availablePlatform = createAvailablePlatformFrom(masterGame, matchingGame, availableGamePlatforms);
+        List<PersonGame> personGames = matchingGame.getPersonGames(connection);
+        for (PersonGame personGame : personGames) {
+          addToMyPlatforms(availablePlatform, personGame, allPersonGamePlatforms);
+        }
+        moveForeignKeys(matchingGame, masterGame, availablePlatform, platformName);
       }
-      moveForeignKeys(matchingGame, masterGame, availablePlatform, platformName);
-    }
 
-    List<Game> dupes = new ArrayList<>(matchingGames);
-    dupes.remove(masterGame);
-    for (Game dupe : dupes) {
-      if (!dupe.platform.getValue().equalsIgnoreCase(masterGame.platform.getValue())) {
-        dupe.retire();
-        dupe.commit(connection);
+      List<Game> dupes = new ArrayList<>(matchingGames);
+      dupes.remove(masterGame);
+      for (Game dupe : dupes) {
+        if (!dupe.platform.getValue().equalsIgnoreCase(masterGame.platform.getValue())) {
+          dupe.retire();
+          dupe.commit(connection);
+        }
       }
+
     }
 
   }
