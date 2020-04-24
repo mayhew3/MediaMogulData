@@ -11,35 +11,43 @@ import java.util.Optional;
 
 public class Game extends RetireableDataObject {
 
-  public FieldValueTimestamp giantbomb_release_date = registerTimestampField("giantbomb_release_date", Nullability.NULLABLE);
+  public FieldValueString title = registerStringField("title", Nullability.NOT_NULL);
+  public FieldValueBigDecimal timeTotal = registerBigDecimalField("timetotal", Nullability.NULLABLE);
+  public FieldValueBoolean naturalEnd = registerBooleanField("natural_end", Nullability.NOT_NULL).defaultValue(true);
+  public FieldValueBoolean first_processed = registerBooleanField("first_processed", Nullability.NOT_NULL).defaultValue(false);
+
+
+  // HOWLONG
   public FieldValueTimestamp howlong_updated = registerTimestampField("howlong_updated", Nullability.NULLABLE);
   public FieldValueTimestamp howlong_failed = registerTimestampField("howlong_failed", Nullability.NULLABLE);
-
   public FieldValueBigDecimal howlong_main = registerBigDecimalField("howlong_main", Nullability.NULLABLE);
   public FieldValueBigDecimal howlong_extras = registerBigDecimalField("howlong_extras", Nullability.NULLABLE);
   public FieldValueBigDecimal howlong_completionist = registerBigDecimalField("howlong_completionist", Nullability.NULLABLE);
   public FieldValueBigDecimal howlong_all = registerBigDecimalField("howlong_all", Nullability.NULLABLE);
-  public FieldValueBigDecimal timetotal = registerBigDecimalField("timetotal", Nullability.NULLABLE);
-  public FieldValueBoolean naturalEnd = registerBooleanField("natural_end", Nullability.NOT_NULL).defaultValue(true);
-
-  public FieldValueInteger steam_attribute_count = registerIntegerField("steam_attribute_count", Nullability.NULLABLE);
-
-  public FieldValueBoolean first_processed = registerBooleanField("first_processed", Nullability.NOT_NULL).defaultValue(false);
-
-  public FieldValueInteger steamID = registerIntegerField("steamid", Nullability.NULLABLE);
-  public FieldValueInteger giantbomb_id = registerIntegerField("giantbomb_id", Nullability.NULLABLE);
-  public FieldValueInteger giantbomb_year = registerIntegerField("giantbomb_year", Nullability.NULLABLE);
   public FieldValueInteger howlong_id = registerIntegerField("howlong_id", Nullability.NULLABLE);
   public FieldValueInteger howlong_main_confidence = registerIntegerField("howlong_main_confidence", Nullability.NULLABLE);
   public FieldValueInteger howlong_extras_confidence = registerIntegerField("howlong_extras_confidence", Nullability.NULLABLE);
   public FieldValueInteger howlong_completionist_confidence = registerIntegerField("howlong_completionist_confidence", Nullability.NULLABLE);
   public FieldValueInteger howlong_all_confidence = registerIntegerField("howlong_all_confidence", Nullability.NULLABLE);
+  public FieldValueString howlong_title = registerStringField("howlong_title", Nullability.NULLABLE);
 
-  public FieldValueString title = registerStringField("title", Nullability.NOT_NULL);
-  public FieldValueString owned = registerStringField("owned", Nullability.NULLABLE);
+
+  // STEAM
+  public FieldValueInteger steamID = registerIntegerField("steamid", Nullability.NULLABLE);
   public FieldValueString icon = registerStringField("icon", Nullability.NULLABLE);
   public FieldValueString logo = registerStringField("logo", Nullability.NULLABLE);
+  public FieldValueInteger steam_attribute_count = registerIntegerField("steam_attribute_count", Nullability.NULLABLE);
+  public FieldValueString steam_title = registerStringField("steam_title", Nullability.NULLABLE);
+  public FieldValueBoolean steam_cloud = registerBooleanFieldAllowingNulls("steam_cloud", Nullability.NULLABLE);
+  public FieldValueBoolean steam_controller = registerBooleanFieldAllowingNulls("steam_controller", Nullability.NULLABLE);
+  public FieldValueBoolean steam_local_coop = registerBooleanFieldAllowingNulls("steam_local_coop", Nullability.NULLABLE);
+  public FieldValueTimestamp steam_attributes = registerTimestampField("steam_attributes", Nullability.NULLABLE);
+  public FieldValueTimestamp steam_page_gone = registerTimestampField("steam_page_gone", Nullability.NULLABLE);
 
+
+  // GIANT BOMB
+  public FieldValueInteger giantbomb_id = registerIntegerField("giantbomb_id", Nullability.NULLABLE);
+  public FieldValueInteger giantbomb_year = registerIntegerField("giantbomb_year", Nullability.NULLABLE);
   public FieldValueString giantbomb_name = registerStringField("giantbomb_name", Nullability.NULLABLE);
   public FieldValueString giantbomb_icon_url = registerStringField("giantbomb_icon_url", Nullability.NULLABLE);
   public FieldValueString giantbomb_medium_url = registerStringField("giantbomb_medium_url", Nullability.NULLABLE);
@@ -50,9 +58,11 @@ public class Game extends RetireableDataObject {
   public FieldValueString giantbomb_tiny_url = registerStringField("giantbomb_tiny_url", Nullability.NULLABLE);
   public FieldValueString giantbomb_best_guess = registerStringField("giantbomb_best_guess", Nullability.NULLABLE);
   public FieldValueString giantbomb_manual_guess = registerStringField("giantbomb_manual_guess", Nullability.NULLABLE);
-  public FieldValueString howlong_title = registerStringField("howlong_title", Nullability.NULLABLE);
-  public FieldValueString steam_title = registerStringField("steam_title", Nullability.NULLABLE);
+  public FieldValueTimestamp giantbomb_release_date = registerTimestampField("giantbomb_release_date", Nullability.NULLABLE);
+  public FieldValueBoolean giantbomb_guess_confirmed = registerBooleanFieldAllowingNulls("giantbomb_guess_confirmed", Nullability.NULLABLE);
 
+
+  // IGDB
   public FieldValueInteger igdb_id = registerIntegerField("igdb_id", Nullability.NULLABLE);
   public FieldValueString igdb_title = registerStringField("igdb_title", Nullability.NULLABLE);
   public FieldValueTimestamp igdb_failed = registerTimestampField("igdb_failed", Nullability.NULLABLE);
@@ -72,27 +82,20 @@ public class Game extends RetireableDataObject {
   public FieldValueString igdb_summary = registerStringField("igdb_summary", Nullability.NULLABLE);
   public FieldValueTimestamp igdb_updated = registerTimestampField("igdb_updated", Nullability.NULLABLE);
 
-  public FieldValueBoolean giantbomb_guess_confirmed = registerBooleanFieldAllowingNulls("giantbomb_guess_confirmed", Nullability.NULLABLE);
 
+  // METACRITIC
   public FieldValueString metacriticHint = registerStringField("metacritic_hint", Nullability.NULLABLE);
-  public FieldValueBoolean steam_cloud = registerBooleanFieldAllowingNulls("steam_cloud", Nullability.NULLABLE);
-  public FieldValueBoolean steam_controller = registerBooleanFieldAllowingNulls("steam_controller", Nullability.NULLABLE);
-  public FieldValueBoolean steam_local_coop = registerBooleanFieldAllowingNulls("steam_local_coop", Nullability.NULLABLE);
 
-  public FieldValueTimestamp steam_attributes = registerTimestampField("steam_attributes", Nullability.NULLABLE);
-  public FieldValueTimestamp steam_page_gone = registerTimestampField("steam_page_gone", Nullability.NULLABLE);
 
-  // todo: remove
+  // todo: remove once MM-116 is complete
   public FieldValueBigDecimal metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
   public FieldValueBoolean metacriticPage = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
   public FieldValueString platform = registerStringField("platform", Nullability.NULLABLE);
+  public FieldValueString owned = registerStringField("owned", Nullability.NULLABLE);
 
   public Game() {
     // DB fields that aren't needed in java can be initialized in the constructor without a class member.
-
-
-
   }
 
   @Override
