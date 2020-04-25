@@ -242,6 +242,17 @@ public class GamePlatformUpdater {
 
       myGamePlatform.availableGamePlatformID.changeValue(agpID);
       myGamePlatform.personID.changeValue(personID);
+      myGamePlatform.platformName.changeValue(availableGamePlatform.platformName.getValue());
+
+      myGamePlatform.rating.changeValue(personGame.rating.getValue());
+      myGamePlatform.tier.changeValue(personGame.tier.getValue());
+      myGamePlatform.last_played.changeValue(personGame.last_played.getValue());
+      myGamePlatform.minutes_played.changeValue(personGame.minutes_played.getValue());
+      myGamePlatform.finished_date.changeValue(personGame.finished_date.getValue());
+      myGamePlatform.final_score.changeValue(personGame.final_score.getValue());
+      myGamePlatform.replay_score.changeValue(personGame.replay_score.getValue());
+      myGamePlatform.replay_reason.changeValue(personGame.replay_reason.getValue());
+
       myGamePlatform.commit(connection);
 
       return myGamePlatform;
