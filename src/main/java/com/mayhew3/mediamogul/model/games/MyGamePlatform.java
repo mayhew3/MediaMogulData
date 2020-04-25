@@ -24,6 +24,10 @@ public class MyGamePlatform extends DataObject {
   public FieldValueBigDecimal replay_score = registerBigDecimalField("replay_score", Nullability.NULLABLE);
   public FieldValueString replay_reason = registerStringField("replay_reason", Nullability.NULLABLE);
 
+  public MyGamePlatform() {
+    addUniqueConstraint(personID, availableGamePlatformID);
+  }
+
   @Override
   public String getTableName() {
     return "my_game_platform";
