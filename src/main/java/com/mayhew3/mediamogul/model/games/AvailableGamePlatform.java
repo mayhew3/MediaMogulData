@@ -12,6 +12,10 @@ public class AvailableGamePlatform extends RetireableDataObject {
   public FieldValueBoolean metacriticPage = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
   public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
 
+  public AvailableGamePlatform() {
+    addUniqueConstraint(gameID, gamePlatformID);
+  }
+
   @Override
   public String getTableName() {
     return "available_game_platform";
