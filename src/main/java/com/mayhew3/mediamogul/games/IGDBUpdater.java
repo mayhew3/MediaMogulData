@@ -392,16 +392,33 @@ class IGDBUpdater {
   private Optional<JSONObject> findExactMatch(JSONArray possibleMatches) {
     String searchString = getFormattedTitle();
 
-    return findExactMatchForString(possibleMatches, searchString);
-  }
-
-  private Optional<JSONObject> findExactMatchForString(JSONArray possibleMatches, String searchString) {
     List<JSONObject> matches = jsonReader.findMatches(possibleMatches, (possibleMatch) -> {
       String name = jsonReader.getStringWithKey(possibleMatch, "name");
       return searchString.equalsIgnoreCase(name);
     });
     if (matches.size() == 1) {
       return Optional.of(matches.get(0));
+    } else if (matches.size() > 1) {
+      String maybePlatform = game.platform.getValue();
+      final String platform = maybePlatform.equalsIgnoreCase("Steam") ? "PC" : maybePlatform;
+      List<JSONObject> matchingToPlatform = matches.stream()
+          .filter(match -> {
+            JSONArray platforms = match.getJSONArray("platforms");
+            for (Object obj : platforms) {
+              JSONObject igdbPlatform = (JSONObject) obj;
+              String abbreviation = jsonReader.getNullableStringWithKey(igdbPlatform, "abbreviation");
+              if (platform.equalsIgnoreCase(abbreviation)) {
+                return true;
+              }
+            }
+            return false;
+          })
+          .collect(Collectors.toList());
+      if (matchingToPlatform.size() == 1) {
+        return Optional.of(matchingToPlatform.get(0));
+      } else {
+        return Optional.empty();
+      }
     } else {
       return Optional.empty();
     }
