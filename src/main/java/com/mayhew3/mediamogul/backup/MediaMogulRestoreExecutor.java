@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class MediaMogulRestoreExecutor {
 
-  private static DateTime backupDate = new DateTime(2020, 4, 24, 0, 0, 0);
+  private static DateTime backupDate = new DateTime(2020, 4, 25, 17, 0, 0);
 
   private static String restoreEnv;
 
