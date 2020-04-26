@@ -43,18 +43,18 @@ public class GamePlatformUpdater {
   private void runUpdate() throws SQLException, MissingEnvException {
     populateAllPlatforms();
 
-    String sql = "SELECT igdb_id, title " +
+    String sql = "SELECT igdb_id " +
         "FROM game " +
         "WHERE igdb_success IS NOT NULL " +
         "AND igdb_ignored IS NULL " +
         "AND retired = ? " +
-        "GROUP BY igdb_id, title ";
+        "GROUP BY igdb_id ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
     while (resultSet.next()) {
       Integer igdb_id = resultSet.getInt("igdb_id");
-      String title = resultSet.getString("title");
-      handleGame(igdb_id, title);
+//      String title = resultSet.getString("title");
+      handleGame(igdb_id);
     }
   }
 
@@ -144,16 +144,15 @@ public class GamePlatformUpdater {
     }
   }
 
-  private void handleGame(Integer igdb_id, String title) throws SQLException {
-    logger.info("Splitting platforms for title '" + title + "', IGDB_ID " + igdb_id);
+  private void handleGame(Integer igdb_id) throws SQLException {
+    logger.info("Splitting platforms for IGDB_ID " + igdb_id);
 
     String sql = "SELECT * " +
         "FROM game " +
         "WHERE igdb_id = ? " +
-        "AND title = ? " +
         "AND retired = ? " +
         "ORDER BY id ";
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_id, title, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_id, 0);
 
     List<Game> matchingGames = new ArrayList<>();
 
