@@ -16,7 +16,6 @@ import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class SampleDataExporter {
   private final SQLConnection connection;
@@ -127,9 +126,9 @@ public class SampleDataExporter {
     JSONArray platformsJSON = new JSONArray();
 
     for (AvailableGamePlatform gamePlatform : platforms) {
-      GamePlatform platform = getPlatformWithID(gamePlatform.gamePlatformID.getValue());
       JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", platform.id.getValue());
+      platformJSON.put("id", gamePlatform.id.getValue());
+      platformJSON.put("game_platform_id", gamePlatform.gamePlatformID.getValue());
       platformJSON.put("platform_name", gamePlatform.platformName.getValue());
       platformJSON.put("metacritic", gamePlatform.metacritic.getValue());
       platformJSON.put("metacritic_page", gamePlatform.metacriticPage.getValue());
@@ -139,17 +138,6 @@ public class SampleDataExporter {
     }
 
     gameJSON.put("availablePlatforms", platformsJSON);
-  }
-
-  private GamePlatform getPlatformWithID(Integer platformID) {
-    Optional<GamePlatform> maybePlatform = allPlatforms.stream()
-        .filter(gamePlatform -> gamePlatform.id.getValue().equals(platformID))
-        .findFirst();
-    if (maybePlatform.isPresent()) {
-      return maybePlatform.get();
-    } else {
-      throw new IllegalStateException("No platform found with id " + platformID);
-    }
   }
 
   private void addPersonGamesToGame(Game game, JSONObject gameJSON) throws SQLException {
@@ -191,7 +179,9 @@ public class SampleDataExporter {
           .findFirst()
           .get();
       JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", platform.id.getValue());
+      platformJSON.put("id", myPlatform.id.getValue());
+      platformJSON.put("game_platform_id", platform.id.getValue());
+      platformJSON.put("available_game_platform_id", myPlatform.availableGamePlatformID.getValue());
       platformJSON.put("platform_name", myPlatform.platformName.getValue());
 
       platformJSON.put("rating", JSONObject.wrap(myPlatform.rating.getValue()));
