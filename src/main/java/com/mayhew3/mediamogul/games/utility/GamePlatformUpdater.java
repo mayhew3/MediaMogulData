@@ -10,15 +10,15 @@ import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class GamePlatformUpdater {
   private final SQLConnection connection;
@@ -162,7 +162,7 @@ public class GamePlatformUpdater {
       matchingGames.add(game);
     }
 
-    if (matchingGames.size() == 1) {
+    if (shouldProcessGames(matchingGames)) {
 
       Game masterGame = chooseMainGame(matchingGames);
 
@@ -171,18 +171,42 @@ public class GamePlatformUpdater {
 
       for (Game matchingGame : matchingGames) {
         String platformName = matchingGame.platform.getValue();
-        AvailableGamePlatform availablePlatform = createAvailablePlatformFrom(masterGame, matchingGame, availableGamePlatforms);
-        List<PersonGame> personGames = matchingGame.getPersonGames(connection);
-        for (PersonGame personGame : personGames) {
-          addToMyPlatforms(availablePlatform, personGame, allPersonGamePlatforms);
-        }
+        AvailableGamePlatform availablePlatform = maybeCreateAvailablePlatformFrom(masterGame, matchingGame, availableGamePlatforms);
+        availableGamePlatforms.add(availablePlatform);
+
         moveForeignKeys(matchingGame, masterGame, availablePlatform, platformName);
+        if (!matchingGame.id.getValue().equals(masterGame.id.getValue())) {
+          removeForeignEntities(matchingGame);
+        }
+      }
+
+      List<PersonGame> allPersonGames = new ArrayList<>();
+      for (Game matchingGame : matchingGames) {
+        allPersonGames.addAll(matchingGame.getPersonGames(connection));
+      }
+      Set<Integer> personIDs = allPersonGames.stream()
+          .map(personGame -> personGame.person_id.getValue())
+          .collect(Collectors.toSet());
+
+
+      for (Integer personID : personIDs) {
+        List<PersonGame> personGames = allPersonGames.stream()
+            .filter(personGame -> personGame.person_id.getValue().equals(personID))
+            .collect(Collectors.toList());
+        maybeCreatePersonGameToKeep(masterGame, personID, personGames);
+
+        for (PersonGame personGame : personGames) {
+          Game parentGame = getGameFromPersonGame(matchingGames, personGame);
+          AvailableGamePlatform availableGamePlatform = getAvailablePlatformFromGame(availableGamePlatforms, masterGame.id.getValue(), parentGame.platform.getValue());
+          addToMyPlatforms(availableGamePlatform, personGame, allPersonGamePlatforms);
+        }
       }
 
       List<Game> dupes = new ArrayList<>(matchingGames);
       dupes.remove(masterGame);
       for (Game dupe : dupes) {
         if (!dupe.platform.getValue().equalsIgnoreCase(masterGame.platform.getValue())) {
+          logger.info("Retiring platform " + dupe.platform.getValue());
           dupe.retire();
           dupe.commit(connection);
         }
@@ -192,6 +216,57 @@ public class GamePlatformUpdater {
 
   }
 
+  @NotNull
+  private Game getGameFromPersonGame(List<Game> matchingGames, PersonGame personGame) {
+    //noinspection OptionalGetWithoutIsPresent
+    return matchingGames.stream()
+                .filter(game -> game.id.getValue().equals(personGame.game_id.getValue()))
+                .findFirst()
+                .get();
+  }
+
+  @NotNull
+  private AvailableGamePlatform getAvailablePlatformFromGame(List<AvailableGamePlatform> availableGamePlatforms, Integer gameID, String platformName) {
+    Optional<AvailableGamePlatform> maybeExisting = availableGamePlatforms.stream()
+        .filter(agp -> agp.platformName.getValue().equals(platformName) &&
+            agp.gameID.getValue().equals(gameID))
+        .findFirst();
+    if (maybeExisting.isEmpty()) {
+      throw new RuntimeException("No AGP found for game!");
+    }
+    return maybeExisting
+        .get();
+  }
+
+
+  private void maybeCreatePersonGameToKeep(Game gameToKeep, Integer person_id, List<PersonGame> personGames) throws SQLException {
+    Integer gameID = gameToKeep.id.getValue();
+    Optional<PersonGame> maybeExisting = personGames.stream()
+        .filter(personGame -> personGame.game_id.getValue().equals(gameID))
+        .findFirst();
+    if (maybeExisting.isEmpty()) {
+      logger.info("Creating missing person_game for person " + person_id + ", game " + gameToKeep.title.getValue());
+      PersonGame personGame = new PersonGame();
+      personGame.initializeForInsert();
+      personGame.game_id.changeValue(gameID);
+      personGame.person_id.changeValue(person_id);
+      personGame.tier.changeValue(2);
+      personGame.minutes_played.changeValue(0);
+      personGame.commit(connection);
+    }
+  }
+
+  private boolean shouldProcessGames(List<Game> matchingGames) {
+    boolean hasOnlyOneGame = matchingGames.size() == 1;
+    List<Game> steamGames = matchingGames.stream()
+        .filter(game -> game.platform.getValue().equalsIgnoreCase("Steam"))
+        .collect(Collectors.toList());
+    Set<String> titles = matchingGames.stream()
+        .map(game -> game.title.getValue())
+        .collect(Collectors.toSet());
+    return hasOnlyOneGame || (steamGames.size() == 1 && titles.size() == 1);
+  }
+
   private Game chooseMainGame(List<Game> games) {
     Optional<Game> steamVersion = games.stream()
         .filter(game -> game.platform.getValue().equalsIgnoreCase("Steam"))
@@ -199,14 +274,12 @@ public class GamePlatformUpdater {
     return steamVersion.orElseGet(() -> games.get(0));
   }
 
-  private AvailableGamePlatform createAvailablePlatformFrom(Game masterGame, Game platformGame, List<AvailableGamePlatform> allAvailablePlatforms) throws SQLException {
+  private AvailableGamePlatform maybeCreateAvailablePlatformFrom(Game masterGame, Game platformGame, List<AvailableGamePlatform> allAvailablePlatforms) throws SQLException {
     GamePlatform platform = getOrCreatePlatform(platformGame.platform.getValue());
     Integer gameID = masterGame.id.getValue();
     Integer platformID = platform.id.getValue();
 
-    Optional<AvailableGamePlatform> existing = allAvailablePlatforms.stream()
-        .filter(agp -> gameID.equals(agp.gameID.getValue()) && platformID.equals(agp.gamePlatformID.getValue()))
-        .findFirst();
+    Optional<AvailableGamePlatform> existing = getAvailablePlatformFor(allAvailablePlatforms, gameID, platformID);
 
     if (existing.isPresent()) {
       return existing.get();
@@ -225,17 +298,23 @@ public class GamePlatformUpdater {
     }
   }
 
-  private MyGamePlatform addToMyPlatforms(AvailableGamePlatform availableGamePlatform, PersonGame personGame, List<MyGamePlatform> allPersonPlatforms) throws SQLException {
+  @NotNull
+  private Optional<AvailableGamePlatform> getAvailablePlatformFor(List<AvailableGamePlatform> allAvailablePlatforms, Integer gameID, Integer platformID) {
+    return allAvailablePlatforms.stream()
+        .filter(agp -> gameID.equals(agp.gameID.getValue()) && platformID.equals(agp.gamePlatformID.getValue()))
+        .findFirst();
+  }
+
+  private void addToMyPlatforms(AvailableGamePlatform availableGamePlatform, PersonGame personGame, List<MyGamePlatform> allPersonPlatforms) throws SQLException {
     Integer agpID = availableGamePlatform.id.getValue();
     Integer personID = personGame.person_id.getValue();
 
     Optional<MyGamePlatform> existing = allPersonPlatforms.stream()
-        .filter(mgp -> agpID.equals(mgp.availableGamePlatformID.getValue()) && personID.equals(mgp.personID.getValue()))
+        .filter(mgp -> agpID.equals(mgp.availableGamePlatformID.getValue()) &&
+            personID.equals(mgp.personID.getValue()))
         .findFirst();
 
-    if (existing.isPresent()) {
-      return existing.get();
-    } else {
+    if (existing.isEmpty()) {
       MyGamePlatform myGamePlatform = new MyGamePlatform();
       myGamePlatform.initializeForInsert();
 
@@ -254,7 +333,6 @@ public class GamePlatformUpdater {
 
       myGamePlatform.commit(connection);
 
-      return myGamePlatform;
     }
   }
 
@@ -267,25 +345,45 @@ public class GamePlatformUpdater {
     moveSteamAttributes(oldGameID, newGameID);
   }
 
+  private void removeForeignEntities(Game oldGame) throws SQLException {
+    removeIGDBPosters(oldGame);
+    removePossibleGameMatches(oldGame);
+  }
+
+  private void removeIGDBPosters(Game oldGame) throws SQLException {
+    String sql = "DELETE FROM igdb_poster WHERE game_id = ? ";
+    Integer rowsDeleted = connection.prepareAndExecuteStatementUpdate(sql, oldGame.id.getValue());
+    logger.info(rowsDeleted + " rows deleted from IGDB_POSTER.");
+  }
+
+  private void removePossibleGameMatches(Game oldGame) throws SQLException {
+    String sql = "DELETE FROM possible_game_match WHERE game_id = ? ";
+    Integer rowsDeleted = connection.prepareAndExecuteStatementUpdate(sql, oldGame.id.getValue());
+    logger.info(rowsDeleted + " rows deleted from POSSIBLE_GAME_MATCH.");
+  }
+
   private void moveGameLogs(Integer oldGameID, Integer newGameID, Integer platformID, String platformName) throws SQLException {
     String sql = "UPDATE game_log " +
         "SET game_id = ?, available_game_platform_id = ?, platform = ? " +
         "WHERE game_id = ? ";
-    connection.prepareAndExecuteStatementUpdate(sql, newGameID, platformID, platformName, oldGameID);
+    Integer rowsUpdated = connection.prepareAndExecuteStatementUpdate(sql, newGameID, platformID, platformName, oldGameID);
+    logger.info(rowsUpdated + " rows updated in GAME_LOG.");
   }
 
   private void moveGameplaySessions(Integer oldGameID, Integer newGameID, Integer platformID) throws SQLException {
     String sql = "UPDATE gameplay_session " +
         "SET game_id = ?, available_game_platform_id = ? " +
         "WHERE game_id = ? ";
-    connection.prepareAndExecuteStatementUpdate(sql, newGameID, platformID, oldGameID);
+    Integer rowsUpdated = connection.prepareAndExecuteStatementUpdate(sql, newGameID, platformID, oldGameID);
+    logger.info(rowsUpdated + " rows updated in GAMEPLAY_SESSION.");
   }
 
   private void moveSteamAttributes(Integer oldGameID, Integer newGameID) throws SQLException {
     String sql = "UPDATE steam_attribute " +
         "SET game_id = ? " +
         "WHERE game_id = ? ";
-    connection.prepareAndExecuteStatementUpdate(sql, newGameID,oldGameID);
+    Integer rowsUpdated = connection.prepareAndExecuteStatementUpdate(sql, newGameID, oldGameID);
+    logger.info(rowsUpdated + " rows updated in STEAM_ATTRIBUTE.");
   }
 
 
