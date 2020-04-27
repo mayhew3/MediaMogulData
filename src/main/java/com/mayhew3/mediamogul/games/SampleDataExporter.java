@@ -104,6 +104,14 @@ public class SampleDataExporter {
       gameJSON.put("howlong_title", JSONObject.wrap(game.howlong_title.getValue()));
       gameJSON.put("giantbomb_name", JSONObject.wrap(game.giantbomb_name.getValue()));
 
+      gameJSON.put("igdb_rating", JSONObject.wrap(game.igdb_rating.getValue()));
+      gameJSON.put("igdb_rating_count", JSONObject.wrap(game.igdb_rating_count.getValue()));
+      gameJSON.put("igdb_release_date", JSONObject.wrap(game.igdb_release_date.getValue()));
+      gameJSON.put("igdb_popularity", JSONObject.wrap(game.igdb_popularity.getValue()));
+      gameJSON.put("igdb_slug", JSONObject.wrap(game.igdb_slug.getValue()));
+      gameJSON.put("igdb_summary", JSONObject.wrap(game.igdb_summary.getValue()));
+      gameJSON.put("igdb_updated", JSONObject.wrap(game.igdb_updated.getValue()));
+
       addPersonGamesToGame(game, gameJSON);
       attachIGDBPoster(game, gameJSON);
       addPlatformsToGame(game, gameJSON);
@@ -212,6 +220,8 @@ public class SampleDataExporter {
       IGDBPoster igdbPoster = new IGDBPoster();
       igdbPoster.initializeFromDBObject(resultSet);
       gameJSON.put("igdb_poster", igdbPoster.image_id.getValue());
+      gameJSON.put("igdb_width", igdbPoster.width.getValue());
+      gameJSON.put("igdb_height", igdbPoster.height.getValue());
     } else {
       gameJSON.put("igdb_poster", JSONObject.wrap(null));
     }
