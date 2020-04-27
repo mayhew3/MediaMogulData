@@ -70,6 +70,7 @@ public class SampleDataExporter {
     String sql = "SELECT g.* " +
         "FROM game g " +
         "WHERE retired = ? " +
+        "AND igdb_ignored IS NULL " +
         "ORDER BY g.id ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
