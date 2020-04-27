@@ -172,13 +172,28 @@ public class SampleDataExporter {
   }
 
   private void attachMyPlatformsToPersonGame(PersonGame personGame, JSONObject personGameJSON) throws SQLException {
-    List<GamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    List<GamePlatform> platforms = personGame.getPlatforms(connection);
+    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
 
     JSONArray myPlatformsJSON = new JSONArray();
 
-    for (GamePlatform platform : myPlatforms) {
+    for (GamePlatform platform : platforms) {
+      MyGamePlatform myPlatform = myPlatforms.stream()
+          .filter(myGamePlatform -> myGamePlatform.platformName.getValue().equalsIgnoreCase(platform.fullName.getValue()))
+          .findFirst()
+          .get();
       JSONObject platformJSON = new JSONObject();
       platformJSON.put("id", platform.id.getValue());
+      platformJSON.put("platform_name", myPlatform.platformName.getValue());
+
+      platformJSON.put("rating", JSONObject.wrap(myPlatform.rating.getValue()));
+      platformJSON.put("tier", JSONObject.wrap(myPlatform.tier.getValue()));
+      platformJSON.put("last_played", JSONObject.wrap(myPlatform.last_played.getValue()));
+      platformJSON.put("minutes_played", JSONObject.wrap(myPlatform.minutes_played.getValue()));
+      platformJSON.put("finished_date", JSONObject.wrap(myPlatform.finished_date.getValue()));
+      platformJSON.put("final_score", JSONObject.wrap(myPlatform.final_score.getValue()));
+      platformJSON.put("replay_score", JSONObject.wrap(myPlatform.replay_score.getValue()));
+      platformJSON.put("replay_reason", JSONObject.wrap(myPlatform.replay_reason.getValue()));
 
       myPlatformsJSON.put(platformJSON);
     }
