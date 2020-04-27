@@ -55,7 +55,7 @@ public class PersonGame extends RetireableDataObject {
     throw new IllegalStateException("PersonGame is attached to Game that doesn't exist!");
   }
 
-  public List<GamePlatform> getMyPlatforms(SQLConnection connection) throws SQLException {
+  public List<GamePlatform> getPlatforms(SQLConnection connection) throws SQLException {
     String sql = "SELECT p.* " +
         "FROM game_platform p " +
         "INNER JOIN available_game_platform agp " +
@@ -72,5 +72,24 @@ public class PersonGame extends RetireableDataObject {
       gamePlatforms.add(gamePlatform);
     }
     return gamePlatforms;
+  }
+
+  public List<MyGamePlatform> getMyPlatforms(SQLConnection connection) throws SQLException {
+    String sql = "SELECT mgp.* " +
+        "FROM game_platform p " +
+        "INNER JOIN available_game_platform agp " +
+        " ON agp.game_platform_id = p.id " +
+        "INNER JOIN my_game_platform mgp " +
+        " ON mgp.available_game_platform_id = agp.id " +
+        "WHERE mgp.person_id = ? " +
+        "AND agp.game_id = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, person_id.getValue(), game_id.getValue());
+    List<MyGamePlatform> myPlatforms = new ArrayList<>();
+    while (resultSet.next()) {
+      MyGamePlatform myPlatform = new MyGamePlatform();
+      myPlatform.initializeFromDBObject(resultSet);
+      myPlatforms.add(myPlatform);
+    }
+    return myPlatforms;
   }
 }
