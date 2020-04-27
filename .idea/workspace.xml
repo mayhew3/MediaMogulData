@@ -996,7 +996,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SampleDataExporter" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="SampleDataExporter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
         <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
@@ -2423,11 +2423,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SampleDataExporter" />
         <item itemvalue="Gradle.MediaMogulData [clean]" />
         <item itemvalue="JUnit.All in media-mogul-data.test" />
         <item itemvalue="JUnit.IGDBUpdaterTest" />
         <item itemvalue="JUnit.IGDBUpdaterTest.testSteamNameIsSameAsRealName" />
-        <item itemvalue="JUnit.IGDBUpdaterTest.testManyResultsOneExactMatch" />
       </list>
     </recent_temporary>
   </component>
@@ -2621,28 +2621,28 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="1877" height="329" key="GridCell.Tab.0.bottom" timestamp="1587953395109">
+    <state width="916" height="332" key="GridCell.Tab.0.bottom" timestamp="1587981680034">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="329" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1587953395109" />
+    <state width="916" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1587981680034" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="319" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587845100467" />
-    <state width="1877" height="329" key="GridCell.Tab.0.center" timestamp="1587953395109">
+    <state width="916" height="332" key="GridCell.Tab.0.center" timestamp="1587981680034">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="329" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1587953395109" />
+    <state width="916" height="332" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1587981680034" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="319" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587845100466" />
-    <state width="1877" height="329" key="GridCell.Tab.0.left" timestamp="1587953395109">
+    <state width="916" height="332" key="GridCell.Tab.0.left" timestamp="1587981680034">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="329" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1587953395109" />
+    <state width="916" height="332" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1587981680034" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
     <state width="2517" height="319" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587845100466" />
-    <state width="1877" height="329" key="GridCell.Tab.0.right" timestamp="1587953395109">
+    <state width="916" height="332" key="GridCell.Tab.0.right" timestamp="1587981680034">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="329" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1587953395109" />
+    <state width="916" height="332" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1587981680034" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="2517" height="319" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587845100466" />
     <state width="1877" height="320" key="GridCell.Tab.1.bottom" timestamp="1587946133391">
