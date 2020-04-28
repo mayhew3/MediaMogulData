@@ -39,7 +39,9 @@ public class IGDBTestProviderImpl implements IGDBProvider {
 
   @Override
   public JSONArray getCovers(Integer igdb_game_id) {
-    throw new RuntimeException("No implementation yet!");
+    String filepath = filePrefix + "cover_id_" + igdb_game_id + ".json";
+    @NotNull JSONArray jsonArrayFromFile = jsonReader.parseJSONArray(filepath);
+    return jsonArrayFromFile;
   }
 
 }
