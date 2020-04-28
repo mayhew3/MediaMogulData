@@ -219,4 +219,19 @@ public class Game extends RetireableDataObject {
 
     return platforms;
   }
+
+  public List<IGDBPoster> getPosters(SQLConnection connection) throws SQLException {
+    String sql = "SELECT * " +
+        "FROM igdb_poster " +
+        "WHERE game_id = ? " +
+        "ORDER BY id ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue());
+    List<IGDBPoster> posters = new ArrayList<>();
+    while (resultSet.next()) {
+      IGDBPoster igdbPoster = new IGDBPoster();
+      igdbPoster.initializeFromDBObject(resultSet);
+      posters.add(igdbPoster);
+    }
+    return posters;
+  }
 }

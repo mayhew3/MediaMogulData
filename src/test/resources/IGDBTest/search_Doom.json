@@ -2,11 +2,30 @@
   {
     "cover": 567890,
     "name": "Doom",
-    "id": 82090
+    "id": 82090,
+    "platforms": [
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      },
+      {
+        "name": "Xbox One",
+        "id": 49,
+        "abbreviation": "XONE"
+      }
+    ]
   },
   {
     "cover": 678901,
     "name": "Doom",
-    "id": 3047
+    "id": 3047,
+    "platforms": [
+    {
+      "name": "Xbox One",
+      "id": 49,
+      "abbreviation": "XONE"
+    }
+  ]
   }
 ]

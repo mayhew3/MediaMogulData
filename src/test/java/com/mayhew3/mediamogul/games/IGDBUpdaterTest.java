@@ -5,6 +5,7 @@ import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBTestProviderImpl;
 import com.mayhew3.mediamogul.model.games.Game;
+import com.mayhew3.mediamogul.model.games.IGDBPoster;
 import com.mayhew3.mediamogul.model.games.PossibleGameMatch;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
@@ -48,13 +49,6 @@ public class IGDBUpdaterTest extends DatabaseTest {
         .isEqualTo(82090);
     assertThat(game.igdb_title.getValue())
         .isEqualTo(gameTitle);
-    //noinspection SpellCheckingInspection
-    assertThat(game.igdb_poster.getValue())
-        .isEqualTo("ogznieioyzvsiok1sl2m");
-    assertThat(game.igdb_poster_w.getValue())
-        .isEqualTo(1440);
-    assertThat(game.igdb_poster_h.getValue())
-        .isEqualTo(2160);
     assertThat(game.igdb_failed.getValue())
         .isNull();
     assertThat(game.igdb_success.getValue())
@@ -63,6 +57,21 @@ public class IGDBUpdaterTest extends DatabaseTest {
     List<PossibleGameMatch> possibleGameMatches = findPossibleGameMatches(game);
     assertThat(possibleGameMatches)
         .isEmpty();
+
+    List<IGDBPoster> posters = game.getPosters(connection);
+    assertThat(posters)
+        .hasSize(1);
+
+    IGDBPoster igdbPoster = posters.get(0);
+    //noinspection SpellCheckingInspection
+    assertThat(igdbPoster.image_id.getValue())
+        .isEqualTo("ogznieioyzvsiok1sl2m");
+    assertThat(igdbPoster.width.getValue())
+        .isEqualTo(1440);
+    assertThat(igdbPoster.height.getValue())
+        .isEqualTo(2160);
+    assertThat(igdbPoster.url.getValue())
+        .isEqualTo("https://images.igdb.com/igdb/image/upload/t_720p/ogznieioyzvsiok1sl2m");
   }
 
   @Test
@@ -226,18 +235,27 @@ public class IGDBUpdaterTest extends DatabaseTest {
         .isEqualTo(82090);
     assertThat(game.igdb_title.getValue())
         .isEqualTo(hintTitle);
-    assertThat(game.igdb_poster.getValue())
-        .isEqualTo("ogznieioyzvsiok1sl2m");
-    assertThat(game.igdb_poster_w.getValue())
-        .isEqualTo(1440);
-    assertThat(game.igdb_poster_h.getValue())
-        .isEqualTo(2160);
     assertThat(game.igdb_success.getValue())
         .isNotNull();
 
     List<PossibleGameMatch> possibleGameMatches = findPossibleGameMatches(game);
     assertThat(possibleGameMatches)
         .isEmpty();
+
+    List<IGDBPoster> posters = game.getPosters(connection);
+    assertThat(posters)
+        .hasSize(1);
+
+    IGDBPoster igdbPoster = posters.get(0);
+    //noinspection SpellCheckingInspection
+    assertThat(igdbPoster.image_id.getValue())
+        .isEqualTo("ogznieioyzvsiok1sl2m");
+    assertThat(igdbPoster.width.getValue())
+        .isEqualTo(1440);
+    assertThat(igdbPoster.height.getValue())
+        .isEqualTo(2160);
+    assertThat(igdbPoster.url.getValue())
+        .isEqualTo("https://images.igdb.com/igdb/image/upload/t_720p/ogznieioyzvsiok1sl2m");
   }
 
   @Test
@@ -449,12 +467,6 @@ public class IGDBUpdaterTest extends DatabaseTest {
         .isEqualTo(igdb_id);
     assertThat(game.igdb_title.getValue())
         .isEqualTo("Quidditch");
-    assertThat(game.igdb_poster.getValue())
-        .isEqualTo("aqbsdjsafgkdg");
-    assertThat(game.igdb_poster_w.getValue())
-        .isEqualTo(1440);
-    assertThat(game.igdb_poster_h.getValue())
-        .isEqualTo(2160);
     assertThat(game.igdb_failed.getValue())
         .isNull();
     assertThat(new DateTime(game.igdb_success.getValue()))
@@ -464,11 +476,26 @@ public class IGDBUpdaterTest extends DatabaseTest {
     assertThat(nextUpdateActual)
         .isAfterOrEqualTo(nextScheduledDate);
     assertThat(Days.daysBetween(startOfTest, nextUpdateActual).getDays())
-        .isEqualTo(23);
+        .isEqualTo(30);
 
     List<PossibleGameMatch> possibleGameMatches = findPossibleGameMatches(game);
     assertThat(possibleGameMatches)
         .isEmpty();
+
+    List<IGDBPoster> posters = game.getPosters(connection);
+    assertThat(posters)
+        .hasSize(1);
+
+    IGDBPoster igdbPoster = posters.get(0);
+    //noinspection SpellCheckingInspection
+    assertThat(igdbPoster.image_id.getValue())
+        .isEqualTo("aqbsdjsafgkdg");
+    assertThat(igdbPoster.width.getValue())
+        .isEqualTo(1440);
+    assertThat(igdbPoster.height.getValue())
+        .isEqualTo(2160);
+    assertThat(igdbPoster.url.getValue())
+        .isEqualTo("https://images.igdb.com/igdb/image/upload/t_720p/aqbsdjsafgkdg");
   }
 
   @Test
@@ -532,12 +559,6 @@ public class IGDBUpdaterTest extends DatabaseTest {
         .isEqualTo(igdb_id);
     assertThat(game.igdb_title.getValue())
         .isEqualTo("Crumbles");
-    assertThat(game.igdb_poster.getValue())
-        .isEqualTo("haiouwnfdakjlhedw");
-    assertThat(game.igdb_poster_w.getValue())
-        .isEqualTo(1440);
-    assertThat(game.igdb_poster_h.getValue())
-        .isEqualTo(2160);
     assertThat(game.igdb_failed.getValue())
         .isNull();
     assertThat(new DateTime(game.igdb_success.getValue()))
@@ -547,12 +568,25 @@ public class IGDBUpdaterTest extends DatabaseTest {
     assertThat(nextUpdateActual)
         .isAfterOrEqualTo(nextScheduledDate);
     assertThat(Days.daysBetween(startOfTest, nextUpdateActual).getDays())
-        .isEqualTo(31);
+        .isEqualTo(30);
 
     possibleGameMatches = findPossibleGameMatches(game);
     assertThat(possibleGameMatches)
         .isEmpty();
 
+    List<IGDBPoster> posters = game.getPosters(connection);
+    assertThat(posters)
+        .hasSize(2);
+
+    IGDBPoster igdbPoster = posters.get(0);
+    assertThat(igdbPoster.image_id.getValue())
+        .isEqualTo("haiouwnfdakjlhedw");
+    assertThat(igdbPoster.width.getValue())
+        .isEqualTo(1440);
+    assertThat(igdbPoster.height.getValue())
+        .isEqualTo(2160);
+    assertThat(igdbPoster.url.getValue())
+        .isEqualTo("https://images.igdb.com/igdb/image/upload/t_720p/haiouwnfdakjlhedw");
   }
 
 
