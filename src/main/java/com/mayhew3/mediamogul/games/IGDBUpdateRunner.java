@@ -126,12 +126,13 @@ public class IGDBUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateSingle() {
-    String gameTitle = "Batman: The Telltale Series";
+    String gameTitle = "God of War";
     String sql = "select * " +
         "from game " +
-        "where title = ? ";
+        "where title = ? " +
+        "AND retired = ? ";
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameTitle);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameTitle, 0);
 
       runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {

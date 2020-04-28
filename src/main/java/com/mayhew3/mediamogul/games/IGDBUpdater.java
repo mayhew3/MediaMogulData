@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
+import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.IGDBPoster;
 import com.mayhew3.mediamogul.model.games.PossibleGameMatch;
@@ -389,7 +390,7 @@ class IGDBUpdater {
     }
   }
 
-  private Optional<JSONObject> findExactMatch(JSONArray possibleMatches) {
+  private Optional<JSONObject> findExactMatch(JSONArray possibleMatches) throws SQLException {
     String searchString = getFormattedTitle();
 
     List<JSONObject> matches = jsonReader.findMatches(possibleMatches, (possibleMatch) -> {
@@ -399,29 +400,39 @@ class IGDBUpdater {
     if (matches.size() == 1) {
       return Optional.of(matches.get(0));
     } else if (matches.size() > 1) {
-      String maybePlatform = game.platform.getValue();
-      final String platform = maybePlatform.equalsIgnoreCase("Steam") ? "PC" : maybePlatform;
-      List<JSONObject> matchingToPlatform = matches.stream()
-          .filter(match -> {
-            JSONArray platforms = match.getJSONArray("platforms");
-            for (Object obj : platforms) {
-              JSONObject igdbPlatform = (JSONObject) obj;
-              String abbreviation = jsonReader.getNullableStringWithKey(igdbPlatform, "abbreviation");
-              if (platform.equalsIgnoreCase(abbreviation)) {
-                return true;
-              }
-            }
-            return false;
-          })
-          .collect(Collectors.toList());
-      if (matchingToPlatform.size() == 1) {
-        return Optional.of(matchingToPlatform.get(0));
+      List<String> platformNames = getPlatformNames(game);
+
+      List<JSONObject> matchingOnPlatforms = new ArrayList<>();
+
+      for (JSONObject matchObj : matches) {
+        JSONArray platforms = matchObj.getJSONArray("platforms");
+        List<String> matchPlatforms = new ArrayList<>();
+        for (Object platformObj : platforms) {
+          String abbreviation = jsonReader.getNullableStringWithKey((JSONObject) platformObj, "abbreviation");
+          matchPlatforms.add(abbreviation);
+        }
+        if (matchPlatforms.containsAll(platformNames)) {
+          matchingOnPlatforms.add(matchObj);
+        }
+      }
+
+      if (matchingOnPlatforms.size() == 1) {
+        return Optional.of(matchingOnPlatforms.get(0));
       } else {
         return Optional.empty();
       }
     } else {
       return Optional.empty();
     }
+  }
+
+  private List<String> getPlatformNames(Game game) throws SQLException {
+    List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    return availableGamePlatforms.stream()
+        .map(availableGamePlatform -> availableGamePlatform.platformName.getValue())
+        .map(platformName -> platformName.equalsIgnoreCase("Steam") ? "PC" : platformName)
+        .distinct()
+        .collect(Collectors.toList());
   }
 
   private static void debug(Object message) {
