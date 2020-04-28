@@ -16,7 +16,7 @@ public class MyGamePlatform extends DataObject {
 
   // Playtime
   public FieldValueTimestamp last_played = registerTimestampField("last_played", Nullability.NULLABLE);
-  public FieldValueInteger minutes_played = registerIntegerField("minutes_played", Nullability.NOT_NULL);
+  public FieldValueInteger minutes_played = registerIntegerField("minutes_played", Nullability.NOT_NULL).defaultValue(0);
 
   // Finished
   public FieldValueTimestamp finished_date = registerTimestampField("finished_date", Nullability.NULLABLE);
