@@ -42,6 +42,9 @@ public class SteamGameUpdateRunner implements UpdateRunner {
   private final IGDBProvider igdbProvider;
   private final JSONReader jsonReader;
 
+  private final Map<Integer, String> unfoundGames = new HashMap<>();
+  private final List<String> duplicateGames = new ArrayList<>();
+
   private static final Logger logger = LogManager.getLogger(SteamGameUpdateRunner.class);
 
   public SteamGameUpdateRunner(SQLConnection connection, Integer person_id, SteamProvider steamProvider, ChromeProvider chromeProvider, IGDBProvider igdbProvider, JSONReader jsonReader) {
@@ -59,7 +62,6 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     String personIDString = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
-    assert personIDString != null;
 
     Integer person_id = Integer.parseInt(personIDString);
 
@@ -95,9 +97,6 @@ public class SteamGameUpdateRunner implements UpdateRunner {
   }
 
   public void runUpdate() throws SQLException {
-    Map<Integer, String> unfoundGames = new HashMap<>();
-    ArrayList<String> duplicateGames = new ArrayList<>();
-
     Set<Integer> jsonSteamIDs = Sets.newHashSet();
 
     try {
@@ -108,7 +107,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
         JSONObject jsonGame = jsonArray.getJSONObject(i);
 
         try {
-          processSteamGame(unfoundGames, duplicateGames, jsonGame);
+          processSteamGame(jsonGame);
         } catch (GameFailedException e) {
           logger.error("Game failed: " + jsonGame);
           logger.warn(e.getMessage());
@@ -242,14 +241,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
 
   }
 
-  private void processSteamGame(Map<Integer, String> unfoundGames, ArrayList<String> duplicateGames, JSONObject jsonGame) throws SQLException, GameFailedException {
-    String name = jsonGame.getString("name");
-    Integer steamID = jsonGame.getInt("appid");
-    Integer playtime = jsonGame.getInt("playtime_forever");
-    String icon = jsonGame.getString("img_icon_url");
-    String logo = jsonGame.getString("img_logo_url");
-
-    debug(name + ": looking for updates.");
+  private Game getGameToProcess(Integer steamID, String name) throws SQLException {
 
     // if changed (match on appid, not name):
     // - update playtime
@@ -260,31 +252,57 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     //    LOG: Previous Hours, Current Hours, Change. For first time, Prev and Curr are the same, and Change is 0.
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch("SELECT * FROM game WHERE steamid = ?", steamID);
-
     Game game = new Game();
-    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(game, connection, chromeProvider, person_id);
 
     if (resultSet.next()) {
       game.initializeFromDBObject(resultSet);
-      steamGameUpdater.updateGame(name, steamID, playtime, icon, logo);
+
+      if (resultSet.next()) {
+        duplicateGames.add(name + "(" + steamID + ")");
+      }
+
+      return game;
     } else {
       Optional<Game> probableMatch = findProbableMatch(name);
 
       if (probableMatch.isPresent()) {
+
         debug(" - Found good IGDB match already. Adding Steam platform to existing game '" + name + "'.");
-        game.steamID.changeValue(steamID);
-        game.commit(connection);
-        steamGameUpdater.updateGame(name, steamID, playtime, icon, logo);
+        Game match = probableMatch.get();
+        match.steamID.changeValue(steamID);
+        match.commit(connection);
+        return match;
+
       } else {
+
         debug(" - Game not found! Adding.");
-        steamGameUpdater.addNewGame(name, steamID, playtime, icon, logo);
+        game.initializeForInsert();
         unfoundGames.put(steamID, name);
+        return game;
+
       }
     }
 
-    if (resultSet.next()) {
-      duplicateGames.add(name + "(" + steamID + ")");
+  }
+
+  private void processSteamGame(JSONObject jsonGame) throws SQLException, GameFailedException {
+    String name = jsonGame.getString("name");
+    Integer steamID = jsonGame.getInt("appid");
+    Integer playtime = jsonGame.getInt("playtime_forever");
+    String icon = jsonGame.getString("img_icon_url");
+    String logo = jsonGame.getString("img_logo_url");
+
+    debug(name + ": looking for updates.");
+
+    Game game = getGameToProcess(steamID, name);
+    SteamGameUpdater steamGameUpdater = new SteamGameUpdater(game, connection, chromeProvider, person_id);
+
+    if (game.isForInsert()) {
+      steamGameUpdater.addNewGame(name, steamID, playtime, icon, logo);
+    } else {
+      steamGameUpdater.updateGame(name, steamID, playtime, icon, logo);
     }
+
   }
 
   private static void debug(Object message) {

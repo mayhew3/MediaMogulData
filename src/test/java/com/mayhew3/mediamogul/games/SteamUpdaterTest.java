@@ -212,9 +212,11 @@ public class SteamUpdaterTest extends DatabaseTest {
     steamProvider.setFileSuffix("xcom2");
     String gameName = "XCOM 2";
     int playtime = 11558;
-    int steamID = 268500;
+    int igdb_id = 10919;
 
-    Game originalGame = createOwnedGame(gameName, steamID, 135, "Xbox One");
+    Game originalGame = createOwnedGame(gameName, null, 135, "Xbox One");
+    originalGame.igdb_id.changeValue(igdb_id);
+    originalGame.commit(connection);
     assertThat(originalGame.getAvailableGamePlatforms(connection))
         .hasSize(1);
 
@@ -239,15 +241,6 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     assertThat(game.steam_title.getValue())
         .isEqualTo(gameName);
-
-    assertThat(game.steamID.getValue())
-        .isEqualTo(steamID);
-    assertThat(game.icon.getValue())
-        .isEqualTo("f275aeb0b1b947262810569356a199848c643754");
-    assertThat(game.logo.getValue())
-        .isEqualTo("10a6157d6614f63cd8a95d002d022778c207c218");
-    assertThat(game.metacriticPage.getValue())
-        .isFalse();
 
     assertThat(personGame.minutes_played.getValue())
         .isEqualTo(playtime);
@@ -278,27 +271,72 @@ public class SteamUpdaterTest extends DatabaseTest {
     assertThat(myPlatform.last_played.getValue())
         .isNotNull();
 
-    List<GameLog> gameLogs = findGameLogs(game);
-    assertThat(gameLogs)
+  }
+
+  @Test
+  public void testAddSteamPlatformToExistingGameWithNoExactTitleMatch() throws SQLException {
+    steamProvider.setFileSuffix("plerpen");
+    String gameName = "Plerpen";
+    int playtime = 11558;
+    int igdb_id = 10919;
+
+    Game originalGame = createOwnedGame(gameName, null, 135, "Xbox One");
+    originalGame.igdb_id.changeValue(igdb_id);
+    originalGame.commit(connection);
+
+    assertThat(originalGame.getAvailableGamePlatforms(connection))
         .hasSize(1);
 
-    GameLog gameLog = gameLogs.get(0);
-    assertThat(gameLog.game.getValue())
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
+    steamGameUpdateRunner.runUpdate();
+
+
+    Optional<Game> optionalGame = findGameFromDB(gameName);
+
+    assertThat(optionalGame.isPresent())
+        .as("Expected game XCOM 2 to exist in database.")
+        .isTrue();
+
+    Game game = optionalGame.get();
+
+    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
+
+    assertThat(optionalPersonGame.isPresent())
+        .isTrue();
+
+    PersonGame personGame = optionalPersonGame.get();
+
+    assertThat(game.steam_title.getValue())
         .isEqualTo(gameName);
-    assertThat(gameLog.steamID.getValue())
-        .isEqualTo(steamID);
-    assertThat(gameLog.platform.getValue())
+
+    assertThat(personGame.minutes_played.getValue())
+        .isEqualTo(playtime);
+    assertThat(personGame.tier.getValue())
+        .isEqualTo(2);
+
+    List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    assertThat(availableGamePlatforms)
+        .hasSize(2);
+
+    AvailableGamePlatform availableGamePlatform = getAvailablePlatformWithName(game, "Steam");
+    assertThat(availableGamePlatform.gameID.getValue())
+        .isEqualTo(game.id.getValue());
+
+    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    assertThat(myPlatforms)
+        .hasSize(2);
+
+    MyGamePlatform myPlatform = getMyPlatformWithName(personGame, "Steam");
+    assertThat(myPlatform.availableGamePlatformID.getValue())
+        .isEqualTo(availableGamePlatform.id.getValue());
+    assertThat(myPlatform.personID.getValue())
+        .isEqualTo(person_id);
+    assertThat(myPlatform.platformName.getValue())
         .isEqualTo("Steam");
-    assertThat(gameLog.previousPlaytime.getValue())
-        .isEqualByComparingTo(new BigDecimal(0));
-    assertThat(gameLog.updatedplaytime.getValue())
-        .isEqualByComparingTo(new BigDecimal(playtime));
-    assertThat(gameLog.diff.getValue())
-        .isEqualByComparingTo(new BigDecimal(playtime));
-    assertThat(gameLog.eventdate.getValue())
+    assertThat(myPlatform.minutes_played.getValue())
+        .isEqualTo(playtime);
+    assertThat(myPlatform.last_played.getValue())
         .isNotNull();
-    assertThat(gameLog.eventtype.getValue())
-        .isEqualTo("Played");
 
   }
 
@@ -537,7 +575,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     game.initializeForInsert();
     game.title.changeValue(gameName);
     game.steamID.changeValue(steamID);
-    game.steam_title.changeValue(gameName);
+    game.steam_title.changeValue(platformName.equals("Steam") ? gameName : null);
 
     game.commit(connection);
 

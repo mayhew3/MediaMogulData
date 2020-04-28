@@ -1,0 +1,15 @@
+{
+  "response": {
+    "game_count": 1,
+    "games": [
+      {
+        "img_icon_url": "f275aeb0b1b947262810569356a199848c643754",
+        "has_community_visible_stats": true,
+        "appid": 268500,
+        "name": "Plerpen",
+        "img_logo_url": "10a6157d6614f63cd8a95d002d022778c207c218",
+        "playtime_forever": 11558
+      }
+    ]
+  }
+}
