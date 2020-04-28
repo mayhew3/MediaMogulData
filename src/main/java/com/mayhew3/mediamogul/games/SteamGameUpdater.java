@@ -28,6 +28,7 @@ class SteamGameUpdater {
     game.logo.changeValue(logo);
     game.icon.changeValue(icon);
     game.steam_title.changeValue(name);
+    game.commit(connection);
 
     GamePlatform steamPlatform = GamePlatform.getOrCreatePlatform(connection, "Steam");
 
