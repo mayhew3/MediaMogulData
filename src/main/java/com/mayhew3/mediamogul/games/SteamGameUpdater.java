@@ -34,14 +34,19 @@ class SteamGameUpdater {
     AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(steamPlatform, connection);
 
     PersonGame personGame = game.getOrCreatePersonGame(person_id, connection);
+    MyGamePlatform myPlatform = personGame.getOrCreatePlatform(connection, availableGamePlatform);
 
-    Integer previousPlaytime = personGame.minutes_played.getValue() == null ? 0 : personGame.minutes_played.getValue();
+    Integer previousPlaytime = myPlatform.minutes_played.getValue() == null ? 0 : myPlatform.minutes_played.getValue();
     if (!(playtime.compareTo(previousPlaytime) == 0)) {
       logUpdateToPlaytime(name, steamID, new BigDecimal(previousPlaytime), new BigDecimal(playtime), game.id.getValue());
       personGame.minutes_played.changeValue(playtime);
       personGame.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
+
+      myPlatform.minutes_played.changeValue(playtime);
+      myPlatform.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
     }
 
+    myPlatform.commit(connection);
     personGame.commit(connection);
 
     personGame.getOrCreatePlatform(connection, availableGamePlatform);
@@ -75,15 +80,18 @@ class SteamGameUpdater {
     personGame.tier.changeValue(2);
     personGame.minutes_played.changeValue(playtime);
 
-    personGame.commit(connection);
-
-    personGame.getOrCreatePlatform(connection, availableGamePlatform);
+    MyGamePlatform myPlatform = personGame.getOrCreatePlatform(connection, availableGamePlatform);
+    myPlatform.tier.changeValue(2);
+    myPlatform.minutes_played.changeValue(playtime);
 
     if (needsPlaytimeUpdate) {
       logUpdateToPlaytime(name, steamID, BigDecimal.ZERO, new BigDecimal(playtime), game.id.getValue());
       personGame.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
-      personGame.commit(connection);
+      myPlatform.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
     }
+
+    personGame.commit(connection);
+    myPlatform.commit(connection);
 
     ChromeDriver chromeDriver = chromeProvider.openBrowser();
 
