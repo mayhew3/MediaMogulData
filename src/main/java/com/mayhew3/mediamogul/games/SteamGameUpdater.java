@@ -1,10 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.ChromeProvider;
-import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
-import com.mayhew3.mediamogul.model.games.Game;
-import com.mayhew3.mediamogul.model.games.GameLog;
-import com.mayhew3.mediamogul.model.games.PersonGame;
+import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.joda.time.DateTime;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -32,7 +29,9 @@ class SteamGameUpdater {
     game.icon.changeValue(icon);
     game.steam_title.changeValue(name);
 
-    AvailableGamePlatform availableGamePlatform = game.getOrCreateSteamPlatform(connection);
+    GamePlatform steamPlatform = GamePlatform.getOrCreatePlatform(connection, "Steam");
+
+    AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(steamPlatform, connection);
 
     PersonGame personGame = game.getOrCreatePersonGame(person_id, connection);
 
@@ -45,7 +44,7 @@ class SteamGameUpdater {
 
     personGame.commit(connection);
 
-    personGame.getOrCreateSteamPlatform(connection, availableGamePlatform);
+    personGame.getOrCreatePlatform(connection, availableGamePlatform);
 
     game.commit(connection);
   }
@@ -64,8 +63,10 @@ class SteamGameUpdater {
 
     game.commit(connection);
 
-    AvailableGamePlatform steamPlatform = game.getOrCreateSteamPlatform(connection);
-    steamPlatform.metacriticPage.changeValue(false);
+    GamePlatform steamPlatform = GamePlatform.getOrCreatePlatform(connection, "Steam");
+
+    AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(steamPlatform, connection);
+    availableGamePlatform.metacriticPage.changeValue(false);
 
     PersonGame personGame = new PersonGame();
     personGame.initializeForInsert();
@@ -76,7 +77,7 @@ class SteamGameUpdater {
 
     personGame.commit(connection);
 
-    personGame.getOrCreateSteamPlatform(connection, steamPlatform);
+    personGame.getOrCreatePlatform(connection, availableGamePlatform);
 
     if (needsPlaytimeUpdate) {
       logUpdateToPlaytime(name, steamID, BigDecimal.ZERO, new BigDecimal(playtime), game.id.getValue());

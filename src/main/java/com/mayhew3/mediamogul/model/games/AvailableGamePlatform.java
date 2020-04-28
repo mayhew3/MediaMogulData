@@ -1,6 +1,10 @@
 package com.mayhew3.mediamogul.model.games;
 
 import com.mayhew3.postgresobject.dataobject.*;
+import com.mayhew3.postgresobject.db.SQLConnection;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AvailableGamePlatform extends RetireableDataObject {
 
@@ -26,4 +30,18 @@ public class AvailableGamePlatform extends RetireableDataObject {
     return "Platform ID " + gamePlatformID.getValue() + " for Game ID " + gameID.getValue();
   }
 
+
+  public GamePlatform getGamePlatform(SQLConnection connection) throws SQLException {
+    String sql = "SELECT * " +
+        "FROM game_platform " +
+        "WHERE id = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gamePlatformID.getValue());
+    if (resultSet.next()) {
+      GamePlatform gamePlatform = new GamePlatform();
+      gamePlatform.initializeFromDBObject(resultSet);
+      return gamePlatform;
+    } else {
+      throw new IllegalStateException("No gamePlatform found with id: " + gamePlatformID.getValue());
+    }
+  }
 }

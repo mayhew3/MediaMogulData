@@ -220,7 +220,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
           "FROM game " +
           "WHERE igdb_id = ? " +
           "AND retired = ? ";
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, exactMatch.get().getInt("id"));
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, exactMatch.get().getInt("id"), 0);
       if (resultSet.next()) {
         Game game = new Game();
         game.initializeFromDBObject(resultSet);

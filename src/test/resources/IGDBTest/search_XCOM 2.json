@@ -1,0 +1,1903 @@
+[
+  {
+    "summary": "In XCOM 2, the roles have been reversed, and XCOM is now the invading force. They are hampered by limited resources and must constantly evade the alien threat in their new mobile headquarters. Players must use a combination of firepower and stealth-like tactics to help XCOM recruit soldiers and build a resistance network, while attempting to expose the evil alien agenda and save humanity. \n\nXCOM 2 will introduce gameplay features such as procedurally-generated levels, which will make each experience unique to the player, as well as offer a much deeper level of modding support. Additionally, XCOM 2 will offer a variety of new content including five updated soldier classes, increased soldier customization, more alien and enemy types, evolved tactical combat and more.",
+    "keywords": [
+      {
+        "name": "aliens",
+        "id": 3
+      },
+      {
+        "name": "soccer",
+        "id": 26
+      },
+      {
+        "name": "football",
+        "id": 27
+      },
+      {
+        "name": "robot",
+        "id": 67
+      },
+      {
+        "name": "chainsaw",
+        "id": 79
+      },
+      {
+        "name": "blood",
+        "id": 129
+      },
+      {
+        "name": "sword",
+        "id": 227
+      },
+      {
+        "name": "health",
+        "id": 301
+      },
+      {
+        "name": "pedestrians",
+        "id": 314
+      },
+      {
+        "name": "shark",
+        "id": 403
+      },
+      {
+        "name": "plasma rifle",
+        "id": 443
+      },
+      {
+        "name": "guitar",
+        "id": 488
+      },
+      {
+        "name": "soldier",
+        "id": 562
+      },
+      {
+        "name": "robots",
+        "id": 575
+      },
+      {
+        "name": "procedural generation",
+        "id": 577
+      },
+      {
+        "name": "fire",
+        "id": 594
+      },
+      {
+        "name": "ufo",
+        "id": 732
+      },
+      {
+        "name": "riot",
+        "id": 963
+      },
+      {
+        "name": "sci-fi",
+        "id": 970
+      },
+      {
+        "name": "bridge",
+        "id": 1019
+      },
+      {
+        "name": "water",
+        "id": 1098
+      },
+      {
+        "name": "steam",
+        "id": 1158
+      },
+      {
+        "name": "bird",
+        "id": 1228
+      },
+      {
+        "name": "portals",
+        "id": 1422
+      },
+      {
+        "name": "hacking",
+        "id": 1423
+      },
+      {
+        "name": "rock",
+        "id": 1507
+      },
+      {
+        "name": "bus",
+        "id": 1599
+      },
+      {
+        "name": "base management",
+        "id": 1607
+      },
+      {
+        "name": "snow",
+        "id": 1710
+      },
+      {
+        "name": "car",
+        "id": 1783
+      },
+      {
+        "name": "easter egg",
+        "id": 1898
+      },
+      {
+        "name": "teleportation",
+        "id": 1986
+      },
+      {
+        "name": "sequel",
+        "id": 2071
+      },
+      {
+        "name": "silent protagonist",
+        "id": 2199
+      },
+      {
+        "name": "flowers",
+        "id": 2337
+      },
+      {
+        "name": "glitch",
+        "id": 2450
+      },
+      {
+        "name": "shovel",
+        "id": 2542
+      },
+      {
+        "name": "fruit",
+        "id": 2678
+      },
+      {
+        "name": "scissors",
+        "id": 3102
+      },
+      {
+        "name": "research",
+        "id": 3292
+      },
+      {
+        "name": "enemy",
+        "id": 3337
+      },
+      {
+        "name": "strategy",
+        "id": 3782
+      },
+      {
+        "name": "tree",
+        "id": 3794
+      },
+      {
+        "name": "explosion",
+        "id": 3831
+      },
+      {
+        "name": "truck",
+        "id": 3994
+      },
+      {
+        "name": "coffee",
+        "id": 4094
+      },
+      {
+        "name": "digital distribution",
+        "id": 4134
+      },
+      {
+        "name": "transformations",
+        "id": 4143
+      },
+      {
+        "name": "train",
+        "id": 4146
+      },
+      {
+        "name": "rail track",
+        "id": 4147
+      },
+      {
+        "name": "hamburger",
+        "id": 4182
+      },
+      {
+        "name": "crate",
+        "id": 4183
+      },
+      {
+        "name": "apple",
+        "id": 4184
+      },
+      {
+        "name": "mask",
+        "id": 4187
+      },
+      {
+        "name": "cactus",
+        "id": 4197
+      },
+      {
+        "name": "plate",
+        "id": 4198
+      },
+      {
+        "name": "spoon",
+        "id": 4200
+      },
+      {
+        "name": "fork",
+        "id": 4201
+      },
+      {
+        "name": "laboratory apparatus",
+        "id": 4203
+      },
+      {
+        "name": "random number generation",
+        "id": 4212
+      },
+      {
+        "name": "platform exclusive",
+        "id": 4239
+      },
+      {
+        "name": "playing cards",
+        "id": 4270
+      },
+      {
+        "name": "customizable characters",
+        "id": 4272
+      },
+      {
+        "name": "steam workshop",
+        "id": 4275
+      },
+      {
+        "name": "voice acting",
+        "id": 4287
+      },
+      {
+        "name": "palette swap",
+        "id": 4288
+      },
+      {
+        "name": "sunglasses",
+        "id": 4305
+      },
+      {
+        "name": "rope",
+        "id": 4316
+      },
+      {
+        "name": "log",
+        "id": 4319
+      },
+      {
+        "name": "banana",
+        "id": 4324
+      },
+      {
+        "name": "first-person perspective",
+        "id": 4330
+      },
+      {
+        "name": "tutorial",
+        "id": 4332
+      },
+      {
+        "name": "cell phone",
+        "id": 4338
+      },
+      {
+        "name": "bink video",
+        "id": 4345
+      },
+      {
+        "name": "mind control",
+        "id": 4352
+      },
+      {
+        "name": "xbox one x enhanced",
+        "id": 4357
+      },
+      {
+        "name": "polygonal 3d",
+        "id": 4359
+      },
+      {
+        "name": "book",
+        "id": 4363
+      },
+      {
+        "name": "pipe",
+        "id": 4374
+      },
+      {
+        "name": "turret",
+        "id": 4391
+      },
+      {
+        "name": "explosives",
+        "id": 4393
+      },
+      {
+        "name": "critical hit",
+        "id": 4395
+      },
+      {
+        "name": "upgradeable weapons",
+        "id": 4397
+      },
+      {
+        "name": "pop culture reference",
+        "id": 4403
+      },
+      {
+        "name": "frying pan",
+        "id": 4420
+      },
+      {
+        "name": "bed",
+        "id": 4428
+      },
+      {
+        "name": "shelf",
+        "id": 4432
+      },
+      {
+        "name": "currency",
+        "id": 4444
+      },
+      {
+        "name": "gun",
+        "id": 4446
+      },
+      {
+        "name": "hat",
+        "id": 4450
+      },
+      {
+        "name": "armor",
+        "id": 4460
+      },
+      {
+        "name": "eyepatch",
+        "id": 4507
+      },
+      {
+        "name": "knife",
+        "id": 4508
+      },
+      {
+        "name": "beard",
+        "id": 4548
+      },
+      {
+        "name": "hockey mask",
+        "id": 4563
+      },
+      {
+        "name": "rocket launcher",
+        "id": 4572
+      },
+      {
+        "name": "skull",
+        "id": 4573
+      },
+      {
+        "name": "headband",
+        "id": 4574
+      },
+      {
+        "name": "motion blur",
+        "id": 4578
+      },
+      {
+        "name": "rain",
+        "id": 4582
+      },
+      {
+        "name": "white noise",
+        "id": 4583
+      },
+      {
+        "name": "first-person regain consciousness",
+        "id": 4585
+      },
+      {
+        "name": "color separation",
+        "id": 4586
+      },
+      {
+        "name": "gamma adjustment",
+        "id": 4588
+      },
+      {
+        "name": "cardboard box",
+        "id": 4589
+      },
+      {
+        "name": "sink",
+        "id": 4594
+      },
+      {
+        "name": "houseplant",
+        "id": 4598
+      },
+      {
+        "name": "window",
+        "id": 4599
+      },
+      {
+        "name": "child art",
+        "id": 4600
+      },
+      {
+        "name": "desk lamp",
+        "id": 4601
+      },
+      {
+        "name": "chips",
+        "id": 4606
+      },
+      {
+        "name": "humble bundle",
+        "id": 4609
+      },
+      {
+        "name": "cutscene",
+        "id": 4611
+      },
+      {
+        "name": "fake in-game advertising",
+        "id": 4623
+      },
+      {
+        "name": "smoke",
+        "id": 4624
+      },
+      {
+        "name": "table",
+        "id": 4625
+      },
+      {
+        "name": "energy force shield",
+        "id": 4627
+      },
+      {
+        "name": "warning sign",
+        "id": 4633
+      },
+      {
+        "name": "pillow",
+        "id": 4634
+      },
+      {
+        "name": "desk",
+        "id": 4635
+      },
+      {
+        "name": "corpse",
+        "id": 4637
+      },
+      {
+        "name": "rubble",
+        "id": 4642
+      },
+      {
+        "name": "pistol",
+        "id": 4660
+      },
+      {
+        "name": "first aid kit",
+        "id": 4662
+      },
+      {
+        "name": "barbell",
+        "id": 4666
+      },
+      {
+        "name": "baseball cap",
+        "id": 4668
+      },
+      {
+        "name": "bench",
+        "id": 4737
+      },
+      {
+        "name": "fence",
+        "id": 4738
+      },
+      {
+        "name": "watermelon",
+        "id": 4750
+      },
+      {
+        "name": "glasses",
+        "id": 4788
+      },
+      {
+        "name": "faceless hero",
+        "id": 4791
+      },
+      {
+        "name": "character creation",
+        "id": 4823
+      },
+      {
+        "name": "bottle",
+        "id": 4829
+      },
+      {
+        "name": "street light",
+        "id": 4831
+      },
+      {
+        "name": "staircase",
+        "id": 4833
+      },
+      {
+        "name": "resistance",
+        "id": 4857
+      },
+      {
+        "name": "ambush",
+        "id": 4865
+      },
+      {
+        "name": "barrel",
+        "id": 4880
+      },
+      {
+        "name": "melee",
+        "id": 4891
+      },
+      {
+        "name": "crosshair",
+        "id": 4892
+      },
+      {
+        "name": "auto-save",
+        "id": 4897
+      },
+      {
+        "name": "grapple",
+        "id": 4903
+      },
+      {
+        "name": "smoke grenade",
+        "id": 4905
+      },
+      {
+        "name": "gloves",
+        "id": 4907
+      },
+      {
+        "name": "ring",
+        "id": 4943
+      },
+      {
+        "name": "cigarette",
+        "id": 4968
+      },
+      {
+        "name": "unreal engine 3",
+        "id": 4973
+      },
+      {
+        "name": "scaleform",
+        "id": 4977
+      },
+      {
+        "name": "stat tracking",
+        "id": 4984
+      },
+      {
+        "name": "friendly fire",
+        "id": 4996
+      },
+      {
+        "name": "shielded enemies",
+        "id": 5000
+      },
+      {
+        "name": "teleporter",
+        "id": 5005
+      },
+      {
+        "name": "umbrella",
+        "id": 5011
+      },
+      {
+        "name": "difficulty level",
+        "id": 5029
+      },
+      {
+        "name": "laser",
+        "id": 5116
+      },
+      {
+        "name": "statue",
+        "id": 5117
+      },
+      {
+        "name": "tombstone",
+        "id": 5120
+      },
+      {
+        "name": "chess pieces",
+        "id": 5137
+      },
+      {
+        "name": "breakable glass",
+        "id": 5156
+      },
+      {
+        "name": "fake glitch",
+        "id": 5158
+      },
+      {
+        "name": "poster",
+        "id": 5161
+      },
+      {
+        "name": "self-referential humor",
+        "id": 5164
+      },
+      {
+        "name": "mustache",
+        "id": 5171
+      },
+      {
+        "name": "facial hair",
+        "id": 5172
+      },
+      {
+        "name": "quicksaving",
+        "id": 5181
+      },
+      {
+        "name": "quickloading",
+        "id": 5182
+      },
+      {
+        "name": "couch",
+        "id": 5186
+      },
+      {
+        "name": "tire",
+        "id": 5196
+      },
+      {
+        "name": "liberation",
+        "id": 5210
+      },
+      {
+        "name": "tooltip",
+        "id": 5212
+      },
+      {
+        "name": "clock",
+        "id": 5216
+      },
+      {
+        "name": "vending machine",
+        "id": 5264
+      },
+      {
+        "name": "aluminum can",
+        "id": 5266
+      },
+      {
+        "name": "rug",
+        "id": 5273
+      },
+      {
+        "name": "curtain",
+        "id": 5276
+      },
+      {
+        "name": "television newscast",
+        "id": 5285
+      },
+      {
+        "name": "hit points",
+        "id": 5320
+      },
+      {
+        "name": "e3 2015",
+        "id": 5343
+      },
+      {
+        "name": "sniper rifle",
+        "id": 5350
+      },
+      {
+        "name": "enemy health indicator",
+        "id": 5361
+      },
+      {
+        "name": "ponytail",
+        "id": 5391
+      },
+      {
+        "name": "bowl",
+        "id": 5392
+      },
+      {
+        "name": "scripted death",
+        "id": 5413
+      },
+      {
+        "name": "television",
+        "id": 5420
+      },
+      {
+        "name": "arcade cabinet",
+        "id": 5425
+      },
+      {
+        "name": "playground slide",
+        "id": 5431
+      },
+      {
+        "name": "swing set",
+        "id": 5432
+      },
+      {
+        "name": "cover system",
+        "id": 5451
+      },
+      {
+        "name": "destructible environment",
+        "id": 5453
+      },
+      {
+        "name": "terrorists",
+        "id": 5466
+      },
+      {
+        "name": "the future",
+        "id": 5479
+      },
+      {
+        "name": "scientist",
+        "id": 5494
+      },
+      {
+        "name": "rocket",
+        "id": 5503
+      },
+      {
+        "name": "cooking range",
+        "id": 5544
+      },
+      {
+        "name": "dart board",
+        "id": 5547
+      },
+      {
+        "name": "stool",
+        "id": 5549
+      },
+      {
+        "name": "confirm menu choices",
+        "id": 5562
+      },
+      {
+        "name": "english accent",
+        "id": 5564
+      },
+      {
+        "name": "tattoo",
+        "id": 5586
+      },
+      {
+        "name": "power line",
+        "id": 5590
+      },
+      {
+        "name": "jellyfish",
+        "id": 5596
+      },
+      {
+        "name": "gasoline can",
+        "id": 5617
+      },
+      {
+        "name": "exploding enemies",
+        "id": 5660
+      },
+      {
+        "name": "non-standard difficulty differences",
+        "id": 5696
+      },
+      {
+        "name": "cushion",
+        "id": 5711
+      },
+      {
+        "name": "disorientation",
+        "id": 5732
+      },
+      {
+        "name": "engineer",
+        "id": 5750
+      },
+      {
+        "name": "traffic cone",
+        "id": 5754
+      },
+      {
+        "name": "fire hydrant",
+        "id": 5760
+      },
+      {
+        "name": "pumpkin",
+        "id": 5766
+      },
+      {
+        "name": "clothesline",
+        "id": 5771
+      },
+      {
+        "name": "grenade",
+        "id": 5775
+      },
+      {
+        "name": "ski mask",
+        "id": 5813
+      },
+      {
+        "name": "chessboard",
+        "id": 5821
+      },
+      {
+        "name": "mod support",
+        "id": 5836
+      },
+      {
+        "name": "mailbox",
+        "id": 5853
+      },
+      {
+        "name": "eye scars",
+        "id": 5902
+      },
+      {
+        "name": "energy weapons",
+        "id": 5945
+      },
+      {
+        "name": "saw",
+        "id": 5978
+      },
+      {
+        "name": "overwatch",
+        "id": 6004
+      },
+      {
+        "name": "one-handed gameplay",
+        "id": 6048
+      },
+      {
+        "name": "monocle",
+        "id": 6071
+      },
+      {
+        "name": "mohawk",
+        "id": 6114
+      },
+      {
+        "name": "rotatable objects",
+        "id": 6131
+      },
+      {
+        "name": "flare",
+        "id": 6260
+      },
+      {
+        "name": "trash bag",
+        "id": 6268
+      },
+      {
+        "name": "regenerating health",
+        "id": 6295
+      },
+      {
+        "name": "splash damage",
+        "id": 6299
+      },
+      {
+        "name": "in-engine cinematic",
+        "id": 6309
+      },
+      {
+        "name": "muzzle flash",
+        "id": 6341
+      },
+      {
+        "name": "plasma grenade",
+        "id": 6348
+      },
+      {
+        "name": "magazine",
+        "id": 6356
+      },
+      {
+        "name": "bleeding out",
+        "id": 6362
+      },
+      {
+        "name": "grenade launcher",
+        "id": 6397
+      },
+      {
+        "name": "garden gnome",
+        "id": 6409
+      },
+      {
+        "name": "pallet",
+        "id": 6420
+      },
+      {
+        "name": "flashback",
+        "id": 6461
+      },
+      {
+        "name": "shirt",
+        "id": 6478
+      },
+      {
+        "name": "poison",
+        "id": 6541
+      },
+      {
+        "name": "street sign",
+        "id": 6605
+      },
+      {
+        "name": "scripted events",
+        "id": 6620
+      },
+      {
+        "name": "scope",
+        "id": 6625
+      },
+      {
+        "name": "flanking",
+        "id": 6643
+      },
+      {
+        "name": "charging heavyweight enemies",
+        "id": 6738
+      },
+      {
+        "name": "bandana",
+        "id": 6788
+      },
+      {
+        "name": "propaganda",
+        "id": 6828
+      },
+      {
+        "name": "satellite dish",
+        "id": 6830
+      },
+      {
+        "name": "earrings",
+        "id": 6995
+      },
+      {
+        "name": "texture pop-in",
+        "id": 7045
+      },
+      {
+        "name": "infinite spawn",
+        "id": 7158
+      },
+      {
+        "name": "tongue attack",
+        "id": 7238
+      },
+      {
+        "name": "engine",
+        "id": 7407
+      },
+      {
+        "name": "status effects",
+        "id": 7423
+      },
+      {
+        "name": "invented language",
+        "id": 7473
+      },
+      {
+        "name": "loss of consciousness",
+        "id": 7507
+      },
+      {
+        "name": "ashtray",
+        "id": 7579
+      },
+      {
+        "name": "foreshadowing",
+        "id": 7603
+      },
+      {
+        "name": "point of no return",
+        "id": 7643
+      },
+      {
+        "name": "toolbox",
+        "id": 8114
+      },
+      {
+        "name": "australian accent",
+        "id": 8153
+      },
+      {
+        "name": "multiple currencies",
+        "id": 8322
+      },
+      {
+        "name": "enemies emerging from eggs",
+        "id": 8800
+      },
+      {
+        "name": "corpse spasms",
+        "id": 8830
+      },
+      {
+        "name": "alien languages",
+        "id": 8901
+      },
+      {
+        "name": "breaking through windows",
+        "id": 9045
+      },
+      {
+        "name": "plasma gun",
+        "id": 9312
+      },
+      {
+        "name": "incendiary ammunition",
+        "id": 9462
+      },
+      {
+        "name": "minion missions",
+        "id": 9636
+      },
+      {
+        "name": "enemy spawner",
+        "id": 10135
+      },
+      {
+        "name": "ethereal",
+        "id": 10319
+      },
+      {
+        "name": "sectopod",
+        "id": 10320
+      },
+      {
+        "name": "gas grenade",
+        "id": 10321
+      },
+      {
+        "name": "emp grenade",
+        "id": 10322
+      },
+      {
+        "name": "the game awards 2016",
+        "id": 14051
+      },
+      {
+        "name": "the game awards nominee 2016",
+        "id": 14052
+      },
+      {
+        "name": "best strategy game: nominee - 2016 (the game awards)",
+        "id": 14053
+      },
+      {
+        "name": "xcom",
+        "id": 18553
+      },
+      {
+        "name": "xcom 2",
+        "id": 18554
+      },
+      {
+        "name": "enemy within",
+        "id": 18555
+      },
+      {
+        "name": "enemy unknown",
+        "id": 18556
+      }
+    ],
+    "rating": 82.082978283106,
+    "aggregated_rating_count": 33,
+    "player_perspectives": [
+      {
+        "name": "Bird view / Isometric",
+        "id": 3
+      }
+    ],
+    "url": "https://www.igdb.com/games/xcom-2",
+    "platforms": [
+      {
+        "name": "Linux",
+        "id": 3,
+        "abbreviation": "Linux"
+      },
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      },
+      {
+        "name": "Mac",
+        "id": 14,
+        "abbreviation": "Mac"
+      },
+      {
+        "name": "PlayStation 4",
+        "id": 48,
+        "abbreviation": "PS4"
+      },
+      {
+        "name": "Xbox One",
+        "id": 49,
+        "abbreviation": "XONE"
+      }
+    ],
+    "rating_count": 172,
+    "tags": [
+      18,
+      268435468,
+      268435470,
+      268435471,
+      268435472,
+      268435480,
+      536870915,
+      536870938,
+      536870939,
+      536870979,
+      536870991,
+      536871041,
+      536871139,
+      536871213,
+      536871226,
+      536871315,
+      536871355,
+      536871400,
+      536871474,
+      536871487,
+      536871489,
+      536871506,
+      536871644,
+      536871875,
+      536871882,
+      536871931,
+      536872010,
+      536872070,
+      536872140,
+      536872334,
+      536872335,
+      536872419,
+      536872511,
+      536872519,
+      536872622,
+      536872695,
+      536872810,
+      536872898,
+      536872983,
+      536873111,
+      536873249,
+      536873362,
+      536873454,
+      536873590,
+      536874014,
+      536874204,
+      536874249,
+      536874694,
+      536874706,
+      536874743,
+      536874906,
+      536875006,
+      536875046,
+      536875055,
+      536875058,
+      536875059,
+      536875094,
+      536875095,
+      536875096,
+      536875099,
+      536875109,
+      536875110,
+      536875112,
+      536875113,
+      536875115,
+      536875124,
+      536875151,
+      536875182,
+      536875184,
+      536875187,
+      536875199,
+      536875200,
+      536875217,
+      536875228,
+      536875231,
+      536875236,
+      536875242,
+      536875244,
+      536875250,
+      536875257,
+      536875264,
+      536875269,
+      536875271,
+      536875275,
+      536875286,
+      536875303,
+      536875305,
+      536875307,
+      536875309,
+      536875315,
+      536875332,
+      536875340,
+      536875344,
+      536875356,
+      536875358,
+      536875362,
+      536875372,
+      536875419,
+      536875420,
+      536875460,
+      536875475,
+      536875484,
+      536875485,
+      536875486,
+      536875490,
+      536875494,
+      536875495,
+      536875497,
+      536875498,
+      536875500,
+      536875501,
+      536875506,
+      536875510,
+      536875511,
+      536875512,
+      536875513,
+      536875518,
+      536875521,
+      536875523,
+      536875535,
+      536875536,
+      536875537,
+      536875539,
+      536875545,
+      536875546,
+      536875547,
+      536875549,
+      536875554,
+      536875572,
+      536875574,
+      536875578,
+      536875580,
+      536875649,
+      536875650,
+      536875662,
+      536875700,
+      536875703,
+      536875735,
+      536875741,
+      536875743,
+      536875745,
+      536875769,
+      536875777,
+      536875792,
+      536875803,
+      536875804,
+      536875809,
+      536875815,
+      536875817,
+      536875819,
+      536875855,
+      536875880,
+      536875885,
+      536875889,
+      536875896,
+      536875908,
+      536875912,
+      536875917,
+      536875923,
+      536875941,
+      536876028,
+      536876029,
+      536876032,
+      536876049,
+      536876068,
+      536876070,
+      536876073,
+      536876076,
+      536876083,
+      536876084,
+      536876093,
+      536876094,
+      536876098,
+      536876108,
+      536876122,
+      536876124,
+      536876128,
+      536876176,
+      536876178,
+      536876185,
+      536876188,
+      536876197,
+      536876232,
+      536876255,
+      536876262,
+      536876273,
+      536876303,
+      536876304,
+      536876325,
+      536876332,
+      536876337,
+      536876343,
+      536876344,
+      536876363,
+      536876365,
+      536876378,
+      536876391,
+      536876406,
+      536876415,
+      536876456,
+      536876459,
+      536876461,
+      536876474,
+      536876476,
+      536876498,
+      536876502,
+      536876508,
+      536876529,
+      536876572,
+      536876608,
+      536876623,
+      536876644,
+      536876662,
+      536876666,
+      536876672,
+      536876678,
+      536876683,
+      536876687,
+      536876725,
+      536876733,
+      536876748,
+      536876765,
+      536876814,
+      536876857,
+      536876890,
+      536876916,
+      536876960,
+      536876983,
+      536877026,
+      536877043,
+      536877172,
+      536877180,
+      536877207,
+      536877211,
+      536877221,
+      536877253,
+      536877260,
+      536877268,
+      536877274,
+      536877309,
+      536877321,
+      536877332,
+      536877373,
+      536877390,
+      536877453,
+      536877517,
+      536877532,
+      536877537,
+      536877555,
+      536877650,
+      536877700,
+      536877740,
+      536877742,
+      536877907,
+      536877957,
+      536878070,
+      536878150,
+      536878319,
+      536878335,
+      536878385,
+      536878419,
+      536878491,
+      536878515,
+      536878555,
+      536879026,
+      536879065,
+      536879234,
+      536879712,
+      536879742,
+      536879813,
+      536879957,
+      536880224,
+      536880374,
+      536880548,
+      536881047,
+      536881231,
+      536881232,
+      536881233,
+      536881234,
+      536884963,
+      536884964,
+      536884965,
+      536889465,
+      536889466,
+      536889467,
+      536889468
+    ],
+    "cover": {
+      "width": 639,
+      "id": 76303,
+      "image_id": "co1mvj",
+      "height": 852
+    },
+    "pulse_count": 115,
+    "updated_at": 1587945600,
+    "first_release_date": 1454630400,
+    "genres": [
+      {
+        "name": "Role-playing (RPG)",
+        "id": 12
+      },
+      {
+        "name": "Sport",
+        "id": 14
+      },
+      {
+        "name": "Strategy",
+        "id": 15
+      },
+      {
+        "name": "Turn-based strategy (TBS)",
+        "id": 16
+      },
+      {
+        "name": "Tactical",
+        "id": 24
+      }
+    ],
+    "popularity": 19.72302062784004,
+    "release_dates": [
+      {
+        "date": 1454630400,
+        "id": 38004,
+        "platform": {
+          "name": "PC (Microsoft Windows)",
+          "id": 6
+        }
+      },
+      {
+        "date": 1454630400,
+        "id": 38006,
+        "platform": {
+          "name": "Linux",
+          "id": 3
+        }
+      },
+      {
+        "date": 1474934400,
+        "id": 55649,
+        "platform": {
+          "name": "Xbox One",
+          "id": 49
+        }
+      },
+      {
+        "date": 1474934400,
+        "id": 55650,
+        "platform": {
+          "name": "PlayStation 4",
+          "id": 48
+        }
+      },
+      {
+        "date": 1474934400,
+        "id": 106990,
+        "platform": {
+          "name": "PlayStation 4",
+          "id": 48
+        }
+      },
+      {
+        "date": 1475193600,
+        "id": 106991,
+        "platform": {
+          "name": "PlayStation 4",
+          "id": 48
+        }
+      },
+      {
+        "date": 1454630400,
+        "id": 120638,
+        "platform": {
+          "name": "PC (Microsoft Windows)",
+          "id": 6
+        }
+      },
+      {
+        "date": 1474934400,
+        "id": 136463,
+        "platform": {
+          "name": "Xbox One",
+          "id": 49
+        }
+      },
+      {
+        "date": 1459987200,
+        "id": 147210,
+        "platform": {
+          "name": "Mac",
+          "id": 14
+        }
+      }
+    ],
+    "name": "XCOM 2",
+    "aggregated_rating": 85.2068965517241,
+    "id": 10919,
+    "involved_companies": [
+      {
+        "company": {
+          "name": "Firaxis Games",
+          "id": 377
+        },
+        "id": 24058
+      },
+      {
+        "company": {
+          "name": "2K Games",
+          "id": 8
+        },
+        "id": 24059
+      },
+      {
+        "company": {
+          "name": "Feral Interactive",
+          "id": 23
+        },
+        "id": 42285
+      }
+    ],
+    "slug": "xcom-2"
+  },
+  {
+    "aggregated_rating_count": 2,
+    "url": "https://www.igdb.com/games/xcom-2-shens-last-gift",
+    "platforms": [
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      }
+    ],
+    "cover": {
+      "width": 390,
+      "id": 94077,
+      "image_id": "co20l9",
+      "height": 520
+    },
+    "pulse_count": 1,
+    "updated_at": 1583712000,
+    "first_release_date": 1467244800,
+    "popularity": 1,
+    "release_dates": [
+      {
+        "date": 1467244800,
+        "id": 183920,
+        "platform": {
+          "name": "PC (Microsoft Windows)",
+          "id": 6
+        }
+      }
+    ],
+    "name": "XCOM 2: Shen's Last Gift",
+    "aggregated_rating": 80,
+    "id": 19859,
+    "involved_companies": [
+      {
+        "company": {
+          "name": "Firaxis Games",
+          "id": 377
+        },
+        "id": 89443
+      },
+      {
+        "company": {
+          "name": "Feral Interactive",
+          "id": 23
+        },
+        "id": 89444
+      },
+      {
+        "company": {
+          "name": "2K Games",
+          "id": 8
+        },
+        "id": 89446
+      }
+    ],
+    "slug": "xcom-2-shens-last-gift"
+  },
+  {
+    "summary": "XCOM 2: War of the Chosen adds extensive new content in the fight against ADVENT when additional resistance factions form in order to eliminate the alien threat on Earth. In response, a new enemy, known as the \u201cChosen,\u201d emerges with one goal: recapture the Commander. This expansion includes new Hero classes to counter the \u201cChosen\u201d, new enemies, missions, environments and increased depth in strategic gameplay.",
+    "keywords": [
+      {
+        "name": "the game awards 2017",
+        "id": 12087
+      },
+      {
+        "name": "best strategy game: nominee - 2017 (the game awards)",
+        "id": 12150
+      },
+      {
+        "name": "the game awards nominee 2017",
+        "id": 12556
+      }
+    ],
+    "rating": 89.62767192689361,
+    "aggregated_rating_count": 10,
+    "player_perspectives": [
+      {
+        "name": "Bird view / Isometric",
+        "id": 3
+      }
+    ],
+    "url": "https://www.igdb.com/games/xcom-2-war-of-the-chosen",
+    "platforms": [
+      {
+        "name": "Linux",
+        "id": 3,
+        "abbreviation": "Linux"
+      },
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      },
+      {
+        "name": "Mac",
+        "id": 14,
+        "abbreviation": "Mac"
+      },
+      {
+        "name": "PlayStation 4",
+        "id": 48,
+        "abbreviation": "PS4"
+      },
+      {
+        "name": "Xbox One",
+        "id": 49,
+        "abbreviation": "XONE"
+      }
+    ],
+    "rating_count": 31,
+    "tags": [
+      18,
+      268435471,
+      268435472,
+      536882999,
+      536883062,
+      536883468
+    ],
+    "cover": {
+      "width": 600,
+      "id": 94415,
+      "image_id": "co20un",
+      "height": 800
+    },
+    "pulse_count": 58,
+    "updated_at": 1587513600,
+    "first_release_date": 1503964800,
+    "genres": [
+      {
+        "name": "Strategy",
+        "id": 15
+      },
+      {
+        "name": "Turn-based strategy (TBS)",
+        "id": 16
+      }
+    ],
+    "popularity": 4.343396540685721,
+    "release_dates": [
+      {
+        "date": 1503964800,
+        "id": 130037,
+        "platform": {
+          "name": "PlayStation 4",
+          "id": 48
+        }
+      },
+      {
+        "date": 1503964800,
+        "id": 130038,
+        "platform": {
+          "name": "Xbox One",
+          "id": 49
+        }
+      },
+      {
+        "date": 1503964800,
+        "id": 130039,
+        "platform": {
+          "name": "Linux",
+          "id": 3
+        }
+      },
+      {
+        "date": 1503964800,
+        "id": 130040,
+        "platform": {
+          "name": "Mac",
+          "id": 14
+        }
+      },
+      {
+        "date": 1503964800,
+        "id": 130041,
+        "platform": {
+          "name": "PC (Microsoft Windows)",
+          "id": 6
+        }
+      }
+    ],
+    "name": "XCOM 2: War of the Chosen",
+    "aggregated_rating": 86.4285714285714,
+    "id": 37060,
+    "involved_companies": [
+      {
+        "company": {
+          "name": "2K Games",
+          "id": 8
+        },
+        "id": 96266
+      },
+      {
+        "company": {
+          "name": "Firaxis Games",
+          "id": 377
+        },
+        "id": 96267
+      }
+    ],
+    "slug": "xcom-2-war-of-the-chosen"
+  },
+  {
+    "summary": "The XCOM 2: War of the Chosen - Tactical Legacy Pack includes a collection of new game modes, maps, weapons, armors, Photobooth options, and more that honors the legacy of the XCOM series. \n \nThis content requires ownership of both the base game XCOM 2, and the XCOM 2: War of the Chosen expansion to play. \nNEW GAMEPLAY MODES: \nLegacy Ops - Command a squad of soldiers through a series of linked consecutive tactical missions: \nCentral\u2019s Archives \u2013 Central Officer Bradford, and other key members of XCOM, recount the pivotal operations that led to the rise of the resistance between the events of XCOM: Enemy Unknown and XCOM 2: \nBlast from the Past \u2013 After the fall of XCOM HQ, Central Officer Bradford begins his journey to build the resistance by returning to where it all began. \nIt Came from the Sea \u2013 The broadcast of a fledgling radio DJ is reaching an audience he didn\u2019t intend. It\u2019s up to Central to save the DJ from an endless horde of hungry listeners. \nAvenger Assemble \u2013 Join Lily Shen as she works to retrofit the Avenger into a new home for the growing forces of a reinvigorated XCOM. \nThe Lazarus Project \u2013 ADVENT is kidnapping key members of the resistance, and it\u2019s up to Central to rescue some of XCOM's most renowned operatives. \nResistance Archives - Engage enemy forces in series of tactical missions increasing in difficulty. \nSkirmish Mode \u2013 Create and play your own custom XCOM tactical missions using the included editor that allows you to modify various settings (map, squad loadouts, objective, enemies, and more.) \nNEW MAPS: \nEngage in battle across 28 new maps remastered from XCOM: Enemy Unknown and XCOM: Enemy Within. These new maps will be featured in Central\u2019s Archives. \nNEW WEAPONS AND ARMOR: \nEquip your soldiers with reimagined versions of the conventional, laser, and plasma weapons, as well as Kevlar, Carapace, and Titan armor from XCOM: Enemy Unknown. Complete Central\u2019s Archives to unlock these new additions for use in the main single player campaign. \nNEW CUSTOMIZATION AND PHOTOBOOTH OPTIONS: \nCustomize your soldiers with new attitudes and helmets. Create new images in the Photobooth with additional backgrounds, colors, and character poses. \nNEW SOUNDTRACK OPTIONS: \nWith the new Soundtrack Selector you can choose to play the XCOM 2: War of the Chosen campaign with the existing score, the score from XCOM: Enemy Unknown, or an all-new soundtrack inspired by the music from the original X-COM: UFO Defense. \nOFFLINE CHALLENGE MODE: \nPlay through all 100+ War of the Chosen challenges as often as you want.",
+    "keywords": [
+      {
+        "name": "aliens",
+        "id": 3
+      },
+      {
+        "name": "alien invasion",
+        "id": 2962
+      }
+    ],
+    "player_perspectives": [
+      {
+        "name": "Bird view / Isometric",
+        "id": 3
+      }
+    ],
+    "url": "https://www.igdb.com/games/xcom-2-war-of-the-chosen-tactical-legacy-pack",
+    "platforms": [
+      {
+        "name": "Linux",
+        "id": 3,
+        "abbreviation": "Linux"
+      },
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      },
+      {
+        "name": "Mac",
+        "id": 14,
+        "abbreviation": "Mac"
+      }
+    ],
+    "tags": [
+      18,
+      268435471,
+      268435472,
+      536870915,
+      536873874
+    ],
+    "cover": {
+      "width": 500,
+      "id": 74468,
+      "image_id": "co1lgk",
+      "height": 713
+    },
+    "pulse_count": 1,
+    "updated_at": 1558224000,
+    "first_release_date": 1539043200,
+    "genres": [
+      {
+        "name": "Strategy",
+        "id": 15
+      },
+      {
+        "name": "Turn-based strategy (TBS)",
+        "id": 16
+      }
+    ],
+    "popularity": 1,
+    "release_dates": [
+      {
+        "date": 1539043200,
+        "id": 169865,
+        "platform": {
+          "name": "Mac",
+          "id": 14
+        }
+      },
+      {
+        "date": 1539043200,
+        "id": 169866,
+        "platform": {
+          "name": "PC (Microsoft Windows)",
+          "id": 6
+        }
+      },
+      {
+        "date": 1539043200,
+        "id": 169867,
+        "platform": {
+          "name": "Linux",
+          "id": 3
+        }
+      }
+    ],
+    "name": "XCOM 2: War of the Chosen - Tactical Legacy Pack",
+    "id": 110871,
+    "involved_companies": [
+      {
+        "company": {
+          "name": "Firaxis Games",
+          "id": 377
+        },
+        "id": 79093
+      },
+      {
+        "company": {
+          "name": "Feral Interactive",
+          "id": 23
+        },
+        "id": 79094
+      },
+      {
+        "company": {
+          "name": "2K",
+          "id": 20228
+        },
+        "id": 79095
+      }
+    ],
+    "slug": "xcom-2-war-of-the-chosen-tactical-legacy-pack"
+  }
+]
