@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.ChromeProvider;
+import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.PersonGame;
@@ -14,10 +15,10 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 class SteamGameUpdater {
-  private Game game;
-  private SQLConnection connection;
-  private ChromeProvider chromeProvider;
-  private Integer person_id;
+  private final Game game;
+  private final SQLConnection connection;
+  private final ChromeProvider chromeProvider;
+  private final Integer person_id;
 
   SteamGameUpdater(Game game, SQLConnection connection, ChromeProvider chromeProvider, Integer person_id) {
     this.game = game;
@@ -30,7 +31,8 @@ class SteamGameUpdater {
     game.logo.changeValue(logo);
     game.icon.changeValue(icon);
     game.steam_title.changeValue(name);
-    game.owned.changeValue("owned");
+
+    AvailableGamePlatform availableGamePlatform = game.getOrCreateSteamPlatform(connection);
 
     PersonGame personGame = game.getOrCreatePersonGame(person_id, connection);
 
@@ -42,6 +44,9 @@ class SteamGameUpdater {
     }
 
     personGame.commit(connection);
+
+    personGame.getOrCreateSteamPlatform(connection, availableGamePlatform);
+
     game.commit(connection);
   }
 
@@ -50,10 +55,6 @@ class SteamGameUpdater {
 
     boolean needsPlaytimeUpdate = playtime > 0;
 
-    // todo: find existing game
-
-    game.platform.changeValue("Steam");
-    game.owned.changeValue("owned");
     game.title.changeValue(name);
     game.steam_title.changeValue(name);
     game.steamID.changeValue(steamID);
@@ -62,6 +63,9 @@ class SteamGameUpdater {
     game.metacriticPage.changeValue(false);
 
     game.commit(connection);
+
+    AvailableGamePlatform steamPlatform = game.getOrCreateSteamPlatform(connection);
+    steamPlatform.metacriticPage.changeValue(false);
 
     PersonGame personGame = new PersonGame();
     personGame.initializeForInsert();
@@ -72,7 +76,7 @@ class SteamGameUpdater {
 
     personGame.commit(connection);
 
-    // todo: create AvailableGamePlatform for Steam
+    personGame.getOrCreateSteamPlatform(connection, steamPlatform);
 
     if (needsPlaytimeUpdate) {
       logUpdateToPlaytime(name, steamID, BigDecimal.ZERO, new BigDecimal(playtime), game.id.getValue());

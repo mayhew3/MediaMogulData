@@ -3,6 +3,8 @@ package com.mayhew3.mediamogul.games;
 import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.DatabaseTest;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.games.provider.IGDBProvider;
+import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.games.provider.SteamTestProviderImpl;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.games.Game;
@@ -26,6 +28,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 public class SteamUpdaterTest extends DatabaseTest {
   private SteamTestProviderImpl steamProvider;
   private ChromeProvider chromeProvider;
+  private IGDBProvider igdbProvider;
   private int person_id;
 
   @Override
@@ -33,6 +36,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     super.setUp();
     steamProvider = new SteamTestProviderImpl("src\\test\\resources\\Steam\\steam_", new JSONReaderImpl());
     chromeProvider = new ChromeProvider();
+    igdbProvider = new IGDBProviderImpl();
     person_id = 1;
     createPerson();
   }
@@ -46,7 +50,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, 10234);
 
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
 
@@ -117,7 +121,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame(gameName, steamID, 10234);
 
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
 
@@ -189,7 +193,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame(myName, steamID, 10234);
 
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
     Optional<Game> optionalGame = findGameFromDB(myName);
@@ -220,7 +224,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, 10234);
 
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
 
@@ -251,7 +255,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, originalMinutesPlayed);
 
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
 
@@ -307,7 +311,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame("Clunkers", 48762, 10234);
 
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
     SteamPlaySessionGenerator steamPlaySessionGenerator = new SteamPlaySessionGenerator(connection, person_id);
@@ -355,7 +359,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     createOwnedGame(gameName, steamID, 10234);
 
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider);
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
     SteamPlaySessionGenerator steamPlaySessionGenerator = new SteamPlaySessionGenerator(connection, person_id);

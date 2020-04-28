@@ -180,7 +180,7 @@ public class TaskScheduleRunner {
         30);
 
     // HOURLY
-    addHourlyTask(new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider),
+    addHourlyTask(new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader),
         1);
     addHourlyTask(new HowLongToBeatUpdateRunner(connection, UpdateMode.PING, howLongServiceHandler, chromeProvider),
         1);

@@ -182,6 +182,39 @@ public class Game extends RetireableDataObject {
     return platforms;
   }
 
+  public AvailableGamePlatform getOrCreateSteamPlatform(SQLConnection connection) throws SQLException {
+    List<AvailableGamePlatform> availableGamePlatforms = getAvailableGamePlatforms(connection);
+    Optional<AvailableGamePlatform> existing = availableGamePlatforms.stream()
+        .filter(availableGamePlatform -> availableGamePlatform.platformName.getValue().equalsIgnoreCase("Steam"))
+        .findFirst();
+
+    if (existing.isPresent()) {
+      return existing.get();
+    } else {
+
+      String sql = "SELECT * " +
+          "FROM game_platform " +
+          "WHERE full_name = ? ";
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, "Steam");
+
+      if (resultSet.next()) {
+        GamePlatform gamePlatform = new GamePlatform();
+        gamePlatform.initializeFromDBObject(resultSet);
+
+        AvailableGamePlatform availableGamePlatform = new AvailableGamePlatform();
+        availableGamePlatform.initializeForInsert();
+        availableGamePlatform.gameID.changeValue(id.getValue());
+        availableGamePlatform.gamePlatformID.changeValue(gamePlatform.id.getValue());
+        availableGamePlatform.platformName.changeValue(gamePlatform.fullName.getValue());
+        availableGamePlatform.commit(connection);
+        return availableGamePlatform;
+
+      } else {
+        throw new IllegalStateException("No Steam platform found! Cannot add to game.");
+      }
+    }
+  }
+
   public List<MyGamePlatform> getAllPersonGamePlatforms(SQLConnection connection) throws SQLException {
     String sql = "SELECT mgp.* " +
         "FROM my_game_platform mgp " +

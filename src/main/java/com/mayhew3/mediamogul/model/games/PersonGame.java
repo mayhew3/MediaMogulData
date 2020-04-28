@@ -3,11 +3,14 @@ package com.mayhew3.mediamogul.model.games;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PersonGame extends RetireableDataObject {
 
@@ -28,6 +31,8 @@ public class PersonGame extends RetireableDataObject {
   public FieldValueBigDecimal final_score = registerBigDecimalField("final_score", Nullability.NULLABLE);
   public FieldValueBigDecimal replay_score = registerBigDecimalField("replay_score", Nullability.NULLABLE);
   public FieldValueString replay_reason = registerStringField("replay_reason", Nullability.NULLABLE);
+
+  private static final Logger logger = LogManager.getLogger(PersonGame.class);
 
 
   public PersonGame() {
@@ -72,6 +77,35 @@ public class PersonGame extends RetireableDataObject {
       gamePlatforms.add(gamePlatform);
     }
     return gamePlatforms;
+  }
+
+  @SuppressWarnings("UnusedReturnValue")
+  public MyGamePlatform getOrCreateSteamPlatform(SQLConnection connection, AvailableGamePlatform availableGamePlatform) throws SQLException {
+    List<MyGamePlatform> myPlatforms = getMyPlatforms(connection);
+    Optional<MyGamePlatform> existing = myPlatforms.stream()
+        .filter(myPlatform -> myPlatform.availableGamePlatformID.getValue().equals(availableGamePlatform.id.getValue()))
+        .findFirst();
+
+    if (existing.isPresent()) {
+      return existing.get();
+    } else {
+      MyGamePlatform myPlatform = new MyGamePlatform();
+      myPlatform.initializeForInsert();
+      myPlatform.availableGamePlatformID.changeValue(availableGamePlatform.id.getValue());
+      myPlatform.personID.changeValue(person_id.getValue());
+      myPlatform.platformName.changeValue(availableGamePlatform.platformName.getValue());
+      myPlatform.commit(connection);
+      return myPlatform;
+    }
+  }
+
+  public void deleteMyPlatform(SQLConnection connection, AvailableGamePlatform availableGamePlatform) throws SQLException {
+    String sql = "DELETE " +
+        "FROM my_game_platform " +
+        "WHERE available_game_platform_id = ? " +
+        "AND person_id = ? ";
+    Integer rowsDeleted = connection.prepareAndExecuteStatementUpdate(sql, availableGamePlatform.id.getValue(), person_id.getValue());
+    logger.info(rowsDeleted + " rows deleted from my_game_platform for Game " + availableGamePlatform.gameID.getValue() + " on platform " + availableGamePlatform.platformName.getValue());
   }
 
   public List<MyGamePlatform> getMyPlatforms(SQLConnection connection) throws SQLException {
