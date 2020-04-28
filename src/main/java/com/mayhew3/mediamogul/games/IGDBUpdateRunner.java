@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
+import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
@@ -19,6 +20,7 @@ import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class IGDBUpdateRunner implements UpdateRunner {
@@ -38,6 +40,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
     methodMap.put(UpdateMode.SINGLE, this::runUpdateSingle);
     methodMap.put(UpdateMode.SANITY, this::runUpdateSanity);
     methodMap.put(UpdateMode.FULL, this::runUpdateOnAll);
+    methodMap.put(UpdateMode.MANUAL, this::runUpdateSplitter);
 
     this.connection = connection;
     this.igdbProvider = igdbProvider;
@@ -101,6 +104,21 @@ public class IGDBUpdateRunner implements UpdateRunner {
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void runUpdateSplitter() {
+    List<Integer> gameIDs = Lists.newArrayList(578, 26);
+    String sql = "SELECT * " +
+        "FROM game " +
+        "WHERE id IN (?, ?) " +
+        "AND retired = ? ";
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameIDs.get(0), gameIDs.get(1), 0);
+
       runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
