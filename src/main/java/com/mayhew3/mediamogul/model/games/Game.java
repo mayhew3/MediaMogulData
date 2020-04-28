@@ -182,36 +182,22 @@ public class Game extends RetireableDataObject {
     return platforms;
   }
 
-  public AvailableGamePlatform getOrCreateSteamPlatform(SQLConnection connection) throws SQLException {
+  public AvailableGamePlatform getOrCreatePlatform(GamePlatform gamePlatform, SQLConnection connection) throws SQLException {
     List<AvailableGamePlatform> availableGamePlatforms = getAvailableGamePlatforms(connection);
     Optional<AvailableGamePlatform> existing = availableGamePlatforms.stream()
-        .filter(availableGamePlatform -> availableGamePlatform.platformName.getValue().equalsIgnoreCase("Steam"))
+        .filter(availableGamePlatform -> availableGamePlatform.gamePlatformID.getValue().equals(gamePlatform.id.getValue()))
         .findFirst();
 
     if (existing.isPresent()) {
       return existing.get();
     } else {
-
-      String sql = "SELECT * " +
-          "FROM game_platform " +
-          "WHERE full_name = ? ";
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, "Steam");
-
-      if (resultSet.next()) {
-        GamePlatform gamePlatform = new GamePlatform();
-        gamePlatform.initializeFromDBObject(resultSet);
-
-        AvailableGamePlatform availableGamePlatform = new AvailableGamePlatform();
-        availableGamePlatform.initializeForInsert();
-        availableGamePlatform.gameID.changeValue(id.getValue());
-        availableGamePlatform.gamePlatformID.changeValue(gamePlatform.id.getValue());
-        availableGamePlatform.platformName.changeValue(gamePlatform.fullName.getValue());
-        availableGamePlatform.commit(connection);
-        return availableGamePlatform;
-
-      } else {
-        throw new IllegalStateException("No Steam platform found! Cannot add to game.");
-      }
+      AvailableGamePlatform availableGamePlatform = new AvailableGamePlatform();
+      availableGamePlatform.initializeForInsert();
+      availableGamePlatform.gameID.changeValue(id.getValue());
+      availableGamePlatform.gamePlatformID.changeValue(gamePlatform.id.getValue());
+      availableGamePlatform.platformName.changeValue(gamePlatform.fullName.getValue());
+      availableGamePlatform.commit(connection);
+      return availableGamePlatform;
     }
   }
 

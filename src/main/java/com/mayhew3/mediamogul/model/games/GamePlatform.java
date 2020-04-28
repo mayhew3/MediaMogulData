@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GamePlatform extends DataObject {
 
@@ -50,5 +51,22 @@ public class GamePlatform extends DataObject {
     }
 
     return platforms;
+  }
+
+  public static GamePlatform getOrCreatePlatform(SQLConnection connection, String fullName) throws SQLException {
+    List<GamePlatform> allPlatforms = getAllPlatforms(connection);
+    Optional<GamePlatform> maybeExisting = allPlatforms.stream()
+        .filter(gamePlatform -> gamePlatform.fullName.getValue().equals(fullName))
+        .findFirst();
+
+    if (maybeExisting.isPresent()) {
+      return maybeExisting.get();
+    } else {
+      GamePlatform gamePlatform = new GamePlatform();
+      gamePlatform.initializeForInsert();
+      gamePlatform.fullName.changeValue(fullName);
+      gamePlatform.commit(connection);
+      return gamePlatform;
+    }
   }
 }

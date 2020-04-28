@@ -80,7 +80,7 @@ public class PersonGame extends RetireableDataObject {
   }
 
   @SuppressWarnings("UnusedReturnValue")
-  public MyGamePlatform getOrCreateSteamPlatform(SQLConnection connection, AvailableGamePlatform availableGamePlatform) throws SQLException {
+  public MyGamePlatform getOrCreatePlatform(SQLConnection connection, AvailableGamePlatform availableGamePlatform) throws SQLException {
     List<MyGamePlatform> myPlatforms = getMyPlatforms(connection);
     Optional<MyGamePlatform> existing = myPlatforms.stream()
         .filter(myPlatform -> myPlatform.availableGamePlatformID.getValue().equals(availableGamePlatform.id.getValue()))

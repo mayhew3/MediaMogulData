@@ -4,13 +4,10 @@ import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.DatabaseTest;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
-import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
+import com.mayhew3.mediamogul.games.provider.IGDBTestProviderImpl;
 import com.mayhew3.mediamogul.games.provider.SteamTestProviderImpl;
 import com.mayhew3.mediamogul.model.Person;
-import com.mayhew3.mediamogul.model.games.Game;
-import com.mayhew3.mediamogul.model.games.GameLog;
-import com.mayhew3.mediamogul.model.games.GameplaySession;
-import com.mayhew3.mediamogul.model.games.PersonGame;
+import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import org.junit.Test;
@@ -38,8 +35,8 @@ public class SteamUpdaterTest extends DatabaseTest {
     super.setUp();
     steamProvider = new SteamTestProviderImpl("src\\test\\resources\\Steam\\steam_", new JSONReaderImpl());
     chromeProvider = new ChromeProvider();
-    igdbProvider = new IGDBProviderImpl();
     jsonReader = new JSONReaderImpl();
+    igdbProvider = new IGDBTestProviderImpl("src\\test\\resources\\IGDBTest\\", jsonReader);
     person_id = 1;
     createPerson();
   }
@@ -51,7 +48,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     int playtime = 11558;
     int steamID = 268500;
 
-    createOwnedGame("Clunkers", 48762, 10234);
+    createOwnedGame("Clunkers", 48762, 10234, "Steam");
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
@@ -65,7 +62,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = optionalGame.get();
 
-    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
+    Optional<PersonGame> optionalPersonGame = game.getPersonGame(person_id, connection);
 
     assertThat(optionalPersonGame.isPresent())
         .isTrue();
@@ -80,8 +77,6 @@ public class SteamUpdaterTest extends DatabaseTest {
         .isEqualTo("f275aeb0b1b947262810569356a199848c643754");
     assertThat(game.logo.getValue())
         .isEqualTo("10a6157d6614f63cd8a95d002d022778c207c218");
-    assertThat(game.owned.getValue())
-        .isEqualTo("owned");
     assertThat(game.metacriticPage.getValue())
         .isFalse();
 
@@ -90,6 +85,34 @@ public class SteamUpdaterTest extends DatabaseTest {
     assertThat(personGame.tier.getValue())
         .isEqualTo(2);
     assertThat(personGame.last_played.getValue())
+        .isNotNull();
+
+    List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    assertThat(availableGamePlatforms)
+        .hasSize(1);
+
+    AvailableGamePlatform availableGamePlatform = availableGamePlatforms.get(0);
+    assertThat(availableGamePlatform.platformName.getValue())
+        .isEqualTo("Steam");
+    assertThat(availableGamePlatform.gamePlatformID.getValue())
+        .isNotNull();
+    assertThat(availableGamePlatform.gameID.getValue())
+        .isEqualTo(game.id.getValue());
+
+    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    assertThat(myPlatforms)
+        .hasSize(1);
+
+    MyGamePlatform myPlatform = myPlatforms.get(0);
+    assertThat(myPlatform.availableGamePlatformID.getValue())
+        .isEqualTo(availableGamePlatform.id.getValue());
+    assertThat(myPlatform.personID.getValue())
+        .isEqualTo(person_id);
+    assertThat(myPlatform.platformName.getValue())
+        .isEqualTo("Steam");
+    assertThat(myPlatform.minutes_played.getValue())
+        .isEqualTo(playtime);
+    assertThat(myPlatform.last_played.getValue())
         .isNotNull();
 
     List<GameLog> gameLogs = findGameLogs(game);
@@ -122,7 +145,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     int playtime = 11558;
     int steamID = 268500;
 
-    createOwnedGame(gameName, steamID, 10234);
+    createOwnedGame(gameName, steamID, 10234, "Steam");
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
@@ -152,8 +175,6 @@ public class SteamUpdaterTest extends DatabaseTest {
         .isEqualTo("f275aeb0b1b947262810569356a199848c643754");
     assertThat(game.logo.getValue())
         .isEqualTo("10a6157d6614f63cd8a95d002d022778c207c218");
-    assertThat(game.owned.getValue())
-        .isEqualTo("owned");
     assertThat(game.metacriticPage.getValue())
         .isFalse();
 
@@ -187,6 +208,101 @@ public class SteamUpdaterTest extends DatabaseTest {
   }
 
   @Test
+  public void testAddSteamPlatformToExistingGame() throws SQLException {
+    steamProvider.setFileSuffix("xcom2");
+    String gameName = "XCOM 2";
+    int playtime = 11558;
+    int steamID = 268500;
+
+    Game originalGame = createOwnedGame(gameName, steamID, 10234, "Xbox One");
+    assertThat(originalGame.getAvailableGamePlatforms(connection))
+        .hasSize(1);
+
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
+    steamGameUpdateRunner.runUpdate();
+
+
+    Optional<Game> optionalGame = findGameFromDB(gameName);
+
+    assertThat(optionalGame.isPresent())
+        .as("Expected game XCOM 2 to exist in database.")
+        .isTrue();
+
+    Game game = optionalGame.get();
+
+    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
+
+    assertThat(optionalPersonGame.isPresent())
+        .isTrue();
+
+    PersonGame personGame = optionalPersonGame.get();
+
+    assertThat(game.steam_title.getValue())
+        .isEqualTo(gameName);
+
+    assertThat(game.steamID.getValue())
+        .isEqualTo(steamID);
+    assertThat(game.icon.getValue())
+        .isEqualTo("f275aeb0b1b947262810569356a199848c643754");
+    assertThat(game.logo.getValue())
+        .isEqualTo("10a6157d6614f63cd8a95d002d022778c207c218");
+    assertThat(game.metacriticPage.getValue())
+        .isFalse();
+
+    assertThat(personGame.minutes_played.getValue())
+        .isEqualTo(playtime);
+    assertThat(personGame.tier.getValue())
+        .isEqualTo(2);
+
+    List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    assertThat(availableGamePlatforms)
+        .hasSize(2);
+
+    AvailableGamePlatform availableGamePlatform = getAvailablePlatformWithName(game, "Steam");
+    assertThat(availableGamePlatform.gameID.getValue())
+        .isEqualTo(game.id.getValue());
+
+    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    assertThat(myPlatforms)
+        .hasSize(2);
+
+    MyGamePlatform myPlatform = getMyPlatformWithName(personGame, "Steam");
+    assertThat(myPlatform.availableGamePlatformID.getValue())
+        .isEqualTo(availableGamePlatform.id.getValue());
+    assertThat(myPlatform.personID.getValue())
+        .isEqualTo(person_id);
+    assertThat(myPlatform.platformName.getValue())
+        .isEqualTo("Steam");
+    assertThat(myPlatform.minutes_played.getValue())
+        .isEqualTo(playtime);
+    assertThat(myPlatform.last_played.getValue())
+        .isNotNull();
+
+    List<GameLog> gameLogs = findGameLogs(game);
+    assertThat(gameLogs)
+        .hasSize(1);
+
+    GameLog gameLog = gameLogs.get(0);
+    assertThat(gameLog.game.getValue())
+        .isEqualTo(gameName);
+    assertThat(gameLog.steamID.getValue())
+        .isEqualTo(steamID);
+    assertThat(gameLog.platform.getValue())
+        .isEqualTo("Steam");
+    assertThat(gameLog.previousPlaytime.getValue())
+        .isEqualByComparingTo(new BigDecimal(10234));
+    assertThat(gameLog.updatedplaytime.getValue())
+        .isEqualByComparingTo(new BigDecimal(playtime));
+    assertThat(gameLog.diff.getValue())
+        .isEqualByComparingTo(new BigDecimal(playtime - 10234));
+    assertThat(gameLog.eventdate.getValue())
+        .isNotNull();
+    assertThat(gameLog.eventtype.getValue())
+        .isEqualTo("Played");
+
+  }
+
+  @Test
   public void testModifyDoesntChangeName() throws SQLException {
     steamProvider.setFileSuffix("xcom2");
     String steamName = "XCOM 2";
@@ -194,7 +310,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     int steamID = 268500;
 
-    createOwnedGame(myName, steamID, 10234);
+    createOwnedGame(myName, steamID, 10234, "Steam");
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
@@ -225,7 +341,9 @@ public class SteamUpdaterTest extends DatabaseTest {
   public void testSteamGameChangedToNotOwned() throws SQLException {
     steamProvider.setFileSuffix("xcom2");
 
-    createOwnedGame("Clunkers", 48762, 10234);
+    Game originalGame = createOwnedGame("Clunkers", 48762, 10234, "Steam");
+    assertThat(originalGame.getPersonGame(person_id, connection).get().getMyPlatforms(connection))
+        .hasSize(1);
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
@@ -239,13 +357,12 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = optionalGame.get();
 
-    assertThat(game.owned.getValue())
-        .isEqualTo("not owned");
-
     Optional<PersonGame> optionalPersonGame = game.getPersonGame(person_id, connection);
+    PersonGame personGame = optionalPersonGame.get();
 
-    assertThat(optionalPersonGame.isPresent())
-        .isFalse();
+    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    assertThat(myPlatforms)
+        .isEmpty();
 
   }
 
@@ -256,7 +373,10 @@ public class SteamUpdaterTest extends DatabaseTest {
     int originalMinutesPlayed = 987;
     int updatedMinutesPlayed = 1321;
 
-    createOwnedGame("Clunkers", 48762, originalMinutesPlayed);
+    Game originalGame = createOwnedGame("Clunkers", 48762, originalMinutesPlayed, "Steam");
+    assertThat(originalGame.getPersonGame(person_id, connection).get().getMyPlatforms(connection))
+        .as("SANITY: Should be initialized with one MyGamePlatform")
+        .hasSize(1);
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
@@ -270,13 +390,13 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = optionalGame.get();
 
-    assertThat(game.owned.getValue())
-        .isEqualTo("not owned");
+    List<AvailableGamePlatform> availablePlatforms = game.getAvailableGamePlatforms(connection);
+    AvailableGamePlatform availablePlatform = availablePlatforms.get(0);
 
-    Optional<PersonGame> optionalPersonGame = game.getPersonGame(person_id, connection);
+    PersonGame personGame = game.getPersonGame(person_id, connection).get();
 
-    assertThat(optionalPersonGame.isPresent())
-        .isFalse();
+    assertThat(personGame.getMyPlatforms(connection))
+        .isEmpty();
 
     steamProvider.setFileSuffix("clunkers");
 
@@ -288,22 +408,20 @@ public class SteamUpdaterTest extends DatabaseTest {
         .as("Expected game Clunkers to exist in database.")
         .isTrue();
 
-    game = optionalGame.get();
-
-    assertThat(game.owned.getValue())
-        .isEqualTo("owned");
-
-    optionalPersonGame = game.getPersonGame(person_id, connection);
-
-    assertThat(optionalPersonGame.isPresent())
-        .isTrue();
-
-    PersonGame personGame = optionalPersonGame.get();
-
     assertThat(personGame.minutes_played.getValue())
         .isEqualTo(updatedMinutesPlayed);
     assertThat(personGame.tier.getValue())
         .isEqualTo(2);
+
+    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+
+    assertThat(myPlatforms)
+        .hasSize(1);
+
+    MyGamePlatform myGamePlatform = myPlatforms.get(0);
+    assertThat(myGamePlatform.availableGamePlatformID.getValue())
+        .isEqualTo(availablePlatform.id.getValue());
+
   }
 
   @Test
@@ -312,7 +430,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     String gameName = "XCOM 2";
     int playtime = 11558;
 
-    createOwnedGame("Clunkers", 48762, 10234);
+    createOwnedGame("Clunkers", 48762, 10234, "Steam");
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
@@ -360,7 +478,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     int playtime = 11558;
     int steamID = 268500;
 
-    createOwnedGame(gameName, steamID, 10234);
+    createOwnedGame(gameName, steamID, 10234, "Steam");
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
@@ -414,16 +532,19 @@ public class SteamUpdaterTest extends DatabaseTest {
     person.commit(connection);
   }
 
-  private void createOwnedGame(String gameName, Integer steamID, int minutesPlayed) throws SQLException {
+  private Game createOwnedGame(String gameName, Integer steamID, int minutesPlayed, String platformName) throws SQLException {
+    GamePlatform platform = GamePlatform.getOrCreatePlatform(connection, platformName);
+
     Game game = new Game();
     game.initializeForInsert();
     game.title.changeValue(gameName);
-    game.platform.changeValue("Steam");
     game.steamID.changeValue(steamID);
     game.steam_title.changeValue(gameName);
     game.owned.changeValue("owned");
 
     game.commit(connection);
+
+    AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(platform, connection);
 
     PersonGame personGame = new PersonGame();
     personGame.initializeForInsert();
@@ -434,6 +555,34 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     personGame.commit(connection);
 
+    personGame.getOrCreatePlatform(connection, availableGamePlatform);
+
+    return game;
+  }
+
+  private AvailableGamePlatform getAvailablePlatformWithName(Game game, String platformName) throws SQLException {
+    List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    Optional<AvailableGamePlatform> maybeMatching = availableGamePlatforms.stream()
+        .filter(availablePlatform -> availablePlatform.platformName.getValue().equals(platformName))
+        .findFirst();
+    if (maybeMatching.isPresent()) {
+      return maybeMatching.get();
+    } else {
+      throw new IllegalStateException("No platform with name " + platformName + " found for game " + game.id.getValue());
+    }
+  }
+
+
+  private MyGamePlatform getMyPlatformWithName(PersonGame personGame, String platformName) throws SQLException {
+    List<MyGamePlatform> availableGamePlatforms = personGame.getMyPlatforms(connection);
+    Optional<MyGamePlatform> maybeMatching = availableGamePlatforms.stream()
+        .filter(myPlatform -> myPlatform.platformName.getValue().equals(platformName))
+        .findFirst();
+    if (maybeMatching.isPresent()) {
+      return maybeMatching.get();
+    } else {
+      throw new IllegalStateException("No platform with name " + platformName + " found for personGame " + personGame.id.getValue());
+    }
   }
 
 
