@@ -121,7 +121,15 @@ public class SteamGameUpdateRunner implements UpdateRunner {
       logger.info("Updating ownership of games no longer in steam library...");
       logger.info("");
 
-      ResultSet resultSet = connection.executeQuery("SELECT * FROM game WHERE steamid is not null AND owned = 'owned'");
+      String sql = "SELECT g.* " +
+          "FROM game g " +
+          "INNER JOIN available_game_platform agp " +
+          "  ON agp.game_id = g.id " +
+          "INNER JOIN my_game_platform mgp " +
+          "  ON mgp.available_game_platform_id = agp.id " +
+          "WHERE mgp.platform_name = ? " +
+          "AND g.steamid IS NOT NULL ";
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, "Steam");
 
       while (resultSet.next()) {
         Integer steamid = resultSet.getInt("steamid");
