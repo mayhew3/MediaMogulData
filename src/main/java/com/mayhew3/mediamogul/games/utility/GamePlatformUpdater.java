@@ -1,8 +1,10 @@
 package com.mayhew3.mediamogul.games.utility;
 
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.games.IGDBUpdateRunner;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.model.games.*;
+import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
@@ -36,6 +38,10 @@ public class GamePlatformUpdater {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+
+    IGDBUpdateRunner igdbUpdateRunner = new IGDBUpdateRunner(connection, new IGDBProviderImpl(), new JSONReaderImpl(), UpdateMode.MANUAL);
+    igdbUpdateRunner.runUpdate();
+
     GamePlatformUpdater updater = new GamePlatformUpdater(connection);
     updater.runUpdate();
   }
