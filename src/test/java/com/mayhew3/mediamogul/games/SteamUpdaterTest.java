@@ -11,6 +11,7 @@ import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.GameplaySession;
 import com.mayhew3.mediamogul.model.games.PersonGame;
+import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import org.junit.Test;
 
@@ -30,6 +31,7 @@ public class SteamUpdaterTest extends DatabaseTest {
   private ChromeProvider chromeProvider;
   private IGDBProvider igdbProvider;
   private int person_id;
+  private JSONReader jsonReader;
 
   @Override
   public void setUp() throws URISyntaxException, SQLException, MissingEnvException {
@@ -37,6 +39,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     steamProvider = new SteamTestProviderImpl("src\\test\\resources\\Steam\\steam_", new JSONReaderImpl());
     chromeProvider = new ChromeProvider();
     igdbProvider = new IGDBProviderImpl();
+    jsonReader = new JSONReaderImpl();
     person_id = 1;
     createPerson();
   }
