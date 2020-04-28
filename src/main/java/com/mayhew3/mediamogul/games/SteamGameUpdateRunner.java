@@ -5,17 +5,23 @@ import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.games.provider.IGDBProvider;
+import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.games.provider.SteamProvider;
 import com.mayhew3.mediamogul.games.provider.SteamProviderImpl;
+import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.PersonGame;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.mediamogul.xml.JSONReader;
+import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,18 +35,22 @@ import java.util.*;
 
 public class SteamGameUpdateRunner implements UpdateRunner {
 
-  private SQLConnection connection;
-  private Integer person_id;
-  private SteamProvider steamProvider;
-  private ChromeProvider chromeProvider;
+  private final SQLConnection connection;
+  private final Integer person_id;
+  private final SteamProvider steamProvider;
+  private final ChromeProvider chromeProvider;
+  private final IGDBProvider igdbProvider;
+  private final JSONReader jsonReader;
 
-  private static Logger logger = LogManager.getLogger(SteamGameUpdateRunner.class);
+  private static final Logger logger = LogManager.getLogger(SteamGameUpdateRunner.class);
 
-  public SteamGameUpdateRunner(SQLConnection connection, Integer person_id, SteamProvider steamProvider, ChromeProvider chromeProvider) {
+  public SteamGameUpdateRunner(SQLConnection connection, Integer person_id, SteamProvider steamProvider, ChromeProvider chromeProvider, IGDBProvider igdbProvider, JSONReader jsonReader) {
     this.connection = connection;
     this.person_id = person_id;
     this.steamProvider = steamProvider;
     this.chromeProvider = chromeProvider;
+    this.igdbProvider = igdbProvider;
+    this.jsonReader = jsonReader;
   }
 
   public static void main(String... args) throws SQLException, FileNotFoundException, URISyntaxException, MissingEnvException {
@@ -77,7 +87,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     logger.debug("");
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
-    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, new SteamProviderImpl(), new ChromeProvider());
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, new SteamProviderImpl(), new ChromeProvider(), new IGDBProviderImpl(), new JSONReaderImpl());
     steamGameUpdateRunner.runUpdate();
 
     logger.debug(" --- ");
@@ -121,14 +131,18 @@ public class SteamGameUpdateRunner implements UpdateRunner {
 
           Game game = new Game();
           game.initializeFromDBObject(resultSet);
-          game.owned.changeValue("not owned");
+
           game.commit(connection);
 
           Optional<PersonGame> personGameOptional = game.getPersonGame(person_id, connection);
           if (personGameOptional.isPresent()) {
             PersonGame personGame = personGameOptional.get();
-            personGame.retire();
-            personGame.commit(connection);
+
+            Optional<AvailableGamePlatform> steamPlatform = getSteamPlatform(game);
+
+            if (steamPlatform.isPresent()) {
+              personGame.deleteMyPlatform(connection, steamPlatform.get());
+            }
           }
         }
       }
@@ -137,6 +151,85 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     } catch (IOException e) {
       logger.error("Error reading from URL: " + steamProvider.getFullUrl());
       e.printStackTrace();
+    }
+
+  }
+
+  @NotNull
+  private Optional<AvailableGamePlatform> getSteamPlatform(Game game) throws SQLException {
+    List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    return availableGamePlatforms.stream()
+        .filter(availablePlatform -> availablePlatform.platformName.getValue().equalsIgnoreCase("Steam"))
+        .findFirst();
+  }
+
+  private String getFormattedTitle(String title) {
+    return title
+        .replace("™", "")
+        .replace("®", "");
+  }
+
+  private Optional<JSONObject> findExactMatch(JSONArray possibleMatches, String title) {
+    String searchString = getFormattedTitle(title);
+
+    List<JSONObject> matchesOnTitle = jsonReader.findMatches(possibleMatches, (possibleMatch) -> {
+      String name = jsonReader.getStringWithKey(possibleMatch, "name");
+      return searchString.equalsIgnoreCase(name);
+    });
+    if (matchesOnTitle.size() == 1) {
+      return Optional.of(matchesOnTitle.get(0));
+    } else if (matchesOnTitle.size() > 1) {
+
+      List<JSONObject> matchingOnPlatforms = getMatchingOnPlatforms(matchesOnTitle);
+
+      if (matchingOnPlatforms.size() == 1) {
+        return Optional.of(matchingOnPlatforms.get(0));
+      } else {
+        return Optional.empty();
+      }
+    } else {
+      return Optional.empty();
+    }
+  }
+
+  @NotNull
+  private List<JSONObject> getMatchingOnPlatforms(List<JSONObject> matches) {
+    List<String> platformNames = Lists.newArrayList("PC");
+
+    List<JSONObject> matchingOnPlatforms = new ArrayList<>();
+
+    for (JSONObject matchObj : matches) {
+      JSONArray platforms = matchObj.getJSONArray("platforms");
+      List<String> matchPlatforms = new ArrayList<>();
+      for (Object platformObj : platforms) {
+        String abbreviation = jsonReader.getNullableStringWithKey((JSONObject) platformObj, "abbreviation");
+        matchPlatforms.add(abbreviation);
+      }
+      if (matchPlatforms.containsAll(platformNames)) {
+        matchingOnPlatforms.add(matchObj);
+      }
+    }
+    return matchingOnPlatforms;
+  }
+
+  private Optional<Game> findProbableMatch(String title) throws SQLException {
+    JSONArray gameMatches = igdbProvider.findGameMatches(title);
+    Optional<JSONObject> exactMatch = findExactMatch(gameMatches, title);
+    if (exactMatch.isPresent()) {
+      String sql = "SELECT * " +
+          "FROM game " +
+          "WHERE igdb_id = ? " +
+          "AND retired = ? ";
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, exactMatch.get().getInt("id"));
+      if (resultSet.next()) {
+        Game game = new Game();
+        game.initializeFromDBObject(resultSet);
+        return Optional.of(game);
+      } else {
+        return Optional.empty();
+      }
+    } else {
+      return Optional.empty();
     }
 
   }
@@ -167,9 +260,18 @@ public class SteamGameUpdateRunner implements UpdateRunner {
       game.initializeFromDBObject(resultSet);
       steamGameUpdater.updateGame(name, steamID, playtime, icon, logo);
     } else {
-      debug(" - Game not found! Adding.");
-      steamGameUpdater.addNewGame(name, steamID, playtime, icon, logo);
-      unfoundGames.put(steamID, name);
+      Optional<Game> probableMatch = findProbableMatch(name);
+
+      if (probableMatch.isPresent()) {
+        debug(" - Found good IGDB match already. Adding Steam platform to existing game '" + name + "'.");
+        game.steamID.changeValue(steamID);
+        game.commit(connection);
+        steamGameUpdater.updateGame(name, steamID, playtime, icon, logo);
+      } else {
+        debug(" - Game not found! Adding.");
+        steamGameUpdater.addNewGame(name, steamID, playtime, icon, logo);
+        unfoundGames.put(steamID, name);
+      }
     }
 
     if (resultSet.next()) {
