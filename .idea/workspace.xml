@@ -20,11 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/IGDBTest/search_Plerpen.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Steam/steam_plerpen.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/IGDBTest/search_Jollup.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/Steam/steam_jollup.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +113,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml&#10;D:/Code/git/media-mogul-data/scripts/media-mogul-data CMD.lnk" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;XML" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/IGDBTest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/Steam" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26547986" />
@@ -143,14 +140,14 @@
       <recent name="com.mayhew3.mediamogul.tv" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Code\git\media-mogul-data\src\test\resources\IGDBTest" />
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\Steam" />
+      <recent name="D:\Code\git\media-mogul-data\src\test\resources\IGDBTest" />
       <recent name="D:\Code\git\media-mogul-data\src\main\resources" />
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\TVDBFutureDate" />
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\TVDBSeasonZero" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGame">
+  <component name="RunManager" selected="JUnit.SteamUpdaterTest">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -2168,11 +2165,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SteamUpdaterTest.testAddSteamPlatformToExistingGameWithNoExactTitleMatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SteamUpdaterTest.testAddSteamPlatformToExistingGameWithNoExactMatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamUpdaterTest" />
-      <option name="METHOD_NAME" value="testAddSteamPlatformToExistingGameWithNoExactTitleMatch" />
+      <option name="METHOD_NAME" value="testAddSteamPlatformToExistingGameWithNoExactMatch" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" value="" />
@@ -2189,11 +2186,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SteamUpdaterTest.testSteamGameChangedToNotOwned" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SteamUpdaterTest.testAddSteamPlatformToExistingGameWithNoExactTitleMatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamUpdaterTest" />
-      <option name="METHOD_NAME" value="testSteamGameChangedToNotOwned" />
+      <option name="METHOD_NAME" value="testAddSteamPlatformToExistingGameWithNoExactTitleMatch" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" value="" />
@@ -2427,18 +2424,18 @@
       <item itemvalue="JUnit.SchemaHerokuTest" />
       <item itemvalue="JUnit.SchemaLocalTest" />
       <item itemvalue="JUnit.SteamUpdaterTest" />
-      <item itemvalue="JUnit.SteamUpdaterTest.testSteamGameChangedToNotOwned" />
       <item itemvalue="JUnit.SteamUpdaterTest.testUnlinkThenLinkSteamGame" />
       <item itemvalue="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGame" />
       <item itemvalue="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGameWithNoExactTitleMatch" />
+      <item itemvalue="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGameWithNoExactMatch" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGame" />
         <item itemvalue="JUnit.SteamUpdaterTest" />
+        <item itemvalue="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGameWithNoExactMatch" />
+        <item itemvalue="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGame" />
         <item itemvalue="JUnit.SteamUpdaterTest.testAddSteamPlatformToExistingGameWithNoExactTitleMatch" />
         <item itemvalue="JUnit.SteamUpdaterTest.testUnlinkThenLinkSteamGame" />
-        <item itemvalue="JUnit.SteamUpdaterTest.testSteamGameChangedToNotOwned" />
       </list>
     </recent_temporary>
   </component>
@@ -2637,50 +2634,50 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="2517" height="450" key="GridCell.Tab.0.bottom" timestamp="1588112458843">
+    <state width="2517" height="450" key="GridCell.Tab.0.bottom" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="450" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112458843" />
-    <state width="2517" height="450" key="GridCell.Tab.0.center" timestamp="1588112458843">
+    <state width="2517" height="450" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
+    <state width="2517" height="450" key="GridCell.Tab.0.center" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="450" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112458843" />
-    <state width="2517" height="450" key="GridCell.Tab.0.left" timestamp="1588112458843">
+    <state width="2517" height="450" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
+    <state width="2517" height="450" key="GridCell.Tab.0.left" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
-    <state width="2517" height="450" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112458843" />
-    <state width="2517" height="450" key="GridCell.Tab.0.right" timestamp="1588112458843">
+    <state width="2517" height="450" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
+    <state width="2517" height="450" key="GridCell.Tab.0.right" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="450" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112458843" />
-    <state width="2517" height="450" key="GridCell.Tab.1.bottom" timestamp="1588112460893">
+    <state width="2517" height="450" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
+    <state width="2517" height="450" key="GridCell.Tab.1.bottom" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042598" />
-    <state width="2517" height="450" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112460893" />
-    <state width="2517" height="450" key="GridCell.Tab.1.center" timestamp="1588112460892">
+    <state width="2517" height="450" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
+    <state width="2517" height="450" key="GridCell.Tab.1.center" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="2517" height="450" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112460892" />
-    <state width="2517" height="450" key="GridCell.Tab.1.left" timestamp="1588112460892">
+    <state width="2517" height="450" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
+    <state width="2517" height="450" key="GridCell.Tab.1.left" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="2517" height="450" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112460892" />
-    <state width="2517" height="450" key="GridCell.Tab.1.right" timestamp="1588112460893">
+    <state width="2517" height="450" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
+    <state width="2517" height="450" key="GridCell.Tab.1.right" timestamp="1588112594688">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="2517" height="450" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112460893" />
+    <state width="2517" height="450" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588112594688" />
     <state x="947" y="341" key="RollbackChangesDialog" timestamp="1588110962001">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>

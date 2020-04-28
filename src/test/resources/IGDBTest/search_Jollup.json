@@ -1,0 +1,79 @@
+[
+  {
+    "summary": "Jollup is an invented game made for testing purposes only.",
+    "keywords": [
+      {
+        "name": "aliens",
+        "id": 3
+      }
+    ],
+    "rating": 82.082978283106,
+    "aggregated_rating_count": 1,
+    "player_perspectives": [
+      {
+        "name": "Bird view / Isometric",
+        "id": 3
+      }
+    ],
+    "url": "https://www.igdb.com/games/jollup",
+    "platforms": [
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      },
+      {
+        "name": "Xbox One",
+        "id": 49,
+        "abbreviation": "XONE"
+      }
+    ],
+    "rating_count": 1,
+    "tags": [
+      18,
+      268435468,
+      268435470
+    ],
+    "cover": {
+      "width": 639,
+      "id": 76303,
+      "image_id": "co1mvj",
+      "height": 852
+    },
+    "pulse_count": 115,
+    "updated_at": 1587945600,
+    "first_release_date": 1454630400,
+    "genres": [
+      {
+        "name": "Role-playing (RPG)",
+        "id": 12
+      }
+    ],
+    "popularity": 19.72302062784004,
+    "release_dates": [
+      {
+        "date": 1454630400,
+        "id": 38004,
+        "platform": {
+          "name": "PC (Microsoft Windows)",
+          "id": 6
+        }
+      }
+    ],
+    "name": "Jollup",
+    "aggregated_rating": 85.2068965517241,
+    "id": 28365,
+    "slug": "xcom-2"
+  },
+  {
+    "platforms": [
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      }
+    ],
+    "name": "Jollup",
+    "id": 62983
+  }
+]

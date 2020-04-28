@@ -223,14 +223,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
-
-    Optional<Game> optionalGame = findGameFromDB(gameName);
-
-    assertThat(optionalGame.isPresent())
-        .as("Expected game XCOM 2 to exist in database.")
-        .isTrue();
-
-    Game game = optionalGame.get();
+    Game game = findGameFromDB(gameName).get();
 
     Optional<PersonGame> optionalPersonGame = findPersonGame(game);
 
@@ -290,14 +283,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
     steamGameUpdateRunner.runUpdate();
 
-
-    Optional<Game> optionalGame = findGameFromDB(gameName);
-
-    assertThat(optionalGame.isPresent())
-        .as("Expected game XCOM 2 to exist in database.")
-        .isTrue();
-
-    Game game = optionalGame.get();
+    Game game = findGameFromDB(gameName).get();
 
     Optional<PersonGame> optionalPersonGame = findPersonGame(game);
 
@@ -338,6 +324,47 @@ public class SteamUpdaterTest extends DatabaseTest {
     assertThat(myPlatform.last_played.getValue())
         .isNotNull();
 
+  }
+
+  @Test
+  public void testAddSteamPlatformToExistingGameWithNoExactMatch() throws SQLException {
+    steamProvider.setFileSuffix("jollup");
+    String gameName = "Jollup";
+    int igdb_id = 10919;
+
+    int originalPlaytime = 135;
+    Game originalGame = createOwnedGame(gameName, null, originalPlaytime, "Xbox One");
+    originalGame.igdb_id.changeValue(igdb_id);
+    originalGame.commit(connection);
+
+    assertThat(originalGame.getAvailableGamePlatforms(connection))
+        .hasSize(1);
+
+    SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
+    steamGameUpdateRunner.runUpdate();
+
+    Game game = findGameFromDB(gameName).get();
+
+    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
+
+    assertThat(optionalPersonGame.isPresent())
+        .isTrue();
+
+    PersonGame personGame = optionalPersonGame.get();
+
+    assertThat(game.steam_title.getValue())
+        .isNull();
+
+    assertThat(personGame.minutes_played.getValue())
+        .isEqualTo(originalPlaytime);
+
+    List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    assertThat(availableGamePlatforms)
+        .hasSize(1);
+
+    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    assertThat(myPlatforms)
+        .hasSize(1);
   }
 
   @Test
