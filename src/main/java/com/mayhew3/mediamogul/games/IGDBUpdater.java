@@ -1,10 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
-import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
-import com.mayhew3.mediamogul.model.games.Game;
-import com.mayhew3.mediamogul.model.games.IGDBPoster;
-import com.mayhew3.mediamogul.model.games.PossibleGameMatch;
+import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
@@ -430,7 +427,7 @@ class IGDBUpdater {
     List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
     return availableGamePlatforms.stream()
         .map(availableGamePlatform -> availableGamePlatform.platformName.getValue())
-        .map(platformName -> platformName.equalsIgnoreCase("Steam") ? "PC" : platformName)
+        .map(GamePlatform::mapInternalNameToIGDBAbbreviation)
         .distinct()
         .collect(Collectors.toList());
   }
