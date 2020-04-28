@@ -35,6 +35,17 @@ public class GamePlatform extends DataObject {
     return fullName.getValue();
   }
 
+
+  public static String mapInternalNameToIGDBAbbreviation(String internalName) {
+    if (internalName.equals("Xbox One")) {
+      return "XONE";
+    } else if (internalName.equals("Steam")) {
+      return "PC";
+    } else {
+      return internalName;
+    }
+  }
+
   public static List<GamePlatform> getAllPlatforms(SQLConnection connection) throws SQLException {
 
     String sql = "SELECT * " +

@@ -4,9 +4,7 @@ import com.mayhew3.mediamogul.DatabaseTest;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBTestProviderImpl;
-import com.mayhew3.mediamogul.model.games.Game;
-import com.mayhew3.mediamogul.model.games.IGDBPoster;
-import com.mayhew3.mediamogul.model.games.PossibleGameMatch;
+import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import org.jetbrains.annotations.NotNull;
@@ -87,12 +85,6 @@ public class IGDBUpdaterTest extends DatabaseTest {
         .isEqualTo(82090);
     assertThat(game.igdb_title.getValue())
         .isEqualTo(gameTitle);
-    assertThat(game.igdb_poster.getValue())
-        .isNull();
-    assertThat(game.igdb_poster_w.getValue())
-        .isNull();
-    assertThat(game.igdb_poster_h.getValue())
-        .isNull();
     assertThat(game.igdb_failed.getValue())
         .isNotNull();
     assertThat(game.igdb_success.getValue())
@@ -101,6 +93,10 @@ public class IGDBUpdaterTest extends DatabaseTest {
     List<PossibleGameMatch> possibleGameMatches = findPossibleGameMatches(game);
     assertThat(possibleGameMatches)
         .hasSize(2);
+
+    List<IGDBPoster> posters = game.getPosters(connection);
+    assertThat(posters)
+        .hasSize(0);
 
   }
 
@@ -589,15 +585,22 @@ public class IGDBUpdaterTest extends DatabaseTest {
         .isEqualTo("https://images.igdb.com/igdb/image/upload/t_720p/haiouwnfdakjlhedw");
   }
 
+  @Test
+  public void testAllPlatformsAddedOnFirstMatch() {
+
+  }
 
   // utility methods
   private Game createGame(String gameName, @NotNull String platform) throws SQLException {
     Game game = new Game();
     game.initializeForInsert();
     game.title.changeValue(gameName);
-    game.platform.changeValue(platform);
 
     game.commit(connection);
+
+    GamePlatform gamePlatform = GamePlatform.getOrCreatePlatform(connection, platform);
+
+    game.getOrCreatePlatform(gamePlatform, connection);
 
     return game;
   }
