@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
+import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.DatabaseTest;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
@@ -17,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.assertj.jodatime.api.Assertions.assertThat;
@@ -586,8 +588,31 @@ public class IGDBUpdaterTest extends DatabaseTest {
   }
 
   @Test
-  public void testAllPlatformsAddedOnFirstMatch() {
+  public void testAllPlatformsAddedOnFirstMatch() throws SQLException {
+    String gameName = "Heegraw";
+    Game game = createGame(gameName, "PC");
 
+    List<AvailableGamePlatform> availablePlatforms = game.getAvailableGamePlatforms(connection);
+    assertThat(availablePlatforms)
+        .hasSize(1);
+    GamePlatform pcPlatform = availablePlatforms.get(0).getGamePlatform(connection);
+    pcPlatform.igdbPlatformId.changeValue(6);
+    pcPlatform.igdbName.changeValue("PC (Microsoft Windows)");
+    pcPlatform.commit(connection);
+
+    IGDBUpdater igdbUpdater = new IGDBUpdater(game, connection, igdbProvider, jsonReader);
+    igdbUpdater.updateGame();
+
+    List<AvailableGamePlatform> availablePlatformsAfter = game.getAvailableGamePlatforms(connection);
+    assertThat(availablePlatformsAfter)
+        .hasSize(3);
+
+    Set<String> platformNames = availablePlatformsAfter.stream()
+        .map(availableGamePlatform -> availableGamePlatform.platformName.getValue())
+        .collect(Collectors.toSet());
+
+    assertThat(platformNames)
+        .isEqualTo(Sets.newHashSet("PC", "Xbox One", "Playstation 4"));
   }
 
   // utility methods
