@@ -45,10 +45,10 @@ public class IGDBProviderImpl implements IGDBProvider {
   public JSONArray getUpdatedInfo(Integer igdb_id) {
     String url = api_url_base + "/games";
     HashMap<String, Object> queryVars = new HashMap<>();
-    queryVars.put("fields", "name, platforms.name, cover.image_id, cover.width, cover.height, keywords.name, aggregated_rating, " +
-        "    aggregated_rating_count, version_parent, first_release_date, genres.name, involved_companies.company.name, " +
-        "    player_perspectives.name, popularity,pulse_count, rating, rating_count, release_dates.date, release_dates.platform.name, " +
-        "    slug, summary, tags, updated_at, url");
+    queryVars.put("fields", "name, platforms.name, platforms.abbreviation, cover.image_id, cover.width, cover.height, keywords.name, aggregated_rating, " +
+        "     aggregated_rating_count, version_parent, first_release_date, genres.name, involved_companies.company.name, " +
+        "     player_perspectives.name, popularity,pulse_count, rating, rating_count, release_dates.date, release_dates.platform.name, " +
+        "     slug, summary, tags, updated_at, url");
     queryVars.put("where", "id = " + igdb_id);
 
     return getArrayData(url, queryVars);

@@ -1,10 +1,8 @@
 package com.mayhew3.mediamogul.games.utility;
 
 import com.mayhew3.mediamogul.exception.MissingEnvException;
-import com.mayhew3.mediamogul.games.IGDBUpdateRunner;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.model.games.*;
-import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
@@ -19,7 +17,10 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GamePlatformUpdater {
@@ -39,9 +40,6 @@ public class GamePlatformUpdater {
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
 
-    IGDBUpdateRunner igdbUpdateRunner = new IGDBUpdateRunner(connection, new IGDBProviderImpl(), new JSONReaderImpl(), UpdateMode.MANUAL);
-    igdbUpdateRunner.runUpdate();
-
     GamePlatformUpdater updater = new GamePlatformUpdater(connection);
     updater.runUpdate();
   }
@@ -54,12 +52,12 @@ public class GamePlatformUpdater {
         "WHERE igdb_success IS NOT NULL " +
         "AND igdb_ignored IS NULL " +
         "AND retired = ? " +
+        "AND id NOT IN (SELECT game_id from available_game_platform) " +
         "GROUP BY igdb_id ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
     while (resultSet.next()) {
       Integer igdb_id = resultSet.getInt("igdb_id");
-//      String title = resultSet.getString("title");
       handleGame(igdb_id);
     }
   }
@@ -156,6 +154,7 @@ public class GamePlatformUpdater {
     String sql = "SELECT * " +
         "FROM game " +
         "WHERE igdb_id = ? " +
+        "AND igdb_ignored IS NULL " +
         "AND retired = ? " +
         "ORDER BY id ";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_id, 0);
