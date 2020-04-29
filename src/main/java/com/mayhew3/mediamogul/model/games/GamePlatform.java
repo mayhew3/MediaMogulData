@@ -23,6 +23,7 @@ public class GamePlatform extends DataObject {
   public GamePlatform() {
     super();
     addUniqueConstraint(fullName);
+    addUniqueConstraint(igdbPlatformId);
   }
 
   @Override

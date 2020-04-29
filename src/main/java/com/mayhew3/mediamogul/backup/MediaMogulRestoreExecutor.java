@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class MediaMogulRestoreExecutor {
 
-  private static final DateTime backupDate = new DateTime(2020, 4, 25, 17, 0, 0);
+  private static final DateTime backupDate = new DateTime(2020, 4, 28, 18, 10, 0);
 
   private static String restoreEnv;
 
@@ -54,13 +54,26 @@ public class MediaMogulRestoreExecutor {
     } else {
       String appNameFromEnv = getAppNameFromEnv(restoreEnv);
       String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
-      DataRestoreExecutor dataRestoreExecutor = new DataRestoreRemoteExecutor(
-          restoreEnv,
-          backupEnv,
-          11,
-          "MediaMogul",
-          appNameFromEnv,
-          databaseUrl);
+
+      DataRestoreExecutor dataRestoreExecutor;
+      if (oldBackup) {
+        dataRestoreExecutor = new DataRestoreRemoteExecutor(
+            restoreEnv,
+            backupEnv,
+            11,
+            "MediaMogul",
+            appNameFromEnv,
+            databaseUrl,
+            backupDate);
+      } else {
+        dataRestoreExecutor = new DataRestoreRemoteExecutor(
+            restoreEnv,
+            backupEnv,
+            11,
+            "MediaMogul",
+            appNameFromEnv,
+            databaseUrl);
+      }
       dataRestoreExecutor.runUpdate();
     }
   }

@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
+import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.mediamogul.xml.JSONReader;
@@ -465,6 +466,9 @@ class IGDBUpdater {
 
   private List<String> getPlatformNames(Game game) throws SQLException {
     List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
+    if (availableGamePlatforms.size() == 0) {
+      return Lists.newArrayList(game.platform.getValue());
+    }
     return availableGamePlatforms.stream()
         .map(availableGamePlatform -> availableGamePlatform.platformName.getValue())
         .map(GamePlatform::mapInternalNameToIGDBAbbreviation)
