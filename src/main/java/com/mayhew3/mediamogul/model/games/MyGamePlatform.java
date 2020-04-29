@@ -10,6 +10,7 @@ public class MyGamePlatform extends DataObject {
 
   public FieldValueString platformName = registerStringField("platform_name", Nullability.NOT_NULL);
   public FieldValueTimestamp collectionAdd = registerTimestampField("collection_add", Nullability.NULLABLE);
+  public FieldValueBoolean preferred = registerBooleanField("preferred", Nullability.NOT_NULL).defaultValue(false);
 
   // Ratings
   public FieldValueBigDecimal rating = registerBigDecimalField("rating", Nullability.NULLABLE);
