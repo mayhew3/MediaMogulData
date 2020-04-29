@@ -1,0 +1,31 @@
+[
+  {
+    "summary": "Plerpen is an invented game made for testing purposes only.",
+    "platforms": [
+      {
+        "name": "PC (Microsoft Windows)",
+        "id": 6,
+        "abbreviation": "PC"
+      },
+      {
+        "name": "Xbox One",
+        "id": 49,
+        "abbreviation": "XONE"
+      },
+      {
+        "name": "Playstation 4",
+        "id": 44,
+        "abbreviation": "PS4"
+      }
+    ],
+    "cover": {
+      "width": 639,
+      "id": 76303,
+      "image_id": "co1mvj",
+      "height": 852
+    },
+    "name": "Heegraw",
+    "id": 34678,
+    "slug": "heegraw"
+  }
+]

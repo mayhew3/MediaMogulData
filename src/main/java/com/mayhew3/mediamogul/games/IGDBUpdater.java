@@ -225,24 +225,64 @@ class IGDBUpdater {
     game.igdb_success.changeValue(new Date());
     game.igdb_failed.changeValue(null);
 
+    JSONArray platformsJSON = jsonReader.getArrayWithKey(exactMatch, "platforms");
+
     incrementNextUpdate(30);
 
     if (game.id.getValue() != null) {
 
-      JSONArray covers = igdbProvider.getCovers(id);
-      List<IGDBPoster> posters = new ArrayList<>();
-
-      for (Object coverObj : covers) {
-        IGDBPoster igdbPoster = updateIGDBPoster(id, (JSONObject) coverObj, game.id.getValue());
-        posters.add(igdbPoster);
-      }
-
-      updateDefaultPoster(posters);
+      updatePosters(id);
+      updatePlatforms(platformsJSON, game);
 
     } else {
       logger.error("Trying to update IGDB Posters on game that hasn't been committed yet: " + game.title.getValue());
     }
   }
+
+  private void updatePlatforms(@NotNull JSONArray platforms, Game game) throws SQLException {
+    List<GamePlatform> allPlatforms = GamePlatform.getAllPlatforms(connection);
+
+    for (Object platformObj : platforms) {
+      JSONObject platform = (JSONObject)platformObj;
+      GamePlatform gamePlatform = getOrCreateGamePlatform(platform, allPlatforms);
+      game.getOrCreatePlatform(gamePlatform, connection);
+    }
+  }
+
+  private GamePlatform getOrCreateGamePlatform(@NotNull JSONObject igdbPlatform, List<GamePlatform> allPlatforms) throws SQLException {
+    Integer igdbPlatformID = jsonReader.getIntegerWithKey(igdbPlatform, "id");
+    String igdbPlatformName = jsonReader.getStringWithKey(igdbPlatform, "name");
+    String igdbAbbreviation = jsonReader.getStringWithKey(igdbPlatform, "abbreviation");
+
+    Optional<GamePlatform> existing = allPlatforms.stream()
+        .filter(gamePlatform -> igdbPlatformID.equals(gamePlatform.igdbPlatformId.getValue()))
+        .findFirst();
+    if (existing.isPresent()) {
+      return existing.get();
+    } else {
+      GamePlatform gamePlatform = new GamePlatform();
+      gamePlatform.initializeForInsert();
+      gamePlatform.fullName.changeValue(igdbPlatformName);
+      gamePlatform.shortName.changeValue(igdbAbbreviation);
+      gamePlatform.igdbPlatformId.changeValue(igdbPlatformID);
+      gamePlatform.igdbName.changeValue(igdbPlatformName);
+      gamePlatform.commit(connection);
+      return gamePlatform;
+    }
+  }
+
+  private void updatePosters(@NotNull Integer igdb_id) throws SQLException {
+    JSONArray covers = igdbProvider.getCovers(igdb_id);
+    List<IGDBPoster> posters = new ArrayList<>();
+
+    for (Object coverObj : covers) {
+      IGDBPoster igdbPoster = updateIGDBPoster(igdb_id, (JSONObject) coverObj, game.id.getValue());
+      posters.add(igdbPoster);
+    }
+
+    updateDefaultPoster(posters);
+  }
+
 
   private IGDBPoster updateIGDBPoster(@NotNull Integer id, JSONObject cover, Integer game_id) throws SQLException {
     @NotNull String image_id = jsonReader.getStringWithKey(cover, "image_id");
