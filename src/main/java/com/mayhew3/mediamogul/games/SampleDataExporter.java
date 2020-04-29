@@ -189,6 +189,7 @@ public class SampleDataExporter {
       platformJSON.put("final_score", JSONObject.wrap(myPlatform.final_score.getValue()));
       platformJSON.put("replay_score", JSONObject.wrap(myPlatform.replay_score.getValue()));
       platformJSON.put("replay_reason", JSONObject.wrap(myPlatform.replay_reason.getValue()));
+      platformJSON.put("collection_add", JSONObject.wrap(myPlatform.collectionAdd.getValue()));
       platformJSON.put("date_added", JSONObject.wrap(myPlatform.dateAdded.getValue()));
 
       myPlatformsJSON.put(platformJSON);

@@ -9,6 +9,7 @@ public class MyGamePlatform extends DataObject {
   public FieldValueForeignKey availableGamePlatformID = registerForeignKey(new AvailableGamePlatform(), Nullability.NOT_NULL);
 
   public FieldValueString platformName = registerStringField("platform_name", Nullability.NOT_NULL);
+  public FieldValueTimestamp collectionAdd = registerTimestampField("collection_add", Nullability.NULLABLE);
 
   // Ratings
   public FieldValueBigDecimal rating = registerBigDecimalField("rating", Nullability.NULLABLE);
