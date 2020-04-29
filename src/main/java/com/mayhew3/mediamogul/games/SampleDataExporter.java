@@ -133,6 +133,7 @@ public class SampleDataExporter {
       platformJSON.put("metacritic", availablePlatform.metacritic.getValue());
       platformJSON.put("metacritic_page", availablePlatform.metacriticPage.getValue());
       platformJSON.put("metacritic_matched", availablePlatform.metacriticMatched.getValue());
+      platformJSON.put("date_added", availablePlatform.dateAdded.getValue());
 
       attachMyPlatformsToAvailablePlatform(availablePlatform, platformJSON);
 
@@ -188,6 +189,7 @@ public class SampleDataExporter {
       platformJSON.put("final_score", JSONObject.wrap(myPlatform.final_score.getValue()));
       platformJSON.put("replay_score", JSONObject.wrap(myPlatform.replay_score.getValue()));
       platformJSON.put("replay_reason", JSONObject.wrap(myPlatform.replay_reason.getValue()));
+      platformJSON.put("date_added", JSONObject.wrap(myPlatform.dateAdded.getValue()));
 
       myPlatformsJSON.put(platformJSON);
     }
