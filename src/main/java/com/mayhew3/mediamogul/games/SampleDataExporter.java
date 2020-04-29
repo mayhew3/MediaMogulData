@@ -125,14 +125,16 @@ public class SampleDataExporter {
     List<AvailableGamePlatform> platforms = game.getAvailableGamePlatforms(connection);
     JSONArray platformsJSON = new JSONArray();
 
-    for (AvailableGamePlatform gamePlatform : platforms) {
+    for (AvailableGamePlatform availablePlatform : platforms) {
       JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", gamePlatform.id.getValue());
-      platformJSON.put("game_platform_id", gamePlatform.gamePlatformID.getValue());
-      platformJSON.put("platform_name", gamePlatform.platformName.getValue());
-      platformJSON.put("metacritic", gamePlatform.metacritic.getValue());
-      platformJSON.put("metacritic_page", gamePlatform.metacriticPage.getValue());
-      platformJSON.put("metacritic_matched", gamePlatform.metacriticMatched.getValue());
+      platformJSON.put("id", availablePlatform.id.getValue());
+      platformJSON.put("game_platform_id", availablePlatform.gamePlatformID.getValue());
+      platformJSON.put("platform_name", availablePlatform.platformName.getValue());
+      platformJSON.put("metacritic", availablePlatform.metacritic.getValue());
+      platformJSON.put("metacritic_page", availablePlatform.metacriticPage.getValue());
+      platformJSON.put("metacritic_matched", availablePlatform.metacriticMatched.getValue());
+
+      attachMyPlatformsToAvailablePlatform(availablePlatform, platformJSON);
 
       platformsJSON.put(platformJSON);
     }
@@ -159,30 +161,24 @@ public class SampleDataExporter {
       personGameJSON.put("date_added", JSONObject.wrap(personGame.dateAdded.getValue()));
       personGameJSON.put("minutes_played", JSONObject.wrap(personGame.minutes_played.getValue()));
 
-      attachMyPlatformsToPersonGame(personGame, personGameJSON);
-
       personGamesJSON.put(personGameJSON);
     }
 
     gameJSON.put("person_games", personGamesJSON);
   }
 
-  private void attachMyPlatformsToPersonGame(PersonGame personGame, JSONObject personGameJSON) throws SQLException {
-    List<GamePlatform> platforms = personGame.getPlatforms(connection);
-    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+  private void attachMyPlatformsToAvailablePlatform(AvailableGamePlatform availablePlatform, JSONObject availablePlatformJSON) throws SQLException {
+    List<MyGamePlatform> myPlatforms = availablePlatform.getMyPlatforms(connection);
 
     JSONArray myPlatformsJSON = new JSONArray();
 
-    for (GamePlatform platform : platforms) {
-      MyGamePlatform myPlatform = myPlatforms.stream()
-          .filter(myGamePlatform -> myGamePlatform.platformName.getValue().equalsIgnoreCase(platform.fullName.getValue()))
-          .findFirst()
-          .get();
+    for (MyGamePlatform myPlatform : myPlatforms) {
       JSONObject platformJSON = new JSONObject();
       platformJSON.put("id", myPlatform.id.getValue());
-      platformJSON.put("game_platform_id", platform.id.getValue());
-      platformJSON.put("available_game_platform_id", myPlatform.availableGamePlatformID.getValue());
+      platformJSON.put("game_platform_id", availablePlatform.gamePlatformID.getValue());
+      platformJSON.put("available_game_platform_id", availablePlatform.id.getValue());
       platformJSON.put("platform_name", myPlatform.platformName.getValue());
+      platformJSON.put("person_id", myPlatform.personID.getValue());
 
       platformJSON.put("rating", JSONObject.wrap(myPlatform.rating.getValue()));
       platformJSON.put("tier", JSONObject.wrap(myPlatform.tier.getValue()));
@@ -196,7 +192,7 @@ public class SampleDataExporter {
       myPlatformsJSON.put(platformJSON);
     }
 
-    personGameJSON.put("myPlatforms", myPlatformsJSON);
+    availablePlatformJSON.put("myPlatforms", myPlatformsJSON);
   }
 
   private void attachIGDBPoster(Game game, JSONObject gameJSON) throws SQLException {
