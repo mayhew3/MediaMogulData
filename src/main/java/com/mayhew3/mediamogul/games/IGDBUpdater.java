@@ -253,7 +253,7 @@ class IGDBUpdater {
   private GamePlatform getOrCreateGamePlatform(@NotNull JSONObject igdbPlatform, List<GamePlatform> allPlatforms) throws SQLException {
     Integer igdbPlatformID = jsonReader.getIntegerWithKey(igdbPlatform, "id");
     String igdbPlatformName = jsonReader.getStringWithKey(igdbPlatform, "name");
-    String igdbAbbreviation = jsonReader.getStringWithKey(igdbPlatform, "abbreviation");
+    String igdbAbbreviation = jsonReader.getNullableStringWithKey(igdbPlatform, "abbreviation");
 
     Optional<GamePlatform> existing = allPlatforms.stream()
         .filter(gamePlatform -> igdbPlatformID.equals(gamePlatform.igdbPlatformId.getValue()))

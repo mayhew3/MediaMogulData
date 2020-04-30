@@ -70,9 +70,10 @@ public class SampleDataExporter {
         "FROM game g " +
         "WHERE retired = ? " +
         "AND igdb_ignored IS NULL " +
+        "AND (g.id > ? OR g.owned = ?) " +
         "ORDER BY g.id ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 900, "not owned");
 
     while (resultSet.next()) {
       Game game = new Game();
@@ -80,36 +81,36 @@ public class SampleDataExporter {
 
       JSONObject gameJSON = new JSONObject();
       gameJSON.put("id", game.id.getValue());
-      gameJSON.put("title", JSONObject.wrap(game.title.getValue()));
-      gameJSON.put("logo", JSONObject.wrap(game.logo.getValue()));
-      gameJSON.put("platform", JSONObject.wrap(game.platform.getValue()));
-      gameJSON.put("giantbomb_medium_url", JSONObject.wrap(game.giantbomb_medium_url.getValue()));
-      gameJSON.put("steamid", JSONObject.wrap(game.steamID.getValue()));
-      gameJSON.put("date_added", JSONObject.wrap(game.dateAdded.getValue()));
-      gameJSON.put("metacritic", JSONObject.wrap(game.metacritic.getValue()));
-      gameJSON.put("timetotal", JSONObject.wrap(game.timeTotal.getValue()));
-      gameJSON.put("howlong_extras", JSONObject.wrap(game.howlong_extras.getValue()));
-      gameJSON.put("natural_end", JSONObject.wrap(game.naturalEnd.getValue()));
-      gameJSON.put("metacritic_hint", JSONObject.wrap(game.metacriticHint.getValue()));
-      gameJSON.put("howlong_id", JSONObject.wrap(game.howlong_id.getValue()));
-      gameJSON.put("giantbomb_id", JSONObject.wrap(game.giantbomb_id.getValue()));
-      gameJSON.put("steam_cloud", JSONObject.wrap(game.steam_cloud.getValue()));
-      gameJSON.put("igdb_id", JSONObject.wrap(game.igdb_id.getValue()));
+      gameJSON.put("title", game.title.getValue());
+      gameJSON.put("logo", game.logo.getValue());
+      gameJSON.put("platform", game.platform.getValue());
+      gameJSON.put("giantbomb_medium_url", game.giantbomb_medium_url.getValue());
+      gameJSON.put("steamid", game.steamID.getValue());
+      gameJSON.put("date_added", game.dateAdded.getValue());
+      gameJSON.put("metacritic", game.metacritic.getValue());
+      gameJSON.put("timetotal", game.timeTotal.getValue());
+      gameJSON.put("howlong_extras", game.howlong_extras.getValue());
+      gameJSON.put("natural_end", game.naturalEnd.getValue());
+      gameJSON.put("metacritic_hint", game.metacriticHint.getValue());
+      gameJSON.put("howlong_id", game.howlong_id.getValue());
+      gameJSON.put("giantbomb_id", game.giantbomb_id.getValue());
+      gameJSON.put("steam_cloud", game.steam_cloud.getValue());
+      gameJSON.put("igdb_id", game.igdb_id.getValue());
 
-      gameJSON.put("metacritic_page", JSONObject.wrap(game.metacriticPage.getValue()));
-      gameJSON.put("metacritic_matched", JSONObject.wrap(game.metacriticMatched.getValue()));
-      gameJSON.put("steam_page_gone", JSONObject.wrap(game.steam_page_gone.getValue()));
-      gameJSON.put("steam_title", JSONObject.wrap(game.steam_title.getValue()));
-      gameJSON.put("howlong_title", JSONObject.wrap(game.howlong_title.getValue()));
-      gameJSON.put("giantbomb_name", JSONObject.wrap(game.giantbomb_name.getValue()));
+      gameJSON.put("metacritic_page", game.metacriticPage.getValue());
+      gameJSON.put("metacritic_matched", game.metacriticMatched.getValue());
+      gameJSON.put("steam_page_gone", game.steam_page_gone.getValue());
+      gameJSON.put("steam_title", game.steam_title.getValue());
+      gameJSON.put("howlong_title", game.howlong_title.getValue());
+      gameJSON.put("giantbomb_name", game.giantbomb_name.getValue());
 
-      gameJSON.put("igdb_rating", JSONObject.wrap(game.igdb_rating.getValue()));
-      gameJSON.put("igdb_rating_count", JSONObject.wrap(game.igdb_rating_count.getValue()));
-      gameJSON.put("igdb_release_date", JSONObject.wrap(game.igdb_release_date.getValue()));
-      gameJSON.put("igdb_popularity", JSONObject.wrap(game.igdb_popularity.getValue()));
-      gameJSON.put("igdb_slug", JSONObject.wrap(game.igdb_slug.getValue()));
-      gameJSON.put("igdb_summary", JSONObject.wrap(game.igdb_summary.getValue()));
-      gameJSON.put("igdb_updated", JSONObject.wrap(game.igdb_updated.getValue()));
+      gameJSON.put("igdb_rating", game.igdb_rating.getValue());
+      gameJSON.put("igdb_rating_count", game.igdb_rating_count.getValue());
+      gameJSON.put("igdb_release_date", game.igdb_release_date.getValue());
+      gameJSON.put("igdb_popularity", game.igdb_popularity.getValue());
+      gameJSON.put("igdb_slug", game.igdb_slug.getValue());
+      gameJSON.put("igdb_summary", game.igdb_summary.getValue());
+      gameJSON.put("igdb_updated", game.igdb_updated.getValue());
 
       addPersonGamesToGame(game, gameJSON);
       attachIGDBPoster(game, gameJSON);
@@ -150,17 +151,17 @@ public class SampleDataExporter {
 
     for (PersonGame personGame : personGames) {
       JSONObject personGameJSON = new JSONObject();
-      personGameJSON.put("person_id", JSONObject.wrap(personGame.person_id.getValue()));
-      personGameJSON.put("last_played", JSONObject.wrap(personGame.last_played.getValue()));
-      personGameJSON.put("rating", JSONObject.wrap(personGame.rating.getValue()));
-      personGameJSON.put("tier", JSONObject.wrap(personGame.tier.getValue()));
-      personGameJSON.put("id", JSONObject.wrap(personGame.id.getValue()));
-      personGameJSON.put("final_score", JSONObject.wrap(personGame.final_score.getValue()));
-      personGameJSON.put("finished_date", JSONObject.wrap(personGame.finished_date.getValue()));
-      personGameJSON.put("replay_score", JSONObject.wrap(personGame.replay_score.getValue()));
-      personGameJSON.put("replay_reason", JSONObject.wrap(personGame.replay_reason.getValue()));
-      personGameJSON.put("date_added", JSONObject.wrap(personGame.dateAdded.getValue()));
-      personGameJSON.put("minutes_played", JSONObject.wrap(personGame.minutes_played.getValue()));
+      personGameJSON.put("person_id", personGame.person_id.getValue());
+      personGameJSON.put("last_played", personGame.last_played.getValue());
+      personGameJSON.put("rating", personGame.rating.getValue());
+      personGameJSON.put("tier", personGame.tier.getValue());
+      personGameJSON.put("id", personGame.id.getValue());
+      personGameJSON.put("final_score", personGame.final_score.getValue());
+      personGameJSON.put("finished_date", personGame.finished_date.getValue());
+      personGameJSON.put("replay_score", personGame.replay_score.getValue());
+      personGameJSON.put("replay_reason", personGame.replay_reason.getValue());
+      personGameJSON.put("date_added", personGame.dateAdded.getValue());
+      personGameJSON.put("minutes_played", personGame.minutes_played.getValue());
 
       personGamesJSON.put(personGameJSON);
     }
@@ -181,17 +182,17 @@ public class SampleDataExporter {
       platformJSON.put("platform_name", myPlatform.platformName.getValue());
       platformJSON.put("person_id", myPlatform.personID.getValue());
 
-      platformJSON.put("rating", JSONObject.wrap(myPlatform.rating.getValue()));
-      platformJSON.put("tier", JSONObject.wrap(myPlatform.tier.getValue()));
-      platformJSON.put("last_played", JSONObject.wrap(myPlatform.last_played.getValue()));
-      platformJSON.put("minutes_played", JSONObject.wrap(myPlatform.minutes_played.getValue()));
-      platformJSON.put("finished_date", JSONObject.wrap(myPlatform.finished_date.getValue()));
-      platformJSON.put("final_score", JSONObject.wrap(myPlatform.final_score.getValue()));
-      platformJSON.put("replay_score", JSONObject.wrap(myPlatform.replay_score.getValue()));
-      platformJSON.put("replay_reason", JSONObject.wrap(myPlatform.replay_reason.getValue()));
-      platformJSON.put("collection_add", JSONObject.wrap(myPlatform.collectionAdd.getValue()));
-      platformJSON.put("preferred", JSONObject.wrap(myPlatform.preferred.getValue()));
-      platformJSON.put("date_added", JSONObject.wrap(myPlatform.dateAdded.getValue()));
+      platformJSON.put("rating", myPlatform.rating.getValue());
+      platformJSON.put("tier", myPlatform.tier.getValue());
+      platformJSON.put("last_played", myPlatform.last_played.getValue());
+      platformJSON.put("minutes_played", myPlatform.minutes_played.getValue());
+      platformJSON.put("finished_date", myPlatform.finished_date.getValue());
+      platformJSON.put("final_score", myPlatform.final_score.getValue());
+      platformJSON.put("replay_score", myPlatform.replay_score.getValue());
+      platformJSON.put("replay_reason", myPlatform.replay_reason.getValue());
+      platformJSON.put("collection_add", myPlatform.collectionAdd.getValue());
+      platformJSON.put("preferred", myPlatform.preferred.getValue());
+      platformJSON.put("date_added", myPlatform.dateAdded.getValue());
 
       myPlatformsJSON.put(platformJSON);
     }

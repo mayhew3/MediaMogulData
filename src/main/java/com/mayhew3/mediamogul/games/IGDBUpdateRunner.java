@@ -160,11 +160,11 @@ public class IGDBUpdateRunner implements UpdateRunner {
         "FROM game " +
         "WHERE igdb_ignored IS NULL " +
         "AND igdb_id IS NOT NULL " +
-        "AND id NOT IN (SELECT game_id FROM igdb_poster) " +
+        "AND retired = ? " +
         "ORDER BY id DESC ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
 
       runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {
