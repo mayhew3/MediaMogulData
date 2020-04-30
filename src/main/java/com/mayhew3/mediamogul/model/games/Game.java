@@ -96,6 +96,7 @@ public class Game extends RetireableDataObject {
 
   public Game() {
     // DB fields that aren't needed in java can be initialized in the constructor without a class member.
+    addUniqueConstraint(igdb_id, retired);
   }
 
   @Override
