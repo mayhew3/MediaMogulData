@@ -67,13 +67,11 @@ public class SampleDataExporter {
 
   private void exportMyGames(JSONArray gamesJSON) throws SQLException {
     String sql = "SELECT g.* " +
-        "FROM game g " +
-        "WHERE retired = ? " +
-        "AND igdb_ignored IS NULL " +
-        "AND (g.id > ? OR g.owned = ?) " +
+        "FROM valid_game g " +
+        "WHERE (g.id > ? OR g.owned = ?) " +
         "ORDER BY g.id ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0, 900, "not owned");
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 900, "not owned");
 
     while (resultSet.next()) {
       Game game = new Game();

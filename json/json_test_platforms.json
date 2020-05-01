@@ -96,276 +96,276 @@
     "igdb_name": "PlayStation 2"
   },
   {
-    "full_name": "Mac",
-    "igdb_platform_id": 14,
-    "short_name": "Mac",
-    "id": 15,
-    "igdb_name": "Mac"
-  },
-  {
-    "full_name": "PlayStation",
-    "igdb_platform_id": 7,
-    "short_name": "PlayStation",
-    "id": 16,
-    "igdb_name": "PlayStation"
-  },
-  {
-    "full_name": "PC DOS",
-    "igdb_platform_id": 13,
-    "short_name": "PC DOS",
-    "id": 17,
-    "igdb_name": "PC DOS"
-  },
-  {
-    "full_name": "Sega Saturn",
-    "igdb_platform_id": 32,
-    "short_name": "Sega Saturn",
-    "id": 18,
-    "igdb_name": "Sega Saturn"
-  },
-  {
-    "full_name": "Google Stadia",
-    "igdb_platform_id": 170,
-    "short_name": "Google Stadia",
-    "id": 19,
-    "igdb_name": "Google Stadia"
-  },
-  {
-    "full_name": "Commodore C64/128",
-    "igdb_platform_id": 15,
-    "short_name": "C64",
-    "id": 20,
-    "igdb_name": "Commodore C64/128"
-  },
-  {
-    "full_name": "Amiga",
-    "igdb_platform_id": 16,
-    "short_name": "Amiga",
-    "id": 21,
-    "igdb_name": "Amiga"
-  },
-  {
-    "full_name": "Nintendo Entertainment System (NES)",
-    "igdb_platform_id": 18,
-    "short_name": "NES",
-    "id": 22,
-    "igdb_name": "Nintendo Entertainment System (NES)"
-  },
-  {
-    "full_name": "Amstrad CPC",
-    "igdb_platform_id": 25,
-    "short_name": "ACPC",
-    "id": 23,
-    "igdb_name": "Amstrad CPC"
-  },
-  {
-    "full_name": "Atari ST/STE",
-    "igdb_platform_id": 63,
-    "short_name": "Atari-ST",
-    "id": 24,
-    "igdb_name": "Atari ST/STE"
-  },
-  {
-    "full_name": "Apple II",
-    "igdb_platform_id": 75,
-    "short_name": "Apple][",
-    "id": 25,
-    "igdb_name": "Apple II"
-  },
-  {
     "full_name": "Linux",
     "igdb_platform_id": 3,
     "short_name": "Linux",
-    "id": 26,
+    "id": 15,
     "igdb_name": "Linux"
   },
   {
-    "full_name": "PlayStation Network",
-    "igdb_platform_id": 45,
-    "short_name": "psn",
-    "id": 27,
-    "igdb_name": "PlayStation Network"
+    "full_name": "Mac",
+    "igdb_platform_id": 14,
+    "short_name": "Mac",
+    "id": 16,
+    "igdb_name": "Mac"
   },
   {
-    "full_name": "PlayStation Portable",
-    "igdb_platform_id": 38,
-    "short_name": "PSP",
-    "id": 28,
-    "igdb_name": "PlayStation Portable"
+    "full_name": "Arcade",
+    "igdb_platform_id": 52,
+    "short_name": "Arcade",
+    "id": 17,
+    "igdb_name": "Arcade"
   },
   {
-    "full_name": "Mobile",
-    "igdb_platform_id": 55,
-    "short_name": "Mobile",
-    "id": 29,
-    "igdb_name": "Mobile"
-  },
-  {
-    "full_name": "Nintendo 3DS",
-    "igdb_platform_id": 37,
-    "short_name": "3DS",
-    "id": 30,
-    "igdb_name": "Nintendo 3DS"
+    "full_name": "BlackBerry OS",
+    "igdb_platform_id": 73,
+    "short_name": "blackberry",
+    "id": 18,
+    "igdb_name": "BlackBerry OS"
   },
   {
     "full_name": "PlayStation Vita",
     "igdb_platform_id": 46,
     "short_name": "Vita",
-    "id": 31,
+    "id": 19,
     "igdb_name": "PlayStation Vita"
   },
   {
     "full_name": "Xbox Live Arcade",
     "igdb_platform_id": 36,
     "short_name": "xla",
-    "id": 32,
+    "id": 20,
     "igdb_name": "Xbox Live Arcade"
   },
   {
-    "full_name": "PlayStation VR",
-    "igdb_platform_id": 165,
-    "short_name": "PlayStation VR",
-    "id": 33,
-    "igdb_name": "PlayStation VR"
+    "full_name": "Nintendo 3DS",
+    "igdb_platform_id": 37,
+    "short_name": "3DS",
+    "id": 21,
+    "igdb_name": "Nintendo 3DS"
   },
   {
-    "full_name": "SteamVR",
-    "igdb_platform_id": 163,
-    "short_name": "Steam VR",
-    "id": 34,
-    "igdb_name": "SteamVR"
-  },
-  {
-    "full_name": "Oculus VR",
-    "igdb_platform_id": 162,
-    "short_name": "Oculus VR",
-    "id": 35,
-    "igdb_name": "Oculus VR"
-  },
-  {
-    "full_name": "Apple IIGS",
-    "igdb_platform_id": 115,
-    "id": 36,
-    "igdb_name": "Apple IIGS"
-  },
-  {
-    "full_name": "FM Towns",
-    "igdb_platform_id": 118,
-    "id": 37,
-    "igdb_name": "FM Towns"
-  },
-  {
-    "full_name": "PC-98",
-    "igdb_platform_id": 149,
-    "id": 38,
-    "igdb_name": "PC-98"
-  },
-  {
-    "full_name": "Windows Mixed Reality",
-    "igdb_platform_id": 161,
-    "id": 39,
-    "igdb_name": "Windows Mixed Reality"
-  },
-  {
-    "full_name": "Ouya",
-    "igdb_platform_id": 72,
-    "short_name": "Ouya",
-    "id": 40,
-    "igdb_name": "Ouya"
+    "full_name": "PlayStation Network",
+    "igdb_platform_id": 45,
+    "short_name": "psn",
+    "id": 22,
+    "igdb_name": "PlayStation Network"
   },
   {
     "full_name": "Windows Phone",
     "igdb_platform_id": 74,
     "short_name": "Win Phone",
-    "id": 41,
+    "id": 23,
     "igdb_name": "Windows Phone"
-  },
-  {
-    "full_name": "Nintendo GameCube",
-    "igdb_platform_id": 21,
-    "short_name": "NGC",
-    "id": 42,
-    "igdb_name": "Nintendo GameCube"
-  },
-  {
-    "full_name": "Turbografx-16/PC Engine CD",
-    "igdb_platform_id": 150,
-    "id": 43,
-    "igdb_name": "Turbografx-16/PC Engine CD"
-  },
-  {
-    "full_name": "Dreamcast",
-    "igdb_platform_id": 23,
-    "short_name": "DC",
-    "id": 44,
-    "igdb_name": "Dreamcast"
-  },
-  {
-    "full_name": "WiiWare",
-    "igdb_platform_id": 56,
-    "short_name": "WiiWare",
-    "id": 45,
-    "igdb_name": "WiiWare"
-  },
-  {
-    "full_name": "BlackBerry OS",
-    "igdb_platform_id": 73,
-    "short_name": "blackberry",
-    "id": 46,
-    "igdb_name": "BlackBerry OS"
-  },
-  {
-    "full_name": "Arcade",
-    "igdb_platform_id": 52,
-    "short_name": "Arcade",
-    "id": 47,
-    "igdb_name": "Arcade"
   },
   {
     "full_name": "Super Nintendo Entertainment System (SNES)",
     "igdb_platform_id": 19,
     "short_name": "SNES",
-    "id": 48,
+    "id": 24,
     "igdb_name": "Super Nintendo Entertainment System (SNES)"
   },
   {
     "full_name": "Virtual Console (Nintendo)",
     "igdb_platform_id": 47,
     "short_name": "VC",
-    "id": 49,
+    "id": 25,
     "igdb_name": "Virtual Console (Nintendo)"
+  },
+  {
+    "full_name": "PlayStation Portable",
+    "igdb_platform_id": 38,
+    "short_name": "PSP",
+    "id": 26,
+    "igdb_name": "PlayStation Portable"
+  },
+  {
+    "full_name": "Ouya",
+    "igdb_platform_id": 72,
+    "short_name": "Ouya",
+    "id": 27,
+    "igdb_name": "Ouya"
+  },
+  {
+    "full_name": "WiiWare",
+    "igdb_platform_id": 56,
+    "short_name": "WiiWare",
+    "id": 28,
+    "igdb_name": "WiiWare"
+  },
+  {
+    "full_name": "Google Stadia",
+    "igdb_platform_id": 170,
+    "short_name": "Stadia",
+    "id": 29,
+    "igdb_name": "Google Stadia"
+  },
+  {
+    "full_name": "Oculus VR",
+    "igdb_platform_id": 162,
+    "short_name": "Oculus VR",
+    "id": 30,
+    "igdb_name": "Oculus VR"
+  },
+  {
+    "full_name": "SteamVR",
+    "igdb_platform_id": 163,
+    "short_name": "Steam VR",
+    "id": 31,
+    "igdb_name": "SteamVR"
+  },
+  {
+    "full_name": "PlayStation VR",
+    "igdb_platform_id": 165,
+    "short_name": "PlayStation VR",
+    "id": 32,
+    "igdb_name": "PlayStation VR"
+  },
+  {
+    "full_name": "PC DOS",
+    "igdb_platform_id": 13,
+    "short_name": "DOS",
+    "id": 33,
+    "igdb_name": "PC DOS"
+  },
+  {
+    "full_name": "Commodore C64/128",
+    "igdb_platform_id": 15,
+    "short_name": "C64",
+    "id": 34,
+    "igdb_name": "Commodore C64/128"
+  },
+  {
+    "full_name": "Amiga",
+    "igdb_platform_id": 16,
+    "short_name": "Amiga",
+    "id": 35,
+    "igdb_name": "Amiga"
+  },
+  {
+    "full_name": "Nintendo Entertainment System (NES)",
+    "igdb_platform_id": 18,
+    "short_name": "NES",
+    "id": 36,
+    "igdb_name": "Nintendo Entertainment System (NES)"
+  },
+  {
+    "full_name": "Amstrad CPC",
+    "igdb_platform_id": 25,
+    "short_name": "ACPC",
+    "id": 37,
+    "igdb_name": "Amstrad CPC"
+  },
+  {
+    "full_name": "Atari ST/STE",
+    "igdb_platform_id": 63,
+    "short_name": "Atari-ST",
+    "id": 38,
+    "igdb_name": "Atari ST/STE"
+  },
+  {
+    "full_name": "Apple II",
+    "igdb_platform_id": 75,
+    "short_name": "Apple][",
+    "id": 39,
+    "igdb_name": "Apple II"
+  },
+  {
+    "full_name": "Apple IIGS",
+    "igdb_platform_id": 115,
+    "id": 40,
+    "igdb_name": "Apple IIGS"
+  },
+  {
+    "full_name": "FM Towns",
+    "igdb_platform_id": 118,
+    "id": 41,
+    "igdb_name": "FM Towns"
+  },
+  {
+    "full_name": "PC-98",
+    "igdb_platform_id": 149,
+    "id": 42,
+    "igdb_name": "PC-98"
+  },
+  {
+    "full_name": "Mobile",
+    "igdb_platform_id": 55,
+    "short_name": "Mobile",
+    "id": 43,
+    "igdb_name": "Mobile"
+  },
+  {
+    "full_name": "Windows Mixed Reality",
+    "igdb_platform_id": 161,
+    "id": 44,
+    "igdb_name": "Windows Mixed Reality"
+  },
+  {
+    "full_name": "Nintendo GameCube",
+    "igdb_platform_id": 21,
+    "short_name": "NGC",
+    "id": 45,
+    "igdb_name": "Nintendo GameCube"
+  },
+  {
+    "full_name": "Turbografx-16/PC Engine CD",
+    "igdb_platform_id": 150,
+    "id": 46,
+    "igdb_name": "Turbografx-16/PC Engine CD"
+  },
+  {
+    "full_name": "Dreamcast",
+    "igdb_platform_id": 23,
+    "short_name": "DC",
+    "id": 47,
+    "igdb_name": "Dreamcast"
   },
   {
     "full_name": "PlayStation 5",
     "igdb_platform_id": 167,
-    "id": 50,
+    "id": 48,
     "igdb_name": "PlayStation 5"
   },
   {
     "full_name": "Xbox Series X",
     "igdb_platform_id": 169,
-    "id": 51,
+    "id": 49,
     "igdb_name": "Xbox Series X"
   },
   {
     "full_name": "Game Boy Advance",
     "igdb_platform_id": 24,
     "short_name": "GBA",
-    "id": 52,
+    "id": 50,
     "igdb_name": "Game Boy Advance"
   },
   {
     "full_name": "Amazon Fire TV",
     "igdb_platform_id": 132,
-    "id": 53,
+    "id": 51,
     "igdb_name": "Amazon Fire TV"
+  },
+  {
+    "full_name": "PlayStation",
+    "igdb_platform_id": 7,
+    "short_name": "PS1",
+    "id": 52,
+    "igdb_name": "PlayStation"
   },
   {
     "full_name": "Game Boy",
     "igdb_platform_id": 33,
     "short_name": "Game Boy",
-    "id": 54,
+    "id": 53,
     "igdb_name": "Game Boy"
+  },
+  {
+    "full_name": "Sega Saturn",
+    "igdb_platform_id": 32,
+    "short_name": "Saturn",
+    "id": 54,
+    "igdb_name": "Sega Saturn"
   },
   {
     "full_name": "N-Gage",

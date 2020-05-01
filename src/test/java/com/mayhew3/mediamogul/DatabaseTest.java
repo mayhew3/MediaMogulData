@@ -16,10 +16,15 @@ import java.sql.SQLException;
 public abstract class DatabaseTest {
   protected SQLConnection connection;
 
-  private static Logger logger = LogManager.getLogger(DatabaseTest.class);
+  private static final Logger logger = LogManager.getLogger(DatabaseTest.class);
 
-  private void deleteValidView() throws SQLException {
+  private void deleteValidEpisodeView() throws SQLException {
     String sql = "DROP VIEW IF EXISTS valid_episode";
+    connection.prepareAndExecuteStatementUpdate(sql);
+  }
+
+  private void deleteValidGameView() throws SQLException {
+    String sql = "DROP VIEW IF EXISTS valid_game";
     connection.prepareAndExecuteStatementUpdate(sql);
   }
 
@@ -36,15 +41,25 @@ public abstract class DatabaseTest {
   private void deleteViews() throws SQLException {
     deleteMatchingView();
     deleteRegularView();
-    deleteValidView();
+    deleteValidEpisodeView();
+    deleteValidGameView();
   }
 
-  private void createValidView() throws SQLException {
+  private void createValidEpisodeView() throws SQLException {
     String sql = "CREATE VIEW valid_episode " +
         "AS SELECT * " +
         "FROM episode " +
         "WHERE retired = 0 " +
         "AND tvdb_approval = 'approved' ";
+    connection.prepareAndExecuteStatementUpdate(sql);
+  }
+
+  private void createValidGameView() throws SQLException {
+    String sql = "CREATE VIEW valid_game " +
+        "AS SELECT * " +
+        "FROM game " +
+        "WHERE retired = 0 " +
+        "AND igdb_ignored IS NULL ";
     connection.prepareAndExecuteStatementUpdate(sql);
   }
 
@@ -66,7 +81,8 @@ public abstract class DatabaseTest {
   }
 
   private void createViews() throws SQLException {
-    createValidView();
+    createValidGameView();
+    createValidEpisodeView();
     createRegularView();
     createMatchingView();
   }
@@ -79,10 +95,6 @@ public abstract class DatabaseTest {
     new DatabaseRecreator(connection).recreateDatabase(MediaMogulSchema.schema);
     createViews();
     logger.info("DB re-created.");
-  }
-
-  private void debug(Object message) {
-    logger.debug(message);
   }
 
 }
