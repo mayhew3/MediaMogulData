@@ -79,7 +79,7 @@ public class NewGameChecker implements UpdateRunner {
   public void runUpdate() throws SQLException {
 
     String sql = "SELECT * " +
-        "FROM game " +
+        "FROM valid_game " +
         "WHERE first_processed = ? ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, false);

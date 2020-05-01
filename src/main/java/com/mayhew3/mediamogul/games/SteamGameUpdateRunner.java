@@ -121,7 +121,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
       logger.info("");
 
       String sql = "SELECT g.* " +
-          "FROM game g " +
+          "FROM valid_game g " +
           "INNER JOIN available_game_platform agp " +
           "  ON agp.game_id = g.id " +
           "INNER JOIN my_game_platform mgp " +
@@ -224,10 +224,9 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     Optional<JSONObject> exactMatch = findExactMatch(gameMatches, title);
     if (exactMatch.isPresent()) {
       String sql = "SELECT * " +
-          "FROM game " +
-          "WHERE igdb_id = ? " +
-          "AND retired = ? ";
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, exactMatch.get().getInt("id"), 0);
+          "FROM valid_game " +
+          "WHERE igdb_id = ? ";
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, exactMatch.get().getInt("id"));
       if (resultSet.next()) {
         Game game = new Game();
         game.initializeFromDBObject(resultSet);
@@ -251,7 +250,10 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     //    log is just a stamp of the date of checking and the total time?
     //    LOG: Previous Hours, Current Hours, Change. For first time, Prev and Curr are the same, and Change is 0.
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch("SELECT * FROM game WHERE steamid = ?", steamID);
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE steamid = ?";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, steamID);
     Game game = new Game();
 
     if (resultSet.next()) {

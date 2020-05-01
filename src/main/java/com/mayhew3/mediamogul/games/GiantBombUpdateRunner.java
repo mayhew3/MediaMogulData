@@ -63,7 +63,7 @@ public class GiantBombUpdateRunner implements UpdateRunner {
   private void updateFieldsOnSingle() throws SQLException, InterruptedException {
     String singleGame = "The Legend of Zelda: Breath of the Wild";
 
-    String sql = "SELECT * FROM game WHERE title = ?";
+    String sql = "SELECT * FROM valid_game WHERE title = ?";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, singleGame);
 
     runUpdateOnResultSet(resultSet);
@@ -74,7 +74,10 @@ public class GiantBombUpdateRunner implements UpdateRunner {
 
 
   public void runUpdate() throws SQLException, InterruptedException {
-    String sql = "SELECT * FROM game WHERE NOT (giantbomb_id IS NOT NULL and giantbomb_icon_url IS NOT NULL) and owned <> 'not owned'";
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE NOT (giantbomb_id IS NOT NULL and giantbomb_icon_url IS NOT NULL) " +
+        "and owned <> 'not owned'";
     ResultSet resultSet = connection.executeQuery(sql);
 
     runUpdateOnResultSet(resultSet);

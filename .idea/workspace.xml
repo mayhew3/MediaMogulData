@@ -21,11 +21,16 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json/json_test_games.json" beforeDir="false" afterPath="$PROJECT_DIR$/json/json_test_games.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json/json_test_platforms.json" beforeDir="false" afterPath="$PROJECT_DIR$/json/json_test_platforms.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/backup/MediaMogulRestoreExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SampleDataExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SampleDataExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/DatabaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/GiantBombUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/GiantBombUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/IGDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/IGDBUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/NewGameChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/NewGameChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/utility/GamePlatformUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/utility/GamePlatformUpdater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/PersonGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/PersonGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +155,7 @@
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\TVDBSeasonZero" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SampleDataExporter">
+  <component name="RunManager" selected="JUnit.SteamUpdaterTest">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -2072,6 +2077,27 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="All in media-mogul-data.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="media-mogul-data.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs>
+        <env name="postgresURL_local" value="$postgresURL_local$" />
+        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="IGDBUpdaterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="media-mogul-data.test" />
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
@@ -2119,27 +2145,6 @@
       <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.IGDBUpdaterTest" />
       <option name="METHOD_NAME" value="testNoResults" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IGDBUpdaterTest.testTwoResultsTwoExactMatches" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="media-mogul-data.test" />
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.IGDBUpdaterTest" />
-      <option name="METHOD_NAME" value="testTwoResultsTwoExactMatches" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" value="" />
@@ -2460,18 +2465,18 @@
       <item itemvalue="JUnit.SchemaHerokuStagingTest" />
       <item itemvalue="JUnit.SchemaLocalTest" />
       <item itemvalue="JUnit.IGDBUpdaterTest" />
-      <item itemvalue="JUnit.IGDBUpdaterTest.testTwoResultsTwoExactMatches" />
       <item itemvalue="JUnit.SteamUpdaterTest" />
       <item itemvalue="JUnit.IGDBUpdaterTest.testAllPlatformsAddedOnFirstMatch" />
       <item itemvalue="JUnit.IGDBUpdaterTest.testNoResults" />
+      <item itemvalue="JUnit.All in media-mogul-data.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SteamUpdaterTest" />
+        <item itemvalue="JUnit.All in media-mogul-data.test" />
         <item itemvalue="JUnit.IGDBUpdaterTest.testNoResults" />
         <item itemvalue="JUnit.IGDBUpdaterTest" />
         <item itemvalue="JUnit.IGDBUpdaterTest.testAllPlatformsAddedOnFirstMatch" />
-        <item itemvalue="JUnit.SteamUpdaterTest" />
-        <item itemvalue="JUnit.IGDBUpdaterTest.testTwoResultsTwoExactMatches" />
       </list>
     </recent_temporary>
   </component>
@@ -2674,30 +2679,30 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="2517" height="399" key="GridCell.Tab.0.bottom" timestamp="1588370340254">
+    <state width="2517" height="399" key="GridCell.Tab.0.bottom" timestamp="1588372654948">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="399" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588370340254" />
-    <state width="2517" height="399" key="GridCell.Tab.0.center" timestamp="1588370340254">
+    <state width="2517" height="399" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
+    <state width="2517" height="399" key="GridCell.Tab.0.center" timestamp="1588372654948">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="399" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588370340254" />
-    <state width="2517" height="399" key="GridCell.Tab.0.left" timestamp="1588370340254">
+    <state width="2517" height="399" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
+    <state width="2517" height="399" key="GridCell.Tab.0.left" timestamp="1588372654948">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
-    <state width="2517" height="399" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588370340254" />
-    <state width="2517" height="399" key="GridCell.Tab.0.right" timestamp="1588370340254">
+    <state width="2517" height="399" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
+    <state width="2517" height="399" key="GridCell.Tab.0.right" timestamp="1588372654948">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="399" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588370340254" />
+    <state width="2517" height="399" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
     <state width="1236" height="443" key="GridCell.Tab.1.bottom" timestamp="1588216341423">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2749,11 +2754,11 @@
     </state>
     <state x="690" y="284" key="extract.method.dialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588057705243" />
     <state x="920" y="381" key="extract.method.dialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588120773530" />
-    <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1588368723770">
+    <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1588371590293">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="656" y="262" width="758" height="628" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1587863061768" />
-    <state x="875" y="352" width="884" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588368723770" />
+    <state x="875" y="352" width="884" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588371590293" />
     <state x="1222" y="245" key="refactoring.ChangeSignatureDialog" timestamp="1588054710198">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2820,12 +2825,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/utility/GamePlatformUpdater.java</url>
-          <line>311</line>
+          <line>307</line>
           <option name="timeStamp" value="247" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java</url>
-          <line>253</line>
+          <line>252</line>
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

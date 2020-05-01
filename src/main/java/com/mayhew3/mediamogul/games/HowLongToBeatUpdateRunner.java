@@ -101,7 +101,7 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   private void runUpdateQuick() {
 
     String sql = "SELECT * " +
-        "FROM game " +
+        "FROM valid_game " +
         "WHERE howlong_updated IS NULL " +
         "ORDER BY howlong_failed NULLS FIRST, id " +
         "LIMIT 1 ";
@@ -116,7 +116,9 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateFull() {
-    String sql = "SELECT * FROM game WHERE howlong_updated IS NULL";
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE howlong_updated IS NULL";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
@@ -128,7 +130,9 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
 
   private void runUpdateOnSingle() {
     String gameTitle = "Return of the Obra Dinn";
-    String sql = "SELECT * FROM game WHERE title = ? ";
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE title = ? ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameTitle);
@@ -143,7 +147,9 @@ public class HowLongToBeatUpdateRunner implements UpdateRunner {
   * */
   private void runUpdateOnSingleForPing() {
     String gameTitle = "Return of the Obra Dinn";
-    String sql = "SELECT * FROM game WHERE title = ? ";
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE title = ? ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameTitle);

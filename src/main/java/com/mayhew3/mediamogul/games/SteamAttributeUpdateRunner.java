@@ -80,7 +80,11 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateFull() {
-    String sql = "SELECT * FROM game WHERE steamid is not null AND steam_attributes IS NULL AND steam_page_gone IS NULL";
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE steamid is not null " +
+        "AND steam_attributes IS NULL " +
+        "AND steam_page_gone IS NULL";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
@@ -94,7 +98,8 @@ public class SteamAttributeUpdateRunner implements UpdateRunner {
   private void runUpdateOnSingle() {
     String gameTitle = "Fallout 4 VR";
 
-    String sql = "SELECT * FROM game " +
+    String sql = "SELECT * " +
+        "FROM valid_game " +
         "WHERE title = ? ";
 
     try {

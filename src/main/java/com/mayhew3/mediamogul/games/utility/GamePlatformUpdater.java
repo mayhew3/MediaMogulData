@@ -48,14 +48,12 @@ public class GamePlatformUpdater {
     populateAllPlatforms();
 
     String sql = "SELECT igdb_id " +
-        "FROM game " +
+        "FROM valid_game " +
         "WHERE igdb_success IS NOT NULL " +
-        "AND igdb_ignored IS NULL " +
-        "AND retired = ? " +
         "AND id NOT IN (SELECT game_id from available_game_platform) " +
         "GROUP BY igdb_id ";
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
     while (resultSet.next()) {
       Integer igdb_id = resultSet.getInt("igdb_id");
       handleGame(igdb_id);
@@ -105,7 +103,7 @@ public class GamePlatformUpdater {
 
   private List<String> getUnregisteredPlatforms() throws SQLException {
     String sql = "SELECT DISTINCT g.platform " +
-        "FROM game g " +
+        "FROM valid_game g " +
         "WHERE g.platform NOT IN (SELECT full_name FROM game_platform) ";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
     List<String> platforms = new ArrayList<>();
@@ -152,12 +150,10 @@ public class GamePlatformUpdater {
     logger.info("Splitting platforms for IGDB_ID " + igdb_id);
 
     String sql = "SELECT * " +
-        "FROM game " +
+        "FROM valid_game " +
         "WHERE igdb_id = ? " +
-        "AND igdb_ignored IS NULL " +
-        "AND retired = ? " +
         "ORDER BY id ";
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_id, 0);
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, igdb_id);
 
     List<Game> matchingGames = new ArrayList<>();
 

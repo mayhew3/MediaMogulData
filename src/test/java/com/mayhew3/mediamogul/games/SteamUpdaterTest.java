@@ -654,7 +654,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
   private Optional<Game> findGameFromDB(String gameName) throws SQLException {
     String sql = "SELECT * " +
-        "FROM game " +
+        "FROM valid_game " +
         "WHERE title = ? ";
 
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameName);

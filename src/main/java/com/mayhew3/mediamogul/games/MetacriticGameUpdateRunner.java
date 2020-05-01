@@ -95,8 +95,9 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   private void updateSingleGame() {
     String nameOfSingleGame = "Half-Life: Alyx";
 
-    String sql = "SELECT * FROM game"
-        + " WHERE title = ?";
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE title = ? ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, nameOfSingleGame);
@@ -108,7 +109,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateAllGames() {
-    String sql = "SELECT * FROM game";
+    String sql = "SELECT * " +
+        "FROM valid_game";
 
     try {
       ResultSet resultSet = connection.executeQuery(sql);
@@ -119,8 +121,9 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateUnmatchedGames() {
-    String sql = "SELECT * FROM game"
-     + " WHERE metacritic_matched IS NULL";
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE metacritic_matched IS NULL ";
 
     try {
       ResultSet resultSet = connection.executeQuery(sql);
@@ -132,8 +135,9 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateMatchGamesWithNoValue() {
-    String sql = "SELECT * FROM game"
-     + " WHERE metacritic_page = ? " +
+    String sql = "SELECT * " +
+        "FROM valid_game " +
+        "WHERE metacritic_page = ? " +
         "AND metacritic IS NULL ";
 
     try {

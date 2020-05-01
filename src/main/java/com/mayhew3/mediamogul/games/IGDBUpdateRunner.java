@@ -97,7 +97,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
 
   private void runUpdateSmart() {
     String sql = "SELECT * " +
-        "FROM game " +
+        "FROM valid_game " +
         "WHERE igdb_success IS NULL " +
         "AND igdb_failed IS NULL " +
         "AND igdb_ignored IS NULL ";
@@ -113,9 +113,8 @@ public class IGDBUpdateRunner implements UpdateRunner {
   private void runUpdateSplitter() {
     List<Integer> gameIDs = Lists.newArrayList(578, 26);
     String sql = "SELECT * " +
-        "FROM game " +
-        "WHERE id IN (?, ?) " +
-        "AND retired = ? ";
+        "FROM valid_game " +
+        "WHERE id IN (?, ?) ";
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameIDs.get(0), gameIDs.get(1), 0);
 
@@ -128,9 +127,8 @@ public class IGDBUpdateRunner implements UpdateRunner {
   private void runUpdateSingle() {
     String gameTitle = "God of War";
     String sql = "select * " +
-        "from game " +
-        "where title = ? " +
-        "AND retired = ? ";
+        "from valid_game " +
+        "where title = ? ";
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameTitle, 0);
 
@@ -142,9 +140,8 @@ public class IGDBUpdateRunner implements UpdateRunner {
 
   private void runUpdateSanity() {
     String sql = "SELECT * " +
-        "FROM game " +
-        "WHERE igdb_next_update < now() " +
-        "AND igdb_ignored IS NULL ";
+        "FROM valid_game " +
+        "WHERE igdb_next_update < now() ";
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
@@ -157,14 +154,12 @@ public class IGDBUpdateRunner implements UpdateRunner {
 
   private void runUpdateOnAll() {
     String sql = "SELECT * " +
-        "FROM game " +
-        "WHERE igdb_ignored IS NULL " +
-        "AND igdb_id IS NOT NULL " +
-        "AND retired = ? " +
+        "FROM valid_game " +
+        "WHERE igdb_id IS NOT NULL " +
         "ORDER BY id DESC ";
 
     try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 0);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
 
       runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {

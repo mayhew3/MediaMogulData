@@ -51,7 +51,7 @@ public class PersonGame extends RetireableDataObject {
   }
 
   public Game getGame(SQLConnection connection) throws SQLException {
-    String sql = "SELECT * FROM game WHERE id = ? ";
+    String sql = "SELECT * FROM valid_game WHERE id = ? ";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, game_id.getValue());
     if (resultSet.next()) {
       Game game = new Game();
