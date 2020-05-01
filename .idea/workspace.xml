@@ -21,16 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/GiantBombUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/GiantBombUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/IGDBUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/IGDBUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/NewGameChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/NewGameChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/utility/GamePlatformUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/utility/GamePlatformUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/PersonGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/PersonGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mayhew3/mediamogul/games/SteamUpdaterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +146,7 @@
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\TVDBSeasonZero" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SteamUpdaterTest">
+  <component name="RunManager" selected="Application.TaskScheduleRunner (heroku DB / Obsidian ENV)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -1715,7 +1706,8 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.scheduler.TaskScheduleRunner" />
       <module name="media-mogul-data.main" />
-      <option name="PROGRAM_PARAMETERS" value="-db Local -Dlog4j.configurationFile=src/main/resources/log4j2-local.xml" />
+      <option name="PROGRAM_PARAMETERS" value="-socketEnv heroku" />
+      <option name="VM_PARAMETERS" value="-Dlog4j.configurationFile=src/main/resources/log4j2-local.xml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -2623,11 +2615,11 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="183" key="#Updates/0.0.1920.1050@0.0.1920.1050" timestamp="1586483914791" />
-    <state x="858" y="70" width="1092" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588135674910">
+    <state x="858" y="70" width="1092" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588373685013">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="706" y="480" width="823" height="570" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588052674194" />
-    <state x="858" y="70" width="1092" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588135674910" />
+    <state x="858" y="70" width="1092" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588373685013" />
     <state x="92" y="92" width="2376" height="1226" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1588109021676">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2661,11 +2653,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1634" y="352" key="#media-mogul-data_[runTaskScheduleRunner]/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582251787319" />
-    <state x="922" y="357" width="1090" height="766" key="#xdebugger.evaluate" timestamp="1588109155890">
+    <state x="922" y="357" width="1090" height="766" key="#xdebugger.evaluate" timestamp="1588375691012">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="272" y="194" key="#xdebugger.evaluate/0.0.1920.1050@0.0.1920.1050" timestamp="1580496081905" />
-    <state x="922" y="357" width="1090" height="766" key="#xdebugger.evaluate/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588109155890" />
+    <state x="922" y="357" width="1090" height="766" key="#xdebugger.evaluate/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375691012" />
     <state x="123" y="124" width="2315" height="1163" maximized="true" key="DiffContextDialog" timestamp="1587512334265">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2679,50 +2671,50 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="2517" height="399" key="GridCell.Tab.0.bottom" timestamp="1588372654948">
+    <state width="2517" height="446" key="GridCell.Tab.0.bottom" timestamp="1588375613414">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="399" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
-    <state width="2517" height="399" key="GridCell.Tab.0.center" timestamp="1588372654948">
+    <state width="2517" height="446" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375613414" />
+    <state width="2517" height="446" key="GridCell.Tab.0.center" timestamp="1588375613414">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="399" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
-    <state width="2517" height="399" key="GridCell.Tab.0.left" timestamp="1588372654948">
+    <state width="2517" height="446" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375613414" />
+    <state width="2517" height="446" key="GridCell.Tab.0.left" timestamp="1588375613414">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
-    <state width="2517" height="399" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
-    <state width="2517" height="399" key="GridCell.Tab.0.right" timestamp="1588372654948">
+    <state width="2517" height="446" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375613414" />
+    <state width="2517" height="446" key="GridCell.Tab.0.right" timestamp="1588375613414">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="399" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588372654948" />
-    <state width="1236" height="443" key="GridCell.Tab.1.bottom" timestamp="1588216341423">
+    <state width="2517" height="446" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375613414" />
+    <state width="2517" height="446" key="GridCell.Tab.1.bottom" timestamp="1588375614054">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042598" />
-    <state width="1236" height="443" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588216341423" />
-    <state width="1236" height="443" key="GridCell.Tab.1.center" timestamp="1588216341423">
+    <state width="2517" height="446" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375614054" />
+    <state width="2517" height="446" key="GridCell.Tab.1.center" timestamp="1588375614054">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="1236" height="443" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588216341423" />
-    <state width="1236" height="443" key="GridCell.Tab.1.left" timestamp="1588216341423">
+    <state width="2517" height="446" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375614054" />
+    <state width="2517" height="446" key="GridCell.Tab.1.left" timestamp="1588375614053">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="1236" height="443" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588216341423" />
-    <state width="1236" height="443" key="GridCell.Tab.1.right" timestamp="1588216341423">
+    <state width="2517" height="446" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375614053" />
+    <state width="2517" height="446" key="GridCell.Tab.1.right" timestamp="1588375614054">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="1236" height="443" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588216341423" />
+    <state width="2517" height="446" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588375614054" />
     <state x="947" y="341" key="RollbackChangesDialog" timestamp="1588275055317">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2764,11 +2756,11 @@
     </state>
     <state x="1222" y="245" key="refactoring.ChangeSignatureDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588054710198" />
     <state x="1629" y="329" key="refactoring.ChangeSignatureDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587606500228" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1588370437903">
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1588373713153">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1588054726795" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588370437903" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588373713153" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2837,6 +2829,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/IGDBUpdater.java</url>
           <line>54</line>
           <option name="timeStamp" value="266" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.mayhew3/Postgres-Object/0.12.1/e837f60f5ffce65d27335da70ecd89faea2ff8af/Postgres-Object-0.12.1-sources.jar!/com/mayhew3/postgresobject/db/PostgresConnectionFactory.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="267" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
