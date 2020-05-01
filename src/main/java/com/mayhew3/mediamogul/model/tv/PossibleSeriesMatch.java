@@ -14,6 +14,7 @@ public class PossibleSeriesMatch extends RetireableDataObject {
   public FieldValueBoolean alreadyExists = registerBooleanField("already_exists", Nullability.NOT_NULL).defaultValue(false);
 
   public PossibleSeriesMatch() {
+    super();
     addUniqueConstraint(seriesId, tvdbSeriesExtId);
   }
 

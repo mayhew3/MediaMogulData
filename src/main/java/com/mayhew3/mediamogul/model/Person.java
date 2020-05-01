@@ -14,6 +14,7 @@ public class Person extends RetireableDataObject {
   public FieldValueString lastName = registerStringField("last_name", Nullability.NOT_NULL);
 
   public Person() {
+    super();
     addUniqueConstraint(email);
   }
 

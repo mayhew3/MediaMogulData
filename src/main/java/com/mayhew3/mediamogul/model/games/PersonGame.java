@@ -36,6 +36,7 @@ public class PersonGame extends RetireableDataObject {
 
 
   public PersonGame() {
+    super();
     addUniqueConstraint(game_id, person_id, retired);
   }
 

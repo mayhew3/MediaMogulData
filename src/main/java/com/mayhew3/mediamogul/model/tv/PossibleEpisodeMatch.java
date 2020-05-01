@@ -15,6 +15,7 @@ public class PossibleEpisodeMatch extends RetireableDataObject implements Compar
   public FieldValueString matchAlgorithm = registerStringField("match_algorithm", Nullability.NOT_NULL);
 
   public PossibleEpisodeMatch() {
+    super();
     addUniqueConstraint(tivoEpisodeId, tvdbEpisodeId);
   }
 

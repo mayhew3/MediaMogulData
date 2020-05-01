@@ -13,6 +13,7 @@ public class TVGroupVote extends RetireableDataObject {
   public FieldValueInteger vote_value = registerIntegerField("vote_value", Nullability.NULLABLE);
 
   public TVGroupVote() {
+    super();
     registerBooleanField("vote_skipped", Nullability.NOT_NULL).defaultValue(false);
     addUniqueConstraint(ballot_id, person_id, retired);
   }

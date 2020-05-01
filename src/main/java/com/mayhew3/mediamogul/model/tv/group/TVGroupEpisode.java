@@ -13,6 +13,7 @@ public class TVGroupEpisode extends RetireableDataObject {
 
 
   public TVGroupEpisode() {
+    super();
     registerBooleanField("watched", Nullability.NOT_NULL);
     registerTimestampField("watched_date", Nullability.NULLABLE);
 

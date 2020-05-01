@@ -45,6 +45,7 @@ public class TiVoEpisode extends RetireableDataObject {
 
 
   public TiVoEpisode() {
+    super();
     addUniqueConstraint(programId, programV2Id, captureDate, retired);
     addUniqueConstraint(captureDate, seriesTitle, retired);
   }

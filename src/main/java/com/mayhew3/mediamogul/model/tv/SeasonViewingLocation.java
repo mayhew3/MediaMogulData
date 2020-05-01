@@ -11,6 +11,7 @@ public class SeasonViewingLocation extends RetireableDataObject {
   public FieldValueForeignKey viewingLocationId = registerForeignKey(new ViewingLocation(), Nullability.NOT_NULL);
 
   public SeasonViewingLocation() {
+    super();
     addUniqueConstraint(seasonId, viewingLocationId);
   }
 

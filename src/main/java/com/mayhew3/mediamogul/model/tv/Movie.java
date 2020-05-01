@@ -41,6 +41,7 @@ public class Movie extends RetireableDataObject {
   public FieldValue<String> url = registerStringField("url", Nullability.NULLABLE);
 
   public Movie() {
+    super();
     addUniqueConstraint(title, captureDate, retired);
   }
 

@@ -22,6 +22,7 @@ public class PersonSeries extends RetireableDataObject {
   public FieldValueBoolean pinned = registerBooleanField("pinned", Nullability.NOT_NULL).defaultValue(false);
 
   public PersonSeries() {
+    super();
     addUniqueConstraint(seriesId, personId);
   }
 

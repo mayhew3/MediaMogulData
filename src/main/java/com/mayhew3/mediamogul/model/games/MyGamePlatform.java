@@ -27,6 +27,7 @@ public class MyGamePlatform extends DataObject {
   public FieldValueString replay_reason = registerStringField("replay_reason", Nullability.NULLABLE);
 
   public MyGamePlatform() {
+    super();
     addUniqueConstraint(personID, availableGamePlatformID);
   }
 

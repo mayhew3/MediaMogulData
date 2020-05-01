@@ -12,6 +12,7 @@ public class TVGroupSeries extends RetireableDataObject {
   public FieldValueForeignKey series_id = registerForeignKey(new Series(), Nullability.NOT_NULL);
 
   public TVGroupSeries() {
+    super();
     addUniqueConstraint(tv_group_id, series_id);
   }
 

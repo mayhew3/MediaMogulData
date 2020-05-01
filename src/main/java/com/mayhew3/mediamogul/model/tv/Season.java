@@ -14,6 +14,7 @@ public class Season extends RetireableDataObject {
   public FieldValueTimestamp dateModified = registerTimestampField("date_modified", Nullability.NULLABLE);
 
   public Season() {
+    super();
     addUniqueConstraint(seasonNumber, seriesId);
   }
 

@@ -36,6 +36,7 @@ public class TVDBSeries extends RetireableDataObject {
   public FieldValueInteger apiVersion = registerIntegerField("api_version", Nullability.NOT_NULL).defaultValue(1);
 
   public TVDBSeries() {
+    super();
     addUniqueConstraint(tvdbSeriesExtId);
   }
 

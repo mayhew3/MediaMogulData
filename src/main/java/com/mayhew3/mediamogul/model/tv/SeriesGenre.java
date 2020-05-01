@@ -11,6 +11,7 @@ public class SeriesGenre extends RetireableDataObject {
   public FieldValueForeignKey genreId = registerForeignKey(new Genre(), Nullability.NOT_NULL);
 
   public SeriesGenre() {
+    super();
     addUniqueConstraint(seriesId, genreId);
   }
 

@@ -3,9 +3,9 @@ package com.mayhew3.mediamogul.model;
 import com.mayhew3.postgresobject.EnvironmentChecker;
 import com.mayhew3.postgresobject.dataobject.DataSchema;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
-import com.mayhew3.postgresobject.model.SchemaTest;
+import com.mayhew3.postgresobject.model.PostgresSchemaTest;
 
-public class SchemaHerokuStagingTest extends SchemaTest {
+public class SchemaHerokuStagingTest extends PostgresSchemaTest {
 
   @Override
   public DataSchema getDataSchema() {

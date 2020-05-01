@@ -95,6 +95,7 @@ public class Game extends RetireableDataObject {
   public FieldValueString owned = registerStringField("owned", Nullability.NULLABLE);
 
   public Game() {
+    super();
     // DB fields that aren't needed in java can be initialized in the constructor without a class member.
     addUniqueConstraint(igdb_id, retired);
   }

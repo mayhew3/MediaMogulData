@@ -11,6 +11,7 @@ public class TVGroupVoteImport extends DataObject {
   public final FieldValueBoolean imported = registerBooleanField("imported", Nullability.NOT_NULL).defaultValue(false);
 
   public TVGroupVoteImport() {
+    super();
     addUniqueConstraint(show, email, vote_date);
   }
 

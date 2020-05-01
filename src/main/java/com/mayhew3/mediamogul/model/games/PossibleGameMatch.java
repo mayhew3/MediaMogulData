@@ -18,6 +18,7 @@ public class PossibleGameMatch extends RetireableDataObject {
   public FieldValueBoolean alreadyExists = registerBooleanField("already_exists", Nullability.NOT_NULL).defaultValue(false);
 
   public PossibleGameMatch() {
+    super();
     addUniqueConstraint(gameId, igdbGameExtId, retired);
   }
 

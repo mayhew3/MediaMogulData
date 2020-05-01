@@ -9,6 +9,7 @@ public class TVGroup extends RetireableDataObject {
   private FieldValueString name = registerStringField("name", Nullability.NULLABLE);
 
   public TVGroup() {
+    super();
     addUniqueConstraint(name);
   }
 

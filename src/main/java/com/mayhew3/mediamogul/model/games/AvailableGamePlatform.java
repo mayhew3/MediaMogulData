@@ -20,6 +20,7 @@ public class AvailableGamePlatform extends RetireableDataObject {
   public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
 
   public AvailableGamePlatform() {
+    super();
     addUniqueConstraint(gameID, gamePlatformID);
   }
 

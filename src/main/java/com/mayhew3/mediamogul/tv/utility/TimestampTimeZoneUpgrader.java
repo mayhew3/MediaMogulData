@@ -5,6 +5,7 @@ import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.dataobject.DataObject;
 import com.mayhew3.postgresobject.dataobject.DataSchema;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
+import com.mayhew3.postgresobject.db.DatabaseType;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +36,7 @@ public class TimestampTimeZoneUpgrader {
   private void upgradeColumns() throws SQLException {
     for (DataObject table : schema.getAllTables()) {
       for (FieldValue fieldValue : table.getAllFieldValues()) {
-        if ("timestamp without time zone".equalsIgnoreCase(fieldValue.getInformationSchemaType()) ||
+        if ("timestamp without time zone".equalsIgnoreCase(fieldValue.getInformationSchemaType(DatabaseType.POSTGRES)) ||
             "date_added".equalsIgnoreCase(fieldValue.getFieldName())) {
           upgradeColumn(fieldValue, table);
         }

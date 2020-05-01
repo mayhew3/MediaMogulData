@@ -90,6 +90,7 @@ public class Series extends RetireableDataObject implements Comparable<Series> {
   public FieldValueForeignKey addedByUser = registerForeignKey(new Person(), Nullability.NULLABLE);
 
   public Series() {
+    super();
     registerStringField("trailer_link", Nullability.NULLABLE);
 
     addUniqueConstraint(tvdbSeriesExtId);

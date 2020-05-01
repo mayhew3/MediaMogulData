@@ -10,6 +10,7 @@ public class PersonPoster extends RetireableDataObject {
   public FieldValueForeignKey tvdb_poster_id = registerForeignKey(new TVDBPoster(), Nullability.NOT_NULL);
 
   public PersonPoster() {
+    super();
     addUniqueConstraint(seriesId, personId);
   }
 
