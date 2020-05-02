@@ -5,7 +5,9 @@ import com.mayhew3.mediamogul.MetacriticUpdater;
 import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;
+import com.mayhew3.mediamogul.model.games.GamePlatform;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.jetbrains.annotations.Nullable;
 import org.jsoup.nodes.Document;
 
 import java.math.BigDecimal;
@@ -18,13 +20,13 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
 
   private final Game game;
   private final Integer person_id;
-  private final AvailableGamePlatform platform;
+  private final AvailableGamePlatform availablePlatform;
 
-  public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id, AvailableGamePlatform platform) {
+  public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id, AvailableGamePlatform availablePlatform) {
     super(connection);
     this.game = game;
     this.person_id = person_id;
-    this.platform = platform;
+    this.availablePlatform = availablePlatform;
   }
 
   public void runUpdater() throws SingleFailedException, SQLException {
@@ -34,31 +36,36 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
   private void parseMetacritic() throws SingleFailedException, SQLException {
     String title = game.title.getValue();
     String hint = game.metacriticHint.getValue();
-    String platformName = platform.platformName.getValue();
+    String platformName = availablePlatform.platformName.getValue();
     String formattedTitle = formatTitle(title, hint);
-    String formattedPlatform = formatPlatform(platformName);
+    GamePlatform gamePlatform = availablePlatform.getGamePlatform(connection);
+    String formattedPlatform = formatPlatform(gamePlatform);
 
-    String prefix = "game/" + formattedPlatform + "/" + formattedTitle;
+    if (formattedPlatform == null) {
+      throw new GameFailedException("No platform mapping for platform '" + platformName + "'");
+    } else {
+      String prefix = "game/" + formattedPlatform + "/" + formattedTitle;
 
-    Document document = getDocument(prefix, title);
+      Document document = getDocument(prefix, title);
 
-    platform.metacriticPage.changeValue(true);
-    game.commit(connection);
+      availablePlatform.metacriticPage.changeValue(true);
+      game.commit(connection);
 
-    int metaCritic = getMetacriticFromDocument(document);
+      int metaCritic = getMetacriticFromDocument(document);
 
-    platform.metacriticMatched.changeValue(new Timestamp(new Date().getTime()));
+      availablePlatform.metacriticMatched.changeValue(new Timestamp(new Date().getTime()));
 
-    BigDecimal previousValue = platform.metacritic.getValue();
-    BigDecimal updatedValue = new BigDecimal(metaCritic);
+      BigDecimal previousValue = availablePlatform.metacritic.getValue();
+      BigDecimal updatedValue = new BigDecimal(metaCritic);
 
-    platform.metacritic.changeValue(updatedValue);
+      availablePlatform.metacritic.changeValue(updatedValue);
 
-    if (previousValue == null || previousValue.compareTo(updatedValue) != 0) {
-      createGameLog(title, platformName, previousValue, updatedValue);
+      if (previousValue == null || previousValue.compareTo(updatedValue) != 0) {
+        createGameLog(title, platformName, previousValue, updatedValue);
+      }
+
+      availablePlatform.commit(connection);
     }
-
-    platform.commit(connection);
   }
 
   private void createGameLog(String title, String platform, BigDecimal previousValue, BigDecimal updatedValue) throws SQLException {
@@ -83,7 +90,8 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     gameLog.commit(connection);
   }
 
-  private String formatPlatform(String platform) {
+  @Nullable
+  private String formatPlatform(GamePlatform platform) {
     Map<String, String> formattedPlatforms = Maps.newHashMap();
     formattedPlatforms.put("PC", "pc");
     formattedPlatforms.put("Steam", "pc");
@@ -95,8 +103,19 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     formattedPlatforms.put("Wii U", "wii-u");
     formattedPlatforms.put("DS", "ds");
     formattedPlatforms.put("Xbox", "xbox");
+    formattedPlatforms.put("Switch", "switch");
 
-    return formattedPlatforms.get(platform);
+    String mapMatch = formattedPlatforms.get(platform.fullName.getValue());
+    if (mapMatch == null) {
+      String shortName = platform.shortName.getValue();
+      if (shortName != null) {
+        return shortName.replace(" ", "-");
+      } else {
+        return null;
+      }
+    } else {
+      return mapMatch;
+    }
   }
 
 }

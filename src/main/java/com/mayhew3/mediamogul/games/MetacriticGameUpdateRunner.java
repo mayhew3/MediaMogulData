@@ -43,6 +43,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     methodMap.put(UpdateMode.UNMATCHED, this::updateUnmatchedGames);
     methodMap.put(UpdateMode.OLD_ERRORS, this::updateMatchGamesWithNoValue);
     methodMap.put(UpdateMode.SINGLE, this::updateSingleGame);
+    methodMap.put(UpdateMode.SERVICE, this::updatePlatformGames);
 
     this.connection = connection;
 
@@ -93,7 +94,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateSingleGame() {
-    String nameOfSingleGame = "Half-Life: Alyx";
+    String nameOfSingleGame = "Mario + Rabbids Kingdom Battle";
 
     String sql = "SELECT * " +
         "FROM valid_game " +
@@ -114,6 +115,23 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     try {
       ResultSet resultSet = connection.executeQuery(sql);
+      runUpdateOnResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void updatePlatformGames() {
+    String platformName = "Switch";
+    String sql = "SELECT g.* " +
+        "FROM valid_game g " +
+        "INNER JOIN available_game_platform agp " +
+        "  ON agp.game_id = g.id " +
+        "WHERE agp.platform_name = ? " +
+        "AND agp.metacritic_page = ? ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, platformName, false);
       runUpdateOnResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
