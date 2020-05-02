@@ -239,7 +239,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         Game game = availableGamePlatform.getGame(connection);
 
-        logger.info("Updating game (" + i + " / " + rowCount + "): " + game.title.getValue());
+        logger.info("Updating game (" + i + " / " + rowCount + "): " + game.title.getValue() + " (" + availableGamePlatform.platformName.getValue() + ")");
 
         MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, availableGamePlatform, filledDates);
         metacriticGameUpdater.runUpdater();

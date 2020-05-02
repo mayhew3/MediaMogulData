@@ -34,9 +34,9 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
   private final List<DateTime> filledDates;
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final int MAX_GAMES_PER_DAY = 30;
+  private final int MAX_GAMES_PER_DAY = 60;
   @SuppressWarnings("FieldCanBeLocal")
-  private final int SANITY_THRESHOLD = 100;
+  private final int SANITY_THRESHOLD = 90;
 
   private static final Logger logger = LogManager.getLogger(FirstTimeGameUpdater.class);
 
