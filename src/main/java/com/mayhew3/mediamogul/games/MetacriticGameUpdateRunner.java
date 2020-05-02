@@ -215,6 +215,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     if (i > 1) {
       logger.info("Operation completed! Failed on " + failures + "/" + (i - 1) + " games (" + (100 * failures / (i - 1)) + "%)");
+    } else {
+      logger.info("No games to process.");
     }
   }
 
