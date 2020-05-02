@@ -21,6 +21,8 @@ import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     methodMap.put(UpdateMode.OLD_ERRORS, this::updateMatchGamesWithNoValue);
     methodMap.put(UpdateMode.SINGLE, this::updateSingleGame);
     methodMap.put(UpdateMode.SERVICE, this::updatePlatformGames);
+    methodMap.put(UpdateMode.SMART, this::updateSmartGames);
 
     this.connection = connection;
 
@@ -147,6 +150,22 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
+
+      runUpdateOnPlatformResultSet(resultSet);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void updateSmartGames() {
+    String sql = "SELECT agp.* " +
+        "FROM valid_game g " +
+        "INNER JOIN available_game_platform agp " +
+        "  ON agp.game_id = g.id " +
+        "WHERE agp.metacritic_next_update IS NULL OR agp.metacritic_next_update < ? ";
+
+    try {
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, new Timestamp(new Date().getTime()));
 
       runUpdateOnPlatformResultSet(resultSet);
     } catch (SQLException e) {

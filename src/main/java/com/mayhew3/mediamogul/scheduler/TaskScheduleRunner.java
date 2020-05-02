@@ -186,7 +186,7 @@ public class TaskScheduleRunner {
         1);
     addHourlyTask(new IGDBUpdateRunner(connection, igdbProvider, jsonReader, UpdateMode.SANITY),
         24);
-    addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.UNMATCHED, person_id),
+    addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.SMART, person_id),
         24);
     addHourlyTask(new EpisodeGroupUpdater(connection),
         24);

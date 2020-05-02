@@ -7,10 +7,15 @@ import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.GamePlatform;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.jsoup.nodes.Document;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -22,6 +27,13 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
   private final Integer person_id;
   private final AvailableGamePlatform availablePlatform;
 
+  @SuppressWarnings("FieldCanBeLocal")
+  private final int MAX_GAMES_PER_DAY = 30;
+  @SuppressWarnings("FieldCanBeLocal")
+  private final int SANITY_THRESHOLD = 90;
+
+  private static final Logger logger = LogManager.getLogger(FirstTimeGameUpdater.class);
+
   public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id, AvailableGamePlatform availablePlatform) {
     super(connection);
     this.game = game;
@@ -29,8 +41,18 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     this.availablePlatform = availablePlatform;
   }
 
-  public void runUpdater() throws SingleFailedException, SQLException {
-    parseMetacritic();
+  public void runUpdater() throws SingleFailedException {
+    try {
+      parseMetacritic();
+    } catch (Exception e) {
+      this.availablePlatform.metacritic_failed.changeValue(new Date());
+      try {
+        setNextUpdate();
+      } catch (SQLException e2) {
+        throw new GameFailedException(e2.getLocalizedMessage());
+      }
+      throw new GameFailedException(e.getLocalizedMessage());
+    }
   }
 
   private void parseMetacritic() throws SingleFailedException, SQLException {
@@ -53,7 +75,7 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
 
       int metaCritic = getMetacriticFromDocument(document);
 
-      availablePlatform.metacritic_matched.changeValue(new Timestamp(new Date().getTime()));
+      availablePlatform.metacritic_matched.changeValue(new Date());
 
       BigDecimal previousValue = availablePlatform.metacritic.getValue();
       BigDecimal updatedValue = new BigDecimal(metaCritic);
@@ -65,6 +87,8 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
       }
 
       availablePlatform.commit(connection);
+
+      setNextUpdate();
     }
   }
 
@@ -117,5 +141,69 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
       return mapMatch;
     }
   }
+
+  private void setNextUpdate() throws SQLException {
+    Timestamp firstReleaseDate = game.igdb_release_date.getValue();
+    Integer days = calculateDaysBasedOnReleaseDate(firstReleaseDate);
+    setNextUpdateWithMinimumDays(days);
+  }
+
+  private Integer calculateDaysBasedOnReleaseDate(Timestamp releaseDateTimestamp) {
+    int minimumDays = 3;
+    int maximumDays = 90;
+    int maximumReleaseDays = 1000;
+    DateTime releaseDate = new DateTime(releaseDateTimestamp);
+    Days daysBetween = Days.daysBetween(releaseDate, new DateTime());
+    int adjusted = Math.min(daysBetween.getDays(), maximumReleaseDays);
+    adjusted = Math.max(adjusted, 0);
+    double releaseRatio = (float)adjusted / (float)maximumReleaseDays;
+    int daysBetweenMinAndMax = maximumDays - minimumDays;
+    int daysAfterMinimum = (int)(releaseRatio * daysBetweenMinAndMax);
+    return minimumDays + daysAfterMinimum;
+  }
+
+  private void setNextUpdateWithMinimumDays(Integer minimumDays) throws SQLException {
+    DateTime initialDate = new DateTime().plusDays(minimumDays);
+
+    int i = 0;
+    int countOfGamesQueued;
+    DateTime currentDate = initialDate.minusDays(1);
+    do {
+      if (i > 0) {
+        logger.debug("Found date with too many updates scheduled: " + currentDate);
+      }
+      currentDate = currentDate.plusDays(1);
+      countOfGamesQueued = getCountOfGamesQueuedForDay(currentDate);
+      i++;
+    } while (countOfGamesQueued >= MAX_GAMES_PER_DAY && i < SANITY_THRESHOLD);
+
+    if (countOfGamesQueued < MAX_GAMES_PER_DAY) {
+      availablePlatform.metacritic_next_update.changeValue(currentDate.toDate());
+      availablePlatform.commit(connection);
+    } else {
+      throw new IllegalStateException("Couldn't find a date with few enough queued games before hitting sanity threshold.");
+    }
+  }
+
+  private Timestamp toTimestamp(DateTime dateTime) {
+    return new Timestamp(dateTime.toDate().getTime());
+  }
+
+  private Integer getCountOfGamesQueuedForDay(DateTime dateTime) throws SQLException {
+    DateTime startMidnight = dateTime.withTimeAtStartOfDay();
+    DateTime endMidnight = startMidnight.plusDays(1);
+
+    String sql = "SELECT COUNT(1) AS dayCount " +
+        "FROM available_game_platform " +
+        "WHERE metacritic_next_update BETWEEN ? AND ? ";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, toTimestamp(startMidnight), toTimestamp(endMidnight));
+    if (resultSet.next()) {
+      return resultSet.getInt("dayCount");
+    } else {
+      throw new IllegalStateException("Error fetching dayCount from database.");
+    }
+  }
+
 
 }
