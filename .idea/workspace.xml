@@ -20,23 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/exception/MetacriticElementNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/exception/MetacriticPageNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/exception/MetacriticPlatformNameException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/MetacriticUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/MetacriticUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/FirstTimeGameUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/GameFailedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/exception/GameFailedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/HowLongToBeatUpdater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SingleFailedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/exception/SingleFailedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamAttributeUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/SteamGameUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/MetacriticTVUpdater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/MetacriticTVUpdater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/exception/ShowFailedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/tv/exception/ShowFailedException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,22 +124,8 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
-      <recent name="C:\Code\git\MediaMogulData\resources" />
-      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
-      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
-      <recent name="D:\Code\git\media-mogul-data" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.mayhew3.mediamogul.games" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.mayhew3.mediamogul.model.games" />
-      <recent name="com.mayhew3.mediamogul.games" />
-      <recent name="com.mayhew3.mediamogul" />
-      <recent name="com.mayhew3.mediamogul.socket" />
-      <recent name="com.mayhew3.mediamogul.tv" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\IGDBTest" />
@@ -159,6 +133,20 @@
       <recent name="D:\Code\git\media-mogul-data\src\main\resources" />
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\TVDBFutureDate" />
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\TVDBSeasonZero" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.mayhew3.mediamogul.games.exception" />
+      <recent name="com.mayhew3.mediamogul.model.games" />
+      <recent name="com.mayhew3.mediamogul.games" />
+      <recent name="com.mayhew3.mediamogul" />
+      <recent name="com.mayhew3.mediamogul.socket" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Code\git\MediaMogulData\scripts\old" />
+      <recent name="C:\Code\git\MediaMogulData\resources" />
+      <recent name="C:\Code\git\MediaMogulData\src\main\resources" />
+      <recent name="D:\Code\git\media-mogul-data\scripts\old" />
+      <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
   <component name="RunManager" selected="Application.MetacriticGameUpdateRunner (local/smart)">
@@ -2670,11 +2658,11 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="183" key="#Updates/0.0.1920.1050@0.0.1920.1050" timestamp="1586483914791" />
-    <state x="487" y="70" width="1463" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588453850214">
+    <state x="487" y="70" width="1463" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588458950413">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="706" y="480" width="823" height="570" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588052674194" />
-    <state x="487" y="70" width="1463" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588453850214" />
+    <state x="487" y="70" width="1463" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458950413" />
     <state x="92" y="92" width="2376" height="1226" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1588109021676">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2726,50 +2714,50 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="2517" height="446" key="GridCell.Tab.0.bottom" timestamp="1588454618751">
+    <state width="2517" height="446" key="GridCell.Tab.0.bottom" timestamp="1588458954489">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="446" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454618751" />
-    <state width="2517" height="446" key="GridCell.Tab.0.center" timestamp="1588454618751">
+    <state width="2517" height="446" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458954489" />
+    <state width="2517" height="446" key="GridCell.Tab.0.center" timestamp="1588458954489">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="446" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454618751" />
-    <state width="2517" height="446" key="GridCell.Tab.0.left" timestamp="1588454618751">
+    <state width="2517" height="446" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458954489" />
+    <state width="2517" height="446" key="GridCell.Tab.0.left" timestamp="1588458954489">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
-    <state width="2517" height="446" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454618751" />
-    <state width="2517" height="446" key="GridCell.Tab.0.right" timestamp="1588454618751">
+    <state width="2517" height="446" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458954489" />
+    <state width="2517" height="446" key="GridCell.Tab.0.right" timestamp="1588458954489">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
-    <state width="2517" height="446" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454618751" />
-    <state width="2517" height="446" key="GridCell.Tab.1.bottom" timestamp="1588454604588">
+    <state width="2517" height="446" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458954489" />
+    <state width="2517" height="446" key="GridCell.Tab.1.bottom" timestamp="1588458955185">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042598" />
-    <state width="2517" height="446" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454604588" />
-    <state width="2517" height="446" key="GridCell.Tab.1.center" timestamp="1588454604588">
+    <state width="2517" height="446" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458955185" />
+    <state width="2517" height="446" key="GridCell.Tab.1.center" timestamp="1588458955185">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="2517" height="446" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454604588" />
-    <state width="2517" height="446" key="GridCell.Tab.1.left" timestamp="1588454604588">
+    <state width="2517" height="446" key="GridCell.Tab.1.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458955185" />
+    <state width="2517" height="446" key="GridCell.Tab.1.left" timestamp="1588458955185">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="2517" height="446" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454604588" />
-    <state width="2517" height="446" key="GridCell.Tab.1.right" timestamp="1588454604588">
+    <state width="2517" height="446" key="GridCell.Tab.1.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458955185" />
+    <state width="2517" height="446" key="GridCell.Tab.1.right" timestamp="1588458955185">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1877" height="320" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588054042597" />
-    <state width="2517" height="446" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588454604588" />
+    <state width="2517" height="446" key="GridCell.Tab.1.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458955185" />
     <state x="947" y="341" key="RollbackChangesDialog" timestamp="1588275055317">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2796,21 +2784,21 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1087" y="615" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587602197124" />
-    <state x="920" y="381" key="extract.method.dialog" timestamp="1588120773530">
+    <state x="920" y="381" key="extract.method.dialog" timestamp="1588456728817">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="690" y="284" key="extract.method.dialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588057705243" />
-    <state x="920" y="381" key="extract.method.dialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588120773530" />
+    <state x="920" y="381" key="extract.method.dialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588456728817" />
     <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1588371590293">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="656" y="262" width="758" height="628" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1587863061768" />
     <state x="875" y="352" width="884" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588371590293" />
-    <state x="1222" y="245" key="refactoring.ChangeSignatureDialog" timestamp="1588054710198">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="1629" y="329" key="refactoring.ChangeSignatureDialog" timestamp="1588458561010">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1222" y="245" key="refactoring.ChangeSignatureDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588054710198" />
-    <state x="1629" y="329" key="refactoring.ChangeSignatureDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587606500228" />
+    <state x="1629" y="329" key="refactoring.ChangeSignatureDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458561010" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1588456225701">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2892,13 +2880,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdater.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="271" />
+          <line>206</line>
+          <option name="timeStamp" value="275" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdater.java</url>
-          <line>185</line>
-          <option name="timeStamp" value="275" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java</url>
+          <line>271</line>
+          <option name="timeStamp" value="276" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/games/MetacriticGameUpdateRunner.java</url>
+          <line>167</line>
+          <option name="timeStamp" value="277" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

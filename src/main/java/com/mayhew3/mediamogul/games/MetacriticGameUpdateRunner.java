@@ -4,6 +4,9 @@ import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.exception.SingleFailedException;
+import com.mayhew3.mediamogul.games.exception.MetacriticElementNotFoundException;
+import com.mayhew3.mediamogul.games.exception.MetacriticPageNotFoundException;
+import com.mayhew3.mediamogul.games.exception.MetacriticPlatformNameException;
 import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
@@ -145,35 +148,24 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateUnmatchedGames() {
-    String sql = "SELECT agp.* " +
-        "FROM valid_game g " +
+    String baseSql = "FROM valid_game g " +
         "INNER JOIN available_game_platform agp " +
         "  ON agp.game_id = g.id " +
         "WHERE agp.metacritic IS NULL ";
+    String fieldsSql = "SELECT agp.* ";
 
-    try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
-
-      runUpdateOnPlatformResultSet(resultSet);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
+    runBaseAndCountOnSQL(baseSql, fieldsSql);
   }
 
   private void updateSmartGames() {
-    String sql = "SELECT agp.* " +
-        "FROM valid_game g " +
+    String baseSql = "FROM valid_game g " +
         "INNER JOIN available_game_platform agp " +
         "  ON agp.game_id = g.id " +
-        "WHERE agp.metacritic_next_update IS NULL OR agp.metacritic_next_update < ? ";
-
-    try {
-      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, new Timestamp(new Date().getTime()));
-
-      runUpdateOnPlatformResultSet(resultSet);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
+        "WHERE (agp.metacritic_next_update IS NULL OR agp.metacritic_next_update < ?) " +
+        "AND agp.id < ? ";
+    String sql = "SELECT agp.* ";
+    Timestamp now = new Timestamp(new Date().getTime());
+    runBaseAndCountOnSQL(baseSql, sql, now, 200);
   }
 
   private void updateMatchGamesWithNoValue() {
@@ -226,9 +218,14 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     }
   }
 
-  private void runUpdateOnPlatformResultSet(ResultSet resultSet) throws SQLException {
+  private void runUpdateOnPlatformResultSet(ResultSet resultSet, int rowCount) throws SQLException {
+    int pageFailures = 0;
+    int elementFailures = 0;
+    int successes = 0;
+    int platformFailures = 0;
+    int otherFailures = 0;
+
     int i = 1;
-    int failures = 0;
 
     while (resultSet.next()) {
       AvailableGamePlatform availableGamePlatform = new AvailableGamePlatform();
@@ -241,23 +238,54 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, availableGamePlatform);
         metacriticGameUpdater.runUpdater();
-      } catch (SingleFailedException e) {
-        logger.warn(e.getMessage());
-        logger.warn("Show failed: " + availableGamePlatform.toString());
-        failures++;
-      } catch (SQLException e) {
-        e.printStackTrace();
-        logger.error("Failed to load game from database.");
-        failures++;
+        successes++;
+      } catch (MetacriticPageNotFoundException e) {
+        pageFailures++;
+        logger.debug(e.getLocalizedMessage());
+      } catch (MetacriticPlatformNameException e) {
+        platformFailures++;
+        logger.debug(e.getLocalizedMessage());
+      } catch (MetacriticElementNotFoundException e) {
+        elementFailures++;
+        logger.debug(e.getLocalizedMessage());
+      } catch (Exception e) {
+        otherFailures++;
+        logger.info(e.getLocalizedMessage());
       }
 
-      debug(i + " processed.");
+      debug(i + " / " + rowCount + " processed.");
       i++;
     }
 
     if (i > 1) {
-      logger.info("Operation completed! Failed on " + failures + "/" + (i - 1) + " games (" + (100 * failures / (i - 1)) + "%)");
+      int total = i - 1;
+      logger.info("Operation completed!");
+      logger.info(" - Successes: " + successes + " / " + total);
+      logger.info(" - Page Not Found: " + pageFailures + " / " + total);
+      logger.info(" - Element Not Found: " + elementFailures + " / " + total);
+      logger.info(" - No Platform Name: " + platformFailures + " / " + total);
+      logger.info(" - Other Failures: " + otherFailures + " / " + total);
     }
+  }
+
+  private void runBaseAndCountOnSQL(String baseSql, String fieldsSql, Object... params) {
+    String countSql = "SELECT COUNT(1) as rowCount " + baseSql;
+    String fullSql = fieldsSql + baseSql;
+
+    try {
+      int rowCount = getCount(countSql, params);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(fullSql, params);
+
+      runUpdateOnPlatformResultSet(resultSet, rowCount);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private int getCount(String countSql, Object... params) throws SQLException {
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(countSql, params);
+    resultSet.next();
+    return resultSet.getInt("rowCount");
   }
 
 

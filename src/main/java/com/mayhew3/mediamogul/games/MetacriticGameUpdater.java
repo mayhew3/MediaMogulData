@@ -2,8 +2,9 @@ package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Maps;
 import com.mayhew3.mediamogul.MetacriticUpdater;
-import com.mayhew3.mediamogul.exception.SingleFailedException;
-import com.mayhew3.mediamogul.games.exception.GameFailedException;
+import com.mayhew3.mediamogul.games.exception.MetacriticElementNotFoundException;
+import com.mayhew3.mediamogul.games.exception.MetacriticPageNotFoundException;
+import com.mayhew3.mediamogul.games.exception.MetacriticPlatformNameException;
 import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;
@@ -43,21 +44,18 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     this.availablePlatform = availablePlatform;
   }
 
-  public void runUpdater() throws SingleFailedException {
+  public void runUpdater() throws MetacriticElementNotFoundException, MetacriticPageNotFoundException, MetacriticPlatformNameException, SQLException {
     try {
       parseMetacritic();
-    } catch (Exception e) {
+    } catch (MetacriticPageNotFoundException | MetacriticElementNotFoundException | MetacriticPlatformNameException e) {
       this.availablePlatform.metacritic_failed.changeValue(new Date());
-      try {
-        setNextUpdate();
-      } catch (SQLException e2) {
-        throw new GameFailedException(e2.getLocalizedMessage());
-      }
-      throw new GameFailedException(e.getLocalizedMessage());
+      throw e;
+    } finally {
+      setNextUpdate();
     }
   }
 
-  private void parseMetacritic() throws SingleFailedException, SQLException {
+  private void parseMetacritic() throws MetacriticPageNotFoundException, MetacriticElementNotFoundException, SQLException, MetacriticPlatformNameException {
     String title = game.title.getValue();
     String hint = game.metacriticHint.getValue();
     String platformName = availablePlatform.platformName.getValue();
@@ -66,16 +64,16 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     String formattedPlatform = formatPlatform(gamePlatform);
 
     if (formattedPlatform == null) {
-      throw new GameFailedException("No platform mapping for platform '" + platformName + "'");
+      throw new MetacriticPlatformNameException("No platform mapping for platform '" + platformName + "'");
     } else {
       String prefix = "game/" + formattedPlatform + "/" + formattedTitle;
 
-      Document document = getDocument(prefix, title);
+      Document document = getGameDocument(title, prefix);
 
       availablePlatform.metacritic_page.changeValue(true);
       game.commit(connection);
 
-      int metaCritic = getMetacriticFromDocument(document);
+      int metaCritic = getGameMetacriticFromDocument(document);
 
       availablePlatform.metacritic_matched.changeValue(new Date());
 
@@ -91,6 +89,24 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
       availablePlatform.commit(connection);
 
       setNextUpdate();
+    }
+  }
+
+  private Document getGameDocument(String title, String prefix) throws MetacriticPageNotFoundException {
+    try {
+      return getDocument(prefix, title);
+    } catch (Exception e) {
+      setNextUpdate();
+      throw new MetacriticPageNotFoundException(e.getMessage());
+    }
+  }
+
+  private Integer getGameMetacriticFromDocument(Document document) throws MetacriticElementNotFoundException {
+    try {
+      return getMetacriticFromDocument(document);
+    } catch (Exception e) {
+      setNextUpdate();
+      throw new MetacriticElementNotFoundException(e.getMessage());
     }
   }
 
@@ -144,10 +160,15 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     }
   }
 
-  private void setNextUpdate() throws SQLException {
-    Timestamp firstReleaseDate = game.igdb_release_date.getValue();
-    Integer days = calculateDaysBasedOnReleaseDate(firstReleaseDate);
-    setNextUpdateWithMinimumDays(days);
+  private void setNextUpdate() {
+    try {
+      Timestamp firstReleaseDate = game.igdb_release_date.getValue();
+      Integer days = calculateDaysBasedOnReleaseDate(firstReleaseDate);
+      setNextUpdateWithMinimumDays(days);
+    } catch (SQLException e) {
+      logger.error("Unexpected SQL error updating metacritic_next_update!");
+      throw new RuntimeException(e.getLocalizedMessage());
+    }
   }
 
   private Integer calculateDaysBasedOnReleaseDate(Timestamp releaseDateTimestamp) {

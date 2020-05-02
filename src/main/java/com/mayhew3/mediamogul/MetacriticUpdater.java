@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul;
 
-import com.mayhew3.mediamogul.exception.SingleFailedException;
-import com.mayhew3.mediamogul.tv.helper.MetacriticException;
+import com.mayhew3.mediamogul.games.exception.MetacriticElementNotFoundException;
+import com.mayhew3.mediamogul.games.exception.MetacriticPageNotFoundException;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -41,23 +41,23 @@ public abstract class MetacriticUpdater {
         hint;
   }
 
-  protected Document getDocument(String prefix, String title) throws SingleFailedException {
+  protected Document getDocument(String prefix, String title) throws MetacriticPageNotFoundException {
     try {
       return Jsoup.connect("http://www.metacritic.com/" + prefix)
           .timeout(10000)
           .userAgent("Mozilla")
           .get();
     } catch (IOException e) {
-      throw new SingleFailedException("Couldn't find Metacritic page for " + prefix + " '" + title + "' with formatted '" + prefix + "'");
+      throw new MetacriticPageNotFoundException("Couldn't find Metacritic page for " + prefix + " '" + title + "' with formatted '" + prefix + "'");
     }
   }
 
-  protected int getMetacriticFromDocument(Document document) throws MetacriticException {
+  protected int getMetacriticFromDocument(Document document) throws MetacriticElementNotFoundException {
     Elements elements = document.select("script[type*=application/ld+json]");
     Element first1 = elements.first();
 
     if (first1 == null) {
-      throw new MetacriticException("Page found, but no element found with 'ratingValue' id.");
+      throw new MetacriticElementNotFoundException("Page found, but no element found with 'ratingValue' id.");
     }
 
     Node metaJSON = first1.childNodes().get(0);
@@ -69,7 +69,7 @@ public abstract class MetacriticUpdater {
 
       return Integer.parseInt(ratingValue);
     } catch (Exception e) {
-      throw new MetacriticException("Error parsing Metacritic page: " + e.getLocalizedMessage());
+      throw new MetacriticElementNotFoundException("Error parsing Metacritic page: " + e.getLocalizedMessage());
     }
   }
 
