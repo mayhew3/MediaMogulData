@@ -192,9 +192,6 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     int countOfGamesQueued;
     DateTime currentDate = initialDate.minusDays(1);
     do {
-      if (i > 0) {
-        logger.debug("Found date with too many updates scheduled: " + currentDate);
-      }
       currentDate = currentDate.plusDays(1);
       countOfGamesQueued = getCountOfGamesQueuedForDay(currentDate);
       i++;

@@ -256,7 +256,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
         logger.info(e.getLocalizedMessage());
       }
 
-      debug(i + " / " + rowCount + " processed.");
+      logger.info(i + " / " + rowCount + " processed.");
       i++;
     }
 
