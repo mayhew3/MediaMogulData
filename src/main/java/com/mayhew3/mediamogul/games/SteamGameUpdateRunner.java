@@ -111,6 +111,10 @@ public class SteamGameUpdateRunner implements UpdateRunner {
         } catch (GameFailedException e) {
           logger.error("Game failed: " + jsonGame);
           logger.warn(e.getMessage());
+        } catch (Exception e) {
+          logger.error("Uncaught exception: " + e.getLocalizedMessage());
+          logger.error("Game info: ");
+          logger.error(jsonGame.toString());
         }
 
         jsonSteamIDs.add(jsonGame.getInt("appid"));
@@ -251,7 +255,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     //    LOG: Previous Hours, Current Hours, Change. For first time, Prev and Curr are the same, and Change is 0.
 
     String sql = "SELECT * " +
-        "FROM valid_game " +
+        "FROM game " +
         "WHERE steamid = ?";
     ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, steamID);
     Game game = new Game();
@@ -297,6 +301,9 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     debug(name + ": looking for updates.");
 
     Game game = getGameToProcess(steamID, name);
+    if (game.igdb_ignored.getValue() != null) {
+      logger.debug("Matched to ignored game '" + name + "'. Skipping.");
+    }
     SteamGameUpdater steamGameUpdater = new SteamGameUpdater(game, connection, chromeProvider, person_id);
 
     if (game.isForInsert()) {
