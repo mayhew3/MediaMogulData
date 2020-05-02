@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul;
 
-import com.mayhew3.mediamogul.games.SingleFailedException;
+import com.mayhew3.mediamogul.exception.SingleFailedException;
 import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.jetbrains.annotations.NotNull;

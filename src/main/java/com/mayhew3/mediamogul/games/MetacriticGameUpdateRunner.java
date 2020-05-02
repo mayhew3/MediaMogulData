@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.games;
 import com.google.common.collect.Lists;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.exception.SingleFailedException;
 import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
@@ -31,6 +32,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
   private final UpdateMode updateMode;
   private final Integer person_id;
+
+  public enum MetacriticUpdateResult {PAGE_NOT_FOUND, ELEMENT_NOT_FOUND, SUCCESS}
 
   private final Map<UpdateMode, Runnable> methodMap;
 

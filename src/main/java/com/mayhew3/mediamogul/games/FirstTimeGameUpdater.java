@@ -1,6 +1,8 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.ExternalServiceHandler;
+import com.mayhew3.mediamogul.exception.SingleFailedException;
+import com.mayhew3.mediamogul.games.exception.GameFailedException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;

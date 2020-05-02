@@ -6,6 +6,7 @@ import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.games.exception.GameFailedException;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;

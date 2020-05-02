@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.mayhew3.mediamogul.MetacriticUpdater;
-import com.mayhew3.mediamogul.games.SingleFailedException;
+import com.mayhew3.mediamogul.exception.SingleFailedException;
 import com.mayhew3.mediamogul.model.tv.Season;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBSeries;

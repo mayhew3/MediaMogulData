@@ -2,6 +2,8 @@ package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Maps;
 import com.mayhew3.mediamogul.MetacriticUpdater;
+import com.mayhew3.mediamogul.exception.SingleFailedException;
+import com.mayhew3.mediamogul.games.exception.GameFailedException;
 import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.model.games.GameLog;

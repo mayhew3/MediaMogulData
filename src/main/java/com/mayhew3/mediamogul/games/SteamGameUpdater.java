@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.ChromeProvider;
+import com.mayhew3.mediamogul.games.exception.GameFailedException;
 import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.joda.time.DateTime;

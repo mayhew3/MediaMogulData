@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.mediamogul.games.exception.GameFailedException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.games.provider.SteamProvider;
