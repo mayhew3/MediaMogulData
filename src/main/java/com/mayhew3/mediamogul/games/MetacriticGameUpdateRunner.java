@@ -103,7 +103,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, nameOfSingleGame);
 
-      runUpdateOnResultSet(resultSet);
+      runUpdateOnGameResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -115,7 +115,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     try {
       ResultSet resultSet = connection.executeQuery(sql);
-      runUpdateOnResultSet(resultSet);
+      runUpdateOnGameResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -132,21 +132,23 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, platformName, false);
-      runUpdateOnResultSet(resultSet);
+      runUpdateOnGameResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
   private void updateUnmatchedGames() {
-    String sql = "SELECT * " +
-        "FROM valid_game " +
-        "WHERE metacritic_matched IS NULL ";
+    String sql = "SELECT agp.* " +
+        "FROM valid_game g " +
+        "INNER JOIN available_game_platform agp " +
+        "  ON agp.game_id = g.id " +
+        "WHERE agp.metacritic IS NULL ";
 
     try {
-      ResultSet resultSet = connection.executeQuery(sql);
+      ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql);
 
-      runUpdateOnResultSet(resultSet);
+      runUpdateOnPlatformResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -161,13 +163,13 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     try {
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, true);
 
-      runUpdateOnResultSet(resultSet);
+      runUpdateOnGameResultSet(resultSet);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
-  private void runUpdateOnResultSet(ResultSet resultSet) throws SQLException {
+  private void runUpdateOnGameResultSet(ResultSet resultSet) throws SQLException {
     int i = 1;
     int failures = 0;
 
@@ -186,6 +188,40 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
       } catch (SingleFailedException e) {
         logger.warn(e.getMessage());
         logger.warn("Show failed: " + game.title.getValue());
+        failures++;
+      } catch (SQLException e) {
+        e.printStackTrace();
+        logger.error("Failed to load game from database.");
+        failures++;
+      }
+
+      debug(i + " processed.");
+      i++;
+    }
+
+    if (i > 1) {
+      logger.info("Operation completed! Failed on " + failures + "/" + (i - 1) + " games (" + (100 * failures / (i - 1)) + "%)");
+    }
+  }
+
+  private void runUpdateOnPlatformResultSet(ResultSet resultSet) throws SQLException {
+    int i = 1;
+    int failures = 0;
+
+    while (resultSet.next()) {
+      AvailableGamePlatform availableGamePlatform = new AvailableGamePlatform();
+      try {
+        availableGamePlatform.initializeFromDBObject(resultSet);
+
+        Game game = availableGamePlatform.getGame(connection);
+
+        debug("Updating game: " + game.title.getValue());
+
+        MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, availableGamePlatform);
+        metacriticGameUpdater.runUpdater();
+      } catch (SingleFailedException e) {
+        logger.warn(e.getMessage());
+        logger.warn("Show failed: " + availableGamePlatform.toString());
         failures++;
       } catch (SQLException e) {
         e.printStackTrace();

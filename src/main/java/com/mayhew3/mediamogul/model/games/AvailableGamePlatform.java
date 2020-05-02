@@ -78,4 +78,15 @@ public class AvailableGamePlatform extends RetireableDataObject {
     }
     return myGamePlatforms;
   }
+
+  public Game getGame(SQLConnection connection) throws SQLException {
+    String sql = "SELECT * FROM valid_game WHERE id = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gameID.getValue());
+    if (resultSet.next()) {
+      Game game = new Game();
+      game.initializeFromDBObject(resultSet);
+      return game;
+    }
+    throw new IllegalStateException("AvailableGamePlatform is attached to Game that doesn't exist!");
+  }
 }
