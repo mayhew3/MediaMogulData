@@ -48,12 +48,12 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
 
       Document document = getDocument(prefix, title);
 
-      availablePlatform.metacriticPage.changeValue(true);
+      availablePlatform.metacritic_page.changeValue(true);
       game.commit(connection);
 
       int metaCritic = getMetacriticFromDocument(document);
 
-      availablePlatform.metacriticMatched.changeValue(new Timestamp(new Date().getTime()));
+      availablePlatform.metacritic_matched.changeValue(new Timestamp(new Date().getTime()));
 
       BigDecimal previousValue = availablePlatform.metacritic.getValue();
       BigDecimal updatedValue = new BigDecimal(metaCritic);

@@ -72,7 +72,7 @@ class SteamGameUpdater {
     GamePlatform steamPlatform = GamePlatform.getOrCreatePlatform(connection, "Steam");
 
     AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(steamPlatform, connection);
-    availableGamePlatform.metacriticPage.changeValue(false);
+    availableGamePlatform.metacritic_page.changeValue(false);
 
     PersonGame personGame = new PersonGame();
     personGame.initializeForInsert();

@@ -16,9 +16,13 @@ public class AvailableGamePlatform extends RetireableDataObject {
   public FieldValueString platformName = registerStringField("platform_name", Nullability.NOT_NULL);
 
   public FieldValueBigDecimal metacritic = registerBigDecimalField("metacritic", Nullability.NULLABLE);
-  public FieldValueBoolean metacriticPage = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
-  public FieldValueTimestamp metacriticMatched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
+  public FieldValueBoolean metacritic_page = registerBooleanField("metacritic_page", Nullability.NOT_NULL).defaultValue(false);
+  public FieldValueTimestamp metacritic_matched = registerTimestampField("metacritic_matched", Nullability.NULLABLE);
 
+  public FieldValueTimestamp metacritic_failed = registerTimestampField("metacritic_failed", Nullability.NULLABLE);
+  public FieldValueTimestamp metacritic_ignored = registerTimestampField("metacritic_ignored", Nullability.NULLABLE);
+  public FieldValueTimestamp metacritic_next_update = registerTimestampField("metacritic_next_update", Nullability.NULLABLE);
+  
   public AvailableGamePlatform() {
     super();
     addUniqueConstraint(gameID, gamePlatformID);

@@ -130,8 +130,8 @@ public class SampleDataExporter {
       platformJSON.put("game_platform_id", availablePlatform.gamePlatformID.getValue());
       platformJSON.put("platform_name", availablePlatform.platformName.getValue());
       platformJSON.put("metacritic", availablePlatform.metacritic.getValue());
-      platformJSON.put("metacritic_page", availablePlatform.metacriticPage.getValue());
-      platformJSON.put("metacritic_matched", availablePlatform.metacriticMatched.getValue());
+      platformJSON.put("metacritic_page", availablePlatform.metacritic_page.getValue());
+      platformJSON.put("metacritic_matched", availablePlatform.metacritic_matched.getValue());
       platformJSON.put("date_added", availablePlatform.dateAdded.getValue());
 
       attachMyPlatformsToAvailablePlatform(availablePlatform, platformJSON);

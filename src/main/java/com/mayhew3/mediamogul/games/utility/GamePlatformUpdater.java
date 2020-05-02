@@ -291,8 +291,8 @@ public class GamePlatformUpdater {
       availableGamePlatform.gamePlatformID.changeValue(platformID);
       availableGamePlatform.platformName.changeValue(platform.fullName.getValue());
       availableGamePlatform.metacritic.changeValue(platformGame.metacritic.getValue());
-      availableGamePlatform.metacriticPage.changeValue(platformGame.metacriticPage.getValue());
-      availableGamePlatform.metacriticMatched.changeValue(platformGame.metacriticMatched.getValue());
+      availableGamePlatform.metacritic_page.changeValue(platformGame.metacriticPage.getValue());
+      availableGamePlatform.metacritic_matched.changeValue(platformGame.metacriticMatched.getValue());
       availableGamePlatform.commit(connection);
 
       return availableGamePlatform;
