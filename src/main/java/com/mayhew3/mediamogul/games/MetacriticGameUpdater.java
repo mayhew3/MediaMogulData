@@ -179,6 +179,9 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     int minimumDays = 3;
     int maximumDays = 90;
     int maximumReleaseDays = 1000;
+    if (releaseDateTimestamp == null) {
+      return maximumDays;
+    }
     DateTime releaseDate = new DateTime(releaseDateTimestamp);
     Days daysBetween = Days.daysBetween(releaseDate, new DateTime());
     int adjusted = Math.min(daysBetween.getDays(), maximumReleaseDays);
