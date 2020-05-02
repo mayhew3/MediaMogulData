@@ -161,11 +161,10 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     String baseSql = "FROM valid_game g " +
         "INNER JOIN available_game_platform agp " +
         "  ON agp.game_id = g.id " +
-        "WHERE (agp.metacritic_next_update IS NULL OR agp.metacritic_next_update < ?) " +
-        "AND agp.id < ? ";
+        "WHERE (agp.metacritic_next_update IS NULL OR agp.metacritic_next_update < ?) ";
     String sql = "SELECT agp.* ";
     Timestamp now = new Timestamp(new Date().getTime());
-    runBaseAndCountOnSQL(baseSql, sql, now, 200);
+    runBaseAndCountOnSQL(baseSql, sql, now);
   }
 
   private void updateMatchGamesWithNoValue() {
