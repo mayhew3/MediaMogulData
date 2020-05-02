@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class MetacriticGameUpdater extends MetacriticUpdater {
@@ -30,18 +31,21 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
   private final Integer person_id;
   private final AvailableGamePlatform availablePlatform;
 
+  private final List<DateTime> filledDates;
+
   @SuppressWarnings("FieldCanBeLocal")
   private final int MAX_GAMES_PER_DAY = 30;
   @SuppressWarnings("FieldCanBeLocal")
-  private final int SANITY_THRESHOLD = 90;
+  private final int SANITY_THRESHOLD = 100;
 
   private static final Logger logger = LogManager.getLogger(FirstTimeGameUpdater.class);
 
-  public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id, AvailableGamePlatform availablePlatform) {
+  public MetacriticGameUpdater(Game game, SQLConnection connection, Integer person_id, AvailableGamePlatform availablePlatform, List<DateTime> filledDates) {
     super(connection);
     this.game = game;
     this.person_id = person_id;
     this.availablePlatform = availablePlatform;
+    this.filledDates = filledDates;
   }
 
   public void runUpdater() throws MetacriticElementNotFoundException, MetacriticPageNotFoundException, MetacriticPlatformNameException, SQLException {
@@ -185,15 +189,28 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     return minimumDays + daysAfterMinimum;
   }
 
+  private DateTime getNextDateThatIsntKnownFilled(DateTime startingDate) {
+    DateTime currentDate = startingDate;
+    while (filledDates.contains(currentDate.withTimeAtStartOfDay())) {
+      currentDate = currentDate.plusDays(1);
+    }
+    return currentDate;
+  }
+
   private void setNextUpdateWithMinimumDays(Integer minimumDays) throws SQLException {
     DateTime initialDate = new DateTime().plusDays(minimumDays);
 
     int i = 0;
     int countOfGamesQueued;
-    DateTime currentDate = initialDate.minusDays(1);
+    DateTime currentDate = getNextDateThatIsntKnownFilled(initialDate).minusDays(1);
     do {
       currentDate = currentDate.plusDays(1);
       countOfGamesQueued = getCountOfGamesQueuedForDay(currentDate);
+
+      if (countOfGamesQueued >= MAX_GAMES_PER_DAY) {
+        filledDates.add(currentDate.withTimeAtStartOfDay());
+      }
+
       i++;
     } while (countOfGamesQueued >= MAX_GAMES_PER_DAY && i < SANITY_THRESHOLD);
 

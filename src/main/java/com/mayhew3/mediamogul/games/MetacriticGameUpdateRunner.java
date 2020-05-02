@@ -17,6 +17,7 @@ import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.DateTime;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,10 +27,7 @@ import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MetacriticGameUpdateRunner implements UpdateRunner {
 
@@ -186,6 +184,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
     int i = 1;
     int failures = 0;
 
+    ArrayList<DateTime> filledDates = new ArrayList<>();
+
     while (resultSet.next()) {
       Game game = new Game();
       try {
@@ -195,7 +195,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
         for (AvailableGamePlatform platform : availableGamePlatforms) {
-          MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform);
+          MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform, filledDates);
           metacriticGameUpdater.runUpdater();
         }
       } catch (SingleFailedException e) {
@@ -230,6 +230,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     int i = 1;
 
+    ArrayList<DateTime> filledDates = new ArrayList<>();
+
     while (resultSet.next()) {
       AvailableGamePlatform availableGamePlatform = new AvailableGamePlatform();
       try {
@@ -239,7 +241,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         logger.info("Updating game (" + i + " / " + rowCount + ": " + game.title.getValue());
 
-        MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, availableGamePlatform);
+        MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, availableGamePlatform, filledDates);
         metacriticGameUpdater.runUpdater();
         successes++;
       } catch (MetacriticPageNotFoundException e) {

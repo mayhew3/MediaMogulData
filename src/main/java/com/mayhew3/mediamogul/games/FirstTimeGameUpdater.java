@@ -10,9 +10,11 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 class FirstTimeGameUpdater {
@@ -72,8 +74,9 @@ class FirstTimeGameUpdater {
   private void updateMetacritic() throws SQLException {
     logger.info("Updating Metacritic...");
     List<AvailableGamePlatform> platforms = game.getAvailableGamePlatforms(connection);
+    ArrayList<DateTime> filledDates = new ArrayList<>();
     for (AvailableGamePlatform platform : platforms) {
-      MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform);
+      MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform, filledDates);
       try {
         metacriticGameUpdater.runUpdater();
       } catch (SingleFailedException e) {
