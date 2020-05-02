@@ -36,8 +36,6 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   private final UpdateMode updateMode;
   private final Integer person_id;
 
-  public enum MetacriticUpdateResult {PAGE_NOT_FOUND, ELEMENT_NOT_FOUND, SUCCESS}
-
   private final Map<UpdateMode, Runnable> methodMap;
 
   private final SQLConnection connection;
@@ -158,6 +156,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateSmartGames() {
+    logger.info("Running smart update.");
+
     String baseSql = "FROM valid_game g " +
         "INNER JOIN available_game_platform agp " +
         "  ON agp.game_id = g.id " +
@@ -220,6 +220,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateOnPlatformResultSet(ResultSet resultSet, int rowCount) throws SQLException {
+    logger.info("Running on platform set!");
+
     int pageFailures = 0;
     int elementFailures = 0;
     int successes = 0;
@@ -235,7 +237,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         Game game = availableGamePlatform.getGame(connection);
 
-        debug("Updating game: " + game.title.getValue());
+        logger.info("Updating game (" + i + " / " + rowCount + ": " + game.title.getValue());
 
         MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, availableGamePlatform);
         metacriticGameUpdater.runUpdater();
@@ -275,6 +277,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
     try {
       int rowCount = getCount(countSql, params);
+      logger.info("Found row count: " + rowCount);
       ResultSet resultSet = connection.prepareAndExecuteStatementFetch(fullSql, params);
 
       runUpdateOnPlatformResultSet(resultSet, rowCount);
