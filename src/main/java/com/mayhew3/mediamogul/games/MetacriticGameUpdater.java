@@ -141,7 +141,7 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     if (platform.metacritic_uri.getValue() != null) {
       return platform.metacritic_uri.getValue();
     }
-    
+
     Map<String, String> formattedPlatforms = Maps.newHashMap();
     formattedPlatforms.put("PC", "pc");
     formattedPlatforms.put("Steam", "pc");
@@ -159,7 +159,7 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
     if (mapMatch == null) {
       String shortName = platform.shortName.getValue();
       if (shortName != null) {
-        return shortName.replace(" ", "-");
+        return shortName.replace(" ", "-").toLowerCase();
       } else {
         return null;
       }
