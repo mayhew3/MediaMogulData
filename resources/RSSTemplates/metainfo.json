@@ -205,7 +205,7 @@
   },
   {
     "title": "Into the Wild",
-    "summary": "I haven't listened yet.",
+    "summary": "Moriya joins the party and brings new pals Peridot, Plea, and Fuzzy into a trans-dimensional cluster-F.",
     "multipart": true,
     "sessions": [
       {
@@ -214,6 +214,15 @@
           {
             "filename": "Into the Wild 1",
             "duration": "03:01:33"
+          }
+        ]
+      },
+      {
+        "date": "2020/04/25",
+        "files": [
+          {
+            "filename": "Into the Wild 2",
+            "duration": "03:03:33"
           }
         ]
       }

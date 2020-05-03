@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="" />
+    <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/resources/RSSTemplates/metainfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/RSSTemplates/metainfo.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -143,7 +145,7 @@
       <recent name="D:\Code\git\media-mogul-data" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MetacriticGameUpdateRunner (local/smart)">
+  <component name="RunManager" selected="Application.PodcastFeedExporter">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
