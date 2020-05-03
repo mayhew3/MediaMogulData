@@ -48,7 +48,7 @@ public class SampleDataExporter {
     this.allPlatforms = GamePlatform.getAllPlatforms(connection);
   }
 
-  private void exportAllPlatforms() throws IOException {
+  private void exportAllPlatforms() throws IOException, SQLException {
     JSONArray platformsJSON = new JSONArray();
 
     for (GamePlatform platform : allPlatforms) {
@@ -60,10 +60,36 @@ public class SampleDataExporter {
       platformJSON.put("igdb_name", platform.igdbName.getValue());
       platformJSON.put("metacritic_uri", platform.metacritic_uri.getValue());
 
+      attachMyGlobalPlatforms(platform, platformJSON);
+
       platformsJSON.put(platformJSON);
     }
 
     writeResultToFile("json/json_test_platforms.json", platformsJSON);
+  }
+
+  private void attachMyGlobalPlatforms(GamePlatform gamePlatform, JSONObject gamePlatformObj) throws SQLException {
+    String sql = "SELECT * " +
+        "FROM person_platform " +
+        "WHERE game_platform_id = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, gamePlatform.id.getValue());
+    JSONArray myGlobalsObj = new JSONArray();
+    while (resultSet.next()) {
+      PersonPlatform personPlatform = new PersonPlatform();
+      personPlatform.initializeFromDBObject(resultSet);
+
+      JSONObject myGlobalObj = new JSONObject();
+      myGlobalObj.put("id", personPlatform.id.getValue());
+      myGlobalObj.put("game_platform_id", personPlatform.gamePlatformID.getValue());
+      myGlobalObj.put("person_id", personPlatform.personID.getValue());
+      myGlobalObj.put("rank", personPlatform.rank.getValue());
+      myGlobalObj.put("platform_name", personPlatform.platformName.getValue());
+      myGlobalObj.put("date_added", personPlatform.dateAdded.getValue());
+
+      myGlobalsObj.put(myGlobalObj);
+    }
+
+    gamePlatformObj.put("my_platforms", myGlobalsObj);
   }
 
   private void exportMyGames(JSONArray gamesJSON) throws SQLException {
