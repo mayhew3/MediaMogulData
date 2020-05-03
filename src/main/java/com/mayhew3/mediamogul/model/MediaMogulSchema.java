@@ -56,8 +56,9 @@ public class MediaMogulSchema {
       new GameplaySession(),
       new IGDBPoster(),
       new MyGamePlatform(),
-      new PossibleGameMatch(),
       new PersonGame(),
+      new PersonPlatform(),
+      new PossibleGameMatch(),
       new SteamAttribute()
   );
 
