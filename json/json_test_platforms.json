@@ -23,7 +23,7 @@
   },
   {
     "full_name": "Xbox One",
-    "metacritic_uri": "xone",
+    "metacritic_uri": "xbox-one",
     "igdb_platform_id": 49,
     "short_name": "Xbox One",
     "id": 4,
@@ -31,6 +31,7 @@
   },
   {
     "full_name": "Wii U",
+    "metacritic_uri": "wii-u",
     "igdb_platform_id": 41,
     "short_name": "Wii U",
     "id": 5,
@@ -38,6 +39,7 @@
   },
   {
     "full_name": "PS3",
+    "metacritic_uri": "playstation-3",
     "igdb_platform_id": 9,
     "short_name": "PS3",
     "id": 6,
@@ -45,6 +47,7 @@
   },
   {
     "full_name": "Xbox 360",
+    "metacritic_uri": "xbox-360",
     "igdb_platform_id": 12,
     "short_name": "Xbox 360",
     "id": 7,
@@ -52,13 +55,15 @@
   },
   {
     "full_name": "Wii",
+    "metacritic_uri": "wii",
     "igdb_platform_id": 5,
     "short_name": "Wii",
     "id": 8,
     "igdb_name": "Wii"
   },
   {
-    "full_name": "NDS",
+    "full_name": "Nintendo DS",
+    "metacritic_uri": "ds",
     "igdb_platform_id": 20,
     "short_name": "NDS",
     "id": 9,
@@ -66,6 +71,7 @@
   },
   {
     "full_name": "PC",
+    "metacritic_uri": "pc",
     "igdb_platform_id": 6,
     "short_name": "PC",
     "id": 10,
@@ -73,6 +79,7 @@
   },
   {
     "full_name": "PS4",
+    "metacritic_uri": "playstation-4",
     "igdb_platform_id": 48,
     "short_name": "PS4",
     "id": 11,
@@ -87,6 +94,7 @@
   },
   {
     "full_name": "iOS",
+    "metacritic_uri": "ios",
     "igdb_platform_id": 39,
     "short_name": "iOS",
     "id": 13,
@@ -94,6 +102,7 @@
   },
   {
     "full_name": "PlayStation 2",
+    "metacritic_uri": "playstation-2",
     "igdb_platform_id": 8,
     "short_name": "PS2",
     "id": 14,
@@ -129,6 +138,7 @@
   },
   {
     "full_name": "PlayStation Vita",
+    "metacritic_uri": "playstation-vita",
     "igdb_platform_id": 46,
     "short_name": "Vita",
     "id": 19,
@@ -163,7 +173,7 @@
     "igdb_name": "Windows Phone"
   },
   {
-    "full_name": "Super Nintendo",
+    "full_name": "Super Nintendo Entertainment System (SNES)",
     "igdb_platform_id": 19,
     "short_name": "SNES",
     "id": 24,
