@@ -138,6 +138,10 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
 
   @Nullable
   private String formatPlatform(GamePlatform platform) {
+    if (platform.metacritic_uri.getValue() != null) {
+      return platform.metacritic_uri.getValue();
+    }
+    
     Map<String, String> formattedPlatforms = Maps.newHashMap();
     formattedPlatforms.put("PC", "pc");
     formattedPlatforms.put("Steam", "pc");
