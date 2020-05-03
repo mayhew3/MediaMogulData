@@ -1,11 +1,13 @@
 [
   {
     "full_name": "Steam",
+    "metacritic_uri": "pc",
     "short_name": "Steam",
     "id": 1
   },
   {
     "full_name": "Xbox",
+    "metacritic_uri": "xbox",
     "igdb_platform_id": 11,
     "short_name": "Xbox",
     "id": 2,
@@ -13,6 +15,7 @@
   },
   {
     "full_name": "Switch",
+    "metacritic_uri": "switch",
     "igdb_platform_id": 130,
     "short_name": "Switch",
     "id": 3,
@@ -20,6 +23,7 @@
   },
   {
     "full_name": "Xbox One",
+    "metacritic_uri": "xone",
     "igdb_platform_id": 49,
     "short_name": "Xbox One",
     "id": 4,
@@ -159,7 +163,7 @@
     "igdb_name": "Windows Phone"
   },
   {
-    "full_name": "Super Nintendo Entertainment System (SNES)",
+    "full_name": "Super Nintendo",
     "igdb_platform_id": 19,
     "short_name": "SNES",
     "id": 24,

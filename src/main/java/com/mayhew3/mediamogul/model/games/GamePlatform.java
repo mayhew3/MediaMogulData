@@ -18,6 +18,7 @@ public class GamePlatform extends DataObject {
   public FieldValueString shortName = registerStringField("short_name", Nullability.NULLABLE);
   public FieldValueInteger igdbPlatformId = registerIntegerField("igdb_platform_id", Nullability.NULLABLE);
   public FieldValueString igdbName = registerStringField("igdb_name", Nullability.NULLABLE);
+  public FieldValueString metacritic_uri = registerStringField("metacritic_uri", Nullability.NULLABLE);
   public FieldValueInteger parentPlatformID = registerIntegerField("parent_id", Nullability.NULLABLE);
 
   public GamePlatform() {
@@ -50,7 +51,8 @@ public class GamePlatform extends DataObject {
   public static List<GamePlatform> getAllPlatforms(SQLConnection connection) throws SQLException {
 
     String sql = "SELECT * " +
-        "FROM game_platform ";
+        "FROM game_platform " +
+        "ORDER BY id";
 
     List<GamePlatform> platforms = new ArrayList<>();
 

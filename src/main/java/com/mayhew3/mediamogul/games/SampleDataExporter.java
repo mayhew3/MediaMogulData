@@ -58,6 +58,7 @@ public class SampleDataExporter {
       platformJSON.put("short_name", platform.shortName.getValue());
       platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
       platformJSON.put("igdb_name", platform.igdbName.getValue());
+      platformJSON.put("metacritic_uri", platform.metacritic_uri.getValue());
 
       platformsJSON.put(platformJSON);
     }
