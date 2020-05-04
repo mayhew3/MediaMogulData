@@ -13,7 +13,7 @@ public class PersonPlatform extends DataObject {
 
   public PersonPlatform() {
     super();
-    addUniqueConstraint(personID, gamePlatformID, rank);
+    addUniqueConstraint(personID, rank);
   }
 
   @Override
