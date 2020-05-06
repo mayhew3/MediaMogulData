@@ -1153,20 +1153,6 @@
         "id": 384,
         "myPlatforms": [
           {
-            "date_added": "2020-04-28 23:49:01.75",
-            "tier": 2,
-            "game_platform_id": 1,
-            "available_game_platform_id": 384,
-            "minutes_played": 24,
-            "platform_name": "Steam",
-            "rating": 91.8,
-            "last_played": "2019-08-02 13:58:05.327",
-            "id": 367,
-            "collection_add": "2014-09-29 03:48:16.504",
-            "preferred": false,
-            "person_id": 1
-          },
-          {
             "date_added": "2020-04-28 23:49:01.928",
             "tier": 1,
             "game_platform_id": 1,
@@ -1177,6 +1163,20 @@
             "collection_add": "2018-11-11 00:45:59.664712",
             "preferred": false,
             "person_id": 4
+          },
+          {
+            "date_added": "2020-04-28 23:49:01.75",
+            "tier": 2,
+            "game_platform_id": 1,
+            "available_game_platform_id": 384,
+            "minutes_played": 96,
+            "platform_name": "Steam",
+            "rating": 95,
+            "last_played": "2020-05-04 18:37:37.052",
+            "id": 367,
+            "collection_add": "2014-09-29 03:48:16.504",
+            "preferred": false,
+            "person_id": 1
           }
         ]
       }
@@ -1189,8 +1189,8 @@
       {
         "date_added": "2014-09-29 03:48:16.504",
         "tier": 2,
-        "minutes_played": 24,
-        "last_played": "2019-08-02 13:58:05.327",
+        "minutes_played": 96,
+        "last_played": "2020-05-04 18:37:37.052",
         "rating": 91.8,
         "id": 20,
         "person_id": 1
@@ -9669,7 +9669,7 @@
     "steam_cloud": false,
     "logo": "f57b16f14fbdc1c39bda246d208968514902e581",
     "howlong_id": 61882,
-    "howlong_extras": 9.1667,
+    "howlong_extras": 9.0833,
     "igdb_summary": "In this 1-bit first-person mystery game, a merchant ship called the Obra Dinn has appeared at a London harbor, years after being declared lost at sea. As an insurance adjuster, the player must examine the ship for clues.",
     "igdb_height": 800,
     "id": 944,
@@ -14951,10 +14951,10 @@
           "tier": 2,
           "game_platform_id": 1,
           "available_game_platform_id": 256,
-          "minutes_played": 3692,
+          "minutes_played": 3739,
           "platform_name": "Steam",
           "rating": 92,
-          "last_played": "2020-05-02 14:40:28.687",
+          "last_played": "2020-05-04 16:36:22.738",
           "id": 242,
           "collection_add": "2019-07-05 18:30:13.802",
           "preferred": false,
@@ -15011,8 +15011,8 @@
     "person_games": [{
       "date_added": "2019-07-05 18:30:13.802",
       "tier": 2,
-      "minutes_played": 3692,
-      "last_played": "2020-05-02 14:40:28.687",
+      "minutes_played": 3739,
+      "last_played": "2020-05-04 16:36:22.738",
       "rating": 92,
       "id": 1450,
       "person_id": 1
@@ -16230,10 +16230,10 @@
           "tier": 2,
           "game_platform_id": 1,
           "available_game_platform_id": 590,
-          "minutes_played": 72,
+          "minutes_played": 89,
           "platform_name": "Steam",
           "rating": 80,
-          "last_played": "2019-11-28 15:38:20.105",
+          "last_played": "2020-05-03 23:34:44.832",
           "id": 561,
           "collection_add": "2019-11-13 17:35:46.216",
           "preferred": false,
@@ -16248,8 +16248,8 @@
     "person_games": [{
       "date_added": "2019-11-13 17:35:46.216",
       "tier": 2,
-      "minutes_played": 72,
-      "last_played": "2019-11-28 15:38:20.105",
+      "minutes_played": 89,
+      "last_played": "2020-05-03 23:34:44.832",
       "rating": 80,
       "id": 1466,
       "person_id": 1
@@ -21619,5 +21619,404 @@
     "id": 1106,
     "person_games": [],
     "igdb_id": 109457
+  },
+  {
+    "igdb_updated": "2019-12-14 16:00:00.0",
+    "igdb_release_date": "2018-09-05 17:00:00.0",
+    "natural_end": true,
+    "igdb_rating_count": 2,
+    "igdb_slug": "v-rally-4",
+    "title": "V-Rally 4",
+    "igdb_rating": 63,
+    "date_added": "2020-05-03 23:57:08.672628",
+    "metacritic_page": false,
+    "igdb_popularity": 3.006001519899228,
+    "availablePlatforms": [
+      {
+        "date_added": "2020-05-03 23:57:09.146011",
+        "metacritic_page": true,
+        "game_platform_id": 10,
+        "platform_name": "PC",
+        "id": 4428,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-03 23:57:09.581102",
+        "metacritic_page": true,
+        "metacritic_matched": "2020-05-04 17:28:59.242",
+        "game_platform_id": 11,
+        "platform_name": "PS4",
+        "metacritic": 58,
+        "id": 4429,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-03 23:57:09.992371",
+        "metacritic_page": true,
+        "metacritic_matched": "2020-05-04 17:29:00.574",
+        "game_platform_id": 4,
+        "platform_name": "Xbox One",
+        "metacritic": 67,
+        "id": 4430,
+        "myPlatforms": [{
+          "date_added": "2020-05-03 23:57:10.81772",
+          "game_platform_id": 4,
+          "available_game_platform_id": 4430,
+          "minutes_played": 0,
+          "platform_name": "Xbox One",
+          "id": 1003,
+          "collection_add": "2020-05-03 23:57:10.152",
+          "preferred": false,
+          "person_id": 1
+        }]
+      },
+      {
+        "date_added": "2020-05-03 23:57:10.404107",
+        "metacritic_page": true,
+        "metacritic_matched": "2020-05-04 17:29:01.93",
+        "game_platform_id": 3,
+        "platform_name": "Switch",
+        "metacritic": 51,
+        "id": 4431,
+        "myPlatforms": []
+      }
+    ],
+    "igdb_poster": "co1v1v",
+    "igdb_width": 600,
+    "igdb_summary": "Get ready to take on the challenges of rallies, rallycross, drifts, buggies and hill climbs, and set off on a spectacular journey across continents. At the wheel of the most legendary off-road vehicles in each category, you\u2019ll have to be prepared to take on the most difficult routes in astonishing surroundings. \nOver 50 car models will be featured, including the most famous in rallying and extreme motor sport. Ready for you to test drive, collect, upgrade, customize, and above all excel at! \nAs no trip is worth anything unless it is shared, V-Rally 4 will feature a career mode and an innovative online mode.",
+    "igdb_height": 800,
+    "id": 1157,
+    "person_games": [],
+    "igdb_id": 90688
+  },
+  {
+    "igdb_updated": "2020-04-22 17:00:00.0",
+    "igdb_release_date": "2013-06-17 17:00:00.0",
+    "natural_end": true,
+    "igdb_slug": "knights-of-pen-and-paper-plus-1-deluxier-edition",
+    "title": "Knights of Pen & Paper +1 Deluxier Edition",
+    "date_added": "2020-05-03 23:58:04.287445",
+    "metacritic_page": false,
+    "igdb_popularity": 2.114465513561907,
+    "availablePlatforms": [
+      {
+        "date_added": "2020-05-03 23:58:04.775025",
+        "metacritic_page": false,
+        "game_platform_id": 15,
+        "platform_name": "Linux",
+        "id": 4432,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-03 23:58:05.216495",
+        "metacritic_page": false,
+        "game_platform_id": 10,
+        "platform_name": "PC",
+        "id": 4433,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-03 23:58:05.633879",
+        "metacritic_page": false,
+        "game_platform_id": 16,
+        "platform_name": "Mac",
+        "id": 4434,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-03 23:58:06.046819",
+        "metacritic_page": true,
+        "game_platform_id": 11,
+        "platform_name": "PS4",
+        "id": 4435,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-03 23:58:06.462225",
+        "metacritic_page": true,
+        "game_platform_id": 4,
+        "platform_name": "Xbox One",
+        "id": 4436,
+        "myPlatforms": [{
+          "date_added": "2020-05-03 23:58:07.291205",
+          "game_platform_id": 4,
+          "available_game_platform_id": 4436,
+          "minutes_played": 0,
+          "platform_name": "Xbox One",
+          "id": 1004,
+          "collection_add": "2020-05-03 23:58:06.624",
+          "preferred": false,
+          "person_id": 1
+        }]
+      },
+      {
+        "date_added": "2020-05-03 23:58:06.875855",
+        "metacritic_page": true,
+        "metacritic_matched": "2020-05-04 17:29:10.705",
+        "game_platform_id": 3,
+        "platform_name": "Switch",
+        "metacritic": 80,
+        "id": 4437,
+        "myPlatforms": []
+      }
+    ],
+    "igdb_poster": "co23ld",
+    "igdb_width": 600,
+    "igdb_summary": "Set out on a grand adventure in this turn-based, retro style, pixel-art RPG, inspired by the great titles of the 90's. Take on the roles of in-game players taking on the roles of their characters in a traditional pen and paper RPG session in the ultimate meta roleplaying experience.",
+    "igdb_height": 800,
+    "id": 1158,
+    "person_games": [],
+    "igdb_id": 53259
+  },
+  {
+    "igdb_updated": "2020-04-22 17:00:00.0",
+    "igdb_release_date": "2018-12-13 16:00:00.0",
+    "natural_end": true,
+    "igdb_rating_count": 0,
+    "igdb_slug": "knights-of-pen-and-paper-2-deluxiest-edition",
+    "title": "Knights of Pen & Paper 2 Deluxiest Edition",
+    "igdb_rating": 77,
+    "date_added": "2020-05-03 23:58:10.511828",
+    "metacritic_page": false,
+    "igdb_popularity": 1,
+    "availablePlatforms": [{
+      "date_added": "2020-05-03 23:58:10.968686",
+      "metacritic_page": false,
+      "game_platform_id": 4,
+      "platform_name": "Xbox One",
+      "id": 4438,
+      "myPlatforms": [{
+        "date_added": "2020-05-03 23:58:11.403169",
+        "game_platform_id": 4,
+        "available_game_platform_id": 4438,
+        "minutes_played": 0,
+        "platform_name": "Xbox One",
+        "id": 1005,
+        "collection_add": "2020-05-03 23:58:10.737",
+        "preferred": false,
+        "person_id": 1
+      }]
+    }],
+    "igdb_poster": "co239a",
+    "igdb_width": 1500,
+    "igdb_summary": "Prepare to inhabit a world of chivalry, class warfare and off-beat pop references in the sequel for the successful and award winning game Knights of Pen & Paper! Knights of Pen & Paper 2 is a turn-based, retro style, pixel-art adventure full of danger, intrigue, death, and saving throws!",
+    "igdb_height": 2000,
+    "id": 1159,
+    "person_games": [],
+    "igdb_id": 113080
+  },
+  {
+    "igdb_updated": "2020-04-29 17:00:00.0",
+    "igdb_release_date": "1994-04-30 17:00:00.0",
+    "natural_end": true,
+    "igdb_rating_count": 23,
+    "igdb_slug": "sensible-world-of-soccer",
+    "title": "Sensible World of Soccer",
+    "howlong_title": "Sensible World of Soccer",
+    "igdb_rating": 90.5861260766295,
+    "date_added": "2020-05-04 00:00:03.570829",
+    "metacritic_page": false,
+    "igdb_popularity": 2.114465513561907,
+    "availablePlatforms": [
+      {
+        "date_added": "2020-05-04 00:00:04.916286",
+        "metacritic_page": false,
+        "game_platform_id": 20,
+        "platform_name": "Xbox Live Arcade",
+        "id": 4441,
+        "myPlatforms": [{
+          "date_added": "2020-05-04 00:00:05.330027",
+          "game_platform_id": 20,
+          "available_game_platform_id": 4441,
+          "minutes_played": 0,
+          "platform_name": "Xbox Live Arcade",
+          "id": 1006,
+          "collection_add": "2020-05-04 00:00:04.667",
+          "preferred": false,
+          "person_id": 1
+        }]
+      },
+      {
+        "date_added": "2020-05-04 00:00:04.066191",
+        "metacritic_page": false,
+        "game_platform_id": 33,
+        "platform_name": "PC DOS",
+        "id": 4439,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-04 00:00:04.498868",
+        "metacritic_page": false,
+        "game_platform_id": 35,
+        "platform_name": "Amiga",
+        "id": 4440,
+        "myPlatforms": []
+      }
+    ],
+    "giantbomb_medium_url": "https://giantbomb1.cbsistatic.com/uploads/scale_medium/4/48222/1388557-sensible_world_of_soccer_01.jpg",
+    "giantbomb_id": 19165,
+    "howlong_id": 8303,
+    "giantbomb_name": "Sensible World of Soccer",
+    "igdb_poster": "j9dwtwwfly1vmoj41rhy",
+    "igdb_width": 800,
+    "howlong_extras": 20,
+    "igdb_summary": "Sensible World of Soccer was designed and developed by Sensible Software as the 1994 sequel to their 1992 hit game Sensible Soccer which combined a 2D football game with a comprehensive manager mode. All the players in all of the teams from all of the professional leagues in the world from that time are included, as well as all of the national and international competitions for all club and national teams around the world. Altogether there are over 1,500 teams and 27,000 players included in the game. Although the gameplay is very simple (just eight directions and one fire button needed) a large variety of context sensitive actions can be performed easily without any predefined keys.",
+    "igdb_height": 1034,
+    "id": 1160,
+    "person_games": [],
+    "igdb_id": 10121
+  },
+  {
+    "igdb_updated": "2020-05-02 17:00:00.0",
+    "igdb_release_date": "2010-09-07 17:00:00.0",
+    "natural_end": true,
+    "igdb_rating_count": 243,
+    "igdb_slug": "amnesia-the-dark-descent",
+    "title": "Amnesia: The Dark Descent",
+    "igdb_rating": 80.1859666655788,
+    "date_added": "2020-05-04 18:15:49.405037",
+    "metacritic_page": false,
+    "igdb_popularity": 8.132579286796204,
+    "availablePlatforms": [
+      {
+        "date_added": "2020-05-04 18:15:49.911101",
+        "metacritic_page": false,
+        "game_platform_id": 15,
+        "platform_name": "Linux",
+        "id": 4442,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-04 18:15:50.331244",
+        "metacritic_page": false,
+        "game_platform_id": 10,
+        "platform_name": "PC",
+        "id": 4443,
+        "myPlatforms": [{
+          "date_added": "2020-05-04 18:15:51.966535",
+          "game_platform_id": 10,
+          "available_game_platform_id": 4443,
+          "minutes_played": 0,
+          "platform_name": "PC",
+          "id": 1007,
+          "collection_add": "2020-05-04 18:15:47.461",
+          "preferred": true,
+          "person_id": 1
+        }]
+      },
+      {
+        "date_added": "2020-05-04 18:15:50.712225",
+        "metacritic_page": false,
+        "game_platform_id": 16,
+        "platform_name": "Mac",
+        "id": 4444,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-04 18:15:51.07495",
+        "metacritic_page": false,
+        "game_platform_id": 11,
+        "platform_name": "PS4",
+        "id": 4445,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-04 18:15:51.511853",
+        "metacritic_page": false,
+        "game_platform_id": 4,
+        "platform_name": "Xbox One",
+        "id": 4446,
+        "myPlatforms": []
+      }
+    ],
+    "igdb_poster": "co1qq5",
+    "igdb_width": 600,
+    "igdb_summary": "Amnesia: The Dark Descent is a survival horror video game by Frictional Games. The game features a protagonist named Daniel exploring a dark and foreboding castle, while trying to maintain his sanity by avoiding monsters and other terrifying obstructions. The game was critically well received.",
+    "igdb_height": 800,
+    "id": 1161,
+    "person_games": [],
+    "igdb_id": 111
+  },
+  {
+    "igdb_updated": "2020-05-02 17:00:00.0",
+    "igdb_release_date": "2016-01-20 16:00:00.0",
+    "natural_end": true,
+    "igdb_rating_count": 11,
+    "igdb_slug": "crashlands",
+    "title": "Crashlands",
+    "howlong_title": "Crashlands",
+    "igdb_rating": 70.0426127901155,
+    "date_added": "2020-05-04 18:16:34.763269",
+    "metacritic_page": false,
+    "igdb_popularity": 1.668679308137144,
+    "availablePlatforms": [
+      {
+        "date_added": "2020-05-04 18:16:35.155406",
+        "metacritic_page": true,
+        "metacritic_matched": "2020-05-04 18:16:57.264",
+        "game_platform_id": 10,
+        "platform_name": "PC",
+        "metacritic": 78,
+        "id": 4447,
+        "myPlatforms": [{
+          "date_added": "2020-05-04 18:16:36.969204",
+          "game_platform_id": 10,
+          "available_game_platform_id": 4447,
+          "minutes_played": 0,
+          "platform_name": "PC",
+          "id": 1008,
+          "collection_add": "2020-05-04 18:16:32.531",
+          "preferred": true,
+          "person_id": 1
+        }]
+      },
+      {
+        "date_added": "2020-05-04 18:16:35.517128",
+        "metacritic_page": false,
+        "game_platform_id": 16,
+        "platform_name": "Mac",
+        "id": 4448,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-04 18:16:35.877113",
+        "metacritic_page": false,
+        "game_platform_id": 12,
+        "platform_name": "Android",
+        "id": 4449,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-04 18:16:36.240508",
+        "metacritic_page": true,
+        "metacritic_matched": "2020-05-04 18:16:59.93",
+        "game_platform_id": 13,
+        "platform_name": "iOS",
+        "metacritic": 93,
+        "id": 4450,
+        "myPlatforms": []
+      },
+      {
+        "date_added": "2020-05-04 18:16:36.607052",
+        "metacritic_page": true,
+        "metacritic_matched": "2020-05-04 18:17:01.489",
+        "game_platform_id": 3,
+        "platform_name": "Switch",
+        "metacritic": 75,
+        "id": 4451,
+        "myPlatforms": []
+      }
+    ],
+    "giantbomb_id": 52300,
+    "howlong_id": 34003,
+    "giantbomb_name": "Crashlands",
+    "igdb_poster": "co22xx",
+    "igdb_width": 729,
+    "howlong_extras": 38,
+    "igdb_summary": "Crashlands is an outlandish story-driven-action-adventure set in a world of hidden magic and high technology. Tame and milk alien beasts, craft resources into menacing weaponry, befriend the locals, and go toe-to-chin with a maniac. All in the name of ON-TIME DELIVERY !\n\nPlay as Flux Dabes, a galactic delivery truck driver whose latest shipment gets interrupted by a megalomaniacal alien named \"Q\" who tears her ship to pieces looking for useful tech. Crashlanded on Woanope, you must fight, tame, craft, quest, bossfight, and adventure your way to domination of all the things so that you and JuiceBox, your trusty sidekick/supervisor/robotic cargo palette, can send a message to the Bureau of Shipping and get those damn packages delivered!",
+    "igdb_height": 972,
+    "id": 1162,
+    "person_games": [],
+    "igdb_id": 15389
   }
 ]
