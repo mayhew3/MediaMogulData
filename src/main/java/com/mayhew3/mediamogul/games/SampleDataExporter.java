@@ -42,6 +42,7 @@ public class SampleDataExporter {
     exportMyGames(gamesJSON);
     writeResultToFile("json/json_test_games.json", gamesJSON);
     exportAllPlatforms();
+    exportGameplaySessions();
   }
 
   private void updateAllPlatforms() throws SQLException {
@@ -66,6 +67,38 @@ public class SampleDataExporter {
     }
 
     writeResultToFile("json/json_test_platforms.json", platformsJSON);
+  }
+
+  private void exportGameplaySessions() throws IOException, SQLException {
+    String sql = "SELECT gs.* " +
+        "FROM gameplay_session gs " +
+        "INNER JOIN valid_game g " +
+        "  ON gs.game_id = g.id " +
+        "WHERE (g.id > ? OR g.owned = ? OR g.title = ?) " +
+        "ORDER BY gs.id ";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, 900, "not owned", "Portal 2");
+
+    JSONArray sessionsArray = new JSONArray();
+
+    while (resultSet.next()) {
+      GameplaySession gameplaySession = new GameplaySession();
+      gameplaySession.initializeFromDBObject(resultSet);
+
+      JSONObject sessionObj = new JSONObject();
+      sessionObj.put("id", gameplaySession.id.getValue());
+      sessionObj.put("start_time", gameplaySession.startTime.getValue());
+      sessionObj.put("minutes", gameplaySession.minutes.getValue());
+      sessionObj.put("rating", gameplaySession.rating.getValue());
+      sessionObj.put("person_id", gameplaySession.person_id.getValue());
+      sessionObj.put("game_id", gameplaySession.gameID.getValue());
+
+      sessionsArray.put(sessionObj);
+    }
+
+    writeResultToFile("json/json_test_sessions.json", sessionsArray);
+
+    logger.info("Exported " + sessionsArray.length() + " gameplay sessions.");
   }
 
   private void attachMyGlobalPlatforms(GamePlatform gamePlatform, JSONObject gamePlatformObj) throws SQLException {

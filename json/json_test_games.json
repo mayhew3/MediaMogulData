@@ -1187,6 +1187,13 @@
     "igdb_width": 270,
     "person_games": [
       {
+        "date_added": "2018-11-11 00:45:59.664712",
+        "tier": 1,
+        "minutes_played": 0,
+        "id": 789,
+        "person_id": 4
+      },
+      {
         "date_added": "2014-09-29 03:48:16.504",
         "tier": 2,
         "minutes_played": 96,
@@ -1194,13 +1201,6 @@
         "rating": 91.8,
         "id": 20,
         "person_id": 1
-      },
-      {
-        "date_added": "2018-11-11 00:45:59.664712",
-        "tier": 1,
-        "minutes_played": 0,
-        "id": 789,
-        "person_id": 4
       }
     ],
     "igdb_id": 72
