@@ -99,7 +99,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void updateSingleGame() {
-    String nameOfSingleGame = "Mario + Rabbids Kingdom Battle";
+    String nameOfSingleGame = "Pillars of Eternity II: Deadfire";
 
     String sql = "SELECT * " +
         "FROM valid_game " +
@@ -181,7 +181,7 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
   }
 
   private void runUpdateOnGameResultSet(ResultSet resultSet) throws SQLException {
-    int i = 1;
+    int i = 0;
     int failures = 0;
 
     ArrayList<DateTime> filledDates = new ArrayList<>();
@@ -195,25 +195,29 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
 
         List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
         for (AvailableGamePlatform platform : availableGamePlatforms) {
-          MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform, filledDates);
-          metacriticGameUpdater.runUpdater();
+          try {
+            MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform, filledDates);
+            metacriticGameUpdater.runUpdater();
+          } catch (SingleFailedException e) {
+            logger.warn(e.getMessage());
+            logger.warn("Platform failed: " + game.title.getValue() + " (" + platform.platformName.getValue() + ")");
+            failures++;
+          } finally {
+            i++;
+          }
         }
-      } catch (SingleFailedException e) {
-        logger.warn(e.getMessage());
-        logger.warn("Show failed: " + game.title.getValue());
-        failures++;
       } catch (SQLException e) {
         e.printStackTrace();
         logger.error("Failed to load game from database.");
         failures++;
+        i++;
       }
 
       debug(i + " processed.");
-      i++;
     }
 
-    if (i > 1) {
-      logger.info("Operation completed! Failed on " + failures + "/" + (i - 1) + " games (" + (100 * failures / (i - 1)) + "%)");
+    if (i > 0) {
+      logger.info("Operation completed! Failed on " + failures + "/" + (i) + " platforms (" + (100 * failures / (i)) + "%)");
     } else {
       logger.info("No games to process.");
     }

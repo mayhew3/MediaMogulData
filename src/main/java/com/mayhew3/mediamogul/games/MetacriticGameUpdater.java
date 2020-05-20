@@ -81,6 +81,8 @@ public class MetacriticGameUpdater extends MetacriticUpdater {
 
       availablePlatform.metacritic_matched.changeValue(new Date());
 
+      logger.debug("Found full metacritic match for platform " + platformName + ": " + metaCritic);
+
       BigDecimal previousValue = availablePlatform.metacritic.getValue();
       BigDecimal updatedValue = new BigDecimal(metaCritic);
 

@@ -79,6 +79,7 @@ class FirstTimeGameUpdater {
       MetacriticGameUpdater metacriticGameUpdater = new MetacriticGameUpdater(game, connection, person_id, platform, filledDates);
       try {
         metacriticGameUpdater.runUpdater();
+        logger.info("Found metacritic for " + game.title.getValue() + " (" + platform.platformName.getValue() + "): " + platform.metacritic.getValue());
       } catch (SingleFailedException e) {
         logger.warn("Game failed metacritic update: " + game.title.getValue());
         logger.warn(e.getMessage());
