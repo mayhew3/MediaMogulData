@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,6 +96,7 @@ public class PersonGame extends RetireableDataObject {
       myPlatform.availableGamePlatformID.changeValue(availableGamePlatform.id.getValue());
       myPlatform.personID.changeValue(person_id.getValue());
       myPlatform.platformName.changeValue(availableGamePlatform.platformName.getValue());
+      myPlatform.collectionAdd.changeValue(new Date());
       myPlatform.commit(connection);
       return myPlatform;
     }
