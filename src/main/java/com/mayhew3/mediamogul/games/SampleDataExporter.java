@@ -170,7 +170,6 @@ public class SampleDataExporter {
       gameJSON.put("igdb_summary", game.igdb_summary.getValue());
       gameJSON.put("igdb_updated", game.igdb_updated.getValue());
 
-      addPersonGamesToGame(game, gameJSON);
       attachIGDBPoster(game, gameJSON);
       addPlatformsToGame(game, gameJSON);
 
@@ -200,31 +199,6 @@ public class SampleDataExporter {
     }
 
     gameJSON.put("availablePlatforms", platformsJSON);
-  }
-
-  private void addPersonGamesToGame(Game game, JSONObject gameJSON) throws SQLException {
-    List<PersonGame> personGames = game.getPersonGames(connection);
-
-    JSONArray personGamesJSON = new JSONArray();
-
-    for (PersonGame personGame : personGames) {
-      JSONObject personGameJSON = new JSONObject();
-      personGameJSON.put("person_id", personGame.person_id.getValue());
-      personGameJSON.put("last_played", personGame.last_played.getValue());
-      personGameJSON.put("rating", personGame.rating.getValue());
-      personGameJSON.put("tier", personGame.tier.getValue());
-      personGameJSON.put("id", personGame.id.getValue());
-      personGameJSON.put("final_score", personGame.final_score.getValue());
-      personGameJSON.put("finished_date", personGame.finished_date.getValue());
-      personGameJSON.put("replay_score", personGame.replay_score.getValue());
-      personGameJSON.put("replay_reason", personGame.replay_reason.getValue());
-      personGameJSON.put("date_added", personGame.dateAdded.getValue());
-      personGameJSON.put("minutes_played", personGame.minutes_played.getValue());
-
-      personGamesJSON.put(personGameJSON);
-    }
-
-    gameJSON.put("person_games", personGamesJSON);
   }
 
   private void attachMyPlatformsToAvailablePlatform(AvailableGamePlatform availablePlatform, JSONObject availablePlatformJSON) throws SQLException {
