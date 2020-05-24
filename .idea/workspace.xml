@@ -21,8 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json/json_test_games.json" beforeDir="false" afterPath="$PROJECT_DIR$/json/json_test_games.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/PersonGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/games/PersonGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/ChromeProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/ChromeProvider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +147,7 @@
       <recent name="D:\Code\git\media-mogul-data\src\test\resources\TVDBSeasonZero" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SampleDataExporter">
+  <component name="RunManager" selected="Application.SteamAttributeUpdateRunner (local/single)">
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -1169,7 +1169,6 @@
     <configuration name="SteamAttributeUpdateRunner (local/full)" type="Application" factoryName="Application" folderName="Games">
       <envs>
         <env name="giantbomb_api" value="5565f1f674caf87eaeed23269d7bb06dadfc2e6f" />
-        <env name="" value="" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamAttributeUpdateRunner" />
       <module name="media-mogul-data.main" />
@@ -1181,7 +1180,6 @@
     <configuration name="SteamAttributeUpdateRunner (local/single)" type="Application" factoryName="Application">
       <envs>
         <env name="giantbomb_api" value="5565f1f674caf87eaeed23269d7bb06dadfc2e6f" />
-        <env name="" value="" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamAttributeUpdateRunner" />
       <module name="media-mogul-data.main" />
@@ -2060,6 +2058,25 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="media-mogul-data [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="media-mogul-data [runTaskScheduleRunner]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -2130,27 +2147,6 @@
       <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.IGDBUpdaterTest" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs>
-        <env name="postgresURL_local" value="$postgresURL_local$" />
-        <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-        <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
-      </envs>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IGDBUpdaterTest.testAllPlatformsAddedOnFirstMatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="media-mogul-data.test" />
-      <option name="PACKAGE_NAME" value="com.mayhew3.mediamogul.games" />
-      <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.IGDBUpdaterTest" />
-      <option name="METHOD_NAME" value="testAllPlatformsAddedOnFirstMatch" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -2495,17 +2491,17 @@
       <item itemvalue="JUnit.SchemaLocalTest" />
       <item itemvalue="JUnit.IGDBUpdaterTest" />
       <item itemvalue="JUnit.SteamUpdaterTest" />
-      <item itemvalue="JUnit.IGDBUpdaterTest.testAllPlatformsAddedOnFirstMatch" />
       <item itemvalue="JUnit.IGDBUpdaterTest.testNoResults" />
       <item itemvalue="JUnit.All in media-mogul-data.test" />
+      <item itemvalue="Gradle.media-mogul-data [clean]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.media-mogul-data [clean]" />
         <item itemvalue="JUnit.SteamUpdaterTest" />
         <item itemvalue="JUnit.All in media-mogul-data.test" />
         <item itemvalue="JUnit.IGDBUpdaterTest.testNoResults" />
         <item itemvalue="JUnit.IGDBUpdaterTest" />
-        <item itemvalue="JUnit.IGDBUpdaterTest.testAllPlatformsAddedOnFirstMatch" />
       </list>
     </recent_temporary>
   </component>
@@ -2660,11 +2656,12 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="183" key="#Updates/0.0.1920.1050@0.0.1920.1050" timestamp="1586483914791" />
-    <state x="487" y="70" width="1463" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588458950413">
+    <state x="487" y="70" width="1463" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590347742583">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="706" y="480" width="823" height="570" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588052674194" />
     <state x="487" y="70" width="1463" height="1316" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588458950413" />
+    <state x="487" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347742583" />
     <state x="92" y="92" width="2376" height="1226" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1588109021676">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2707,46 +2704,47 @@
     </state>
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1587262625063" />
     <state x="123" y="124" width="2315" height="1163" maximized="true" key="DiffContextDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1587512334265" />
-    <state x="832" y="333" width="1178" height="868" key="EnvironmentVariablesDialog" timestamp="1583561562896">
+    <state x="832" y="333" width="1178" height="868" key="EnvironmentVariablesDialog" timestamp="1590347611396">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="832" y="333" width="1178" height="868" key="EnvironmentVariablesDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1583561562896" />
+    <state x="832" y="333" key="EnvironmentVariablesDialog/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347611396" />
     <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1582745073589">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="2517" height="313" key="GridCell.Tab.0.bottom" timestamp="1590009871640">
+    <state width="1236" height="315" key="GridCell.Tab.0.bottom" timestamp="1590347826889">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.bottom/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1588544127300" />
     <state width="2517" height="518" key="GridCell.Tab.0.bottom/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="1236" height="397" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="2517" height="313" key="GridCell.Tab.0.bottom/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590009871640" />
-    <state width="2517" height="313" key="GridCell.Tab.0.center" timestamp="1590009871640">
+    <state width="1236" height="315" key="GridCell.Tab.0.bottom/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
+    <state width="1236" height="315" key="GridCell.Tab.0.center" timestamp="1590347826889">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.center/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="332" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1588544127300" />
     <state width="2517" height="518" key="GridCell.Tab.0.center/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="1236" height="397" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="2517" height="313" key="GridCell.Tab.0.center/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590009871640" />
-    <state width="2517" height="313" key="GridCell.Tab.0.left" timestamp="1590009871640">
+    <state width="1236" height="315" key="GridCell.Tab.0.center/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
+    <state width="1236" height="315" key="GridCell.Tab.0.left" timestamp="1590347826889">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.left/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="332" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1588544127299" />
     <state width="2517" height="518" key="GridCell.Tab.0.left/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127116" />
     <state width="1236" height="397" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="2517" height="313" key="GridCell.Tab.0.left/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590009871640" />
-    <state width="2517" height="313" key="GridCell.Tab.0.right" timestamp="1590009871640">
+    <state width="1236" height="315" key="GridCell.Tab.0.left/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
+    <state width="1236" height="315" key="GridCell.Tab.0.right" timestamp="1590347826889">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.right/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="332" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1588544127300" />
     <state width="2517" height="518" key="GridCell.Tab.0.right/0.0.2560.1409/3840.465.1600.1170@0.0.2560.1409" timestamp="1582350127117" />
     <state width="1236" height="397" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="2517" height="313" key="GridCell.Tab.0.right/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590009871640" />
+    <state width="1236" height="315" key="GridCell.Tab.0.right/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
     <state width="2517" height="446" key="GridCell.Tab.1.bottom" timestamp="1589916648452">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2775,11 +2773,12 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="947" y="341" key="RollbackChangesDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588275055317" />
-    <state x="472" y="32" width="1537" height="851" key="SettingsEditor" timestamp="1587071375053">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="510" y="43" width="1537" height="851" key="SettingsEditor" timestamp="1590347421535">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="472" y="32" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1587071375053" />
     <state x="629" y="43" width="1537" height="851" key="SettingsEditor/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586900406111" />
+    <state x="510" y="43" key="SettingsEditor/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347421535" />
     <state x="1001" y="446" width="780" height="542" key="StructurePopup" timestamp="1589909834695">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -2803,23 +2802,23 @@
     </state>
     <state x="690" y="284" key="extract.method.dialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588057705243" />
     <state x="920" y="381" key="extract.method.dialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588456728817" />
-    <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1590008134252">
+    <state x="875" y="352" width="884" height="763" key="find.popup" timestamp="1590347285636">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="656" y="262" width="758" height="628" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1587863061768" />
     <state x="875" y="352" width="884" height="763" key="find.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588371590293" />
-    <state x="875" y="352" width="884" height="763" key="find.popup/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590008134252" />
+    <state x="875" y="352" width="884" height="763" key="find.popup/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347285636" />
     <state x="1629" y="329" key="refactoring.ChangeSignatureDialog" timestamp="1588461799709">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1222" y="245" key="refactoring.ChangeSignatureDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1588054710198" />
     <state x="1629" y="329" key="refactoring.ChangeSignatureDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588461799709" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1590007957270">
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup" timestamp="1590347716059">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1588543931609" />
     <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1589239903785" />
-    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590007957270" />
+    <state x="831" y="305" width="896" height="911" key="search.everywhere.popup/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347716059" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

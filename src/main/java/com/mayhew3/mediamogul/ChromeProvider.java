@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul;
 
 import com.mayhew3.mediamogul.exception.MissingEnvException;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -9,6 +10,7 @@ public class ChromeProvider {
 
   public ChromeProvider() throws MissingEnvException {
     maybeSetDriverPath();
+    WebDriverManager.chromedriver().setup();
   }
 
   public ChromeDriver openBrowser() {
