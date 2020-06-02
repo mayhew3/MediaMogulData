@@ -15,6 +15,7 @@ public class MediaMogulSchema {
       new EpisodeRating(),
       new ErrorLog(),
       new ExternalService(),
+      new Friendship(),
       new Genre(),
       new Movie(),
       new PendingPoster(),
