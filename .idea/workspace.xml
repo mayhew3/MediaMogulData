@@ -20,10 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/tv/Friendship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/MediaMogulSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mayhew3/mediamogul/model/MediaMogulSchema.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,17 +147,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.SchemaLocalTest">
-    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
-      <module name="media-mogul-data.main" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BlogRankingsCreator" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="postgresURL_local" value="$postgresURL_local$" />
@@ -2021,6 +2008,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="BatchConfigurationType" factoryName="Batch">
+      <module name="media-mogul-data.main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="media-mogul-data [assemble]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -2711,34 +2709,34 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1582745073589" />
-    <state width="1877" height="320" key="GridCell.Tab.0.bottom" timestamp="1591136107743">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="314" key="GridCell.Tab.0.bottom" timestamp="1591153762685">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.bottom/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="320" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1591136107743" />
     <state width="1236" height="397" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="1236" height="315" key="GridCell.Tab.0.bottom/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
-    <state width="1877" height="320" key="GridCell.Tab.0.center" timestamp="1591136107742">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="314" key="GridCell.Tab.0.bottom/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1591153762685" />
+    <state width="2517" height="314" key="GridCell.Tab.0.center" timestamp="1591153762685">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.center/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="320" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1591136107742" />
     <state width="1236" height="397" key="GridCell.Tab.0.center/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="1236" height="315" key="GridCell.Tab.0.center/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
-    <state width="1877" height="320" key="GridCell.Tab.0.left" timestamp="1591136107742">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="314" key="GridCell.Tab.0.center/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1591153762685" />
+    <state width="2517" height="314" key="GridCell.Tab.0.left" timestamp="1591153762685">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.left/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="320" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1591136107742" />
     <state width="1236" height="397" key="GridCell.Tab.0.left/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="1236" height="315" key="GridCell.Tab.0.left/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
-    <state width="1877" height="320" key="GridCell.Tab.0.right" timestamp="1591136107743">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="2517" height="314" key="GridCell.Tab.0.left/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1591153762685" />
+    <state width="2517" height="314" key="GridCell.Tab.0.right" timestamp="1591153762685">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state width="1236" height="391" key="GridCell.Tab.0.right/0.0.1600.1170@0.0.1600.1170" timestamp="1589268685211" />
     <state width="1877" height="320" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1591136107743" />
     <state width="1236" height="397" key="GridCell.Tab.0.right/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588830250057" />
-    <state width="1236" height="315" key="GridCell.Tab.0.right/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347826889" />
+    <state width="2517" height="314" key="GridCell.Tab.0.right/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1591153762685" />
     <state width="1877" height="320" key="GridCell.Tab.1.bottom" timestamp="1591136109748">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
