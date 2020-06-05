@@ -10,6 +10,8 @@ public class Notification extends DataObject {
     super();
     registerForeignKey(new Person(), Nullability.NOT_NULL);
     registerStringField("message", Nullability.NOT_NULL);
+    registerStringField("type", Nullability.NOT_NULL);
+    registerIntegerField("related_row", Nullability.NULLABLE);
     registerStringField("status", Nullability.NOT_NULL).defaultValue("pending");
   }
 
