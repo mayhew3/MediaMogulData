@@ -18,6 +18,7 @@ public class MediaMogulSchema {
       new Friendship(),
       new Genre(),
       new Movie(),
+      new Notification(),
       new PendingPoster(),
       new Person(),
       new PersonPoster(),
