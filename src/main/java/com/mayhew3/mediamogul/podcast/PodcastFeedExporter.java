@@ -117,7 +117,11 @@ public class PodcastFeedExporter {
         String filename = file.getString("filename");
         String duration = file.getString("duration");
 
-        String filePath = audioDirectory + "/" + filename + ".m4a";
+        String[] fileParts = filename.split("\\.");
+        assert fileParts.length == 2;
+        String fileExtension = fileParts[1];
+
+        String filePath = audioDirectory + "/" + filename;
         File audioFile = new File(filePath);
         long lengthInBytes = audioFile.length();
 
@@ -135,6 +139,7 @@ public class PodcastFeedExporter {
         innerTemplate.clearMappings();
         innerTemplate.addMapping("TITLE", fileTitle);
         innerTemplate.addMapping("FILENAME", fileNameFormatted);
+        innerTemplate.addMapping("FILETYPE", fileExtension);
         innerTemplate.addMapping("GUID", fileNameFormatted);
         innerTemplate.addMapping("SUMMARY", summary);
         innerTemplate.addMapping("DESCRIPTION", summary);

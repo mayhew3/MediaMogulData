@@ -7,11 +7,11 @@
         "date": "2019/11/23",
         "files": [
           {
-            "filename": "Session Zero 1",
+            "filename": "Session Zero 1.m4a",
             "duration": "01:04:38"
           },
           {
-            "filename": "Session Zero 2",
+            "filename": "Session Zero 2.m4a",
             "duration": "01:44:41"
           }
         ]
@@ -26,11 +26,11 @@
         "date": "2019/12/06",
         "files": [
           {
-            "filename": "Shadows of the Grave 1",
+            "filename": "Shadows of the Grave 1.m4a",
             "duration": "01:33:03"
           },
           {
-            "filename": "Shadows of the Grave 2",
+            "filename": "Shadows of the Grave 2.m4a",
             "duration": "01:56:14"
           }
         ]
@@ -39,11 +39,11 @@
         "date": "2020/01/03",
         "files": [
           {
-            "filename": "Shadows of the Grave 3",
+            "filename": "Shadows of the Grave 3.m4a",
             "duration": "01:10:53"
           },
           {
-            "filename": "Shadows of the Grave 4",
+            "filename": "Shadows of the Grave 4.m4a",
             "duration": "02:41:01"
           }
         ]
@@ -58,11 +58,11 @@
         "date": "2019/12/13",
         "files": [
           {
-            "filename": "Gobs of Trouble 1",
+            "filename": "Gobs of Trouble 1.m4a",
             "duration": "02:26:04"
           },
           {
-            "filename": "Gobs of Trouble 2",
+            "filename": "Gobs of Trouble 2.m4a",
             "duration": "01:29:52"
           }
         ]
@@ -71,11 +71,11 @@
         "date": "2020/01/11",
         "files": [
           {
-            "filename": "Gobs of Trouble 3",
+            "filename": "Gobs of Trouble 3.m4a",
             "duration": "01:36:53"
           },
           {
-            "filename": "Gobs of Trouble 4",
+            "filename": "Gobs of Trouble 4.m4a",
             "duration": "02:00:12"
           }
         ]
@@ -90,11 +90,11 @@
         "date": "2020/01/25",
         "files": [
           {
-            "filename": "Princess Games 1",
+            "filename": "Princess Games 1.m4a",
             "duration": "01:53:31"
           },
           {
-            "filename": "Princess Games 2",
+            "filename": "Princess Games 2.m4a",
             "duration": "01:21:48"
           }
         ]
@@ -103,15 +103,15 @@
         "date": "2020/02/07",
         "files": [
           {
-            "filename": "Princess Games 3",
+            "filename": "Princess Games 3.m4a",
             "duration": "00:03:51"
           },
           {
-            "filename": "Princess Games 4",
+            "filename": "Princess Games 4.m4a",
             "duration": "01:53:45"
           },
           {
-            "filename": "Princess Games 5",
+            "filename": "Princess Games 5.m4a",
             "duration": "02:06:29"
           }
         ]
@@ -126,11 +126,11 @@
         "date": "2020/02/01",
         "files": [
           {
-            "filename": "Lets Get Kraken 1",
+            "filename": "Lets Get Kraken 1.m4a",
             "duration": "01:55:03"
           },
           {
-            "filename": "Lets Get Kraken 2",
+            "filename": "Lets Get Kraken 2.m4a",
             "duration": "01:44:25"
           }
         ]
@@ -139,11 +139,11 @@
         "date": "2020/02/22",
         "files": [
           {
-            "filename": "Lets Get Kraken 3",
+            "filename": "Lets Get Kraken 3.m4a",
             "duration": "01:32:51"
           },
           {
-            "filename": "Lets Get Kraken 4",
+            "filename": "Lets Get Kraken 4.m4a",
             "duration": "01:53:53"
           }
         ]
@@ -158,11 +158,11 @@
         "date": "2020/03/06",
         "files": [
           {
-            "filename": "Broken Alchemy Infiltration 1",
+            "filename": "Broken Alchemy Infiltration 1.m4a",
             "duration": "01:10:51"
           },
           {
-            "filename": "Broken Alchemy Infiltration 2",
+            "filename": "Broken Alchemy Infiltration 2.m4a",
             "duration": "01:36:32"
           }
         ]
@@ -177,11 +177,11 @@
         "date": "2020/03/20",
         "files": [
           {
-            "filename": "Broken Alchemy Siege 1",
+            "filename": "Broken Alchemy Siege 1.m4a",
             "duration": "02:20:37"
           },
           {
-            "filename": "Broken Alchemy Siege 2",
+            "filename": "Broken Alchemy Siege 2.m4a",
             "duration": "01:04:45"
           }
         ]
@@ -196,7 +196,7 @@
         "date": "2020/03/28",
         "files": [
           {
-            "filename": "Broken Alchemy Confrontation",
+            "filename": "Broken Alchemy Confrontation.m4a",
             "duration": "03:34:15"
           }
         ]
@@ -212,7 +212,7 @@
         "date": "2020/04/11",
         "files": [
           {
-            "filename": "Into the Wild 1",
+            "filename": "Into the Wild 1.m4a",
             "duration": "03:01:33"
           }
         ]
@@ -221,7 +221,7 @@
         "date": "2020/04/25",
         "files": [
           {
-            "filename": "Into the Wild 2",
+            "filename": "Into the Wild 2.m4a",
             "duration": "03:03:33"
           }
         ]
@@ -230,7 +230,7 @@
         "date": "2020/05/09",
         "files": [
           {
-            "filename": "Into the Wild 3",
+            "filename": "Into the Wild 3.m4a",
             "duration": "03:31:18"
           }
         ]
@@ -239,7 +239,7 @@
         "date": "2020/05/30",
         "files": [
           {
-            "filename": "Into the Wild 4",
+            "filename": "Into the Wild 4.m4a",
             "duration": "03:02:56"
           }
         ]
@@ -255,7 +255,7 @@
         "date": "2020/04/18",
         "files": [
           {
-            "filename": "Echoes in the Pillar 1",
+            "filename": "Echoes in the Pillar 1.m4a",
             "duration": "04:10:24"
           }
         ]
@@ -264,7 +264,7 @@
         "date": "2020/05/02",
         "files": [
           {
-            "filename": "Echoes in the Pillar 2",
+            "filename": "Echoes in the Pillar 2.m4a",
             "duration": "03:08:40"
           }
         ]
@@ -273,8 +273,17 @@
         "date": "2020/05/16",
         "files": [
           {
-            "filename": "Echoes in the Pillar 3",
+            "filename": "Echoes in the Pillar 3.m4a",
             "duration": "04:15:02"
+          }
+        ]
+      },
+      {
+        "date": "2020/05/16",
+        "files": [
+          {
+            "filename": "Echoes in the Pillar 4.mp3",
+            "duration": "00:52:51"
           }
         ]
       }
