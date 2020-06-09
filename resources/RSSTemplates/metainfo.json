@@ -279,11 +279,27 @@
         ]
       },
       {
-        "date": "2020/05/16",
+        "date": "2020/06/04",
         "files": [
           {
             "filename": "Echoes in the Pillar 4.mp3",
             "duration": "00:52:51"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Wild Pillar Finale",
+    "summary": "Both groups intersect in a dramatic trial for their lives!",
+    "multipart": false,
+    "sessions": [
+      {
+        "date": "2020/06/06",
+        "files": [
+          {
+            "filename": "Wild Pillar Finale.mp3",
+            "duration": "02:54:03"
           }
         ]
       }
