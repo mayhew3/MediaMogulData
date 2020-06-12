@@ -44,9 +44,9 @@ public class PodcastFeedExporter {
 
   public static void main(String... args) throws IOException, ParseException {
     PodcastFeedExporter podcastFeedExporter = new PodcastFeedExporter(
-        "D:\\Code\\git\\media-mogul-data\\resources\\RSSTemplates",
-        "D:\\Code\\1and1\\dungeons",
-        "D:\\OneDrive\\Games\\Roleplaying\\D&D\\2019 - Hunter Campaign\\Audio Files");
+        "C:\\Code\\git\\media-mogul-data\\resources\\RSSTemplates",
+        "C:\\Code\\1and1\\dungeons",
+        "C:\\OneDrive\\Games\\Roleplaying\\D&D\\2019 - Hunter Campaign\\Audio Files");
     podcastFeedExporter.execute();
   }
 

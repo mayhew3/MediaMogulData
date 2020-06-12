@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7d9486f3-6ffa-4809-8fae-2656f7d9d0e4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/RSSTemplates/metainfo.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/RSSTemplates/metainfo.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,8 +111,8 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml&#10;D:/Code/git/media-mogul-data/scripts/media-mogul-data CMD.lnk" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;XML" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources/IGDBTest" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26547986" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -2621,10 +2620,18 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="994" y="347" width="601" height="715" key="#NewSeriesChecker_(local)/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1585188524889" />
+    <state x="892" y="453" key="#Notifications" timestamp="1591919793476">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="892" y="453" key="#Notifications/0.0.2560.1410/2560.409.1600.1170@0.0.2560.1410" timestamp="1591919793476" />
     <state x="994" y="347" width="601" height="715" key="#PodcastFeedExporter" timestamp="1585603004904">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="994" y="347" width="601" height="715" key="#PodcastFeedExporter/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1585603004904" />
+    <state x="760" y="279" key="#Project_Structure" timestamp="1591919567929">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="760" y="279" key="#Project_Structure/0.0.2560.1410/2560.409.1600.1170@0.0.2560.1410" timestamp="1591919567929" />
     <state x="746" y="258" width="616" height="554" key="#SampleDataExporter" timestamp="1588052658867">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2761,10 +2768,11 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="947" y="341" key="RollbackChangesDialog/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1588275055317" />
-    <state x="510" y="43" width="1537" height="851" key="SettingsEditor" timestamp="1590347421535">
+    <state x="510" y="43" width="1537" height="851" key="SettingsEditor" timestamp="1591919847192">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="472" y="32" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1587071375053" />
+    <state x="510" y="43" key="SettingsEditor/0.0.2560.1410/2560.409.1600.1170@0.0.2560.1410" timestamp="1591919847192" />
     <state x="629" y="43" width="1537" height="851" key="SettingsEditor/0.0.2560.1410/2560.465.1600.1170@0.0.2560.1410" timestamp="1586900406111" />
     <state x="510" y="43" key="SettingsEditor/2560.442.1600.1170/0.0.2560.1410@0.0.2560.1410" timestamp="1590347421535" />
     <state x="751" y="332" width="585" height="403" key="StructurePopup" timestamp="1591136090766">
