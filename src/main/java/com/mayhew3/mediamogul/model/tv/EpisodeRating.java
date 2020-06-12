@@ -29,6 +29,7 @@ public class EpisodeRating extends RetireableDataObject {
     registerBooleanField("rating_pending", Nullability.NOT_NULL).defaultValue(false);
     addColumnsIndex(episodeId, personId, retired);
     addColumnsIndex(watchedDate);
+    addColumnsIndex(personId);
   }
 
   @Override
