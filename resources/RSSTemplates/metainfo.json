@@ -304,5 +304,21 @@
         ]
       }
     ]
+  },
+  {
+    "title": "The Fractured Promise",
+    "summary": "Alrianne and Liz assemble a team to save the Valiar girl.",
+    "multipart": true,
+    "sessions": [
+      {
+        "date": "2020/06/19",
+        "files": [
+          {
+            "filename": "The Fractured Promise 1.mp3",
+            "duration": "03:23:46"
+          }
+        ]
+      }
+    ]
   }
 ]
