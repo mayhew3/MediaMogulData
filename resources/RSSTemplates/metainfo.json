@@ -320,5 +320,21 @@
         ]
       }
     ]
+  },
+  {
+    "title": "Scions of Broken Shadow",
+    "summary": "Fuzzy, Flynn, Lantus, and Moriya head off in search of Sterling's dad and Dawn Warden artifacts.",
+    "multipart": true,
+    "sessions": [
+      {
+        "date": "2020/06/27",
+        "files": [
+          {
+            "filename": "Scions of Broken Shadow 1.mp3",
+            "duration": "02:59:40"
+          }
+        ]
+      }
+    ]
   }
 ]
