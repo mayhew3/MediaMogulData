@@ -46,7 +46,7 @@ public class PodcastFeedExporter {
     PodcastFeedExporter podcastFeedExporter = new PodcastFeedExporter(
         "C:\\Code\\git\\media-mogul-data\\resources\\RSSTemplates",
         "C:\\Code\\1and1\\dungeons",
-        "C:\\OneDrive\\Games\\Roleplaying\\D&D\\2019 - Hunter Campaign\\Audio Files");
+        "E:\\OneDrive\\Games\\Roleplaying\\D&D\\2019 - Hunter Campaign\\Audio Files");
     podcastFeedExporter.execute();
   }
 
