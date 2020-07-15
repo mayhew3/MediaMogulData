@@ -133,7 +133,7 @@ public class PodcastFeedExporter {
         dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
         String formattedDate = dateFormat.format(dateWithTime.toDate());
 
-        String partPart = (files.length() > 1 || multipart) ? " (Part " + sessionFileNumber + ")" : "";
+        String partPart = (files.length() > 1 || sessions.length() > 1 || multipart) ? " (Part " + sessionFileNumber + ")" : "";
         String fileTitle = title + partPart;
 
         innerTemplate.clearMappings();
