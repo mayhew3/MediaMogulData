@@ -1,0 +1,21 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CloudinaryUploader (local/full)" type="Application" factoryName="Application" folderName="Cloudinary">
+    <envs>
+      <env name="postgresURL_local" value="$postgresURL_local$" />
+      <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
+      <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.CloudinaryUploadRunner" />
+    <module name="media-mogul-data.main" />
+    <option name="PROGRAM_PARAMETERS" value="-db Local -mode Full" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TaskScheduleRunner (local/updater)" type="Application" factoryName="Application" folderName="TaskScheduleRunner">
+    <envs>
+      <env name="log4j.configurationFactory" value="com.mayhew3.mediamogul.logging.DebugConfigFactory" />
+      <env name="backupEnv" value="local" />
+      <env name="DATABASE_URL" value="$postgresURL_local$" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.scheduler.TaskScheduleRunner" />
+    <module name="media-mogul-data.main" />
+    <option name="PROGRAM_PARAMETERS" value="-socketEnv local -appRole updater" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

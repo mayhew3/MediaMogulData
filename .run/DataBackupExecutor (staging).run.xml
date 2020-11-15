@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DataBackupExecutor (staging)" type="Application" factoryName="Application" folderName="Backup and Restore">
+    <envs>
+      <env name="DATABASE_URL" value="postgres://xuvjwhtzazdfvt:1692d538f098ce7539056db3a96f4a4eff806b833cb9ca32a067db716bb14611@ec2-23-21-156-171.compute-1.amazonaws.com:5432/d4hnu1is1bkfgj" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.backup.MediaMogulBackupExecutor" />
+    <module name="media-mogul-data.main" />
+    <option name="PROGRAM_PARAMETERS" value="-backupEnv heroku-staging" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

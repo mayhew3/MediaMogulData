@@ -8,5 +8,4 @@ logging.properties
 .gradle/
 build/
 classes/
-!/.idea/workspace.xml
 chromedriver.exe
