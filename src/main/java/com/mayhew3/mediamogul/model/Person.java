@@ -12,6 +12,7 @@ public class Person extends RetireableDataObject {
   public FieldValueString email = registerStringField("email", Nullability.NOT_NULL);
   public FieldValueString firstName = registerStringField("first_name", Nullability.NOT_NULL);
   public FieldValueString lastName = registerStringField("last_name", Nullability.NOT_NULL);
+  public FieldValueString middleName = registerStringField("middle_name", Nullability.NULLABLE);
 
   public Person() {
     super();
