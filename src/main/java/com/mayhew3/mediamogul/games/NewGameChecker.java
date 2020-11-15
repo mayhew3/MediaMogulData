@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
@@ -51,7 +52,7 @@ public class NewGameChecker implements UpdateRunner {
     this.giantbomb_api_key = EnvironmentChecker.getOrThrow("giantbomb_api");
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException, UnirestException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
     JSONReaderImpl jsonReader = new JSONReaderImpl();

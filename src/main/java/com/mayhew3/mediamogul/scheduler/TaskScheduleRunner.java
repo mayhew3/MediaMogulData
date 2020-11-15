@@ -76,7 +76,7 @@ public class TaskScheduleRunner {
     this.person_id = person_id;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException, UnirestException {
     String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.removeExpectedOption("db");

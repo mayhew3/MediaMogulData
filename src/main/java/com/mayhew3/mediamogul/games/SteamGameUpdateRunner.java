@@ -2,6 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
@@ -57,7 +58,7 @@ public class SteamGameUpdateRunner implements UpdateRunner {
     this.jsonReader = jsonReader;
   }
 
-  public static void main(String... args) throws SQLException, FileNotFoundException, URISyntaxException, MissingEnvException {
+  public static void main(String... args) throws SQLException, FileNotFoundException, URISyntaxException, MissingEnvException, UnirestException {
     List<String> argList = Lists.newArrayList(args);
     boolean logToFile = argList.contains("LogToFile");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);

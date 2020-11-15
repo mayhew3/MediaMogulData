@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
@@ -53,7 +54,7 @@ public class IGDBUpdateRunner implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String[] args) throws SQLException, URISyntaxException, MissingEnvException {
+  public static void main(String[] args) throws SQLException, URISyntaxException, MissingEnvException, UnirestException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.FULL);

@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul.games.utility;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.model.games.*;
@@ -35,7 +36,7 @@ public class GamePlatformUpdater {
     this.connection = connection;
   }
 
-  public static void main(String[] args) throws URISyntaxException, SQLException, MissingEnvException {
+  public static void main(String[] args) throws URISyntaxException, SQLException, MissingEnvException, UnirestException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
@@ -44,7 +45,7 @@ public class GamePlatformUpdater {
     updater.runUpdate();
   }
 
-  private void runUpdate() throws SQLException, MissingEnvException {
+  private void runUpdate() throws SQLException, MissingEnvException, UnirestException {
     populateAllPlatforms();
 
     String sql = "SELECT igdb_id " +
@@ -60,7 +61,7 @@ public class GamePlatformUpdater {
     }
   }
 
-  private void populateAllPlatforms() throws SQLException, MissingEnvException {
+  private void populateAllPlatforms() throws SQLException, MissingEnvException, UnirestException {
     IGDBProviderImpl igdbProvider = new IGDBProviderImpl();
     JSONArray igdbPlatforms = igdbProvider.getAllPlatforms();
 
