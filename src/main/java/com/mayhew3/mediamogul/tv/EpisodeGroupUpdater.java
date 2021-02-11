@@ -27,22 +27,28 @@ import static java.lang.Math.toIntExact;
 @SuppressWarnings({"OptionalIsPresent"})
 public class EpisodeGroupUpdater implements UpdateRunner {
 
-  private SQLConnection connection;
+  private final SQLConnection connection;
+  private final Integer year;
 
-  private static Logger logger = LogManager.getLogger(EpisodeGroupUpdater.class);
+  private static final Logger logger = LogManager.getLogger(EpisodeGroupUpdater.class);
 
   public static void main(String... args) throws URISyntaxException, SQLException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
+    argumentChecker.addExpectedOption("year", false, "Override for year to run on.");
+
+    Optional<String> yearStr = argumentChecker.getOptionalIdentifier("year");
+    Integer year = yearStr.isPresent() ? Integer.parseInt(yearStr.get()) : null;
 
     ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
 
-    EpisodeGroupUpdater updater = new EpisodeGroupUpdater(connection);
+    EpisodeGroupUpdater updater = new EpisodeGroupUpdater(connection, year);
     updater.runUpdate();
   }
 
-  public EpisodeGroupUpdater(SQLConnection connection) {
+  public EpisodeGroupUpdater(SQLConnection connection, Integer year) {
     this.connection = connection;
+    this.year = year;
   }
 
   @SuppressWarnings("SameParameterValue")
@@ -50,7 +56,7 @@ public class EpisodeGroupUpdater implements UpdateRunner {
 
     SystemVars systemVars = SystemVars.getSystemVars(connection);
 
-    Integer currentYear = systemVars.ratingYear.getValue();
+    Integer currentYear = this.year == null ? systemVars.ratingYear.getValue() : this.year;
     Timestamp ratingEndDate = systemVars.ratingEndDate.getValue();
 
     String sql = "select s.* " +

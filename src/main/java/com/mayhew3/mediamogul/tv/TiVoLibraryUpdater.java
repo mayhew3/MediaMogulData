@@ -142,7 +142,7 @@ public class TiVoLibraryUpdater {
     if (nightly) {
       try {
         debug("Updating EpisodeGroupRatings...");
-        EpisodeGroupUpdater episodeGroupUpdater = new EpisodeGroupUpdater(connection);
+        EpisodeGroupUpdater episodeGroupUpdater = new EpisodeGroupUpdater(connection, null);
         episodeGroupUpdater.runUpdate();
       } catch (Exception e) {
         debug("Uncaught exception during episode group rating update.");

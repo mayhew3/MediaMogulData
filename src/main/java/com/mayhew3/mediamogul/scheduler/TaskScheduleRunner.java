@@ -188,7 +188,7 @@ public class TaskScheduleRunner {
         24);
     addHourlyTask(new MetacriticGameUpdateRunner(connection, UpdateMode.SMART, person_id),
         24);
-    addHourlyTask(new EpisodeGroupUpdater(connection),
+    addHourlyTask(new EpisodeGroupUpdater(connection, null),
         24);
     addHourlyTask(new SteamAttributeUpdateRunner(connection, UpdateMode.FULL, chromeProvider),
         24);
