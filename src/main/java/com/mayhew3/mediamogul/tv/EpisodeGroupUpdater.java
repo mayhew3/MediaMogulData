@@ -1,10 +1,10 @@
 package com.mayhew3.mediamogul.tv;
 
-import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
+import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;

@@ -1,7 +1,6 @@
 package com.mayhew3.mediamogul.tv.utility;
 
 import com.google.common.collect.Lists;
-import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.mediamogul.model.tv.*;
@@ -9,6 +8,7 @@ import com.mayhew3.mediamogul.model.tv.group.TVGroupBallot;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupEpisode;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupSeries;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupVote;
+import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.dataobject.DataObject;
 import com.mayhew3.postgresobject.dataobject.RetireableDataObject;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
