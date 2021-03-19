@@ -5,7 +5,7 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.MetacriticGameUpdateRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Local -mode Unmatched" />
+    <option name="PROGRAM_PARAMETERS" value="-db local -mode Unmatched" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

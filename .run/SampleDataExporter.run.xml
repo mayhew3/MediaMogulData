@@ -4,7 +4,7 @@
       </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SampleDataExporter" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Local" />
+    <option name="PROGRAM_PARAMETERS" value="-db local" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.mayhew3.mediamogul.games.*" />

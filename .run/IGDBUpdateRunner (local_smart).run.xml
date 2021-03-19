@@ -5,7 +5,7 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.IGDBUpdateRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Local -mode Smart" />
+    <option name="PROGRAM_PARAMETERS" value="-db local -mode Smart" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
