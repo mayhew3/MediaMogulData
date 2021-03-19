@@ -67,7 +67,7 @@ tasks.withType(JavaCompile) {
     options.deprecation = true
 }
 
-task stage(dependsOn: ['build --stacktrace', 'clean'])
+task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 task runTaskScheduleRunner(type:JavaExec) {
