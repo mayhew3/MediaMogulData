@@ -54,20 +54,6 @@ public enum UpdateMode {
     }
   }
 
-  public static UpdateMode getUpdateModeOrDefault(com.mayhew3.mediamogul.ArgumentChecker checker, UpdateMode defaultType) {
-    Optional<String> modeIdentifier = checker.getUpdateModeIdentifier();
-    if (modeIdentifier.isPresent()) {
-      Optional<UpdateMode> optionalType = getUpdateType(modeIdentifier.get());
-      if (optionalType.isPresent()) {
-        return optionalType.get();
-      } else {
-        throw new IllegalArgumentException("No Update Mode found: " + modeIdentifier);
-      }
-    } else {
-      return defaultType;
-    }
-  }
-
   @Override
   public String toString() {
     return getTypekey();

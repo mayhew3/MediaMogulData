@@ -1,9 +1,9 @@
 package com.mayhew3.mediamogul.db;
 
-import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.SystemVars;
+import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.dataobject.DatabaseRecreator;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
