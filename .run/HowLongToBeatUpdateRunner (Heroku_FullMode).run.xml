@@ -5,7 +5,7 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.HowLongToBeatUpdateRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Heroku FullMode" />
+    <option name="PROGRAM_PARAMETERS" value="-db heroku FullMode" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

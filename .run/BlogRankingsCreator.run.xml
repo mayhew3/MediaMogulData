@@ -4,7 +4,7 @@
       </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.blog.BlogRankingsCreator" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Heroku -blog &quot;D:\OneDrive\Projects\Criticism\Blog\2019&quot; -template &quot;D:\Code\git\media-mogul-data\resources\Blog Templates&quot;" />
+    <option name="PROGRAM_PARAMETERS" value="-db heroku -blog &quot;D:\OneDrive\Projects\Criticism\Blog\2019&quot; -template &quot;D:\Code\git\media-mogul-data\resources\Blog Templates&quot;" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
