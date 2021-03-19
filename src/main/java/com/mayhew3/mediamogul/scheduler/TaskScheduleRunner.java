@@ -6,6 +6,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.*;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
 import com.mayhew3.mediamogul.backup.MediaMogulBackupExecutor;
+import com.mayhew3.mediamogul.db.DatabaseEnvironment;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
+import com.mayhew3.mediamogul.db.ExecutionEnvironment;
+import com.mayhew3.mediamogul.db.ExecutionEnvironments;
 import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.*;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
@@ -35,25 +39,25 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TaskScheduleRunner {
-  private List<PeriodicTaskSchedule> taskSchedules = new ArrayList<>();
+  private final List<PeriodicTaskSchedule> taskSchedules = new ArrayList<>();
 
-  private SQLConnection connection;
+  private final SQLConnection connection;
 
   @Nullable
-  private TVDBJWTProvider tvdbjwtProvider;
-  private JSONReader jsonReader;
-  private ExternalServiceHandler howLongServiceHandler;
-  private IGDBProvider igdbProvider;
-  private SteamProvider steamProvider;
-  private ChromeProvider chromeProvider;
+  private final TVDBJWTProvider tvdbjwtProvider;
+  private final JSONReader jsonReader;
+  private final ExternalServiceHandler howLongServiceHandler;
+  private final IGDBProvider igdbProvider;
+  private final SteamProvider steamProvider;
+  private final ChromeProvider chromeProvider;
 
 
   private final SocketWrapper socket;
-  private String envName;
+  private final ExecutionEnvironment executionEnvironment;
 
-  private Integer person_id;
+  private final Integer person_id;
 
-  private static Logger logger = LogManager.getLogger(TaskScheduleRunner.class);
+  private static final Logger logger = LogManager.getLogger(TaskScheduleRunner.class);
 
   private TaskScheduleRunner(SQLConnection connection,
                              @Nullable TVDBJWTProvider tvdbjwtProvider,
@@ -63,7 +67,7 @@ public class TaskScheduleRunner {
                              SteamProvider steamProvider,
                              ChromeProvider chromeProvider,
                              SocketWrapper socket,
-                             String envName,
+                             ExecutionEnvironment executionEnvironment,
                              Integer person_id) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
@@ -73,7 +77,7 @@ public class TaskScheduleRunner {
     this.steamProvider = steamProvider;
     this.chromeProvider = chromeProvider;
     this.socket = socket;
-    this.envName = envName;
+    this.executionEnvironment = executionEnvironment;
     this.person_id = person_id;
   }
 
@@ -87,7 +91,12 @@ public class TaskScheduleRunner {
 
     List<String> acceptableRoles = Lists.newArrayList("updater", "backup");
 
+    ExecutionEnvironment executionEnvironment = getExecutionEnvironment();
+    DatabaseEnvironment databaseEnvironment = getDatabaseEnvironment(argumentChecker);
+
+    String databaseUrl = databaseEnvironment.getDatabaseUrl(executionEnvironment);
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(databaseUrl);
+
     JSONReader jsonReader = new JSONReaderImpl();
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
     ExternalServiceHandler howLongServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.HowLongToBeat);
@@ -95,10 +104,8 @@ public class TaskScheduleRunner {
     String mediaMogulPersonID = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     Integer person_id = Integer.parseInt(mediaMogulPersonID);
 
-    String envName = EnvironmentChecker.getOrThrow("envName");
-
     String appRole;
-    appRole = maybeAppRole.orElseGet(() -> envName.equalsIgnoreCase("heroku") ? "updater" : "backup");
+    appRole = maybeAppRole.orElseGet(executionEnvironment::getAppRole);
 
     Preconditions.checkArgument(acceptableRoles.contains(appRole));
 
@@ -122,7 +129,7 @@ public class TaskScheduleRunner {
         new SteamProviderImpl(),
         chromeProvider,
         socket,
-        envName,
+        executionEnvironment,
         person_id);
     taskScheduleRunner.runUpdates();
   }
@@ -145,6 +152,24 @@ public class TaskScheduleRunner {
         logger.info(string);
       }
     };
+  }
+
+  private static ExecutionEnvironment getExecutionEnvironment() throws MissingEnvException {
+    String envName = EnvironmentChecker.getOrThrow("envName");
+    ExecutionEnvironment executionEnvironment = ExecutionEnvironments.environments.get(envName);
+    if (executionEnvironment == null) {
+      throw new IllegalArgumentException("No execution environment found matching '" + envName + "'");
+    }
+    return executionEnvironment;
+  }
+
+  private static DatabaseEnvironment getDatabaseEnvironment(ArgumentChecker argumentChecker) {
+    String dbName = argumentChecker.getRequiredValue("db");
+    DatabaseEnvironment databaseEnvironment = DatabaseEnvironments.environments.get(dbName);
+    if (databaseEnvironment == null) {
+      throw new IllegalArgumentException("No db found matching '" + dbName + "'");
+    }
+    return databaseEnvironment;
   }
 
   private void createTaskList() throws MissingEnvException {
@@ -229,7 +254,7 @@ public class TaskScheduleRunner {
   }
 
   private boolean isRunningOnHeroku() {
-    return "Heroku".equals(envName);
+    return !executionEnvironment.isLocal();
   }
 
   private void scheduleNextFutureTask() {
@@ -265,8 +290,8 @@ public class TaskScheduleRunner {
 
   private class DelayedTask extends TimerTask {
 
-    private TaskScheduleRunner runner;
-    private PeriodicTaskSchedule nextTask;
+    private final TaskScheduleRunner runner;
+    private final PeriodicTaskSchedule nextTask;
 
     private DelayedTask(TaskScheduleRunner runner, PeriodicTaskSchedule nextTask) {
       this.runner = runner;
