@@ -1,7 +1,9 @@
 package com.mayhew3.mediamogul;
 
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.postgresobject.dataobject.DatabaseRecreator;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -90,7 +92,8 @@ public abstract class DatabaseTest {
   @Before
   public void setUp() throws URISyntaxException, SQLException, MissingEnvException {
     logger.info("Setting up test DB...");
-    connection = PostgresConnectionFactory.getSqlConnection(PostgresConnectionFactory.TEST);
+    DatabaseEnvironment environment = DatabaseEnvironments.environments.get("test");
+    connection = PostgresConnectionFactory.createConnection(environment);
     deleteViews();
     new DatabaseRecreator(connection).recreateDatabase(MediaMogulSchema.schema);
     createViews();

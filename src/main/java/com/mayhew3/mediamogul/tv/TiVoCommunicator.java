@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.SSLTool;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
@@ -13,6 +14,7 @@ import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.NodeReader;
 import com.mayhew3.mediamogul.xml.NodeReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -74,7 +76,8 @@ public class TiVoCommunicator implements UpdateRunner {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.QUICK);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     TiVoCommunicator tiVoCommunicator = new TiVoCommunicator(connection, new RemoteFileDownloader(saveTiVoXML), updateMode);
 

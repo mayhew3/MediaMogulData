@@ -1,13 +1,16 @@
 package com.mayhew3.mediamogul.tv.utility;
 
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.dataobject.DataObject;
 import com.mayhew3.postgresobject.dataobject.DataSchema;
 import com.mayhew3.postgresobject.dataobject.FieldValue;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.DatabaseType;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,9 +28,10 @@ public class TimestampTimeZoneUpgrader {
     this.connection = connection;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     TimestampTimeZoneUpgrader upgrader = new TimestampTimeZoneUpgrader(MediaMogulSchema.schema, connection);
     upgrader.upgradeColumns();

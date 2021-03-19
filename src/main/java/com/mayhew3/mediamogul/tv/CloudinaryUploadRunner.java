@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
 import com.google.common.base.Preconditions;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBPoster;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
@@ -10,6 +11,7 @@ import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -59,7 +61,8 @@ public class CloudinaryUploadRunner implements UpdateRunner {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.QUICK);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
     CloudinaryUploadRunner cloudinaryUploadRunner = new CloudinaryUploadRunner(connection, updateMode);
     cloudinaryUploadRunner.runUpdate();
   }

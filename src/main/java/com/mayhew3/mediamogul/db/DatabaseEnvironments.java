@@ -1,5 +1,9 @@
 package com.mayhew3.mediamogul.db;
 
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
+import com.mayhew3.postgresobject.db.LocalDatabaseEnvironment;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,4 +31,12 @@ public class DatabaseEnvironments {
     environments.put(environmentName, local);
   }
 
+  public static DatabaseEnvironment getEnvironmentForDBArgument(ArgumentChecker argumentChecker) {
+    String dbIdentifier = argumentChecker.getDBIdentifier();
+    DatabaseEnvironment databaseEnvironment = environments.get(dbIdentifier);
+    if (databaseEnvironment == null) {
+      throw new IllegalArgumentException("No environment found with name: " + dbIdentifier);
+    }
+    return databaseEnvironment;
+  }
 }

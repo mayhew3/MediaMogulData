@@ -1,12 +1,15 @@
 package com.mayhew3.mediamogul.tv;
 
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.MetacriticException;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -42,11 +45,13 @@ public class MetacriticTVUpdateRunner implements UpdateRunner {
     this.updateMode = updateMode;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.FULL);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
+
     MetacriticTVUpdateRunner metacriticTVUpdateRunner = new MetacriticTVUpdateRunner(connection, updateMode);
 
     metacriticTVUpdateRunner.runUpdate();

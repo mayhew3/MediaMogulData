@@ -3,6 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBConnectionLog;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
@@ -16,6 +17,7 @@ import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -80,7 +82,8 @@ public class TVDBSeriesMatchRunner implements UpdateRunner {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     UpdateMode updateMode = UpdateMode.getUpdateModeOrDefault(argumentChecker, UpdateMode.FIRST_PASS);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
     TVDBSeriesMatchRunner tvdbUpdateRunner = new TVDBSeriesMatchRunner(connection, new TVDBJWTProviderImpl(tvdbServiceHandler), new JSONReaderImpl(), updateMode);

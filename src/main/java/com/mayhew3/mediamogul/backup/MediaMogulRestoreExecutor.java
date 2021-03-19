@@ -1,10 +1,10 @@
 package com.mayhew3.mediamogul.backup;
 
 import com.mayhew3.mediamogul.GlobalConstants;
-import com.mayhew3.mediamogul.db.DatabaseEnvironment;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.db.HerokuDatabaseEnvironment;
-import com.mayhew3.mediamogul.db.LocalDatabaseEnvironment;
+import com.mayhew3.postgresobject.db.LocalDatabaseEnvironment;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.DataRestoreExecutor;
 import com.mayhew3.postgresobject.db.DataRestoreLocalExecutor;
@@ -22,7 +22,7 @@ public class MediaMogulRestoreExecutor {
   private final DatabaseEnvironment restoreEnvironment;
   private final boolean oldBackup;
 
-  public static void main(String... args) throws MissingEnvException, InterruptedException, IOException, com.mayhew3.postgresobject.exception.MissingEnvException {
+  public static void main(String... args) throws InterruptedException, IOException, com.mayhew3.postgresobject.exception.MissingEnvException {
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.removeExpectedOption("db");
@@ -47,7 +47,7 @@ public class MediaMogulRestoreExecutor {
     this.oldBackup = oldBackup;
   }
 
-  public void runUpdate() throws MissingEnvException, InterruptedException, IOException, com.mayhew3.postgresobject.exception.MissingEnvException {
+  public void runUpdate() throws InterruptedException, IOException, com.mayhew3.postgresobject.exception.MissingEnvException {
     if (restoreEnvironment.isLocal()) {
       updateLocal();
     } else {
@@ -57,60 +57,25 @@ public class MediaMogulRestoreExecutor {
 
   private void updateLocal() throws MissingEnvException, InterruptedException, IOException {
     LocalDatabaseEnvironment localRestoreEnvironment = (LocalDatabaseEnvironment) restoreEnvironment;
-    String restoreEnv = localRestoreEnvironment.getEnvironmentName();
-    Integer pgVersion = localRestoreEnvironment.getPgVersion();
-    String localDBName = localRestoreEnvironment.getDatabaseName();
-
-    String backupEnv = backupEnvironment.getEnvironmentName();
 
     DataRestoreExecutor dataRestoreExecutor;
     if (oldBackup) {
-      dataRestoreExecutor = new DataRestoreLocalExecutor(
-          restoreEnv,
-          backupEnv,
-          pgVersion,
-          GlobalConstants.appLabel,
-          localDBName,
-          backupDate);
+      dataRestoreExecutor = new DataRestoreLocalExecutor(localRestoreEnvironment, backupEnvironment, GlobalConstants.appLabel, backupDate);
     } else {
-      dataRestoreExecutor = new DataRestoreLocalExecutor(
-          restoreEnv,
-          backupEnv,
-          pgVersion,
-          GlobalConstants.appLabel,
-          localDBName);
+      dataRestoreExecutor = new DataRestoreLocalExecutor(localRestoreEnvironment, backupEnvironment, GlobalConstants.appLabel);
     }
     dataRestoreExecutor.runUpdate();
 
   }
 
-  private void updateRemote() throws com.mayhew3.postgresobject.exception.MissingEnvException, MissingEnvException, IOException, InterruptedException {
+  private void updateRemote() throws MissingEnvException, IOException, InterruptedException {
     HerokuDatabaseEnvironment herokuRestoreEnvironment = (HerokuDatabaseEnvironment) restoreEnvironment;
-    String appNameFromEnv = herokuRestoreEnvironment.getHerokuAppName();
-    String databaseUrl = herokuRestoreEnvironment.getDatabaseUrl();
-    Integer pgVersion = herokuRestoreEnvironment.getPgVersion();
-    String restoreEnv = herokuRestoreEnvironment.getEnvironmentName();
-
-    String backupEnv = backupEnvironment.getEnvironmentName();
 
     DataRestoreExecutor dataRestoreExecutor;
     if (oldBackup) {
-      dataRestoreExecutor = new DataRestoreRemoteExecutor(
-          restoreEnv,
-          backupEnv,
-          pgVersion,
-          GlobalConstants.appLabel,
-          appNameFromEnv,
-          databaseUrl,
-          backupDate);
+      dataRestoreExecutor = new DataRestoreRemoteExecutor(herokuRestoreEnvironment, backupEnvironment, GlobalConstants.appLabel, backupDate);
     } else {
-      dataRestoreExecutor = new DataRestoreRemoteExecutor(
-          restoreEnv,
-          backupEnv,
-          pgVersion,
-          GlobalConstants.appLabel,
-          appNameFromEnv,
-          databaseUrl);
+      dataRestoreExecutor = new DataRestoreRemoteExecutor(herokuRestoreEnvironment, backupEnvironment, GlobalConstants.appLabel);
     }
     dataRestoreExecutor.runUpdate();
   }

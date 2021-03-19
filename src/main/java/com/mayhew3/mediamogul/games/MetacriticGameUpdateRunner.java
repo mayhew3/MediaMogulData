@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.exception.SingleFailedException;
 import com.mayhew3.mediamogul.games.exception.MetacriticElementNotFoundException;
 import com.mayhew3.mediamogul.games.exception.MetacriticPageNotFoundException;
@@ -11,6 +12,7 @@ import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -75,7 +77,8 @@ public class MetacriticGameUpdateRunner implements UpdateRunner {
       System.setOut(ps);
     }
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     String mediaMogulPersonID = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     Integer person_id = Integer.parseInt(mediaMogulPersonID);

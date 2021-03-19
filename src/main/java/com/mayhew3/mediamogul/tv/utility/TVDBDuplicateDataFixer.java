@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.tv.utility;
 
 import com.google.common.collect.Ordering;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TVDBEpisode;
@@ -8,8 +9,10 @@ import com.mayhew3.mediamogul.model.tv.TiVoEpisode;
 import com.mayhew3.mediamogul.tv.SeriesDenormUpdater;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -87,10 +90,11 @@ public class TVDBDuplicateDataFixer {
     this.connection = connection;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
     TVDBDuplicateDataFixer dataFixer = new TVDBDuplicateDataFixer(connection);
     dataFixer.runUpdate();
 

@@ -1,15 +1,16 @@
 package com.mayhew3.mediamogul.db;
 
 import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.db.RemoteDatabaseEnvironment;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
 
-public class HerokuDatabaseEnvironment extends DatabaseEnvironment {
+public class HerokuDatabaseEnvironment extends RemoteDatabaseEnvironment {
 
   final String environmentVariableName;
   final String herokuAppName;
 
   public HerokuDatabaseEnvironment(String environmentName, String environmentVariableName, Integer pgVersion, String herokuAppName) {
-    super(environmentName, pgVersion);
+    super(environmentName, environmentVariableName, pgVersion, herokuAppName);
     this.environmentVariableName = environmentVariableName;
     this.herokuAppName = herokuAppName;
   }

@@ -1,12 +1,15 @@
 package com.mayhew3.mediamogul.tv.utility;
 
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.group.*;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,10 +34,11 @@ public class TVGroupDataImporter {
     this.ballotCache = new HashMap<>();
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
     TVGroupDataImporter tvGroupDataImporter = new TVGroupDataImporter(connection);
     tvGroupDataImporter.runUpdate();
   }
