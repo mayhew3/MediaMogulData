@@ -5,7 +5,7 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.HowLongToBeatUpdateRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Local -mode Quick" />
+    <option name="PROGRAM_PARAMETERS" value="-db local -mode Quick" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

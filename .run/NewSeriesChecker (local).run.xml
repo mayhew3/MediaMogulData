@@ -4,7 +4,7 @@
       </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.NewSeriesChecker" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Local -socketEnv local" />
+    <option name="PROGRAM_PARAMETERS" value="-db local -socketEnv local" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.mayhew3.mediamogul.tv.*" />
