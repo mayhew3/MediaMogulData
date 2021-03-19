@@ -1,8 +1,8 @@
 package com.mayhew3.mediamogul.model;
 
-import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
+import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.postgresobject.dataobject.DataSchema;
-import com.mayhew3.postgresobject.exception.MissingEnvException;
 import com.mayhew3.postgresobject.model.PostgresSchemaTest;
 
 public class SchemaEndToEndTest extends PostgresSchemaTest {
@@ -15,7 +15,7 @@ public class SchemaEndToEndTest extends PostgresSchemaTest {
   @Override
   public String getDBConnectionString() {
     try {
-      return EnvironmentChecker.getOrThrow("postgresURL_local_e2e");
+      return DatabaseEnvironments.environments.get("e2e").getDatabaseUrl();
     } catch (MissingEnvException e) {
       e.printStackTrace();
       throw new IllegalStateException(e);

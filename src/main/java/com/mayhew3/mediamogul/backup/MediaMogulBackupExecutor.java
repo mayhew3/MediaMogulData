@@ -1,10 +1,10 @@
 package com.mayhew3.mediamogul.backup;
 
+import com.mayhew3.mediamogul.GlobalConstants;
 import com.mayhew3.mediamogul.db.*;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.EnvironmentChecker;
 import com.mayhew3.postgresobject.db.DataBackupExecutor;
 import com.mayhew3.postgresobject.db.DataBackupLocalExecutor;
 import com.mayhew3.postgresobject.db.DataBackupRemoteExecutor;
@@ -16,11 +16,8 @@ import java.io.IOException;
 public class MediaMogulBackupExecutor implements UpdateRunner {
 
   private final DatabaseEnvironment databaseEnvironment;
-  private final ExecutionEnvironment executionEnvironment;
 
   public static void main(String[] args) throws MissingEnvException, InterruptedException, IOException, com.mayhew3.mediamogul.exception.MissingEnvException {
-
-    ExecutionEnvironment executionEnvironment = ExecutionEnvironments.getThisEnvironment();
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.removeExpectedOption("db");
@@ -29,14 +26,13 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
     String backupEnv = argumentChecker.getRequiredValue("backupEnv");
     DatabaseEnvironment databaseEnvironment = DatabaseEnvironments.environments.get(backupEnv);
 
-    MediaMogulBackupExecutor mediaMogulBackupExecutor = new MediaMogulBackupExecutor(databaseEnvironment, executionEnvironment);
+    MediaMogulBackupExecutor mediaMogulBackupExecutor = new MediaMogulBackupExecutor(databaseEnvironment);
     mediaMogulBackupExecutor.runUpdate();
 
   }
 
-  public MediaMogulBackupExecutor(DatabaseEnvironment databaseEnvironment, ExecutionEnvironment executionEnvironment) {
+  public MediaMogulBackupExecutor(DatabaseEnvironment databaseEnvironment) {
     this.databaseEnvironment = databaseEnvironment;
-    this.executionEnvironment = executionEnvironment;
   }
 
   @Override
@@ -58,13 +54,15 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
   }
 
   private void updateLocal() throws MissingEnvException, InterruptedException, IOException {
-    String envName = databaseEnvironment.getEnvironmentName();
-    String localDBName = ((LocalDatabaseEnvironment)databaseEnvironment).getDatabaseName();
+    LocalDatabaseEnvironment localDatabaseEnvironment = (LocalDatabaseEnvironment) databaseEnvironment;
+    String envName = localDatabaseEnvironment.getEnvironmentName();
+    String localDBName = localDatabaseEnvironment.getDatabaseName();
+    Integer pgVersion = localDatabaseEnvironment.getPgVersion();
 
     DataBackupExecutor executor = new DataBackupLocalExecutor(
         envName,
-        11,
-        "MediaMogul",
+        pgVersion,
+        GlobalConstants.appLabel,
         localDBName);
     executor.runUpdate();
   }
@@ -72,11 +70,13 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
   private void updateRemote() throws MissingEnvException, IOException, InterruptedException {
     try {
       String envName = databaseEnvironment.getEnvironmentName();
-      String databaseUrl = databaseEnvironment.getDatabaseUrl(executionEnvironment);
+      String databaseUrl = databaseEnvironment.getDatabaseUrl();
+      Integer pgVersion = databaseEnvironment.getPgVersion();
+
       DataBackupExecutor executor = new DataBackupRemoteExecutor(
           envName,
-          11,
-          "MediaMogul",
+          pgVersion,
+          GlobalConstants.appLabel,
           databaseUrl);
       executor.runUpdate();
     } catch (com.mayhew3.mediamogul.exception.MissingEnvException e) {
