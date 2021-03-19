@@ -1,5 +1,6 @@
 package com.mayhew3.mediamogul;
 
+import com.mayhew3.postgresobject.EnvironmentChecker;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;

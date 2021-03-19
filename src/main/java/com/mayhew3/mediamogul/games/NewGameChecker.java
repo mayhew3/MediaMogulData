@@ -2,7 +2,6 @@ package com.mayhew3.mediamogul.games;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ChromeProvider;
-import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
@@ -13,6 +12,7 @@ import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.EnvironmentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
