@@ -100,8 +100,7 @@ public class TaskScheduleRunner {
     ExecutionEnvironment executionEnvironment = getExecutionEnvironment();
     DatabaseEnvironment databaseEnvironment = getDatabaseEnvironment(argumentChecker);
 
-    String databaseUrl = databaseEnvironment.getDatabaseUrl();
-    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(databaseUrl);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(databaseEnvironment);
 
     JSONReader jsonReader = new JSONReaderImpl();
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
