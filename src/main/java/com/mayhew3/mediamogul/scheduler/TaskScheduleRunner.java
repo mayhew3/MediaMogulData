@@ -97,7 +97,7 @@ public class TaskScheduleRunner {
     ExecutionEnvironment executionEnvironment = getExecutionEnvironment();
     DatabaseEnvironment databaseEnvironment = getDatabaseEnvironment(argumentChecker);
 
-    String databaseUrl = databaseEnvironment.getDatabaseUrl(executionEnvironment);
+    String databaseUrl = databaseEnvironment.getDatabaseUrl();
     SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(databaseUrl);
 
     JSONReader jsonReader = new JSONReaderImpl();
@@ -140,7 +140,7 @@ public class TaskScheduleRunner {
 
   private void createLocalTaskList() throws MissingEnvException {
     addHourlyTask(new OldDataArchiveRunner(connection, databaseEnvironment.getEnvironmentName()), 1);
-    addHourlyTask(new MediaMogulBackupExecutor(databaseEnvironment, executionEnvironment), 24);
+    addHourlyTask(new MediaMogulBackupExecutor(databaseEnvironment), 24);
   }
 
   private void redirectOutputToLogger() {
