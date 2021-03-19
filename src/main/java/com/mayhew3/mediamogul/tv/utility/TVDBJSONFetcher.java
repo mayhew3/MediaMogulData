@@ -3,11 +3,13 @@ package com.mayhew3.mediamogul.tv.utility;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProvider;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -38,7 +40,8 @@ public class TVDBJSONFetcher {
   public static void main(String... args) throws URISyntaxException, SQLException, IOException, UnirestException, AuthenticationException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
     TVDBJSONFetcher tvdbJsonFetcher = new TVDBJSONFetcher(connection);
 
     tvdbJsonFetcher.downloadJSONForSeries();

@@ -1,13 +1,12 @@
 package com.mayhew3.mediamogul.archive;
 
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.EnvironmentChecker;
-import com.mayhew3.postgresobject.db.ArchiveableFactory;
-import com.mayhew3.postgresobject.db.DataArchiver;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.db.*;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,12 +19,13 @@ import java.util.List;
 @SuppressWarnings("rawtypes")
 public class OldDataArchiveRunner implements UpdateRunner {
 
-  private DataArchiver dataArchiver;
+  private final DataArchiver dataArchiver;
 
   public static void main(String... args) throws URISyntaxException, SQLException, IOException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
     String dbIdentifier = argumentChecker.getDBIdentifier();
 
     OldDataArchiveRunner runner = new OldDataArchiveRunner(connection, dbIdentifier);

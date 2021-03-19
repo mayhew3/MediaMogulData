@@ -1,11 +1,13 @@
 package com.mayhew3.mediamogul.games.utility;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.games.provider.IGDBProviderImpl;
 import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -39,7 +41,8 @@ public class GamePlatformUpdater {
   public static void main(String[] args) throws URISyntaxException, SQLException, MissingEnvException, UnirestException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     GamePlatformUpdater updater = new GamePlatformUpdater(connection);
     updater.runUpdate();

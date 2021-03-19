@@ -1,8 +1,6 @@
 package com.mayhew3.mediamogul.tv.helper;
 
-import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
-import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.Episode;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.model.tv.TiVoEpisode;
@@ -11,6 +9,11 @@ import com.mayhew3.mediamogul.tv.TVDBEpisodeMatcher;
 import com.mayhew3.mediamogul.tv.TVDBMatchStatus;
 import com.mayhew3.mediamogul.tv.exception.ShowFailedException;
 import com.mayhew3.mediamogul.tv.utility.SeriesRetirer;
+import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
+import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
+import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
@@ -30,12 +33,13 @@ public class SeriesMerger {
     this.connection = connection;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException, ShowFailedException {
+  public static void main(String... args) throws URISyntaxException, SQLException, ShowFailedException, MissingEnvException {
     String unmatchedTitle = "HUMANS";
     String baseTitle = "Humans";
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     Optional<Series> unmatchedSeries = Series.findSeriesFromTitle(unmatchedTitle, connection);
     if (!unmatchedSeries.isPresent()) {

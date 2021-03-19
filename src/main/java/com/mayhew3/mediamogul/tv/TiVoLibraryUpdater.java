@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.socket.MySocketFactory;
 import com.mayhew3.mediamogul.socket.SocketWrapper;
 import com.mayhew3.mediamogul.tv.helper.ConnectionLogger;
@@ -14,6 +15,7 @@ import com.mayhew3.mediamogul.xml.BadlyFormattedXMLException;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -70,7 +72,8 @@ public class TiVoLibraryUpdater {
     debug("SESSION START! Date: " + new Date());
     debug("");
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     ConnectionLogger logger = new ConnectionLogger(connection);
 

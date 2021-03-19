@@ -1,11 +1,13 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.games.GameLog;
 import com.mayhew3.mediamogul.model.games.GameplaySession;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -37,7 +39,8 @@ public class SteamPlaySessionGenerator implements UpdateRunner {
   public static void main(String[] args) throws SQLException, URISyntaxException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
 
     String personIDString = EnvironmentChecker.getOrThrow("MediaMogulPersonID");
     assert personIDString != null;

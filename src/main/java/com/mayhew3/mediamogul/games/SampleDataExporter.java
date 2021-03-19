@@ -1,9 +1,12 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
@@ -28,10 +31,12 @@ public class SampleDataExporter {
     this.connection = connection;
   }
 
-  public static void main(String[] args) throws URISyntaxException, SQLException, IOException {
+  public static void main(String[] args) throws URISyntaxException, SQLException, IOException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    SQLConnection connection = PostgresConnectionFactory.createConnection(argumentChecker);
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(environment);
+
     SampleDataExporter sampleDataExporter = new SampleDataExporter(connection);
     sampleDataExporter.runExport();
   }

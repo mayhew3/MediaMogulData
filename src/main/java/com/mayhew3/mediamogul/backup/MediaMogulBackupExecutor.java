@@ -1,15 +1,12 @@
 package com.mayhew3.mediamogul.backup;
 
 import com.mayhew3.mediamogul.GlobalConstants;
-import com.mayhew3.mediamogul.db.DatabaseEnvironment;
 import com.mayhew3.mediamogul.db.DatabaseEnvironments;
-import com.mayhew3.mediamogul.db.LocalDatabaseEnvironment;
+import com.mayhew3.mediamogul.db.HerokuDatabaseEnvironment;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
-import com.mayhew3.postgresobject.db.DataBackupExecutor;
-import com.mayhew3.postgresobject.db.DataBackupLocalExecutor;
-import com.mayhew3.postgresobject.db.DataBackupRemoteExecutor;
+import com.mayhew3.postgresobject.db.*;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,33 +54,16 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
 
   private void updateLocal() throws MissingEnvException, InterruptedException, IOException {
     LocalDatabaseEnvironment localDatabaseEnvironment = (LocalDatabaseEnvironment) databaseEnvironment;
-    String envName = localDatabaseEnvironment.getEnvironmentName();
-    String localDBName = localDatabaseEnvironment.getDatabaseName();
-    Integer pgVersion = localDatabaseEnvironment.getPgVersion();
 
-    DataBackupExecutor executor = new DataBackupLocalExecutor(
-        envName,
-        pgVersion,
-        GlobalConstants.appLabel,
-        localDBName);
+    DataBackupExecutor executor = new DataBackupLocalExecutor(localDatabaseEnvironment, GlobalConstants.appLabel);
     executor.runUpdate();
   }
 
   private void updateRemote() throws MissingEnvException, IOException, InterruptedException {
-    try {
-      String envName = databaseEnvironment.getEnvironmentName();
-      String databaseUrl = databaseEnvironment.getDatabaseUrl();
-      Integer pgVersion = databaseEnvironment.getPgVersion();
+    HerokuDatabaseEnvironment herokuDatabaseEnvironment = (HerokuDatabaseEnvironment) databaseEnvironment;
 
-      DataBackupExecutor executor = new DataBackupRemoteExecutor(
-          envName,
-          pgVersion,
-          GlobalConstants.appLabel,
-          databaseUrl);
-      executor.runUpdate();
-    } catch (com.mayhew3.postgresobject.exception.MissingEnvException e) {
-      throw new MissingEnvException(e.getMessage());
-    }
+    DataBackupExecutor executor = new DataBackupRemoteExecutor(herokuDatabaseEnvironment, GlobalConstants.appLabel);
+    executor.runUpdate();
   }
 
 }

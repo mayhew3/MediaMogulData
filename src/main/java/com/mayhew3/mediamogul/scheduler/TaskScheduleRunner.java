@@ -8,7 +8,7 @@ import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
 import com.mayhew3.mediamogul.backup.MediaMogulBackupExecutor;
-import com.mayhew3.mediamogul.db.DatabaseEnvironment;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.db.ExecutionEnvironment;
 import com.mayhew3.mediamogul.db.ExecutionEnvironments;

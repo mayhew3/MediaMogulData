@@ -1,11 +1,13 @@
 package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Lists;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.games.Game;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -52,7 +54,8 @@ public class GiantBombUpdateRunner implements UpdateRunner {
       System.err.println("Starting run on " + new Date());
     }
 
-    GiantBombUpdateRunner giantBombUpdateRunner = new GiantBombUpdateRunner(PostgresConnectionFactory.createConnection(argumentChecker));
+    DatabaseEnvironment environment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
+    GiantBombUpdateRunner giantBombUpdateRunner = new GiantBombUpdateRunner(PostgresConnectionFactory.createConnection(environment));
 
     if (singleGame) {
       giantBombUpdateRunner.updateFieldsOnSingle();
