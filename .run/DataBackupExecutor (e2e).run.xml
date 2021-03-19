@@ -1,8 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DataBackupExecutor (e2e)" type="Application" factoryName="Application" folderName="Backup and Restore">
     <envs>
-      <env name="postgresURL_local" value="postgres://postgres:m3mysql@localhost:5434/tv" />
-    </envs>
+      </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.backup.MediaMogulBackupExecutor" />
     <module name="media-mogul-data.main" />
     <option name="PROGRAM_PARAMETERS" value="-backupEnv e2e" />

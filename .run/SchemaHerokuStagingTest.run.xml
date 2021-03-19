@@ -13,9 +13,6 @@
       <value defaultName="moduleWithDependencies" />
     </option>
     <envs>
-      <env name="postgresURL_local" value="$postgresURL_local$" />
-      <env name="postgresURL_local_test" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-      <env name="postgresURL" value="postgres://hwubispysgwomv:BaALtFDVH8rP28ulM0yjKg3VwZ@ec2-23-23-199-72.compute-1.amazonaws.com:5432/dlo6ch087btcf" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />

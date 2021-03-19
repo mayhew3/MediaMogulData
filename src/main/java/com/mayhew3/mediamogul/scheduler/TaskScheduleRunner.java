@@ -54,6 +54,7 @@ public class TaskScheduleRunner {
 
   private final SocketWrapper socket;
   private final ExecutionEnvironment executionEnvironment;
+  private final DatabaseEnvironment databaseEnvironment;
 
   private final Integer person_id;
 
@@ -68,6 +69,7 @@ public class TaskScheduleRunner {
                              ChromeProvider chromeProvider,
                              SocketWrapper socket,
                              ExecutionEnvironment executionEnvironment,
+                             DatabaseEnvironment databaseEnvironment,
                              Integer person_id) {
     this.connection = connection;
     this.tvdbjwtProvider = tvdbjwtProvider;
@@ -78,6 +80,7 @@ public class TaskScheduleRunner {
     this.chromeProvider = chromeProvider;
     this.socket = socket;
     this.executionEnvironment = executionEnvironment;
+    this.databaseEnvironment = databaseEnvironment;
     this.person_id = person_id;
   }
 
@@ -130,14 +133,14 @@ public class TaskScheduleRunner {
         chromeProvider,
         socket,
         executionEnvironment,
+        databaseEnvironment,
         person_id);
     taskScheduleRunner.runUpdates();
   }
 
   private void createLocalTaskList() throws MissingEnvException {
-    String backupEnv = EnvironmentChecker.getOrThrow("backupEnv");
-    addHourlyTask(new OldDataArchiveRunner(connection, backupEnv), 1);
-    addHourlyTask(new MediaMogulBackupExecutor(backupEnv), 24);
+    addHourlyTask(new OldDataArchiveRunner(connection, databaseEnvironment.getEnvironmentName()), 1);
+    addHourlyTask(new MediaMogulBackupExecutor(databaseEnvironment, executionEnvironment), 24);
   }
 
   private void redirectOutputToLogger() {
@@ -156,7 +159,7 @@ public class TaskScheduleRunner {
 
   private static ExecutionEnvironment getExecutionEnvironment() throws MissingEnvException {
     String envName = EnvironmentChecker.getOrThrow("envName");
-    ExecutionEnvironment executionEnvironment = ExecutionEnvironments.environments.get(envName);
+    ExecutionEnvironment executionEnvironment = ExecutionEnvironments.getThisEnvironment();
     if (executionEnvironment == null) {
       throw new IllegalArgumentException("No execution environment found matching '" + envName + "'");
     }

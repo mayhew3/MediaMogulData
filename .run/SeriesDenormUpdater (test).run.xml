@@ -1,8 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="SeriesDenormUpdater (test)" type="Application" factoryName="Application" folderName="SeriesDenormUpdater">
     <envs>
-      <env name="postgresURL_local" value="jdbc:postgresql://localhost:5434/tv_copy?user=postgres&amp;password=m3mysql" />
-    </envs>
+      </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.SeriesDenormUpdater" />
     <module name="media-mogul-data.main" />
     <option name="PROGRAM_PARAMETERS" value="-db Test" />

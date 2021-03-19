@@ -20,4 +20,13 @@ public class LocalDatabaseEnvironment extends DatabaseEnvironment {
     int port = 5432 - 9 + pgVersion;
     return "jdbc:postgresql://localhost:" + port + "/" + databaseName + "?user=postgres&password=" + localPassword;
   }
+
+  public String getDatabaseName() {
+    return databaseName;
+  }
+
+  @Override
+  public boolean isLocal() {
+    return true;
+  }
 }

@@ -10,5 +10,10 @@ public abstract class DatabaseEnvironment {
     this.environmentName = environmentName;
   }
 
+  public String getEnvironmentName() {
+    return environmentName;
+  }
+
   public abstract String getDatabaseUrl(ExecutionEnvironment executionEnvironment) throws MissingEnvException;
+  public abstract boolean isLocal();
 }
