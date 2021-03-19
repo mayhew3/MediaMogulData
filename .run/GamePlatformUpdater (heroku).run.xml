@@ -4,7 +4,7 @@
       </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.utility.GamePlatformUpdater" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Heroku" />
+    <option name="PROGRAM_PARAMETERS" value="-db heroku" />
     <option name="VM_PARAMETERS" value="-Dlog4j.configurationFile=file:src/main/resources/log4j2-local-test.xml" />
     <method v="2">
       <option name="Make" enabled="true" />

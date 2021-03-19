@@ -4,7 +4,7 @@
       </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Heroku -mode Single -socketEnv heroku -appRole updater" />
+    <option name="PROGRAM_PARAMETERS" value="-db heroku -mode Single -socketEnv heroku -appRole updater" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

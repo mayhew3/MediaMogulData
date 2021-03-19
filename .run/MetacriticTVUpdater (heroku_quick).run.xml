@@ -4,7 +4,7 @@
       </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.MetacriticTVUpdateRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Heroku -mode Quick" />
+    <option name="PROGRAM_PARAMETERS" value="-db heroku -mode Quick" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
