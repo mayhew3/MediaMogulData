@@ -5,7 +5,7 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.GiantBombUpdateRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Test" />
+    <option name="PROGRAM_PARAMETERS" value="-db test" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

@@ -4,7 +4,7 @@
       </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.tv.TVDBUpdateFinderRunner" />
     <module name="media-mogul-data.main" />
-    <option name="PROGRAM_PARAMETERS" value="-db Test LogToFile" />
+    <option name="PROGRAM_PARAMETERS" value="-db test LogToFile" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
