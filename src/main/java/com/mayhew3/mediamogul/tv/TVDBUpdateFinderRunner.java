@@ -3,7 +3,7 @@ package com.mayhew3.mediamogul.tv;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
-import com.mayhew3.mediamogul.db.ConnectionDetails;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
@@ -20,10 +20,7 @@ public class TVDBUpdateFinderRunner {
   public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException, UnirestException, AuthenticationException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
-
-    String dbUrl = connectionDetails.getDbUrl();
-    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(dbUrl);
+    SQLConnection connection = PostgresConnectionFactory.createConnection(DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker));
     ExternalServiceHandler tvdbServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
 
     TVDBJWTProviderImpl tvdbJWTProvider = new TVDBJWTProviderImpl(tvdbServiceHandler);

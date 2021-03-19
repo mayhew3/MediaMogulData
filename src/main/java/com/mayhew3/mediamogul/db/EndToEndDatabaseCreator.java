@@ -7,6 +7,7 @@ import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.dataobject.DatabaseRecreator;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -24,11 +25,10 @@ public class EndToEndDatabaseCreator {
     this.connection = connection;
   }
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
 
-    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
-    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
+    SQLConnection connection = PostgresConnectionFactory.createConnection(DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker));
 
     EndToEndDatabaseCreator endToEndDatabaseCreator = new EndToEndDatabaseCreator(connection);
     endToEndDatabaseCreator.runUpdate();

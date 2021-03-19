@@ -1,12 +1,13 @@
 package com.mayhew3.mediamogul.tv;
 
-import com.mayhew3.mediamogul.db.ConnectionDetails;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -32,15 +33,14 @@ public class EpisodeGroupUpdater implements UpdateRunner {
 
   private static final Logger logger = LogManager.getLogger(EpisodeGroupUpdater.class);
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.addExpectedOption("year", false, "Override for year to run on.");
 
     Optional<String> yearStr = argumentChecker.getOptionalIdentifier("year");
     Integer year = yearStr.isPresent() ? Integer.parseInt(yearStr.get()) : null;
 
-    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
-    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
+    SQLConnection connection = PostgresConnectionFactory.createConnection(DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker));
 
     EpisodeGroupUpdater updater = new EpisodeGroupUpdater(connection, year);
     updater.runUpdate();

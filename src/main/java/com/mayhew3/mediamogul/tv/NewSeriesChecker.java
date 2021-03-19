@@ -4,7 +4,7 @@ import com.cloudinary.Singleton;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
-import com.mayhew3.mediamogul.db.ConnectionDetails;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.tv.Series;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.socket.MySocketFactory;
@@ -52,8 +52,7 @@ public class NewSeriesChecker implements UpdateRunner {
     String socketEnv = argumentChecker.getRequiredValue("socketEnv");
     String appRole = argumentChecker.getRequiredValue("appRole");
 
-    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
-    SQLConnection connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
+    SQLConnection connection = PostgresConnectionFactory.createConnection(DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker));
 
     ExternalServiceHandler externalServiceHandler = new ExternalServiceHandler(connection, ExternalServiceType.TVDB);
     TVDBJWTProvider tvdbjwtProvider = new TVDBJWTProviderImpl(externalServiceHandler);
