@@ -5,11 +5,11 @@ import com.mayhew3.mediamogul.ArgumentChecker;
 import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.db.ConnectionDetails;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.tv.provider.TVDBJWTProviderImpl;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.http.auth.AuthenticationException;
 
 import java.net.URISyntaxException;

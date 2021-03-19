@@ -22,7 +22,7 @@ public class MediaMogulRestoreExecutor {
   private final DatabaseEnvironment restoreEnvironment;
   private final boolean oldBackup;
 
-  public static void main(String... args) throws MissingEnvException, InterruptedException, IOException, com.mayhew3.mediamogul.exception.MissingEnvException {
+  public static void main(String... args) throws MissingEnvException, InterruptedException, IOException, com.mayhew3.postgresobject.exception.MissingEnvException {
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.removeExpectedOption("db");
@@ -47,7 +47,7 @@ public class MediaMogulRestoreExecutor {
     this.oldBackup = oldBackup;
   }
 
-  public void runUpdate() throws MissingEnvException, InterruptedException, IOException, com.mayhew3.mediamogul.exception.MissingEnvException {
+  public void runUpdate() throws MissingEnvException, InterruptedException, IOException, com.mayhew3.postgresobject.exception.MissingEnvException {
     if (restoreEnvironment.isLocal()) {
       updateLocal();
     } else {
@@ -84,7 +84,7 @@ public class MediaMogulRestoreExecutor {
 
   }
 
-  private void updateRemote() throws com.mayhew3.mediamogul.exception.MissingEnvException, MissingEnvException, IOException, InterruptedException {
+  private void updateRemote() throws com.mayhew3.postgresobject.exception.MissingEnvException, MissingEnvException, IOException, InterruptedException {
     HerokuDatabaseEnvironment herokuRestoreEnvironment = (HerokuDatabaseEnvironment) restoreEnvironment;
     String appNameFromEnv = herokuRestoreEnvironment.getHerokuAppName();
     String databaseUrl = herokuRestoreEnvironment.getDatabaseUrl();

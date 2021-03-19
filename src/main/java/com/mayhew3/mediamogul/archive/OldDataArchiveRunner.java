@@ -1,7 +1,6 @@
 package com.mayhew3.mediamogul.archive;
 
 import com.mayhew3.mediamogul.EnvironmentChecker;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
@@ -9,6 +8,7 @@ import com.mayhew3.postgresobject.db.ArchiveableFactory;
 import com.mayhew3.postgresobject.db.DataArchiver;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;

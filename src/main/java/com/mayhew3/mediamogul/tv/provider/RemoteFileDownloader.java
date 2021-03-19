@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.tv.provider;
 
 import com.mayhew3.mediamogul.EnvironmentChecker;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

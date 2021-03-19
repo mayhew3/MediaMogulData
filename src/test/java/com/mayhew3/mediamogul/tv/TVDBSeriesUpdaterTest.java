@@ -2,7 +2,7 @@ package com.mayhew3.mediamogul.tv;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.DatabaseTest;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.Person;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.socket.SocketWrapper;

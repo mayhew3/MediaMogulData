@@ -1,10 +1,10 @@
 package com.mayhew3.mediamogul;
 
-import com.mayhew3.mediamogul.exception.MissingEnvException;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.postgresobject.dataobject.DatabaseRecreator;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;

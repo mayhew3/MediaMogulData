@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul.db;
 
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 
 public abstract class DatabaseEnvironment {
 

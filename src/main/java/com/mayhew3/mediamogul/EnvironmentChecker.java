@@ -1,6 +1,6 @@
 package com.mayhew3.mediamogul;
 
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 
 public class EnvironmentChecker {
   public static String getOrThrow(String envLabel) throws MissingEnvException {

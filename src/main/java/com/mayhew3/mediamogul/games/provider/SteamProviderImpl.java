@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.games.provider;
 
 import com.mayhew3.mediamogul.EnvironmentChecker;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
