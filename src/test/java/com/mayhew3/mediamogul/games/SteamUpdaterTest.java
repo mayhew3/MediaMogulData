@@ -2,7 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.mayhew3.mediamogul.ChromeProvider;
 import com.mayhew3.mediamogul.DatabaseTest;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBTestProviderImpl;
 import com.mayhew3.mediamogul.games.provider.SteamTestProviderImpl;

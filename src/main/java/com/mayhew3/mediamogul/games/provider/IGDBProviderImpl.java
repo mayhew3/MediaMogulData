@@ -7,7 +7,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 import com.mayhew3.mediamogul.EnvironmentChecker;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;

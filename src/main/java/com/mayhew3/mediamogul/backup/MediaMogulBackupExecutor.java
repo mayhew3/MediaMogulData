@@ -1,7 +1,9 @@
 package com.mayhew3.mediamogul.backup;
 
 import com.mayhew3.mediamogul.GlobalConstants;
-import com.mayhew3.mediamogul.db.*;
+import com.mayhew3.mediamogul.db.DatabaseEnvironment;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
+import com.mayhew3.mediamogul.db.LocalDatabaseEnvironment;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
@@ -17,7 +19,7 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
 
   private final DatabaseEnvironment databaseEnvironment;
 
-  public static void main(String[] args) throws MissingEnvException, InterruptedException, IOException, com.mayhew3.mediamogul.exception.MissingEnvException {
+  public static void main(String[] args) throws InterruptedException, IOException, MissingEnvException {
 
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
     argumentChecker.removeExpectedOption("db");
@@ -79,7 +81,7 @@ public class MediaMogulBackupExecutor implements UpdateRunner {
           GlobalConstants.appLabel,
           databaseUrl);
       executor.runUpdate();
-    } catch (com.mayhew3.mediamogul.exception.MissingEnvException e) {
+    } catch (com.mayhew3.postgresobject.exception.MissingEnvException e) {
       throw new MissingEnvException(e.getMessage());
     }
   }

@@ -2,7 +2,7 @@ package com.mayhew3.mediamogul.games;
 
 import com.google.common.collect.Sets;
 import com.mayhew3.mediamogul.DatabaseTest;
-import com.mayhew3.mediamogul.exception.MissingEnvException;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import com.mayhew3.mediamogul.games.provider.IGDBProvider;
 import com.mayhew3.mediamogul.games.provider.IGDBTestProviderImpl;
 import com.mayhew3.mediamogul.model.games.*;
