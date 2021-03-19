@@ -2,7 +2,7 @@ package com.mayhew3.mediamogul.model;
 
 import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.postgresobject.dataobject.DataSchema;
-import com.mayhew3.postgresobject.exception.MissingEnvException;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.model.PostgresSchemaTest;
 
 public class SchemaHerokuTest extends PostgresSchemaTest {
@@ -13,13 +13,7 @@ public class SchemaHerokuTest extends PostgresSchemaTest {
   }
 
   @Override
-  public String getDBConnectionString() {
-    try {
-      return DatabaseEnvironments.environments.get("heroku").getDatabaseUrl();
-    } catch (MissingEnvException e) {
-      e.printStackTrace();
-      throw new IllegalStateException(e);
-    }
+  public DatabaseEnvironment getDatabaseEnvironment() {
+    return DatabaseEnvironments.environments.get("heroku");
   }
-
 }
