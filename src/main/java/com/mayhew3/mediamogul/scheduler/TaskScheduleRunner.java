@@ -26,6 +26,7 @@ import com.mayhew3.postgresobject.db.SQLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import com.mayhew3.postgresobject.ArgumentChecker;
 
 import java.io.PrintStream;
 import java.net.URISyntaxException;
@@ -77,9 +78,7 @@ public class TaskScheduleRunner {
   }
 
   public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException, UnirestException {
-    String databaseUrl = EnvironmentChecker.getOrThrow("DATABASE_URL");
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
-    argumentChecker.removeExpectedOption("db");
     argumentChecker.addExpectedOption("socketEnv", true, "Socket environment to connect to.");
     argumentChecker.addExpectedOption("appRole", false, "Role to connect to socket as.");
 
