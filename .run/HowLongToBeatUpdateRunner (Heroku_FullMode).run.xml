@@ -1,8 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="HowLongToBeatUpdateRunner (Heroku/FullMode)" type="Application" factoryName="Application" folderName="Games">
     <envs>
-      <env name="postgresURL" value="postgres://ijxuheufucvnyu:h16h_LnZi4fHgIUjBANnzITEyR@ec2-54-204-30-115.compute-1.amazonaws.com:5432/dcg1rtode4vgk9" />
-      <env name="giantbomb_api" value="5565f1f674caf87eaeed23269d7bb06dadfc2e6f" />
+        <env name="giantbomb_api" value="5565f1f674caf87eaeed23269d7bb06dadfc2e6f" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.HowLongToBeatUpdateRunner" />
     <module name="media-mogul-data.main" />

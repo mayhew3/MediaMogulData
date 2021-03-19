@@ -1,8 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="NewGameChecker (local)" type="Application" factoryName="Application">
     <envs>
-      <env name="postgresURL" value="jdbc:postgresql://localhost:5434/taskmaster?user=postgres&amp;password=m3mysql" />
-    </envs>
+      </envs>
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.NewGameChecker" />
     <module name="media-mogul-data.main" />
     <option name="PROGRAM_PARAMETERS" value="-db Local" />

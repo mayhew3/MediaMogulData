@@ -20,4 +20,9 @@ public class HerokuDatabaseEnvironment extends DatabaseEnvironment {
       return EnvironmentChecker.getOrThrow("DATABASE_URL");
     }
   }
+
+  @Override
+  public boolean isLocal() {
+    return false;
+  }
 }
