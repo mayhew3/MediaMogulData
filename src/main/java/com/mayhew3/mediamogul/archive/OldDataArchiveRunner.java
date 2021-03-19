@@ -1,9 +1,9 @@
 package com.mayhew3.mediamogul.archive;
 
-import com.mayhew3.mediamogul.EnvironmentChecker;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.EnvironmentChecker;
 import com.mayhew3.postgresobject.db.ArchiveableFactory;
 import com.mayhew3.postgresobject.db.DataArchiver;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;

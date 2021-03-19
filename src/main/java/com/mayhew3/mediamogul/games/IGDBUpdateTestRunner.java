@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.games;
 
 import callback.OnSuccessCallback;
-import com.mayhew3.mediamogul.EnvironmentChecker;
+import com.mayhew3.postgresobject.EnvironmentChecker;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
