@@ -1,7 +1,7 @@
 package com.mayhew3.mediamogul.tv.utility;
 
 import com.google.common.collect.Lists;
-import com.mayhew3.mediamogul.db.ConnectionDetails;
+import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.MediaMogulSchema;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupBallot;
@@ -13,6 +13,7 @@ import com.mayhew3.postgresobject.dataobject.DataObject;
 import com.mayhew3.postgresobject.dataobject.RetireableDataObject;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import com.mayhew3.postgresobject.exception.MissingEnvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
@@ -32,11 +33,10 @@ public class SeriesDeleter {
 
   private static Logger logger = LogManager.getLogger(SeriesDeleter.class);
 
-  public static void main(String... args) throws URISyntaxException, SQLException {
+  public static void main(String... args) throws URISyntaxException, SQLException, MissingEnvException {
     ArgumentChecker argumentChecker = new ArgumentChecker(args);
-    ConnectionDetails connectionDetails = ConnectionDetails.getConnectionDetails(argumentChecker);
 
-    connection = PostgresConnectionFactory.initiateDBConnect(connectionDetails.getDbUrl());
+    connection = PostgresConnectionFactory.createConnection(DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker));
 
     printAllRetiredCounts();
     runUpdateOnRetired();
