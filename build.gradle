@@ -74,7 +74,7 @@ task runTaskScheduleRunner(type:JavaExec) {
     systemProperty "log4j.configurationFile", "src/main/resources/log4j2-local.xml"
     main = 'com.mayhew3.mediamogul.scheduler.TaskScheduleRunner'
     classpath = sourceSets.main.runtimeClasspath
-    args = ['-socketEnv', 'heroku']
+    args = ['-socketEnv', 'heroku', '-db', 'heroku']
 }
 
 task runHerokuBackup(type:JavaExec) {
