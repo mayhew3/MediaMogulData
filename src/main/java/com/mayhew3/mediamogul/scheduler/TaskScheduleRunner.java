@@ -8,7 +8,6 @@ import com.mayhew3.mediamogul.ExternalServiceHandler;
 import com.mayhew3.mediamogul.ExternalServiceType;
 import com.mayhew3.mediamogul.archive.OldDataArchiveRunner;
 import com.mayhew3.mediamogul.backup.MediaMogulBackupExecutor;
-import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.db.ExecutionEnvironment;
 import com.mayhew3.mediamogul.db.ExecutionEnvironments;
@@ -28,6 +27,7 @@ import com.mayhew3.mediamogul.xml.JSONReader;
 import com.mayhew3.mediamogul.xml.JSONReaderImpl;
 import com.mayhew3.postgresobject.ArgumentChecker;
 import com.mayhew3.postgresobject.EnvironmentChecker;
+import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
 import com.mayhew3.postgresobject.exception.MissingEnvException;
@@ -98,7 +98,7 @@ public class TaskScheduleRunner {
     List<String> acceptableRoles = Lists.newArrayList("updater", "backup");
 
     ExecutionEnvironment executionEnvironment = getExecutionEnvironment();
-    DatabaseEnvironment databaseEnvironment = getDatabaseEnvironment(argumentChecker);
+    DatabaseEnvironment databaseEnvironment = DatabaseEnvironments.getEnvironmentForDBArgument(argumentChecker);
 
     SQLConnection connection = PostgresConnectionFactory.createConnection(databaseEnvironment);
 
@@ -166,15 +166,6 @@ public class TaskScheduleRunner {
       throw new IllegalArgumentException("No execution environment found matching '" + envName + "'");
     }
     return executionEnvironment;
-  }
-
-  private static DatabaseEnvironment getDatabaseEnvironment(ArgumentChecker argumentChecker) {
-    String dbName = argumentChecker.getRequiredValue("db");
-    DatabaseEnvironment databaseEnvironment = DatabaseEnvironments.environments.get(dbName);
-    if (databaseEnvironment == null) {
-      throw new IllegalArgumentException("No db found matching '" + dbName + "'");
-    }
-    return databaseEnvironment;
   }
 
   private void createTaskList() throws MissingEnvException {
