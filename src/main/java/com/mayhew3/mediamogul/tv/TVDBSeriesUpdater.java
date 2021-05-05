@@ -1,6 +1,7 @@
 package com.mayhew3.mediamogul.tv;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mayhew3.mediamogul.model.tv.*;
 import com.mayhew3.mediamogul.model.tv.group.TVGroupEpisode;
@@ -276,13 +277,11 @@ public class TVDBSeriesUpdater {
     }
   }
 
-  private List<TVDBEpisode> findMultipleReplacements(TVDBEpisode original, Set<Integer> tvdb_ids) {
-    Set<TVDBEpisode> added = tvdb_ids.stream()
-        .filter(tvdb_id -> !originalTVDBIDs.contains(tvdb_id))
-        .map(this::getTVDBEpisodeFromExtID)
-        .collect(Collectors.toSet());
-    List<TVDBEpisode> matches = added.stream()
-        .filter(tvdbEpisode -> original.seasonNumber.getValue().equals(tvdbEpisode.seasonNumber.getValue()) &&
+  private List<TVDBEpisode> findMultipleReplacements(TVDBEpisode original) {
+    List<TVDBEpisode> matches = tvdbEpisodes.stream()
+        .filter(tvdbEpisode ->
+            !original.id.getValue().equals(tvdbEpisode.id.getValue()) &&
+            original.seasonNumber.getValue().equals(tvdbEpisode.seasonNumber.getValue()) &&
             tvdbEpisode.name.getValue().contains(original.name.getValue()))
         .collect(Collectors.toList());
     if (matches.size() > 1) {
@@ -301,7 +300,7 @@ public class TVDBSeriesUpdater {
 
       if (hasRatings(episode)) {
         Optional<TVDBEpisode> replacement = findReplacement(tvdbEpisode, tvdb_ids);
-        List<TVDBEpisode> nameReplacements = findMultipleReplacements(tvdbEpisode, tvdb_ids);
+        List<TVDBEpisode> nameReplacements = findMultipleReplacements(tvdbEpisode);
         if (replacement.isPresent()) {
           Optional<Episode> replacementEpisode = getEpisodeFromTVDBEpisode(replacement.get());
           if (replacementEpisode.isPresent()) {
@@ -310,7 +309,7 @@ public class TVDBSeriesUpdater {
             okToRetire = false;
           }
         } else if (nameReplacements.size() > 0) {
-
+          moveRatingsToMultipleEpisodes(episode, nameReplacements);
         } else {
           okToRetire = false;
         }
@@ -373,21 +372,36 @@ public class TVDBSeriesUpdater {
     }
   }
 
-  private void copyRatingsToMultipleEpisodes(Episode original, List<Episode> duplicates) throws SQLException {
+  @SuppressWarnings("OptionalGetWithoutIsPresent")
+  private void moveRatingsToMultipleEpisodes(Episode original, List<TVDBEpisode> duplicates) throws SQLException {
+
+    TVDBEpisode tvdbEpisode = duplicates.get(0);
+    Episode episode = getEpisodeFromTVDBEpisode(tvdbEpisode).get();
+    List<TVDBEpisode> otherEpisodes = Lists.newArrayList(duplicates);
+    otherEpisodes.remove(tvdbEpisode);
+
+    moveRatings(original, episode);
+    copyRatingsToMultipleEpisodes(episode, otherEpisodes);
+  }
+
+  private void copyRatingsToMultipleEpisodes(Episode original, List<TVDBEpisode> duplicates) throws SQLException {
     List<EpisodeRating> episodeRatings = original.getEpisodeRatings(connection);
     List<TVGroupEpisode> tvGroupEpisodes = original.getTVGroupEpisodes(connection);
 
-
-/*
-    for (EpisodeRating episodeRating : episodeRatings) {
-      episodeRating.episodeId.changeValue(duplicate.id.getValue());
-      episodeRating.commit(connection);
+    for (TVDBEpisode duplicate : duplicates) {
+      @SuppressWarnings("OptionalGetWithoutIsPresent")
+      Episode duplicateEpisode = getEpisodeFromTVDBEpisode(duplicate).get();
+      for (EpisodeRating episodeRating : episodeRatings) {
+        EpisodeRating uncommittedCopy = episodeRating.createUncommittedCopy();
+        uncommittedCopy.episodeId.changeValue(duplicateEpisode.id.getValue());
+        uncommittedCopy.commit(connection);
+      }
+      for (TVGroupEpisode tvGroupEpisode : tvGroupEpisodes) {
+        TVGroupEpisode uncommittedCopy = tvGroupEpisode.createUncommittedCopy();
+        uncommittedCopy.episode_id.changeValue(duplicateEpisode.id.getValue());
+        uncommittedCopy.commit(connection);
+      }
     }
-    for (TVGroupEpisode tvGroupEpisode : tvGroupEpisodes) {
-      tvGroupEpisode.episode_id.changeValue(duplicate.id.getValue());
-      tvGroupEpisode.commit(connection);
-    }
-    */
   }
 
   @NotNull

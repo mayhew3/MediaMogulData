@@ -32,6 +32,18 @@ public class EpisodeRating extends RetireableDataObject {
     addColumnsIndex(personId);
   }
 
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public EpisodeRating createUncommittedCopy() {
+    EpisodeRating episodeRating = new EpisodeRating();
+    episodeRating.initializeForInsert();
+    for (FieldValue fieldValue : getAllFieldValues()) {
+      FieldValue newFieldValue = episodeRating.getFieldValueWithName(fieldValue.getFieldName());
+      assert newFieldValue != null;
+      newFieldValue.changeValue(fieldValue.getValue());
+    }
+    return episodeRating;
+  }
+
   @Override
   public String getTableName() {
     return "episode_rating";

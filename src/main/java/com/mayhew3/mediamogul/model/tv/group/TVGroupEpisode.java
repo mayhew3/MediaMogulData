@@ -1,9 +1,10 @@
 package com.mayhew3.mediamogul.model.tv.group;
 
+import com.mayhew3.mediamogul.model.tv.Episode;
+import com.mayhew3.postgresobject.dataobject.FieldValue;
 import com.mayhew3.postgresobject.dataobject.FieldValueForeignKey;
 import com.mayhew3.postgresobject.dataobject.Nullability;
 import com.mayhew3.postgresobject.dataobject.RetireableDataObject;
-import com.mayhew3.mediamogul.model.tv.Episode;
 
 public class TVGroupEpisode extends RetireableDataObject {
 
@@ -21,6 +22,18 @@ public class TVGroupEpisode extends RetireableDataObject {
     registerStringField("skip_reason", Nullability.NULLABLE);
 
     addUniqueConstraint(tv_group_id, episode_id);
+  }
+
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public TVGroupEpisode createUncommittedCopy() {
+    TVGroupEpisode tvGroupEpisode = new TVGroupEpisode();
+    tvGroupEpisode.initializeForInsert();
+    for (FieldValue fieldValue : getAllFieldValues()) {
+      FieldValue newFieldValue = tvGroupEpisode.getFieldValueWithName(fieldValue.getFieldName());
+      assert newFieldValue != null;
+      newFieldValue.changeValue(fieldValue.getValue());
+    }
+    return tvGroupEpisode;
   }
 
   @Override

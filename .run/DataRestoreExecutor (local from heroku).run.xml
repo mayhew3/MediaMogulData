@@ -1,7 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DataRestoreExecutor (local from heroku)" type="Application" factoryName="Application" folderName="Backup and Restore">
-    <envs>
-      </envs>
+  <configuration default="false" name="DataRestoreExecutor (local from heroku)" type="Application" factoryName="Application" folderName="Restore">
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.backup.MediaMogulRestoreExecutor" />
     <module name="media-mogul-data.main" />
     <option name="PROGRAM_PARAMETERS" value="-restoreEnv local -backupEnv heroku -oldBackup false" />
