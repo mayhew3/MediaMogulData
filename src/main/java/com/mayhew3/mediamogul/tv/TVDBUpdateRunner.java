@@ -302,7 +302,7 @@ public class TVDBUpdateRunner implements UpdateRunner {
 
 
   private void runUpdateSingle() {
-    String singleSeriesTitle = "Lost"; // update for testing on a single series
+    String singleSeriesTitle = "The Office (US)"; // update for testing on a single series
 
     String sql = "select * " +
         "from series " +

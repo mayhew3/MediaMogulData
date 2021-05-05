@@ -276,6 +276,59 @@ public class TVDBSeriesUpdater {
     }
   }
 
+  private List<TVDBEpisode> findMultipleReplacements(TVDBEpisode original, Set<Integer> tvdb_ids) {
+    Set<TVDBEpisode> added = tvdb_ids.stream()
+        .filter(tvdb_id -> !originalTVDBIDs.contains(tvdb_id))
+        .map(this::getTVDBEpisodeFromExtID)
+        .collect(Collectors.toSet());
+    List<TVDBEpisode> matches = added.stream()
+        .filter(tvdbEpisode -> original.seasonNumber.getValue().equals(tvdbEpisode.seasonNumber.getValue()) &&
+            tvdbEpisode.name.getValue().contains(original.name.getValue()))
+        .collect(Collectors.toList());
+    if (matches.size() > 1) {
+      return matches;
+    } else {
+      return new ArrayList<>();
+    }
+  }
+
+  private void retireRemovedEpisode(TVDBEpisode tvdbEpisode, Set<Integer> tvdb_ids) throws SQLException {
+    boolean okToRetire = true;
+
+    Optional<Episode> maybeEpisode = getEpisodeFromTVDBEpisode(tvdbEpisode);
+    if (maybeEpisode.isPresent()) {
+      Episode episode = maybeEpisode.get();
+
+      if (hasRatings(episode)) {
+        Optional<TVDBEpisode> replacement = findReplacement(tvdbEpisode, tvdb_ids);
+        List<TVDBEpisode> nameReplacements = findMultipleReplacements(tvdbEpisode, tvdb_ids);
+        if (replacement.isPresent()) {
+          Optional<Episode> replacementEpisode = getEpisodeFromTVDBEpisode(replacement.get());
+          if (replacementEpisode.isPresent()) {
+            moveRatings(episode, replacementEpisode.get());
+          } else {
+            okToRetire = false;
+          }
+        } else if (nameReplacements.size() > 0) {
+
+        } else {
+          okToRetire = false;
+        }
+      }
+      if (okToRetire) {
+        retireEpisode(episode);
+      }
+    }
+
+    if (okToRetire) {
+      retireTVDBEpisode(tvdbEpisode);
+    }
+
+    String episodeStr = maybeEpisode.map(episode -> " and Episode " + episode).orElse(" no Episode object.");
+
+    debug(" - TVDB " + tvdbEpisode.toString() + ", " + episodeStr);
+  }
+
   private void retireRemovedEpisodes(Set<Integer> tvdb_ids) throws SQLException {
     Set<TVDBEpisode> removed = tvdbEpisodes.stream()
         .filter(tvdbEpisode -> !tvdb_ids.contains(tvdbEpisode.tvdbEpisodeExtId.getValue()))
@@ -284,37 +337,7 @@ public class TVDBSeriesUpdater {
       logger.info("Found " + removed.size() + " episodes for series '" + series.seriesTitle.getValue() + "' in database that are no longer present on TVDB. Retiring them.");
     }
     for (TVDBEpisode tvdbEpisode : removed) {
-      boolean okToRetire = true;
-
-      Optional<Episode> maybeEpisode = getEpisodeFromTVDBEpisode(tvdbEpisode);
-      if (maybeEpisode.isPresent()) {
-        Episode episode = maybeEpisode.get();
-
-        if (hasRatings(episode)) {
-          Optional<TVDBEpisode> replacement = findReplacement(tvdbEpisode, tvdb_ids);
-          if (replacement.isPresent()) {
-            Optional<Episode> replacementEpisode = getEpisodeFromTVDBEpisode(replacement.get());
-            if (replacementEpisode.isPresent()) {
-              moveRatings(episode, replacementEpisode.get());
-            } else {
-              okToRetire = false;
-            }
-          } else {
-            okToRetire = false;
-          }
-        }
-        if (okToRetire) {
-          retireEpisode(episode);
-        }
-      }
-
-      if (okToRetire) {
-        retireTVDBEpisode(tvdbEpisode);
-      }
-
-      String episodeStr = maybeEpisode.map(episode -> " and Episode " + episode.toString()).orElse(" no Episode object.");
-
-      debug(" - TVDB " + tvdbEpisode.toString() + ", " + episodeStr);
+      retireRemovedEpisode(tvdbEpisode, tvdb_ids);
     }
   }
 
@@ -348,6 +371,23 @@ public class TVDBSeriesUpdater {
       tvGroupEpisode.episode_id.changeValue(duplicate.id.getValue());
       tvGroupEpisode.commit(connection);
     }
+  }
+
+  private void copyRatingsToMultipleEpisodes(Episode original, List<Episode> duplicates) throws SQLException {
+    List<EpisodeRating> episodeRatings = original.getEpisodeRatings(connection);
+    List<TVGroupEpisode> tvGroupEpisodes = original.getTVGroupEpisodes(connection);
+
+
+/*
+    for (EpisodeRating episodeRating : episodeRatings) {
+      episodeRating.episodeId.changeValue(duplicate.id.getValue());
+      episodeRating.commit(connection);
+    }
+    for (TVGroupEpisode tvGroupEpisode : tvGroupEpisodes) {
+      tvGroupEpisode.episode_id.changeValue(duplicate.id.getValue());
+      tvGroupEpisode.commit(connection);
+    }
+    */
   }
 
   @NotNull
