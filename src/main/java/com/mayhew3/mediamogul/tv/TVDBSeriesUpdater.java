@@ -363,7 +363,11 @@ public class TVDBSeriesUpdater {
     List<TVGroupEpisode> tvGroupEpisodes = original.getTVGroupEpisodes(connection);
 
     for (EpisodeRating episodeRating : episodeRatings) {
-      episodeRating.episodeId.changeValue(duplicate.id.getValue());
+      if (duplicate.hasNoRatingForPerson(connection, episodeRating.personId.getValue())) {
+        episodeRating.episodeId.changeValue(duplicate.id.getValue());
+      } else {
+        episodeRating.retire();
+      }
       episodeRating.commit(connection);
     }
     for (TVGroupEpisode tvGroupEpisode : tvGroupEpisodes) {
@@ -392,9 +396,11 @@ public class TVDBSeriesUpdater {
       @SuppressWarnings("OptionalGetWithoutIsPresent")
       Episode duplicateEpisode = getEpisodeFromTVDBEpisode(duplicate).get();
       for (EpisodeRating episodeRating : episodeRatings) {
-        EpisodeRating uncommittedCopy = episodeRating.createUncommittedCopy();
-        uncommittedCopy.episodeId.changeValue(duplicateEpisode.id.getValue());
-        uncommittedCopy.commit(connection);
+        if (duplicateEpisode.hasNoRatingForPerson(connection, episodeRating.personId.getValue())) {
+          EpisodeRating uncommittedCopy = episodeRating.createUncommittedCopy();
+          uncommittedCopy.episodeId.changeValue(duplicateEpisode.id.getValue());
+          uncommittedCopy.commit(connection);
+        }
       }
       for (TVGroupEpisode tvGroupEpisode : tvGroupEpisodes) {
         TVGroupEpisode uncommittedCopy = tvGroupEpisode.createUncommittedCopy();

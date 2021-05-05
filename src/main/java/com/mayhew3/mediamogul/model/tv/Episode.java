@@ -157,6 +157,19 @@ public class Episode extends RetireableDataObject {
     return episodeRatings;
   }
 
+  public boolean hasNoRatingForPerson(SQLConnection connection, int person_id) throws SQLException {
+    String sql = "select count(1) as num_ratings " +
+        "from episode_rating " +
+        "where episode_id = ? " +
+        "and person_id = ? " +
+        "and retired = ? ";
+
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), person_id, 0);
+    resultSet.next();
+
+    return resultSet.getInt("num_ratings") <= 0;
+  }
+
   public List<TVGroupEpisode> getTVGroupEpisodes(SQLConnection connection) throws SQLException {
     String sql = "select * " +
         "from tv_group_episode " +
