@@ -28,7 +28,7 @@ dependencies {
     compile 'info.debatty:java-string-similarity:1.1.0'
     compile 'joda-time:joda-time:2.9.9'
     compile 'org.jsoup:jsoup:1.13.1'
-    compile 'org.postgresql:postgresql:42.2.2'
+    compile 'org.postgresql:postgresql:42.2.19'
     compile 'org.seleniumhq.selenium:selenium-server:3.141.59'
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
     compile group: 'org.jetbrains', name: 'annotations', version: '17+'
