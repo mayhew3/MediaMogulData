@@ -198,14 +198,11 @@ public class SampleDataExporter {
     JSONArray platformsJSON = new JSONArray();
 
     for (AvailableGamePlatform availablePlatform : platforms) {
-      JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", availablePlatform.id.getValue());
-      platformJSON.put("game_platform_id", availablePlatform.gamePlatformID.getValue());
-      platformJSON.put("platform_name", availablePlatform.platformName.getValue());
-      platformJSON.put("metacritic", availablePlatform.metacritic.getValue());
-      platformJSON.put("metacritic_page", availablePlatform.metacritic_page.getValue());
-      platformJSON.put("metacritic_matched", availablePlatform.metacritic_matched.getValue());
-      platformJSON.put("date_added", availablePlatform.dateAdded.getValue());
+      JSONObject platformJSON = convertToJSONObject(availablePlatform,
+          availablePlatform.metacritic_next_update,
+          availablePlatform.retired,
+          availablePlatform.metacritic_failed,
+          availablePlatform.gameID);
 
       attachMyPlatformsToAvailablePlatform(availablePlatform, platformJSON);
 
