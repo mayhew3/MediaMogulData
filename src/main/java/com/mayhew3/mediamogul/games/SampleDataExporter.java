@@ -92,13 +92,10 @@ public class SampleDataExporter {
       GameplaySession gameplaySession = new GameplaySession();
       gameplaySession.initializeFromDBObject(resultSet);
 
-      JSONObject sessionObj = new JSONObject();
-      sessionObj.put("id", gameplaySession.id.getValue());
-      sessionObj.put("start_time", gameplaySession.startTime.getValue());
-      sessionObj.put("minutes", gameplaySession.minutes.getValue());
-      sessionObj.put("rating", gameplaySession.rating.getValue());
-      sessionObj.put("person_id", gameplaySession.person_id.getValue());
-      sessionObj.put("game_id", gameplaySession.gameID.getValue());
+      JSONObject sessionObj = convertToJSONObject(gameplaySession,
+          gameplaySession.dateAdded,
+          gameplaySession.availableGamePlatform,
+          gameplaySession.retired);
 
       sessionsArray.put(sessionObj);
     }
