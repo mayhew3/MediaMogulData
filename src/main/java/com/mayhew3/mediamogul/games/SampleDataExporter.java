@@ -1,8 +1,12 @@
 package com.mayhew3.mediamogul.games;
 
+import com.mayhew3.mediamogul.DateUtils;
 import com.mayhew3.mediamogul.db.DatabaseEnvironments;
 import com.mayhew3.mediamogul.model.games.*;
 import com.mayhew3.postgresobject.ArgumentChecker;
+import com.mayhew3.postgresobject.dataobject.DataObject;
+import com.mayhew3.postgresobject.dataobject.FieldValue;
+import com.mayhew3.postgresobject.dataobject.FieldValueTimestamp;
 import com.mayhew3.postgresobject.db.DatabaseEnvironment;
 import com.mayhew3.postgresobject.db.PostgresConnectionFactory;
 import com.mayhew3.postgresobject.db.SQLConnection;
@@ -18,7 +22,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SampleDataExporter {
   private final SQLConnection connection;
@@ -212,25 +221,7 @@ public class SampleDataExporter {
     JSONArray myPlatformsJSON = new JSONArray();
 
     for (MyGamePlatform myPlatform : myPlatforms) {
-      JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", myPlatform.id.getValue());
-      platformJSON.put("game_platform_id", availablePlatform.gamePlatformID.getValue());
-      platformJSON.put("available_game_platform_id", availablePlatform.id.getValue());
-      platformJSON.put("platform_name", myPlatform.platformName.getValue());
-      platformJSON.put("person_id", myPlatform.personID.getValue());
-
-      platformJSON.put("rating", myPlatform.rating.getValue());
-      platformJSON.put("tier", myPlatform.tier.getValue());
-      platformJSON.put("last_played", myPlatform.last_played.getValue());
-      platformJSON.put("minutes_played", myPlatform.minutes_played.getValue());
-      platformJSON.put("finished_date", myPlatform.finished_date.getValue());
-      platformJSON.put("final_score", myPlatform.final_score.getValue());
-      platformJSON.put("replay_score", myPlatform.replay_score.getValue());
-      platformJSON.put("replay_reason", myPlatform.replay_reason.getValue());
-      platformJSON.put("collection_add", myPlatform.collectionAdd.getValue());
-      platformJSON.put("preferred", myPlatform.preferred.getValue());
-      platformJSON.put("date_added", myPlatform.dateAdded.getValue());
-
+      JSONObject platformJSON = convertToJSONObject(myPlatform);
       myPlatformsJSON.put(platformJSON);
     }
 
@@ -253,6 +244,30 @@ public class SampleDataExporter {
     } else {
       gameJSON.put("igdb_poster", JSONObject.wrap(null));
     }
+  }
+
+  @SuppressWarnings("rawtypes")
+  private JSONObject convertToJSONObject(DataObject dataObject, FieldValue ...exclusions) {
+    JSONObject jsonObject = new JSONObject();
+    List<FieldValue> sorted = dataObject.getAllFieldValuesIncludingId().stream()
+        .sorted(Comparator.comparing(FieldValue::getFieldName))
+        .collect(Collectors.toList());
+    for (FieldValue exclusion : exclusions) {
+      sorted.remove(exclusion);
+    }
+    for (FieldValue fieldValue : sorted) {
+      if (fieldValue instanceof FieldValueTimestamp) {
+        Timestamp value = ((FieldValueTimestamp) fieldValue).getValue();
+        if (value != null) {
+          LocalDateTime localDate = DateUtils.localTimeFromTimestamp(value);
+          String isoDate = DateTimeFormatter.ISO_DATE_TIME.format(localDate);
+          jsonObject.put(fieldValue.getFieldName(), isoDate);
+        }
+      } else {
+        jsonObject.put(fieldValue.getFieldName(), fieldValue.getValue());
+      }
+    }
+    return jsonObject;
   }
 
   @SuppressWarnings({"ResultOfMethodCallIgnored", "SameParameterValue"})
