@@ -151,7 +151,41 @@ public class SampleDataExporter {
       Game game = new Game();
       game.initializeFromDBObject(resultSet);
 
-      JSONObject gameJSON = new JSONObject();
+      JSONObject gameJSON = convertToJSONObject(game,
+          game.giantbomb_icon_url,
+          game.igdb_title,
+          game.giantbomb_release_date,
+          game.igdb_poster_h,
+          game.howlong_all_confidence,
+          game.howlong_extras_confidence,
+          game.giantbomb_small_url,
+          game.giantbomb_screen_url,
+          game.giantbomb_id,
+          game.howlong_updated,
+          game.steam_local_coop,
+          game.giantbomb_name,
+          game.howlong_main_confidence,
+          game.icon,
+          game.giantbomb_year,
+          game.howlong_completionist,
+          game.steam_attribute_count,
+          game.first_processed,
+          game.steam_attributes,
+          game.retired,
+          game.howlong_main,
+          game.howlong_all,
+          game.giantbomb_thumb_url,
+          game.igdb_success,
+          game.igdb_next_update,
+          game.howlong_failed,
+          game.steam_controller,
+          game.giantbomb_tiny_url,
+          game.owned,
+          game.howlong_completionist_confidence,
+          game.giantbomb_super_url,
+          game.igdb_poster_w
+          );
+      /*
       gameJSON.put("id", game.id.getValue());
       gameJSON.put("title", game.title.getValue());
       gameJSON.put("logo", game.logo.getValue());
@@ -183,7 +217,7 @@ public class SampleDataExporter {
       gameJSON.put("igdb_slug", game.igdb_slug.getValue());
       gameJSON.put("igdb_summary", game.igdb_summary.getValue());
       gameJSON.put("igdb_updated", game.igdb_updated.getValue());
-
+*/
       attachIGDBPoster(game, gameJSON);
       addPlatformsToGame(game, gameJSON);
 
