@@ -118,13 +118,7 @@ public class SampleDataExporter {
       PersonPlatform personPlatform = new PersonPlatform();
       personPlatform.initializeFromDBObject(resultSet);
 
-      JSONObject myGlobalObj = new JSONObject();
-      myGlobalObj.put("id", personPlatform.id.getValue());
-      myGlobalObj.put("game_platform_id", personPlatform.gamePlatformID.getValue());
-      myGlobalObj.put("person_id", personPlatform.personID.getValue());
-      myGlobalObj.put("rank", personPlatform.rank.getValue());
-      myGlobalObj.put("platform_name", personPlatform.platformName.getValue());
-      myGlobalObj.put("date_added", personPlatform.dateAdded.getValue());
+      JSONObject myGlobalObj = convertToJSONObject(personPlatform);
 
       myGlobalsObj.put(myGlobalObj);
     }
