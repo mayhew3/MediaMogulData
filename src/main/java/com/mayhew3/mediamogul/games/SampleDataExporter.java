@@ -67,14 +67,7 @@ public class SampleDataExporter {
     JSONArray platformsJSON = new JSONArray();
 
     for (GamePlatform platform : allPlatforms) {
-      JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", platform.id.getValue());
-      platformJSON.put("full_name", platform.fullName.getValue());
-      platformJSON.put("short_name", platform.shortName.getValue());
-      platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
-      platformJSON.put("igdb_name", platform.igdbName.getValue());
-      platformJSON.put("metacritic_uri", platform.metacritic_uri.getValue());
-
+      JSONObject platformJSON = convertToJSONObject(platform);
       attachMyGlobalPlatforms(platform, platformJSON);
 
       platformsJSON.put(platformJSON);
@@ -185,39 +178,7 @@ public class SampleDataExporter {
           game.giantbomb_super_url,
           game.igdb_poster_w
           );
-      /*
-      gameJSON.put("id", game.id.getValue());
-      gameJSON.put("title", game.title.getValue());
-      gameJSON.put("logo", game.logo.getValue());
-      gameJSON.put("platform", game.platform.getValue());
-      gameJSON.put("giantbomb_medium_url", game.giantbomb_medium_url.getValue());
-      gameJSON.put("steamid", game.steamID.getValue());
-      gameJSON.put("date_added", game.dateAdded.getValue());
-      gameJSON.put("metacritic", game.metacritic.getValue());
-      gameJSON.put("timetotal", game.timeTotal.getValue());
-      gameJSON.put("howlong_extras", game.howlong_extras.getValue());
-      gameJSON.put("natural_end", game.naturalEnd.getValue());
-      gameJSON.put("metacritic_hint", game.metacriticHint.getValue());
-      gameJSON.put("howlong_id", game.howlong_id.getValue());
-      gameJSON.put("giantbomb_id", game.giantbomb_id.getValue());
-      gameJSON.put("steam_cloud", game.steam_cloud.getValue());
-      gameJSON.put("igdb_id", game.igdb_id.getValue());
 
-      gameJSON.put("metacritic_page", game.metacriticPage.getValue());
-      gameJSON.put("metacritic_matched", game.metacriticMatched.getValue());
-      gameJSON.put("steam_page_gone", game.steam_page_gone.getValue());
-      gameJSON.put("steam_title", game.steam_title.getValue());
-      gameJSON.put("howlong_title", game.howlong_title.getValue());
-      gameJSON.put("giantbomb_name", game.giantbomb_name.getValue());
-
-      gameJSON.put("igdb_rating", game.igdb_rating.getValue());
-      gameJSON.put("igdb_rating_count", game.igdb_rating_count.getValue());
-      gameJSON.put("igdb_release_date", game.igdb_release_date.getValue());
-      gameJSON.put("igdb_popularity", game.igdb_popularity.getValue());
-      gameJSON.put("igdb_slug", game.igdb_slug.getValue());
-      gameJSON.put("igdb_summary", game.igdb_summary.getValue());
-      gameJSON.put("igdb_updated", game.igdb_updated.getValue());
-*/
       attachIGDBPoster(game, gameJSON);
       addPlatformsToGame(game, gameJSON);
 

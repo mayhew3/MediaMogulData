@@ -1,5 +1,6 @@
 [
   {
+    "date_added": "2020-04-28T23:38:24.663",
     "my_platforms": [
       {
         "date_added": "2020-05-04 14:15:57.461842",
@@ -24,6 +25,7 @@
     "id": 1
   },
   {
+    "date_added": "2020-04-28T23:38:24.756",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:59.362386",
       "game_platform_id": 2,
@@ -40,6 +42,7 @@
     "igdb_name": "Xbox"
   },
   {
+    "date_added": "2020-04-28T23:38:24.845",
     "my_platforms": [
       {
         "date_added": "2020-05-04 14:16:19.578332",
@@ -66,6 +69,7 @@
     "igdb_name": "Nintendo Switch"
   },
   {
+    "date_added": "2020-04-28T23:38:24.929",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:12.305893",
       "game_platform_id": 4,
@@ -82,6 +86,7 @@
     "igdb_name": "Xbox One"
   },
   {
+    "date_added": "2020-04-28T23:38:25.01",
     "my_platforms": [],
     "full_name": "Wii U",
     "metacritic_uri": "wii-u",
@@ -91,6 +96,7 @@
     "igdb_name": "Wii U"
   },
   {
+    "date_added": "2020-04-28T23:38:25.093",
     "my_platforms": [{
       "date_added": "2020-05-04 14:18:19.443633",
       "game_platform_id": 6,
@@ -107,6 +113,7 @@
     "igdb_name": "PlayStation 3"
   },
   {
+    "date_added": "2020-04-28T23:38:25.176",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:44.827256",
       "game_platform_id": 7,
@@ -123,6 +130,7 @@
     "igdb_name": "Xbox 360"
   },
   {
+    "date_added": "2020-04-28T23:38:25.343",
     "my_platforms": [],
     "full_name": "Wii",
     "metacritic_uri": "wii",
@@ -132,6 +140,7 @@
     "igdb_name": "Wii"
   },
   {
+    "date_added": "2020-04-28T23:38:25.508",
     "my_platforms": [{
       "date_added": "2020-05-04 14:18:15.453522",
       "game_platform_id": 9,
@@ -148,6 +157,7 @@
     "igdb_name": "Nintendo DS"
   },
   {
+    "date_added": "2020-04-28T23:38:25.673",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:08.425155",
       "game_platform_id": 10,
@@ -164,6 +174,7 @@
     "igdb_name": "PC (Microsoft Windows)"
   },
   {
+    "date_added": "2020-04-28T23:38:25.845",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:15.389918",
       "game_platform_id": 11,
@@ -180,6 +191,7 @@
     "igdb_name": "PlayStation 4"
   },
   {
+    "date_added": "2020-04-29T00:01:09.976",
     "my_platforms": [],
     "full_name": "Android",
     "igdb_platform_id": 34,
@@ -188,6 +200,7 @@
     "igdb_name": "Android"
   },
   {
+    "date_added": "2020-04-29T00:01:10.244",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:55.721055",
       "game_platform_id": 13,
@@ -204,6 +217,7 @@
     "igdb_name": "iOS"
   },
   {
+    "date_added": "2020-04-29T00:01:12.326",
     "my_platforms": [],
     "full_name": "PlayStation 2",
     "metacritic_uri": "playstation-2",
@@ -213,6 +227,7 @@
     "igdb_name": "PlayStation 2"
   },
   {
+    "date_added": "2020-04-30T17:42:00.68",
     "my_platforms": [],
     "full_name": "Linux",
     "igdb_platform_id": 3,
@@ -221,6 +236,7 @@
     "igdb_name": "Linux"
   },
   {
+    "date_added": "2020-04-30T17:42:00.698",
     "my_platforms": [],
     "full_name": "Mac",
     "igdb_platform_id": 14,
@@ -229,6 +245,7 @@
     "igdb_name": "Mac"
   },
   {
+    "date_added": "2020-04-30T17:42:00.862",
     "my_platforms": [],
     "full_name": "Arcade",
     "igdb_platform_id": 52,
@@ -237,6 +254,7 @@
     "igdb_name": "Arcade"
   },
   {
+    "date_added": "2020-04-30T17:42:00.867",
     "my_platforms": [],
     "full_name": "BlackBerry OS",
     "igdb_platform_id": 73,
@@ -245,6 +263,7 @@
     "igdb_name": "BlackBerry OS"
   },
   {
+    "date_added": "2020-04-30T17:42:01.172",
     "my_platforms": [],
     "full_name": "PlayStation Vita",
     "metacritic_uri": "playstation-vita",
@@ -254,6 +273,7 @@
     "igdb_name": "PlayStation Vita"
   },
   {
+    "date_added": "2020-04-30T17:42:01.591",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:32.858724",
       "game_platform_id": 20,
@@ -269,6 +289,7 @@
     "igdb_name": "Xbox Live Arcade"
   },
   {
+    "date_added": "2020-04-30T17:42:01.597",
     "my_platforms": [],
     "full_name": "Nintendo 3DS",
     "igdb_platform_id": 37,
@@ -277,6 +298,7 @@
     "igdb_name": "Nintendo 3DS"
   },
   {
+    "date_added": "2020-04-30T17:42:01.613",
     "my_platforms": [{
       "date_added": "2020-05-04 14:16:52.630724",
       "game_platform_id": 22,
@@ -292,6 +314,7 @@
     "igdb_name": "PlayStation Network"
   },
   {
+    "date_added": "2020-04-30T17:42:01.629",
     "my_platforms": [],
     "full_name": "Windows Phone",
     "igdb_platform_id": 74,
@@ -300,6 +323,7 @@
     "igdb_name": "Windows Phone"
   },
   {
+    "date_added": "2020-04-30T17:42:02.212",
     "my_platforms": [{
       "date_added": "2020-05-04 14:18:10.709983",
       "game_platform_id": 24,
@@ -315,6 +339,7 @@
     "igdb_name": "Super Nintendo Entertainment System (SNES)"
   },
   {
+    "date_added": "2020-04-30T17:42:02.227",
     "my_platforms": [],
     "full_name": "Virtual Console (Nintendo)",
     "igdb_platform_id": 47,
@@ -323,6 +348,7 @@
     "igdb_name": "Virtual Console (Nintendo)"
   },
   {
+    "date_added": "2020-04-30T17:42:03.197",
     "my_platforms": [],
     "full_name": "PlayStation Portable",
     "igdb_platform_id": 38,
@@ -331,6 +357,7 @@
     "igdb_name": "PlayStation Portable"
   },
   {
+    "date_added": "2020-04-30T17:42:03.976",
     "my_platforms": [],
     "full_name": "Ouya",
     "igdb_platform_id": 72,
@@ -339,6 +366,7 @@
     "igdb_name": "Ouya"
   },
   {
+    "date_added": "2020-04-30T17:42:05.472",
     "my_platforms": [],
     "full_name": "WiiWare",
     "igdb_platform_id": 56,
@@ -347,6 +375,7 @@
     "igdb_name": "WiiWare"
   },
   {
+    "date_added": "2020-04-30T17:42:06.296",
     "my_platforms": [],
     "full_name": "Google Stadia",
     "igdb_platform_id": 170,
@@ -355,6 +384,7 @@
     "igdb_name": "Google Stadia"
   },
   {
+    "date_added": "2020-04-30T17:42:06.666",
     "my_platforms": [],
     "full_name": "Oculus VR",
     "igdb_platform_id": 162,
@@ -363,6 +393,7 @@
     "igdb_name": "Oculus VR"
   },
   {
+    "date_added": "2020-04-30T17:42:06.672",
     "my_platforms": [{
       "date_added": "2020-05-04 14:18:04.351886",
       "game_platform_id": 31,
@@ -378,6 +409,7 @@
     "igdb_name": "SteamVR"
   },
   {
+    "date_added": "2020-04-30T17:42:06.677",
     "my_platforms": [],
     "full_name": "PlayStation VR",
     "igdb_platform_id": 165,
@@ -386,6 +418,7 @@
     "igdb_name": "PlayStation VR"
   },
   {
+    "date_added": "2020-04-30T21:22:52.182",
     "my_platforms": [],
     "full_name": "PC DOS",
     "igdb_platform_id": 13,
@@ -394,6 +427,7 @@
     "igdb_name": "PC DOS"
   },
   {
+    "date_added": "2020-04-30T21:22:52.966",
     "my_platforms": [],
     "full_name": "Commodore C64/128",
     "igdb_platform_id": 15,
@@ -402,6 +436,7 @@
     "igdb_name": "Commodore C64/128"
   },
   {
+    "date_added": "2020-04-30T21:22:53.514",
     "my_platforms": [],
     "full_name": "Amiga",
     "igdb_platform_id": 16,
@@ -410,6 +445,7 @@
     "igdb_name": "Amiga"
   },
   {
+    "date_added": "2020-04-30T21:22:54.147",
     "my_platforms": [],
     "full_name": "Nintendo Entertainment System (NES)",
     "igdb_platform_id": 18,
@@ -418,6 +454,7 @@
     "igdb_name": "Nintendo Entertainment System (NES)"
   },
   {
+    "date_added": "2020-04-30T21:22:54.919",
     "my_platforms": [],
     "full_name": "Amstrad CPC",
     "igdb_platform_id": 25,
@@ -426,6 +463,7 @@
     "igdb_name": "Amstrad CPC"
   },
   {
+    "date_added": "2020-04-30T21:22:55.651",
     "my_platforms": [],
     "full_name": "Atari ST/STE",
     "igdb_platform_id": 63,
@@ -434,6 +472,7 @@
     "igdb_name": "Atari ST/STE"
   },
   {
+    "date_added": "2020-04-30T21:22:56.476",
     "my_platforms": [],
     "full_name": "Apple II",
     "igdb_platform_id": 75,
@@ -442,6 +481,7 @@
     "igdb_name": "Apple II"
   },
   {
+    "date_added": "2020-04-30T21:22:57.262",
     "my_platforms": [],
     "full_name": "Apple IIGS",
     "igdb_platform_id": 115,
@@ -449,6 +489,7 @@
     "igdb_name": "Apple IIGS"
   },
   {
+    "date_added": "2020-04-30T21:23:15.854",
     "my_platforms": [],
     "full_name": "FM Towns",
     "igdb_platform_id": 118,
@@ -456,6 +497,7 @@
     "igdb_name": "FM Towns"
   },
   {
+    "date_added": "2020-04-30T21:23:16.923",
     "my_platforms": [],
     "full_name": "PC-98",
     "igdb_platform_id": 149,
@@ -463,6 +505,7 @@
     "igdb_name": "PC-98"
   },
   {
+    "date_added": "2020-04-30T21:23:54.762",
     "my_platforms": [],
     "full_name": "Mobile",
     "igdb_platform_id": 55,
@@ -471,6 +514,7 @@
     "igdb_name": "Mobile"
   },
   {
+    "date_added": "2020-04-30T21:24:46.864",
     "my_platforms": [],
     "full_name": "Windows Mixed Reality",
     "igdb_platform_id": 161,
@@ -478,6 +522,7 @@
     "igdb_name": "Windows Mixed Reality"
   },
   {
+    "date_added": "2020-04-30T21:32:56.71",
     "my_platforms": [],
     "full_name": "Nintendo GameCube",
     "igdb_platform_id": 21,
@@ -486,6 +531,7 @@
     "igdb_name": "Nintendo GameCube"
   },
   {
+    "date_added": "2020-04-30T21:34:01.367",
     "my_platforms": [],
     "full_name": "Turbografx-16/PC Engine CD",
     "igdb_platform_id": 150,
@@ -493,6 +539,7 @@
     "igdb_name": "Turbografx-16/PC Engine CD"
   },
   {
+    "date_added": "2020-04-30T21:35:21.816",
     "my_platforms": [],
     "full_name": "Dreamcast",
     "igdb_platform_id": 23,
@@ -501,6 +548,7 @@
     "igdb_name": "Dreamcast"
   },
   {
+    "date_added": "2020-04-30T21:36:55.417",
     "my_platforms": [],
     "full_name": "PlayStation 5",
     "igdb_platform_id": 167,
@@ -508,6 +556,7 @@
     "igdb_name": "PlayStation 5"
   },
   {
+    "date_added": "2020-04-30T21:36:55.858",
     "my_platforms": [],
     "full_name": "Xbox Series X",
     "igdb_platform_id": 169,
@@ -515,6 +564,7 @@
     "igdb_name": "Xbox Series X"
   },
   {
+    "date_added": "2020-04-30T21:37:11.783",
     "my_platforms": [],
     "full_name": "Game Boy Advance",
     "igdb_platform_id": 24,
@@ -523,6 +573,7 @@
     "igdb_name": "Game Boy Advance"
   },
   {
+    "date_added": "2020-04-30T21:37:31.555",
     "my_platforms": [],
     "full_name": "Amazon Fire TV",
     "igdb_platform_id": 132,
@@ -530,6 +581,7 @@
     "igdb_name": "Amazon Fire TV"
   },
   {
+    "date_added": "2020-04-30T21:38:04.973",
     "my_platforms": [],
     "full_name": "PlayStation",
     "igdb_platform_id": 7,
@@ -538,6 +590,7 @@
     "igdb_name": "PlayStation"
   },
   {
+    "date_added": "2020-04-30T21:38:05.662",
     "my_platforms": [],
     "full_name": "Game Boy",
     "igdb_platform_id": 33,
@@ -546,6 +599,7 @@
     "igdb_name": "Game Boy"
   },
   {
+    "date_added": "2020-04-30T21:41:19.482",
     "my_platforms": [],
     "full_name": "Sega Saturn",
     "igdb_platform_id": 32,
@@ -554,6 +608,7 @@
     "igdb_name": "Sega Saturn"
   },
   {
+    "date_added": "2020-04-30T21:41:20.41",
     "my_platforms": [],
     "full_name": "N-Gage",
     "igdb_platform_id": 42,
@@ -562,6 +617,7 @@
     "igdb_name": "N-Gage"
   },
   {
+    "date_added": "2020-04-30T21:44:07.321",
     "my_platforms": [],
     "full_name": "Family Computer Disk System",
     "igdb_platform_id": 51,
@@ -570,6 +626,7 @@
     "igdb_name": "Family Computer Disk System"
   },
   {
+    "date_added": "2020-04-30T21:45:57.234",
     "my_platforms": [],
     "full_name": "Web browser",
     "igdb_platform_id": 82,
@@ -578,6 +635,7 @@
     "igdb_name": "Web browser"
   },
   {
+    "date_added": "2020-07-31T03:28:12.615",
     "my_platforms": [],
     "full_name": "Stadia",
     "igdb_platform_id": 203,
@@ -585,6 +643,7 @@
     "igdb_name": "Stadia"
   },
   {
+    "date_added": "2020-09-30T10:54:41.369",
     "my_platforms": [],
     "full_name": "OnLive Game System",
     "igdb_platform_id": 113,
