@@ -1,13 +1,23 @@
 [
   {
-    "my_platforms": [{
-      "date_added": "2020-05-04 14:15:57.461842",
-      "game_platform_id": 1,
-      "platform_name": "Steam",
-      "rank": 1,
-      "id": 1,
-      "person_id": 1
-    }],
+    "my_platforms": [
+      {
+        "date_added": "2020-05-04 14:15:57.461842",
+        "game_platform_id": 1,
+        "platform_name": "Steam",
+        "rank": 1,
+        "id": 1,
+        "person_id": 1
+      },
+      {
+        "date_added": "2021-01-17 14:13:00.135421",
+        "game_platform_id": 1,
+        "platform_name": "Steam",
+        "rank": 1,
+        "id": 15,
+        "person_id": 3
+      }
+    ],
     "full_name": "Steam",
     "metacritic_uri": "pc",
     "short_name": "Steam",
@@ -30,14 +40,24 @@
     "igdb_name": "Xbox"
   },
   {
-    "my_platforms": [{
-      "date_added": "2020-05-04 14:16:19.578332",
-      "game_platform_id": 3,
-      "platform_name": "Switch",
-      "rank": 5,
-      "id": 5,
-      "person_id": 1
-    }],
+    "my_platforms": [
+      {
+        "date_added": "2020-05-04 14:16:19.578332",
+        "game_platform_id": 3,
+        "platform_name": "Switch",
+        "rank": 5,
+        "id": 5,
+        "person_id": 1
+      },
+      {
+        "date_added": "2021-01-17 14:13:03.200638",
+        "game_platform_id": 3,
+        "platform_name": "Switch",
+        "rank": 2,
+        "id": 16,
+        "person_id": 3
+      }
+    ],
     "full_name": "Switch",
     "metacritic_uri": "switch",
     "igdb_platform_id": 130,
@@ -556,5 +576,19 @@
     "short_name": "browser",
     "id": 57,
     "igdb_name": "Web browser"
+  },
+  {
+    "my_platforms": [],
+    "full_name": "Stadia",
+    "igdb_platform_id": 203,
+    "id": 58,
+    "igdb_name": "Stadia"
+  },
+  {
+    "my_platforms": [],
+    "full_name": "OnLive Game System",
+    "igdb_platform_id": 113,
+    "id": 59,
+    "igdb_name": "OnLive Game System"
   }
 ]

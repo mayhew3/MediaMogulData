@@ -1489,5 +1489,1768 @@
     "id": 1169,
     "person_id": 1,
     "game_id": 1013
+  },
+  {
+    "start_time": "2020-05-12 15:05:48.719",
+    "minutes": 11,
+    "id": 1173,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-05-12 15:59:57.612",
+    "minutes": 17,
+    "id": 1174,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-05-14 18:22:58.263",
+    "minutes": 2,
+    "id": 1180,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-05-16 17:51:18.806",
+    "minutes": 39,
+    "id": 1181,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-05-18 14:27:44.255",
+    "minutes": 69,
+    "id": 1182,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-05-19 14:04:16.435",
+    "minutes": 35,
+    "id": 1189,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-05-20 18:41:49.742",
+    "minutes": 1,
+    "id": 1191,
+    "person_id": 1,
+    "game_id": 333
+  },
+  {
+    "start_time": "2020-05-21 13:50:06.493",
+    "minutes": 51,
+    "id": 1193,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-06-01 17:31:01.564",
+    "minutes": 63,
+    "id": 1241,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-05 17:29:48.654",
+    "minutes": 75,
+    "id": 1243,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-06 14:45:24.765",
+    "minutes": 1,
+    "id": 1279,
+    "person_id": 1,
+    "game_id": 333
+  },
+  {
+    "start_time": "2018-11-08 00:00:00.0",
+    "minutes": 1320,
+    "id": 1297,
+    "person_id": 1,
+    "game_id": 903
+  },
+  {
+    "start_time": "2020-06-11 00:00:00.0",
+    "minutes": 120,
+    "rating": 90,
+    "id": 1298,
+    "person_id": 1,
+    "game_id": 903
+  },
+  {
+    "start_time": "2020-06-12 16:15:42.178",
+    "minutes": 67,
+    "id": 1299,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-13 00:00:00.0",
+    "minutes": 60,
+    "rating": 88,
+    "id": 1302,
+    "person_id": 1,
+    "game_id": 903
+  },
+  {
+    "start_time": "2020-06-14 18:25:28.293",
+    "minutes": 74,
+    "id": 1307,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-16 18:42:37.887",
+    "minutes": 38,
+    "id": 1316,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-21 15:00:58.152",
+    "minutes": 48,
+    "id": 1331,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-19 00:00:00.0",
+    "minutes": 180,
+    "rating": 83,
+    "id": 1335,
+    "person_id": 1,
+    "game_id": 1211
+  },
+  {
+    "start_time": "2020-06-22 18:32:45.74",
+    "minutes": 139,
+    "id": 1336,
+    "person_id": 1,
+    "game_id": 1032
+  },
+  {
+    "start_time": "2020-06-23 15:13:19.931",
+    "minutes": 38,
+    "id": 1337,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-29 18:31:42.927",
+    "minutes": 32,
+    "id": 1350,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-06-29 19:49:53.867",
+    "minutes": 14,
+    "id": 1352,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-01 16:31:24.836",
+    "minutes": 54,
+    "id": 1355,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-04 00:00:00.0",
+    "minutes": 180,
+    "rating": 84,
+    "id": 1362,
+    "person_id": 1,
+    "game_id": 1211
+  },
+  {
+    "start_time": "2020-07-05 00:00:00.0",
+    "minutes": 180,
+    "rating": 88,
+    "id": 1365,
+    "person_id": 1,
+    "game_id": 1211
+  },
+  {
+    "start_time": "2020-07-08 17:56:58.077",
+    "minutes": 30,
+    "id": 1373,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-10 15:13:27.343",
+    "minutes": 28,
+    "id": 1416,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-09 00:00:00.0",
+    "minutes": 120,
+    "rating": 89,
+    "id": 1421,
+    "person_id": 1,
+    "game_id": 1211
+  },
+  {
+    "start_time": "2020-07-11 00:00:00.0",
+    "minutes": 60,
+    "rating": 86,
+    "id": 1422,
+    "person_id": 1,
+    "game_id": 1211
+  },
+  {
+    "start_time": "2020-07-16 18:34:16.031",
+    "minutes": 13,
+    "id": 1437,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-16 21:12:32.703",
+    "minutes": 35,
+    "id": 1438,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-17 14:34:35.482",
+    "minutes": 15,
+    "id": 1440,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-17 15:33:40.894",
+    "minutes": 16,
+    "id": 1441,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-17 16:28:48.557",
+    "minutes": 21,
+    "id": 1442,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-18 15:00:39.68",
+    "minutes": 52,
+    "id": 1445,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-20 23:16:16.865",
+    "minutes": 31,
+    "id": 1449,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-21 14:14:44.834",
+    "minutes": 35,
+    "id": 1450,
+    "person_id": 1,
+    "game_id": 1027
+  },
+  {
+    "start_time": "2020-07-24 16:23:09.869",
+    "minutes": 38,
+    "id": 1458,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-28 17:51:36.677",
+    "minutes": 21,
+    "id": 1477,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-07-30 00:07:52.566",
+    "minutes": 9,
+    "id": 1485,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-04 17:09:23.799",
+    "minutes": 31,
+    "id": 1499,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-08-04 18:28:30.147",
+    "minutes": 12,
+    "id": 1500,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-08-16 21:57:25.556",
+    "minutes": 50,
+    "id": 1544,
+    "person_id": 1,
+    "game_id": 1027
+  },
+  {
+    "start_time": "2020-08-16 23:08:30.443",
+    "minutes": 39,
+    "id": 1545,
+    "person_id": 1,
+    "game_id": 919
+  },
+  {
+    "start_time": "2020-08-21 19:02:27.693",
+    "minutes": 2,
+    "id": 1558,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-21 19:44:33.407",
+    "minutes": 20,
+    "id": 1559,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-21 21:01:40.903",
+    "minutes": 3,
+    "id": 1560,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-22 00:35:03.312",
+    "minutes": 30,
+    "id": 1561,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-22 01:42:09.518",
+    "minutes": 23,
+    "id": 1562,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-22 15:38:19.428",
+    "minutes": 158,
+    "id": 1563,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-22 21:10:19.629",
+    "minutes": 184,
+    "id": 1564,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-23 00:45:36.408",
+    "minutes": 24,
+    "id": 1565,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-23 12:01:21.596",
+    "minutes": 9,
+    "id": 1566,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-23 12:40:25.826",
+    "minutes": 260,
+    "id": 1567,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-23 17:47:53.327",
+    "minutes": 122,
+    "id": 1568,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-24 12:19:21.008",
+    "minutes": 97,
+    "id": 1570,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-24 15:12:47.881",
+    "minutes": 231,
+    "id": 1571,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-25 00:00:14.723",
+    "minutes": 74,
+    "id": 1572,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-25 13:13:25.932",
+    "minutes": 63,
+    "id": 1573,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-25 17:34:25.481",
+    "minutes": 163,
+    "id": 1574,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-25 20:51:47.342",
+    "minutes": 288,
+    "id": 1575,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-26 16:16:22.158",
+    "minutes": 3,
+    "id": 1576,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-27 01:13:14.466",
+    "minutes": 67,
+    "id": 1577,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-27 12:51:06.835",
+    "minutes": 314,
+    "id": 1578,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-27 20:21:14.358",
+    "minutes": 61,
+    "id": 1579,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-28 15:31:27.095",
+    "minutes": 60,
+    "id": 1580,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-28 17:01:34.939",
+    "minutes": 95,
+    "id": 1581,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-29 17:09:38.834",
+    "minutes": 84,
+    "id": 1582,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-29 19:41:50.231",
+    "minutes": 52,
+    "id": 1583,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-30 18:53:36.134",
+    "minutes": 103,
+    "id": 1584,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-30 23:34:59.163",
+    "minutes": 2,
+    "id": 1585,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-31 00:20:13.262",
+    "minutes": 77,
+    "id": 1586,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-08-31 19:39:54.752",
+    "minutes": 60,
+    "id": 1587,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-01 00:05:23.293",
+    "minutes": 35,
+    "id": 1588,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-01 13:17:41.249",
+    "minutes": 24,
+    "id": 1589,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-01 15:11:51.574",
+    "minutes": 71,
+    "id": 1590,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-01 21:28:37.064",
+    "minutes": 224,
+    "id": 1591,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-02 14:44:53.817",
+    "minutes": 121,
+    "id": 1592,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-02 17:25:15.258",
+    "minutes": 80,
+    "id": 1593,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-02 20:06:27.456",
+    "minutes": 39,
+    "id": 1594,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-03 12:17:47.168",
+    "minutes": 30,
+    "id": 1595,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-03 13:26:51.889",
+    "minutes": 142,
+    "id": 1596,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-03 16:25:04.413",
+    "minutes": 23,
+    "id": 1597,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-03 17:43:19.745",
+    "minutes": 65,
+    "id": 1598,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-03 20:17:30.26",
+    "minutes": 31,
+    "id": 1599,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-03 23:06:48.942",
+    "minutes": 102,
+    "id": 1600,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-04 15:49:27.89",
+    "minutes": 1,
+    "id": 1601,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-04 18:50:55.692",
+    "minutes": 60,
+    "id": 1602,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-05 10:58:03.955",
+    "minutes": 54,
+    "id": 1603,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-05 15:52:22.575",
+    "minutes": 60,
+    "id": 1604,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-05 17:27:26.308",
+    "minutes": 25,
+    "id": 1605,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-05 18:35:30.809",
+    "minutes": 48,
+    "id": 1606,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-12 15:13:58.014",
+    "minutes": 35,
+    "id": 1611,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-09-15 21:59:15.669",
+    "minutes": 91,
+    "id": 1612,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-16 00:01:29.688",
+    "minutes": 28,
+    "id": 1613,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-19 21:45:13.531",
+    "minutes": 156,
+    "id": 1614,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-20 21:46:26.68",
+    "minutes": 61,
+    "id": 1615,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-20 23:45:33.904",
+    "minutes": 97,
+    "id": 1616,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-20 23:30:34.077",
+    "minutes": 17,
+    "id": 1617,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-21 14:20:35.579",
+    "minutes": 170,
+    "id": 1618,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-21 19:03:33.554",
+    "minutes": 48,
+    "id": 1619,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-21 22:21:15.653",
+    "minutes": 31,
+    "id": 1620,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-21 23:23:29.189",
+    "minutes": 29,
+    "id": 1621,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-09-21 23:21:29.549",
+    "minutes": 68,
+    "id": 1622,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-22 00:00:00.0",
+    "minutes": 60,
+    "rating": 80,
+    "id": 1623,
+    "person_id": 1,
+    "game_id": 1219
+  },
+  {
+    "start_time": "2020-09-23 16:57:20.373",
+    "minutes": 4,
+    "id": 1624,
+    "person_id": 1,
+    "game_id": 1197
+  },
+  {
+    "start_time": "2020-09-23 21:04:51.548",
+    "minutes": 60,
+    "id": 1625,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-23 22:42:19.788",
+    "minutes": 23,
+    "id": 1626,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-09-24 20:02:57.83",
+    "minutes": 8,
+    "id": 1631,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2020-10-01 21:54:34.845",
+    "minutes": 98,
+    "id": 1652,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-02 15:20:59.283",
+    "minutes": 128,
+    "id": 1653,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-02 19:41:50.629",
+    "minutes": 10,
+    "id": 1654,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-03 00:50:50.17",
+    "minutes": 2,
+    "id": 1655,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2020-10-03 00:39:51.568",
+    "minutes": 13,
+    "id": 1656,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-03 01:31:04.967",
+    "minutes": 22,
+    "id": 1657,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-03 11:14:53.891",
+    "minutes": 86,
+    "id": 1658,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-03 19:06:59.58",
+    "minutes": 49,
+    "id": 1659,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-04 00:27:22.911",
+    "minutes": 29,
+    "id": 1660,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-04 14:27:36.896",
+    "minutes": 30,
+    "id": 1661,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-04 15:31:43.081",
+    "minutes": 26,
+    "id": 1662,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-04 19:27:16.408",
+    "minutes": 31,
+    "id": 1663,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-04 20:39:22.776",
+    "minutes": 19,
+    "id": 1664,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-04 23:28:47.998",
+    "minutes": 74,
+    "id": 1665,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-05 17:26:58.758",
+    "minutes": 34,
+    "id": 1666,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-06 15:34:05.143",
+    "minutes": 66,
+    "id": 1667,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-06 22:01:43.144",
+    "minutes": 56,
+    "id": 1668,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-06 22:34:48.531",
+    "minutes": 85,
+    "id": 1669,
+    "person_id": 1,
+    "game_id": 1230
+  },
+  {
+    "start_time": "2020-10-07 12:49:42.532",
+    "minutes": 17,
+    "id": 1670,
+    "person_id": 1,
+    "game_id": 1229
+  },
+  {
+    "start_time": "2020-10-11 20:51:18.48",
+    "minutes": 61,
+    "id": 1671,
+    "person_id": 1,
+    "game_id": 1197
+  },
+  {
+    "start_time": "2020-10-11 21:51:26.129",
+    "minutes": 81,
+    "id": 1672,
+    "person_id": 1,
+    "game_id": 1200
+  },
+  {
+    "start_time": "2020-10-21 15:23:53.568",
+    "minutes": 41,
+    "id": 1673,
+    "person_id": 1,
+    "game_id": 373
+  },
+  {
+    "start_time": "2020-10-21 23:44:49.9",
+    "minutes": 142,
+    "id": 1674,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-22 02:38:09.89",
+    "minutes": 28,
+    "id": 1675,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-22 22:11:11.775",
+    "minutes": 240,
+    "id": 1676,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-23 12:17:25.96",
+    "minutes": 56,
+    "id": 1677,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-23 13:57:30.389",
+    "minutes": 16,
+    "id": 1678,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-23 19:06:58.563",
+    "minutes": 67,
+    "id": 1679,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-23 20:44:02.369",
+    "minutes": 240,
+    "id": 1680,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-24 12:45:49.989",
+    "minutes": 150,
+    "id": 1681,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-24 23:48:10.676",
+    "minutes": 997,
+    "id": 1682,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-25 20:50:22.637",
+    "minutes": 183,
+    "id": 1683,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-26 22:06:35.345",
+    "minutes": 78,
+    "id": 1684,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-28 22:01:46.858",
+    "minutes": 158,
+    "id": 1685,
+    "person_id": 1,
+    "game_id": 1206
+  },
+  {
+    "start_time": "2020-10-30 14:36:40.484",
+    "minutes": 1,
+    "id": 1686,
+    "person_id": 1,
+    "game_id": 1216
+  },
+  {
+    "start_time": "2020-11-01 00:00:00.0",
+    "minutes": 60,
+    "rating": 86,
+    "id": 1687,
+    "person_id": 1,
+    "game_id": 1235
+  },
+  {
+    "start_time": "2020-11-08 19:14:57.145",
+    "minutes": 222,
+    "id": 1688,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2020-11-14 16:30:39.758",
+    "minutes": 123,
+    "id": 1691,
+    "person_id": 1,
+    "game_id": 1242
+  },
+  {
+    "start_time": "2020-11-14 18:28:57.295",
+    "minutes": 5,
+    "id": 1692,
+    "person_id": 1,
+    "game_id": 1243
+  },
+  {
+    "start_time": "2020-11-14 16:12:07.754",
+    "minutes": 142,
+    "id": 1693,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-11-14 00:00:00.0",
+    "minutes": 240,
+    "rating": 93,
+    "id": 1694,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-15 00:00:00.0",
+    "minutes": 300,
+    "rating": 94,
+    "id": 1695,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-17 00:00:00.0",
+    "minutes": 360,
+    "rating": 95,
+    "id": 1696,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-17 21:21:29.587",
+    "minutes": 117,
+    "id": 1697,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-11-17 00:00:00.0",
+    "minutes": 420,
+    "id": 1698,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-19 00:00:00.0",
+    "minutes": 360,
+    "id": 1699,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-24 20:58:08.594",
+    "minutes": 134,
+    "id": 1700,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-11-22 00:00:00.0",
+    "minutes": 300,
+    "rating": 90,
+    "id": 1701,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-23 00:00:00.0",
+    "minutes": 300,
+    "rating": 90,
+    "id": 1702,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-24 00:00:00.0",
+    "minutes": 360,
+    "rating": 90,
+    "id": 1703,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-11-24 00:00:00.0",
+    "minutes": 90,
+    "rating": 84,
+    "id": 1704,
+    "person_id": 1,
+    "game_id": 1246
+  },
+  {
+    "start_time": "2020-11-25 00:24:32.937",
+    "minutes": 4,
+    "id": 1705,
+    "person_id": 1,
+    "game_id": 1196
+  },
+  {
+    "start_time": "2020-11-25 21:00:01.904",
+    "minutes": 69,
+    "id": 1706,
+    "person_id": 1,
+    "game_id": 1196
+  },
+  {
+    "start_time": "2020-11-25 22:01:10.756",
+    "minutes": 69,
+    "id": 1707,
+    "person_id": 1,
+    "game_id": 1201
+  },
+  {
+    "start_time": "2020-11-26 16:02:55.377",
+    "minutes": 87,
+    "id": 1708,
+    "person_id": 1,
+    "game_id": 1234
+  },
+  {
+    "start_time": "2020-11-28 21:08:22.58",
+    "minutes": 85,
+    "id": 1709,
+    "person_id": 1,
+    "game_id": 1243
+  },
+  {
+    "start_time": "2020-11-30 20:45:46.037",
+    "minutes": 121,
+    "id": 1710,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-11-30 23:36:58.025",
+    "minutes": 9,
+    "id": 1711,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-01 16:33:37.907",
+    "minutes": 14,
+    "id": 1714,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-02 00:00:00.0",
+    "minutes": 60,
+    "rating": 83,
+    "id": 1715,
+    "person_id": 1,
+    "game_id": 1246
+  },
+  {
+    "start_time": "2020-12-02 00:00:00.0",
+    "minutes": 900,
+    "rating": 90,
+    "id": 1716,
+    "person_id": 1,
+    "game_id": 1241
+  },
+  {
+    "start_time": "2020-12-04 14:53:46.408",
+    "minutes": 5,
+    "id": 1717,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-05 20:32:24.382",
+    "minutes": 191,
+    "id": 1718,
+    "person_id": 1,
+    "game_id": 1234
+  },
+  {
+    "start_time": "2020-12-06 20:34:46.072",
+    "minutes": 64,
+    "id": 1720,
+    "person_id": 1,
+    "game_id": 1234
+  },
+  {
+    "start_time": "2020-12-08 20:50:52.527",
+    "minutes": 121,
+    "id": 1722,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-09 00:10:27.084",
+    "minutes": 2,
+    "id": 1723,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-13 00:00:00.0",
+    "minutes": 180,
+    "rating": 80,
+    "id": 1724,
+    "person_id": 1,
+    "game_id": 1246
+  },
+  {
+    "start_time": "2020-12-12 00:00:00.0",
+    "minutes": 480,
+    "id": 1725,
+    "person_id": 1,
+    "game_id": 1246
+  },
+  {
+    "start_time": "2020-12-11 00:00:00.0",
+    "minutes": 300,
+    "id": 1726,
+    "person_id": 1,
+    "game_id": 1246
+  },
+  {
+    "start_time": "2020-12-09 00:00:00.0",
+    "minutes": 300,
+    "id": 1727,
+    "person_id": 1,
+    "game_id": 1246
+  },
+  {
+    "start_time": "2020-12-15 20:38:33.085",
+    "minutes": 5,
+    "id": 1729,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-15 21:17:40.549",
+    "minutes": 26,
+    "id": 1730,
+    "person_id": 1,
+    "game_id": 1027
+  },
+  {
+    "start_time": "2020-12-15 21:40:40.698",
+    "minutes": 3,
+    "id": 1731,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-15 22:13:51.876",
+    "minutes": 90,
+    "id": 1732,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2020-12-15 00:00:00.0",
+    "minutes": 300,
+    "rating": 88,
+    "id": 1733,
+    "person_id": 1,
+    "game_id": 1246
+  },
+  {
+    "start_time": "2020-12-23 22:19:34.975",
+    "minutes": 58,
+    "id": 1740,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-01-05 20:55:06.479",
+    "minutes": 133,
+    "id": 1757,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-01-12 20:43:21.157",
+    "minutes": 211,
+    "id": 1761,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-01-13 01:05:59.189",
+    "minutes": 8,
+    "id": 1762,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-01-18 18:36:06.433",
+    "minutes": 3,
+    "id": 1764,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-01-19 20:34:52.01",
+    "minutes": 129,
+    "id": 1766,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-01-19 23:31:32.934",
+    "minutes": 11,
+    "id": 1767,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-01-26 20:39:42.164",
+    "minutes": 125,
+    "id": 1770,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-02-02 21:12:55.775",
+    "minutes": 133,
+    "id": 1782,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-02-09 21:09:15.262",
+    "minutes": 116,
+    "id": 1786,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-02-12 12:18:17.312",
+    "minutes": 1,
+    "id": 1792,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-02-16 20:59:25.456",
+    "minutes": 152,
+    "id": 1795,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-02-17 00:00:36.903",
+    "minutes": 30,
+    "id": 1796,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-02-23 20:53:35.307",
+    "minutes": 168,
+    "id": 1801,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-03-09 21:02:50.629",
+    "minutes": 160,
+    "id": 1821,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-03-16 20:19:54.749",
+    "minutes": 12,
+    "id": 1824,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-03-16 21:20:58.459",
+    "minutes": 11,
+    "id": 1825,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-03-19 21:19:34.311",
+    "minutes": 216,
+    "id": 1826,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2021-03-23 20:41:11.736",
+    "minutes": 151,
+    "id": 1827,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-03-23 23:51:44.285",
+    "minutes": 20,
+    "id": 1828,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-03-25 22:01:24.743",
+    "minutes": 81,
+    "id": 1829,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-03-27 16:02:12.519",
+    "minutes": 126,
+    "id": 1831,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-03-27 22:34:47.194",
+    "minutes": 123,
+    "id": 1832,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-03-28 01:05:31.77",
+    "minutes": 114,
+    "id": 1833,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-03-30 20:49:03.487",
+    "minutes": 121,
+    "id": 1834,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-03-30 23:31:24.198",
+    "minutes": 19,
+    "id": 1835,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-04-06 22:03:01.922",
+    "minutes": 30,
+    "id": 1841,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-06 23:06:08.843",
+    "minutes": 27,
+    "id": 1842,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-08 22:09:34.266",
+    "minutes": 110,
+    "id": 1843,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-09 00:40:08.56",
+    "minutes": 20,
+    "id": 1844,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-10 17:27:34.765",
+    "minutes": 54,
+    "id": 1846,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-10 20:54:07.33",
+    "minutes": 86,
+    "id": 1847,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-13 17:11:28.613",
+    "minutes": 32,
+    "id": 1848,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-13 18:13:52.815",
+    "minutes": 30,
+    "id": 1849,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-13 20:43:32.879",
+    "minutes": 162,
+    "id": 1850,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-04-13 23:42:56.424",
+    "minutes": 2,
+    "id": 1851,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-15 18:21:58.577",
+    "minutes": 77,
+    "id": 1852,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-15 20:34:08.539",
+    "minutes": 19,
+    "id": 1853,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-16 17:29:31.898",
+    "minutes": 31,
+    "id": 1854,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-17 19:03:32.131",
+    "minutes": 28,
+    "id": 1857,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-17 20:29:51.239",
+    "minutes": 2,
+    "id": 1858,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-17 23:32:32.502",
+    "minutes": 102,
+    "id": 1859,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-18 13:03:33.695",
+    "minutes": 211,
+    "id": 1860,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-19 11:07:19.146",
+    "minutes": 183,
+    "id": 1861,
+    "person_id": 1,
+    "game_id": 1208
+  },
+  {
+    "start_time": "2021-04-19 17:02:37.541",
+    "minutes": 86,
+    "id": 1862,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-20 21:14:18.389",
+    "minutes": 134,
+    "id": 1863,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-04-27 21:20:17.143",
+    "minutes": 128,
+    "id": 1873,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-04-28 18:45:49.558",
+    "minutes": 39,
+    "id": 1877,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-04-29 15:27:59.72",
+    "minutes": 68,
+    "id": 1912,
+    "person_id": 1,
+    "game_id": 1270
+  },
+  {
+    "start_time": "2021-04-29 17:18:55.164",
+    "minutes": 19,
+    "id": 1913,
+    "person_id": 1,
+    "game_id": 1270
+  },
+  {
+    "start_time": "2021-04-29 18:08:00.397",
+    "minutes": 134,
+    "id": 1914,
+    "person_id": 1,
+    "game_id": 1217
+  },
+  {
+    "start_time": "2021-05-01 16:47:51.518",
+    "minutes": 1,
+    "id": 1916,
+    "person_id": 1,
+    "game_id": 1271
+  },
+  {
+    "start_time": "2021-05-01 17:24:22.088",
+    "minutes": 27,
+    "id": 1917,
+    "person_id": 1,
+    "game_id": 1271
+  },
+  {
+    "start_time": "2021-05-01 20:51:15.604",
+    "minutes": 61,
+    "id": 1918,
+    "person_id": 1,
+    "game_id": 1234
+  },
+  {
+    "start_time": "2021-05-01 22:39:26.655",
+    "minutes": 64,
+    "id": 1920,
+    "person_id": 1,
+    "game_id": 1234
+  },
+  {
+    "start_time": "2021-05-02 00:44:45.468",
+    "minutes": 8,
+    "id": 1922,
+    "person_id": 1,
+    "game_id": 1271
+  },
+  {
+    "start_time": "2021-05-02 12:58:13.146",
+    "minutes": 57,
+    "id": 1923,
+    "person_id": 1,
+    "game_id": 1271
+  },
+  {
+    "start_time": "2021-05-02 14:43:27.349",
+    "minutes": 71,
+    "id": 1924,
+    "person_id": 1,
+    "game_id": 1270
+  },
+  {
+    "start_time": "2021-05-02 18:57:05.897",
+    "minutes": 59,
+    "id": 1926,
+    "person_id": 1,
+    "game_id": 1270
+  },
+  {
+    "start_time": "2021-05-03 12:28:35.068",
+    "minutes": 72,
+    "id": 1928,
+    "person_id": 1,
+    "game_id": 1271
+  },
+  {
+    "start_time": "2021-05-04 12:40:28.534",
+    "minutes": 26,
+    "id": 1929,
+    "person_id": 1,
+    "game_id": 1271
+  },
+  {
+    "start_time": "2021-05-04 21:37:11.341",
+    "minutes": 103,
+    "id": 1930,
+    "person_id": 1,
+    "game_id": 1244
+  },
+  {
+    "start_time": "2021-05-05 16:52:50.501",
+    "minutes": 16,
+    "id": 1931,
+    "person_id": 1,
+    "game_id": 1013
+  },
+  {
+    "start_time": "2021-05-05 17:45:55.773",
+    "minutes": 23,
+    "id": 1932,
+    "person_id": 1,
+    "game_id": 1013
   }
 ]
