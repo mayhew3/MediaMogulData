@@ -67,7 +67,7 @@ public class SampleDataExporter {
     JSONArray platformsJSON = new JSONArray();
 
     for (GamePlatform platform : allPlatforms) {
-      JSONObject platformJSON = convertToJSONObject(platform);
+      JSONObject platformJSON = convertToJSONObject(platform, platform.dateAdded);
       attachMyGlobalPlatforms(platform, platformJSON);
 
       platformsJSON.put(platformJSON);
