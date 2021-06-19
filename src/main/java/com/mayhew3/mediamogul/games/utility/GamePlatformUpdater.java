@@ -172,7 +172,6 @@ public class GamePlatformUpdater {
       Game masterGame = chooseMainGame(matchingGames);
 
       List<AvailableGamePlatform> availableGamePlatforms = masterGame.getAvailableGamePlatforms(connection);
-      List<MyGamePlatform> allPersonGamePlatforms = masterGame.getAllPersonGamePlatforms(connection);
 
       for (Game matchingGame : matchingGames) {
         String platformName = matchingGame.platform.getValue();
@@ -182,28 +181,6 @@ public class GamePlatformUpdater {
         moveForeignKeys(matchingGame, masterGame, availablePlatform, platformName);
         if (!matchingGame.id.getValue().equals(masterGame.id.getValue())) {
           removeForeignEntities(matchingGame);
-        }
-      }
-
-      List<PersonGame> allPersonGames = new ArrayList<>();
-      for (Game matchingGame : matchingGames) {
-        allPersonGames.addAll(matchingGame.getPersonGames(connection));
-      }
-      Set<Integer> personIDs = allPersonGames.stream()
-          .map(personGame -> personGame.person_id.getValue())
-          .collect(Collectors.toSet());
-
-
-      for (Integer personID : personIDs) {
-        List<PersonGame> personGames = allPersonGames.stream()
-            .filter(personGame -> personGame.person_id.getValue().equals(personID))
-            .collect(Collectors.toList());
-        maybeCreatePersonGameToKeep(masterGame, personID, personGames);
-
-        for (PersonGame personGame : personGames) {
-          Game parentGame = getGameFromPersonGame(matchingGames, personGame);
-          AvailableGamePlatform availableGamePlatform = getAvailablePlatformFromGame(availableGamePlatforms, masterGame.id.getValue(), parentGame.platform.getValue());
-          addToMyPlatforms(availableGamePlatform, personGame, allPersonGamePlatforms);
         }
       }
 
@@ -219,46 +196,6 @@ public class GamePlatformUpdater {
 
     }
 
-  }
-
-  @NotNull
-  private Game getGameFromPersonGame(List<Game> matchingGames, PersonGame personGame) {
-    //noinspection OptionalGetWithoutIsPresent
-    return matchingGames.stream()
-                .filter(game -> game.id.getValue().equals(personGame.game_id.getValue()))
-                .findFirst()
-                .get();
-  }
-
-  @NotNull
-  private AvailableGamePlatform getAvailablePlatformFromGame(List<AvailableGamePlatform> availableGamePlatforms, Integer gameID, String platformName) {
-    Optional<AvailableGamePlatform> maybeExisting = availableGamePlatforms.stream()
-        .filter(agp -> agp.platformName.getValue().equals(platformName) &&
-            agp.gameID.getValue().equals(gameID))
-        .findFirst();
-    if (maybeExisting.isEmpty()) {
-      throw new RuntimeException("No AGP found for game!");
-    }
-    return maybeExisting
-        .get();
-  }
-
-
-  private void maybeCreatePersonGameToKeep(Game gameToKeep, Integer person_id, List<PersonGame> personGames) throws SQLException {
-    Integer gameID = gameToKeep.id.getValue();
-    Optional<PersonGame> maybeExisting = personGames.stream()
-        .filter(personGame -> personGame.game_id.getValue().equals(gameID))
-        .findFirst();
-    if (maybeExisting.isEmpty()) {
-      logger.info("Creating missing person_game for person " + person_id + ", game " + gameToKeep.title.getValue());
-      PersonGame personGame = new PersonGame();
-      personGame.initializeForInsert();
-      personGame.game_id.changeValue(gameID);
-      personGame.person_id.changeValue(person_id);
-      personGame.tier.changeValue(2);
-      personGame.minutes_played.changeValue(0);
-      personGame.commit(connection);
-    }
   }
 
   private boolean shouldProcessGames(List<Game> matchingGames) {
@@ -308,37 +245,6 @@ public class GamePlatformUpdater {
     return allAvailablePlatforms.stream()
         .filter(agp -> gameID.equals(agp.gameID.getValue()) && platformID.equals(agp.gamePlatformID.getValue()))
         .findFirst();
-  }
-
-  private void addToMyPlatforms(AvailableGamePlatform availableGamePlatform, PersonGame personGame, List<MyGamePlatform> allPersonPlatforms) throws SQLException {
-    Integer agpID = availableGamePlatform.id.getValue();
-    Integer personID = personGame.person_id.getValue();
-
-    Optional<MyGamePlatform> existing = allPersonPlatforms.stream()
-        .filter(mgp -> agpID.equals(mgp.availableGamePlatformID.getValue()) &&
-            personID.equals(mgp.personID.getValue()))
-        .findFirst();
-
-    if (existing.isEmpty()) {
-      MyGamePlatform myGamePlatform = new MyGamePlatform();
-      myGamePlatform.initializeForInsert();
-
-      myGamePlatform.availableGamePlatformID.changeValue(agpID);
-      myGamePlatform.personID.changeValue(personID);
-      myGamePlatform.platformName.changeValue(availableGamePlatform.platformName.getValue());
-
-      myGamePlatform.rating.changeValue(personGame.rating.getValue());
-      myGamePlatform.tier.changeValue(personGame.tier.getValue());
-      myGamePlatform.last_played.changeValue(personGame.last_played.getValue());
-      myGamePlatform.minutes_played.changeValue(personGame.minutes_played.getValue());
-      myGamePlatform.finished_date.changeValue(personGame.finished_date.getValue());
-      myGamePlatform.final_score.changeValue(personGame.final_score.getValue());
-      myGamePlatform.replay_score.changeValue(personGame.replay_score.getValue());
-      myGamePlatform.replay_reason.changeValue(personGame.replay_reason.getValue());
-
-      myGamePlatform.commit(connection);
-
-    }
   }
 
   private void moveForeignKeys(Game oldGame, Game newGame, AvailableGamePlatform availableGamePlatform, String platformName) throws SQLException {

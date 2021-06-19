@@ -234,10 +234,42 @@ class IGDBUpdater {
 
       updatePosters(id);
       updatePlatforms(platformsJSON, game);
+      updateSteamID(game, exactMatch);
 
     } else {
       logger.error("Trying to update IGDB Posters on game that hasn't been committed yet: " + game.title.getValue());
     }
+  }
+
+  private void updateSteamID(Game game, JSONObject updatedInfo) {
+    Integer steamID = findSteamID(updatedInfo);
+    String title = game.title.getValue();
+    if (steamID != null) {
+      logger.debug("Found Steam ID " + steamID + " for game '" + title + "'");
+      game.steamID.changeValue(steamID);
+    } else {
+      logger.debug("No Steam ID for game '" + title + "'");
+    }
+  }
+
+  private Integer findSteamID(JSONObject updatedInfo) {
+    JSONArray websites = jsonReader.getArrayWithKey(updatedInfo, "websites");
+    for (Object websiteObj : websites) {
+      JSONObject website = (JSONObject) websiteObj;
+      String url = jsonReader.getStringWithKey(website, "url");
+      if (url.startsWith("https://store.steampowered.com")) {
+        String afterUrl = url.replace("https://store.steampowered.com/app/", "");
+        String[] split = afterUrl.split("/");
+        String firstPiece = split[0];
+        try {
+          return Integer.parseInt(firstPiece);
+        } catch (NumberFormatException e) {
+          logger.debug("Illegal ID: " + firstPiece);
+          return null;
+        }
+      }
+    }
+    return null;
   }
 
   private void updatePlatforms(@NotNull JSONArray platforms, Game game) throws SQLException {

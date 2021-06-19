@@ -2,14 +2,19 @@ package com.mayhew3.mediamogul.model.games;
 
 import com.mayhew3.postgresobject.dataobject.*;
 import com.mayhew3.postgresobject.db.SQLConnection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class Game extends RetireableDataObject {
+
+  private static final Logger logger = LogManager.getLogger(Game.class);
 
   public FieldValueString title = registerStringField("title", Nullability.NOT_NULL);
   public FieldValueBigDecimal timeTotal = registerBigDecimalField("timetotal", Nullability.NULLABLE);
@@ -115,56 +120,53 @@ public class Game extends RetireableDataObject {
     return msg;
   }
 
-  public List<PersonGame> getPersonGames(SQLConnection connection) throws SQLException {
-    String sql = "SELECT * FROM person_game " +
-        "WHERE game_id = ? " +
-        "AND retired = ? ";
+  public void deleteMyPlatform(SQLConnection connection, AvailableGamePlatform availableGamePlatform, Integer person_id) throws SQLException {
+    String sql = "DELETE " +
+        "FROM my_game_platform " +
+        "WHERE available_game_platform_id = ? " +
+        "AND person_id = ? ";
+    Integer rowsDeleted = connection.prepareAndExecuteStatementUpdate(sql, availableGamePlatform.id.getValue(), person_id);
+    logger.info(rowsDeleted + " rows deleted from my_game_platform for Game " + availableGamePlatform.gameID.getValue() + " on platform " + availableGamePlatform.platformName.getValue());
+  }
 
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), 0);
+  @SuppressWarnings("UnusedReturnValue")
+  public MyGamePlatform getOrCreatePlatform(SQLConnection connection, AvailableGamePlatform availableGamePlatform, Integer person_id) throws SQLException {
+    List<MyGamePlatform> myPlatforms = getMyPlatforms(connection, person_id);
+    Optional<MyGamePlatform> existing = myPlatforms.stream()
+        .filter(myPlatform -> myPlatform.availableGamePlatformID.getValue().equals(availableGamePlatform.id.getValue()))
+        .findFirst();
 
-    List<PersonGame> personGames = new ArrayList<>();
+    if (existing.isPresent()) {
+      return existing.get();
+    } else {
+      MyGamePlatform myPlatform = new MyGamePlatform();
+      myPlatform.initializeForInsert();
+      myPlatform.availableGamePlatformID.changeValue(availableGamePlatform.id.getValue());
+      myPlatform.personID.changeValue(person_id);
+      myPlatform.platformName.changeValue(availableGamePlatform.platformName.getValue());
+      myPlatform.collectionAdd.changeValue(new Date());
+      myPlatform.commit(connection);
+      return myPlatform;
+    }
+  }
 
+  public List<MyGamePlatform> getMyPlatforms(SQLConnection connection, Integer person_id) throws SQLException {
+    String sql = "SELECT mgp.* " +
+        "FROM game_platform p " +
+        "INNER JOIN available_game_platform agp " +
+        " ON agp.game_platform_id = p.id " +
+        "INNER JOIN my_game_platform mgp " +
+        " ON mgp.available_game_platform_id = agp.id " +
+        "WHERE mgp.person_id = ? " +
+        "AND agp.game_id = ? ";
+    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, person_id, id.getValue());
+    List<MyGamePlatform> myPlatforms = new ArrayList<>();
     while (resultSet.next()) {
-      PersonGame personGame = new PersonGame();
-      personGame.initializeFromDBObject(resultSet);
-      personGames.add(personGame);
+      MyGamePlatform myPlatform = new MyGamePlatform();
+      myPlatform.initializeFromDBObject(resultSet);
+      myPlatforms.add(myPlatform);
     }
-
-    return personGames;
-  }
-
-  public Optional<PersonGame> getPersonGame(Integer person_id, SQLConnection connection) throws SQLException {
-    String sql = "SELECT * FROM person_game " +
-        "WHERE game_id = ? " +
-        "AND person_id = ? " +
-        "AND retired = ? ";
-
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, id.getValue(), person_id, 0);
-
-    PersonGame personGame = new PersonGame();
-
-    if (resultSet.next()) {
-      personGame.initializeFromDBObject(resultSet);
-      return Optional.of(personGame);
-    } else {
-      return Optional.empty();
-    }
-  }
-
-  public PersonGame getOrCreatePersonGame(Integer person_id, SQLConnection connection) throws SQLException {
-    Optional<PersonGame> personGameOptional = getPersonGame(person_id, connection);
-
-    if (personGameOptional.isPresent()) {
-      return personGameOptional.get();
-    } else {
-      PersonGame personGame = new PersonGame();
-      personGame.initializeForInsert();
-      personGame.game_id.changeValue(id.getValue());
-      personGame.person_id.changeValue(person_id);
-      personGame.tier.changeValue(2);
-      personGame.minutes_played.changeValue(0);
-      return personGame;
-    }
+    return myPlatforms;
   }
 
   public List<AvailableGamePlatform> getAvailableGamePlatforms(SQLConnection connection) throws SQLException {

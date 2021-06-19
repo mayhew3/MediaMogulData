@@ -12,7 +12,6 @@ import com.mayhew3.mediamogul.games.provider.SteamProvider;
 import com.mayhew3.mediamogul.games.provider.SteamProviderImpl;
 import com.mayhew3.mediamogul.model.games.AvailableGamePlatform;
 import com.mayhew3.mediamogul.model.games.Game;
-import com.mayhew3.mediamogul.model.games.PersonGame;
 import com.mayhew3.mediamogul.scheduler.UpdateRunner;
 import com.mayhew3.mediamogul.tv.helper.UpdateMode;
 import com.mayhew3.mediamogul.xml.JSONReader;
@@ -151,15 +150,10 @@ public class SteamGameUpdateRunner implements UpdateRunner {
 
           game.commit(connection);
 
-          Optional<PersonGame> personGameOptional = game.getPersonGame(person_id, connection);
-          if (personGameOptional.isPresent()) {
-            PersonGame personGame = personGameOptional.get();
+          Optional<AvailableGamePlatform> steamPlatform = getSteamPlatform(game);
 
-            Optional<AvailableGamePlatform> steamPlatform = getSteamPlatform(game);
-
-            if (steamPlatform.isPresent()) {
-              personGame.deleteMyPlatform(connection, steamPlatform.get());
-            }
+          if (steamPlatform.isPresent()) {
+            game.deleteMyPlatform(connection, steamPlatform.get(), person_id);
           }
         }
       }
