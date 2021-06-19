@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="IGDBSteamLinker (local)" type="Application" factoryName="Application">
+  <configuration default="false" name="IGDBSteamLinker (local)" type="Application" factoryName="Application" folderName="Games">
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.onetimeutilities.IGDBSteamLinker" />
     <module name="media-mogul-data.main" />
     <option name="PROGRAM_PARAMETERS" value="-db local" />

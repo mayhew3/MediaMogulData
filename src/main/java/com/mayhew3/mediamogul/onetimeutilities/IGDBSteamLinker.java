@@ -79,21 +79,7 @@ public class IGDBSteamLinker {
           logger.error("Details: " + updatedInfo.getString("details"));
           throw new IllegalStateException("Failure fetching from IGDB.");
         }
-        Integer steamID = findSteamID(updatedInfo, game);
-        String title = game.title.getValue();
-        if (steamID != null) {
-          logger.debug("Found Steam ID " + steamID + " for game '" + title + "'");
-          game.steamID.changeValue(steamID);
-          try {
-            game.commit(connection);
-            changed++;
-          } catch (SQLException e) {
-            logger.debug("Failed to update game '" + title + "'");
-            duplicates.add(game.title.getValue());
-          }
-        } else {
-          logger.debug("No Steam ID for game '" + title + "'");
-        }
+        changed = updateSteamID(duplicates, changed, game, updatedInfo);
       }
 
       //noinspection BusyWait
@@ -106,6 +92,25 @@ public class IGDBSteamLinker {
     logger.info("Duplicates skipped: " + duplicates.size() + " (" + duplicates + ")");
     logger.info("Bad URLs skipped: " + badUrl.size() + " (" + badUrl + ")");
 
+  }
+
+  private int updateSteamID(List<String> duplicates, int changed, Game game, JSONObject updatedInfo) {
+    Integer steamID = findSteamID(updatedInfo, game);
+    String title = game.title.getValue();
+    if (steamID != null) {
+      logger.debug("Found Steam ID " + steamID + " for game '" + title + "'");
+      game.steamID.changeValue(steamID);
+      try {
+        game.commit(connection);
+        changed++;
+      } catch (SQLException e) {
+        logger.debug("Failed to update game '" + title + "'");
+        duplicates.add(game.title.getValue());
+      }
+    } else {
+      logger.debug("No Steam ID for game '" + title + "'");
+    }
+    return changed;
   }
 
   private Integer findSteamID(JSONObject updatedInfo, Game game) {
