@@ -1,7 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SteamGameUpdateRunner" type="Application" factoryName="Application" folderName="Games" nameIsGenerated="true">
-    <envs>
-      </envs>
+  <configuration default="false" name="SteamGameUpdateRunner (heroku)" type="Application" factoryName="Application" folderName="Games">
     <option name="MAIN_CLASS_NAME" value="com.mayhew3.mediamogul.games.SteamGameUpdateRunner" />
     <module name="media-mogul-data.main" />
     <option name="PROGRAM_PARAMETERS" value="-db heroku" />

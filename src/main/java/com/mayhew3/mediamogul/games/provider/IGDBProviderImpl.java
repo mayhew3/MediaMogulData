@@ -83,7 +83,7 @@ public class IGDBProviderImpl implements IGDBProvider {
     queryVars.put("fields", "name, platforms.name, platforms.abbreviation, cover.image_id, cover.width, cover.height, keywords.name, aggregated_rating, " +
         "    aggregated_rating_count, version_parent, first_release_date, genres.name, involved_companies.company.name, " +
         "    player_perspectives.name, rating, rating_count, release_dates.date, release_dates.platform.name, " +
-        "    slug, summary, tags, updated_at, url");
+        "    slug, summary, tags, updated_at, url, websites.url");
     queryVars.put("offset", "0");
     queryVars.put("where", "(version_parent = null & release_dates.region = (2,8))");
 
@@ -99,7 +99,7 @@ public class IGDBProviderImpl implements IGDBProvider {
     queryVars.put("fields", "name, platforms.name, platforms.abbreviation, cover.image_id, cover.width, cover.height, keywords.name, aggregated_rating, " +
         "     aggregated_rating_count, version_parent, first_release_date, genres.name, involved_companies.company.name, " +
         "     player_perspectives.name, rating, rating_count, release_dates.date, release_dates.platform.name, " +
-        "     slug, summary, tags, updated_at, url");
+        "     slug, summary, tags, updated_at, url, website.url");
     queryVars.put("where", "id = " + igdb_id);
 
     return getArrayData(url, queryVars);
