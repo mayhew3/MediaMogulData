@@ -35,23 +35,19 @@ class SteamGameUpdater {
 
     AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(steamPlatform, connection);
 
-    PersonGame personGame = game.getOrCreatePersonGame(person_id, connection);
-    MyGamePlatform myPlatform = personGame.getOrCreatePlatform(connection, availableGamePlatform);
+    MyGamePlatform myPlatform = game.getOrCreatePlatform(connection, availableGamePlatform, person_id);
 
-    Integer previousPlaytime = myPlatform.minutes_played.getValue() == null ? 0 : myPlatform.minutes_played.getValue();
+    int previousPlaytime = myPlatform.minutes_played.getValue() == null ? 0 : myPlatform.minutes_played.getValue();
     if (!(playtime.compareTo(previousPlaytime) == 0)) {
       logUpdateToPlaytime(name, steamID, new BigDecimal(previousPlaytime), new BigDecimal(playtime), game.id.getValue());
-      personGame.minutes_played.changeValue(playtime);
-      personGame.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
 
       myPlatform.minutes_played.changeValue(playtime);
       myPlatform.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
     }
 
     myPlatform.commit(connection);
-    personGame.commit(connection);
 
-    personGame.getOrCreatePlatform(connection, availableGamePlatform);
+    game.getOrCreatePlatform(connection, availableGamePlatform, person_id);
 
     game.commit(connection);
   }
@@ -75,24 +71,15 @@ class SteamGameUpdater {
     AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(steamPlatform, connection);
     availableGamePlatform.metacritic_page.changeValue(false);
 
-    PersonGame personGame = new PersonGame();
-    personGame.initializeForInsert();
-    personGame.game_id.changeValue(game.id.getValue());
-    personGame.person_id.changeValue(person_id);
-    personGame.tier.changeValue(2);
-    personGame.minutes_played.changeValue(playtime);
-
-    MyGamePlatform myPlatform = personGame.getOrCreatePlatform(connection, availableGamePlatform);
+    MyGamePlatform myPlatform = game.getOrCreatePlatform(connection, availableGamePlatform, person_id);
     myPlatform.tier.changeValue(2);
     myPlatform.minutes_played.changeValue(playtime);
 
     if (needsPlaytimeUpdate) {
       logUpdateToPlaytime(name, steamID, BigDecimal.ZERO, new BigDecimal(playtime), game.id.getValue());
-      personGame.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
       myPlatform.last_played.changeValue(new Timestamp(bumpDateIfLateNight().toDate().getTime()));
     }
 
-    personGame.commit(connection);
     myPlatform.commit(connection);
 
     ChromeDriver chromeDriver = chromeProvider.openBrowser();

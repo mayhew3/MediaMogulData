@@ -62,13 +62,6 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = optionalGame.get();
 
-    Optional<PersonGame> optionalPersonGame = game.getPersonGame(person_id, connection);
-
-    assertThat(optionalPersonGame.isPresent())
-        .isTrue();
-
-    PersonGame personGame = optionalPersonGame.get();
-
     assertThat(game.steam_title.getValue())
         .isEqualTo(gameName);
     assertThat(game.steamID.getValue())
@@ -79,13 +72,6 @@ public class SteamUpdaterTest extends DatabaseTest {
         .isEqualTo("10a6157d6614f63cd8a95d002d022778c207c218");
     assertThat(game.metacriticPage.getValue())
         .isFalse();
-
-    assertThat(personGame.minutes_played.getValue())
-        .isEqualTo(playtime);
-    assertThat(personGame.tier.getValue())
-        .isEqualTo(2);
-    assertThat(personGame.last_played.getValue())
-        .isNotNull();
 
     List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
     assertThat(availableGamePlatforms)
@@ -99,7 +85,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     assertThat(availableGamePlatform.gameID.getValue())
         .isEqualTo(game.id.getValue());
 
-    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    List<MyGamePlatform> myPlatforms = game.getMyPlatforms(connection, person_id);
     assertThat(myPlatforms)
         .hasSize(1);
 
@@ -159,13 +145,6 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = optionalGame.get();
 
-    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
-
-    assertThat(optionalPersonGame.isPresent())
-        .isTrue();
-
-    PersonGame personGame = optionalPersonGame.get();
-
     assertThat(game.steam_title.getValue())
         .isEqualTo(gameName);
 
@@ -177,11 +156,6 @@ public class SteamUpdaterTest extends DatabaseTest {
         .isEqualTo("10a6157d6614f63cd8a95d002d022778c207c218");
     assertThat(game.metacriticPage.getValue())
         .isFalse();
-
-    assertThat(personGame.minutes_played.getValue())
-        .isEqualTo(playtime);
-    assertThat(personGame.tier.getValue())
-        .isEqualTo(2);
 
     List<GameLog> gameLogs = findGameLogs(game);
     assertThat(gameLogs)
@@ -225,20 +199,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = findGameFromDB(gameName).get();
 
-    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
-
-    assertThat(optionalPersonGame.isPresent())
-        .isTrue();
-
-    PersonGame personGame = optionalPersonGame.get();
-
     assertThat(game.steam_title.getValue())
         .isEqualTo(gameName);
-
-    assertThat(personGame.minutes_played.getValue())
-        .isEqualTo(playtime);
-    assertThat(personGame.tier.getValue())
-        .isEqualTo(2);
 
     List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
     assertThat(availableGamePlatforms)
@@ -248,11 +210,11 @@ public class SteamUpdaterTest extends DatabaseTest {
     assertThat(availableGamePlatform.gameID.getValue())
         .isEqualTo(game.id.getValue());
 
-    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    List<MyGamePlatform> myPlatforms = game.getMyPlatforms(connection, person_id);
     assertThat(myPlatforms)
         .hasSize(2);
 
-    MyGamePlatform myPlatform = getMyPlatformWithName(personGame, "Steam");
+    MyGamePlatform myPlatform = getMyPlatformWithName(game, "Steam");
     assertThat(myPlatform.availableGamePlatformID.getValue())
         .isEqualTo(availableGamePlatform.id.getValue());
     assertThat(myPlatform.personID.getValue())
@@ -285,20 +247,8 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = findGameFromDB(gameName).get();
 
-    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
-
-    assertThat(optionalPersonGame.isPresent())
-        .isTrue();
-
-    PersonGame personGame = optionalPersonGame.get();
-
     assertThat(game.steam_title.getValue())
         .isEqualTo(gameName);
-
-    assertThat(personGame.minutes_played.getValue())
-        .isEqualTo(playtime);
-    assertThat(personGame.tier.getValue())
-        .isEqualTo(2);
 
     List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
     assertThat(availableGamePlatforms)
@@ -308,11 +258,11 @@ public class SteamUpdaterTest extends DatabaseTest {
     assertThat(availableGamePlatform.gameID.getValue())
         .isEqualTo(game.id.getValue());
 
-    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    List<MyGamePlatform> myPlatforms = game.getMyPlatforms(connection, person_id);
     assertThat(myPlatforms)
         .hasSize(2);
 
-    MyGamePlatform myPlatform = getMyPlatformWithName(personGame, "Steam");
+    MyGamePlatform myPlatform = getMyPlatformWithName(game, "Steam");
     assertThat(myPlatform.availableGamePlatformID.getValue())
         .isEqualTo(availableGamePlatform.id.getValue());
     assertThat(myPlatform.personID.getValue())
@@ -345,24 +295,14 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = findGameFromDB(gameName).get();
 
-    Optional<PersonGame> optionalPersonGame = findPersonGame(game);
-
-    assertThat(optionalPersonGame.isPresent())
-        .isTrue();
-
-    PersonGame personGame = optionalPersonGame.get();
-
     assertThat(game.steam_title.getValue())
         .isNull();
-
-    assertThat(personGame.minutes_played.getValue())
-        .isEqualTo(originalPlaytime);
 
     List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
     assertThat(availableGamePlatforms)
         .hasSize(1);
 
-    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    List<MyGamePlatform> myPlatforms = game.getMyPlatforms(connection, person_id);
     assertThat(myPlatforms)
         .hasSize(1);
   }
@@ -407,7 +347,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     steamProvider.setFileSuffix("xcom2");
 
     Game originalGame = createOwnedGame("Clunkers", 48762, 10234, "Steam");
-    assertThat(originalGame.getPersonGame(person_id, connection).get().getMyPlatforms(connection))
+    assertThat(originalGame.getMyPlatforms(connection, person_id))
         .hasSize(1);
 
     SteamGameUpdateRunner steamGameUpdateRunner = new SteamGameUpdateRunner(connection, person_id, steamProvider, chromeProvider, igdbProvider, jsonReader);
@@ -422,10 +362,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     Game game = optionalGame.get();
 
-    Optional<PersonGame> optionalPersonGame = game.getPersonGame(person_id, connection);
-    PersonGame personGame = optionalPersonGame.get();
-
-    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    List<MyGamePlatform> myPlatforms = game.getMyPlatforms(connection, person_id);
     assertThat(myPlatforms)
         .isEmpty();
 
@@ -439,7 +376,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     int updatedMinutesPlayed = 1321;
 
     Game originalGame = createOwnedGame("Clunkers", 48762, originalMinutesPlayed, "Steam");
-    assertThat(originalGame.getPersonGame(person_id, connection).get().getMyPlatforms(connection))
+    assertThat(originalGame.getMyPlatforms(connection, person_id))
         .as("SANITY: Should be initialized with one MyGamePlatform")
         .hasSize(1);
 
@@ -458,9 +395,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     List<AvailableGamePlatform> availablePlatforms = game.getAvailableGamePlatforms(connection);
     AvailableGamePlatform availablePlatform = availablePlatforms.get(0);
 
-    PersonGame personGame = game.getPersonGame(person_id, connection).get();
-
-    List<MyGamePlatform> originalMyPlatforms = personGame.getMyPlatforms(connection);
+    List<MyGamePlatform> originalMyPlatforms = game.getMyPlatforms(connection, person_id);
     assertThat(originalMyPlatforms)
         .isEmpty();
 
@@ -474,7 +409,7 @@ public class SteamUpdaterTest extends DatabaseTest {
         .as("Expected game Clunkers to exist in database.")
         .isTrue();
 
-    List<MyGamePlatform> myPlatforms = personGame.getMyPlatforms(connection);
+    List<MyGamePlatform> myPlatforms = game.getMyPlatforms(connection, person_id);
 
     assertThat(myPlatforms)
         .hasSize(1);
@@ -608,16 +543,7 @@ public class SteamUpdaterTest extends DatabaseTest {
 
     AvailableGamePlatform availableGamePlatform = game.getOrCreatePlatform(platform, connection);
 
-    PersonGame personGame = new PersonGame();
-    personGame.initializeForInsert();
-    personGame.game_id.changeValue(game.id.getValue());
-    personGame.person_id.changeValue(person_id);
-    personGame.tier.changeValue(2);
-    personGame.minutes_played.changeValue(minutesPlayed);
-
-    personGame.commit(connection);
-
-    MyGamePlatform myGamePlatform = personGame.getOrCreatePlatform(connection, availableGamePlatform);
+    MyGamePlatform myGamePlatform = game.getOrCreatePlatform(connection, availableGamePlatform, person_id);
     myGamePlatform.tier.changeValue(2);
     myGamePlatform.minutes_played.changeValue(minutesPlayed);
     myGamePlatform.commit(connection);
@@ -625,6 +551,7 @@ public class SteamUpdaterTest extends DatabaseTest {
     return game;
   }
 
+  @SuppressWarnings("SameParameterValue")
   private AvailableGamePlatform getAvailablePlatformWithName(Game game, String platformName) throws SQLException {
     List<AvailableGamePlatform> availableGamePlatforms = game.getAvailableGamePlatforms(connection);
     Optional<AvailableGamePlatform> maybeMatching = availableGamePlatforms.stream()
@@ -638,15 +565,16 @@ public class SteamUpdaterTest extends DatabaseTest {
   }
 
 
-  private MyGamePlatform getMyPlatformWithName(PersonGame personGame, String platformName) throws SQLException {
-    List<MyGamePlatform> availableGamePlatforms = personGame.getMyPlatforms(connection);
+  @SuppressWarnings("SameParameterValue")
+  private MyGamePlatform getMyPlatformWithName(Game game, String platformName) throws SQLException {
+    List<MyGamePlatform> availableGamePlatforms = game.getMyPlatforms(connection, person_id);
     Optional<MyGamePlatform> maybeMatching = availableGamePlatforms.stream()
         .filter(myPlatform -> myPlatform.platformName.getValue().equals(platformName))
         .findFirst();
     if (maybeMatching.isPresent()) {
       return maybeMatching.get();
     } else {
-      throw new IllegalStateException("No platform with name " + platformName + " found for personGame " + personGame.id.getValue());
+      throw new IllegalStateException("No platform with name " + platformName + " found for game " + game.id.getValue());
     }
   }
 
@@ -663,25 +591,6 @@ public class SteamUpdaterTest extends DatabaseTest {
       Game game = new Game();
       game.initializeFromDBObject(resultSet);
       return Optional.of(game);
-    } else {
-      return Optional.empty();
-    }
-  }
-
-  private Optional<PersonGame> findPersonGame(Game game) throws SQLException {
-    String sql = "SELECT * " +
-        "FROM person_game " +
-        "WHERE game_id = ? " +
-        "AND person_id = ? " +
-        "AND retired = ? ";
-
-
-    ResultSet resultSet = connection.prepareAndExecuteStatementFetch(sql, game.id.getValue(), person_id, 0);
-
-    if (resultSet.next()) {
-      PersonGame personGame = new PersonGame();
-      personGame.initializeFromDBObject(resultSet);
-      return Optional.of(personGame);
     } else {
       return Optional.empty();
     }
