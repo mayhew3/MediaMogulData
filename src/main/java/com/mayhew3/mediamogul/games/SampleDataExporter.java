@@ -67,14 +67,7 @@ public class SampleDataExporter {
     JSONArray platformsJSON = new JSONArray();
 
     for (GamePlatform platform : allPlatforms) {
-      JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", platform.id.getValue());
-      platformJSON.put("full_name", platform.fullName.getValue());
-      platformJSON.put("short_name", platform.shortName.getValue());
-      platformJSON.put("igdb_platform_id", platform.igdbPlatformId.getValue());
-      platformJSON.put("igdb_name", platform.igdbName.getValue());
-      platformJSON.put("metacritic_uri", platform.metacritic_uri.getValue());
-
+      JSONObject platformJSON = convertToJSONObject(platform, platform.dateAdded);
       attachMyGlobalPlatforms(platform, platformJSON);
 
       platformsJSON.put(platformJSON);
@@ -99,13 +92,10 @@ public class SampleDataExporter {
       GameplaySession gameplaySession = new GameplaySession();
       gameplaySession.initializeFromDBObject(resultSet);
 
-      JSONObject sessionObj = new JSONObject();
-      sessionObj.put("id", gameplaySession.id.getValue());
-      sessionObj.put("start_time", gameplaySession.startTime.getValue());
-      sessionObj.put("minutes", gameplaySession.minutes.getValue());
-      sessionObj.put("rating", gameplaySession.rating.getValue());
-      sessionObj.put("person_id", gameplaySession.person_id.getValue());
-      sessionObj.put("game_id", gameplaySession.gameID.getValue());
+      JSONObject sessionObj = convertToJSONObject(gameplaySession,
+          gameplaySession.dateAdded,
+          gameplaySession.availableGamePlatform,
+          gameplaySession.retired);
 
       sessionsArray.put(sessionObj);
     }
@@ -125,13 +115,7 @@ public class SampleDataExporter {
       PersonPlatform personPlatform = new PersonPlatform();
       personPlatform.initializeFromDBObject(resultSet);
 
-      JSONObject myGlobalObj = new JSONObject();
-      myGlobalObj.put("id", personPlatform.id.getValue());
-      myGlobalObj.put("game_platform_id", personPlatform.gamePlatformID.getValue());
-      myGlobalObj.put("person_id", personPlatform.personID.getValue());
-      myGlobalObj.put("rank", personPlatform.rank.getValue());
-      myGlobalObj.put("platform_name", personPlatform.platformName.getValue());
-      myGlobalObj.put("date_added", personPlatform.dateAdded.getValue());
+      JSONObject myGlobalObj = convertToJSONObject(personPlatform);
 
       myGlobalsObj.put(myGlobalObj);
     }
@@ -151,38 +135,40 @@ public class SampleDataExporter {
       Game game = new Game();
       game.initializeFromDBObject(resultSet);
 
-      JSONObject gameJSON = new JSONObject();
-      gameJSON.put("id", game.id.getValue());
-      gameJSON.put("title", game.title.getValue());
-      gameJSON.put("logo", game.logo.getValue());
-      gameJSON.put("platform", game.platform.getValue());
-      gameJSON.put("giantbomb_medium_url", game.giantbomb_medium_url.getValue());
-      gameJSON.put("steamid", game.steamID.getValue());
-      gameJSON.put("date_added", game.dateAdded.getValue());
-      gameJSON.put("metacritic", game.metacritic.getValue());
-      gameJSON.put("timetotal", game.timeTotal.getValue());
-      gameJSON.put("howlong_extras", game.howlong_extras.getValue());
-      gameJSON.put("natural_end", game.naturalEnd.getValue());
-      gameJSON.put("metacritic_hint", game.metacriticHint.getValue());
-      gameJSON.put("howlong_id", game.howlong_id.getValue());
-      gameJSON.put("giantbomb_id", game.giantbomb_id.getValue());
-      gameJSON.put("steam_cloud", game.steam_cloud.getValue());
-      gameJSON.put("igdb_id", game.igdb_id.getValue());
-
-      gameJSON.put("metacritic_page", game.metacriticPage.getValue());
-      gameJSON.put("metacritic_matched", game.metacriticMatched.getValue());
-      gameJSON.put("steam_page_gone", game.steam_page_gone.getValue());
-      gameJSON.put("steam_title", game.steam_title.getValue());
-      gameJSON.put("howlong_title", game.howlong_title.getValue());
-      gameJSON.put("giantbomb_name", game.giantbomb_name.getValue());
-
-      gameJSON.put("igdb_rating", game.igdb_rating.getValue());
-      gameJSON.put("igdb_rating_count", game.igdb_rating_count.getValue());
-      gameJSON.put("igdb_release_date", game.igdb_release_date.getValue());
-      gameJSON.put("igdb_popularity", game.igdb_popularity.getValue());
-      gameJSON.put("igdb_slug", game.igdb_slug.getValue());
-      gameJSON.put("igdb_summary", game.igdb_summary.getValue());
-      gameJSON.put("igdb_updated", game.igdb_updated.getValue());
+      JSONObject gameJSON = convertToJSONObject(game,
+          game.giantbomb_icon_url,
+          game.igdb_title,
+          game.giantbomb_release_date,
+          game.igdb_poster_h,
+          game.howlong_all_confidence,
+          game.howlong_extras_confidence,
+          game.giantbomb_small_url,
+          game.giantbomb_screen_url,
+          game.giantbomb_id,
+          game.howlong_updated,
+          game.steam_local_coop,
+          game.giantbomb_name,
+          game.howlong_main_confidence,
+          game.icon,
+          game.giantbomb_year,
+          game.howlong_completionist,
+          game.steam_attribute_count,
+          game.first_processed,
+          game.steam_attributes,
+          game.retired,
+          game.howlong_main,
+          game.howlong_all,
+          game.giantbomb_thumb_url,
+          game.igdb_success,
+          game.igdb_next_update,
+          game.howlong_failed,
+          game.steam_controller,
+          game.giantbomb_tiny_url,
+          game.owned,
+          game.howlong_completionist_confidence,
+          game.giantbomb_super_url,
+          game.igdb_poster_w
+          );
 
       attachIGDBPoster(game, gameJSON);
       addPlatformsToGame(game, gameJSON);
@@ -198,14 +184,11 @@ public class SampleDataExporter {
     JSONArray platformsJSON = new JSONArray();
 
     for (AvailableGamePlatform availablePlatform : platforms) {
-      JSONObject platformJSON = new JSONObject();
-      platformJSON.put("id", availablePlatform.id.getValue());
-      platformJSON.put("game_platform_id", availablePlatform.gamePlatformID.getValue());
-      platformJSON.put("platform_name", availablePlatform.platformName.getValue());
-      platformJSON.put("metacritic", availablePlatform.metacritic.getValue());
-      platformJSON.put("metacritic_page", availablePlatform.metacritic_page.getValue());
-      platformJSON.put("metacritic_matched", availablePlatform.metacritic_matched.getValue());
-      platformJSON.put("date_added", availablePlatform.dateAdded.getValue());
+      JSONObject platformJSON = convertToJSONObject(availablePlatform,
+          availablePlatform.metacritic_next_update,
+          availablePlatform.retired,
+          availablePlatform.metacritic_failed,
+          availablePlatform.gameID);
 
       attachMyPlatformsToAvailablePlatform(availablePlatform, platformJSON);
 
